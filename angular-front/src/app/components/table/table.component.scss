@@ -1,9 +1,12 @@
+@use '../../constants/colors.styles' as colors;
+
 table {
     width: 100%;
     background-color: white;
 
     thead {
-        --bs-table-bg: #198754 !important;
-        color: white;
+        //--bs-table-bg: #586994 !important;
+        background-color: colors.$NEUTRAL_COLOR;
+        color: colors.$DARK_COLOR;
     }
 }

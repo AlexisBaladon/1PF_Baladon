@@ -10,9 +10,8 @@
     overflow-y: auto;
     max-height: 100vh - tb.$toolbar-height;
     max-width: unset;
-    background: rgb(255,219,219);
-    background: linear-gradient(0, rgba(255,219,219,1) 0%, rgba(97,181,215,1) 0%, rgba(50,63,154,1) 100%);
-    color: white;
+    background: whitesmoke;
+    color: black;
 }
 
 #dashboard {

@@ -1,9 +1,17 @@
+@use '../../constants/colors.styles' as colors;
+
 $toolbar-height: 10vh;
 
 #toolbar {
+    background-color: colors.$MAIN_COLOR;
+    color: colors.$LIGHT_COLOR;
     position: sticky;
     height: $toolbar-height;
     min-height: $toolbar-height;
+
+    #icon {
+        color: 'white'
+    }
 }
 
 @media (max-width: 1024px) {

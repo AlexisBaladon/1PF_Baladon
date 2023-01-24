@@ -1,22 +1,26 @@
 @use '../toolbar/toolbar.component' as tb;
-    
-@keyframes party{
-    0% {background-color: red !important; width: 0 !important;}
-    10% {background-color: orange !important; width: 0 !important}
-    20% {background-color: yellow !important;}
-    30% {background-color: green !important;}
-    40% {background-color: blue !important;}
-    50% {background-color: purple !important;} 
-}
+@use '../../constants/colors.styles.scss' as colors;
 
 #left-menu {
     position: sticky;
     top: 0;
     left: 0;
-    width: 250px;
+    width: 280px;
     height: 100vh - tb.$toolbar-height;
-}
 
+    .active {
+        background-color: colors.$NEUTRAL_COLOR;
+    }
+
+    a {
+        color: colors.$DARK_COLOR;
+    }
+
+    .nav-link {
+        border-radius: 0;
+        width: 100%;
+    }
+}
 
 .left-menu {
     width: 0 !important;

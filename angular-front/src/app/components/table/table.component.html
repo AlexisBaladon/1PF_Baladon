@@ -1,83 +1,18 @@
 <table class="table table-light rounded rounded-3 overflow-hidden">
-    <thead class="table-success">
+    <thead class="table">
         <tr>
             <th scope="col">#</th>
-            <th scope="col">Title</th>
-            <th scope="col">Streams (M)</th>
-            <th scope="col">Artist</th>
-            <th scope="col">Release Date</th>
+            <th scope="col">Name</th>
+            <th scope="col">Surname</th>
+            <th scope="col">e-mail</th>
         </tr>
     </thead>
     <tbody>
-        <tr>
+        <tr *ngFor="let student of students">
             <th scope="row">1</th>
-            <td>Shape of You</td>
-            <td>3,327</td>
-            <td>Ed Sheeran</td>
-    <td>6 January 2017</td>
-    </tr>
-    <tr>
-    <th scope="row">2</th>
-    <td>Blinding Lights</td>
-    <td>3,323</td>
-    <td>The Weeknd</td>
-    <td>29 November 2019</td>
-    </tr>
-    <tr>
-    <th scope="row">3</th>
-    <td>Dance Monkey</td>
-    <td>2,721</td>
-    <td>Tones And I</td>
-    <td>10.May.19</td>
-    </tr>
-    <tr>
-    <th scope="row">4</th>
-    <td>Someone You Loved</td>
-    <td>2,588</td>
-    <td>Lewis Capaldi</td>
-    <td>8 November 2018</td>
-    </tr>
-    <tr>
-    <th scope="row">5</th>
-    <td>Rockstar</td>
-    <td>2,570</td>
-    <td>Post Malone featuring 21 Savage</td>
-    <td>15 September 2017</td>
-    </tr>
-    <tr>
-    <th scope="row">6</th>
-    <td>Sunflower</td>
-    <td>2,502</td>
-    <td>Post Malone and Swae Lee</td>
-    <td>18 October 2018</td>
-    </tr>
-    <tr>
-    <th scope="row">7</th>
-    <td>One Dance</td>
-    <td>2,491</td>
-    <td>Drake featuring Wizkid and Kyla</td>
-    <td>5 April 2016</td>
-    </tr>
-    <tr>
-    <th scope="row">8</th>
-    <td>Closer</td>
-    <td>2,430</td>
-    <td>The Chainsmokers featuring Halsey</td>
-    <td>29 July 2016</td>
-    </tr>
-    <tr>
-    <th scope="row">9</th>
-    <td>Believer</td>
-    <td>2,326</td>
-    <td>Imagine Dragons</td>
-    <td>1 February 2017</td>
-    </tr>
-    <tr>
-    <th scope="row">10</th>
-    <td>Señorita</td>
-    <td>2,305</td>
-    <td>Shawn Mendes and Camila Cabello</td>
-    <td>21 June 2019</td>
-    </tr>
-</tbody>
+            <td>{{student.name}}</td>
+            <td>{{student.surname}}</td>
+            <td>{{student.email}}</td>
+        </tr>
+    </tbody>
 </table>

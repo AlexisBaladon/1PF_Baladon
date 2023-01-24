@@ -1,49 +1,30 @@
-<div id='left-menu' class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width: 280px;">
-    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-    <span class="fs-4"> 📶 Filtros</span>
+<div id='left-menu' class="bg-light d-flex flex-column flex-shrink-0 ps-3 pt-3 text-black">
+    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-decoration-none">
+        <span class="fs-3"> 🔎 Navegación</span>
     </a>
     <hr>
     <ul class="nav nav-pills flex-column mb-auto">
-    <li class="nav-item">
-        <a href="#" class="nav-link active" aria-current="page">
-        Artista
-        </a>
-    </li>
-    <li>
-        <a href="#" class="nav-link text-white">
-        Género
-        </a>
-    </li>
-    <li>
-        <a href="#" class="nav-link text-white">
-        País
-        </a>
-    </li>
-    <li>
-        <a href="#" class="nav-link text-white">
-        Fecha
-        </a>
-    </li>
-    
-    <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-          Géneros
-        </a>
-        <ul class="dropdown-menu text-white" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#">Rock</a></li>
-            <li><a class="dropdown-item" href="#">Pop</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Hip-hop/Rap</a></li>
-        </ul>
-    </li>
-    <li>
-        <a href="#" class="nav-link text-white">
-        Popularidad
-        </a>
-    </li>
+        <li *ngFor="let option of options" class="nav-item">
+            <a href="#" class="nav-link fs-4"
+                    [ngClass]="option.active? 'active':''">
+                {{option.name}}
+            </a>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle fs-4"
+                 href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
+                ⚙ Ajustes
+            </a>
+            <ul class="dropdown-menu text-black">
+                <li><a class="dropdown-item" href="#">Rock</a></li>
+                <li><a class="dropdown-item" href="#">Pop</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="#">Hip-hop/Rap</a></li>
+            </ul>
+        </li>
     </ul>
 </div>
-<button
+<!-- <button
     id="open-close-button"
     class="btn btn-dark"
     type="button"
@@ -63,5 +44,6 @@
             button.innerHTML = '➕'
         }
     "
-> ➖
-</button>
+> 
+    ➖
+</button> -->
