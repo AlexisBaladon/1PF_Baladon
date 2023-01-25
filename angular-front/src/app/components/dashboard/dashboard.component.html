@@ -1,21 +1,13 @@
 <div id="dashboard-container" >
     <section id="dashboard" class="container">
-        <div class="mb-5">
-            <h1>📊 Estadísticas </h1>
+        <div id="dashboard-title">
+            <h1>{{'👨🏼‍🎓 Usuarios'}}</h1>
             <p>
-                ¡Bienvenido a nuestra página web de estadísticas de canciones!
-                Aquí podrás encontrar toda la información sobre tus artistas
-                y canciones favoritas, actualizada en tiempo real.
-                Desde el número de reproducciones en plataformas de streaming,
-                hasta las posiciones en las listas de éxitos, pasando por las
-                tendencias en las redes sociales.
+                Visualiza datos de los estudiantes de la universidad.
             </p>
-            <button class="me-3 btn btn-primary" type="button">
-                Suscribirse
-            </button>
-            <button type="button" class="btn btn-outline-dark">
-                Ver más
-            </button>
+        </div>
+        <div class="mb-5">
+            <app-filters></app-filters>
         </div>
         <app-table></app-table>
     </section>

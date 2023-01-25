@@ -24,5 +24,4 @@ export class MenuComponent {
       "🌐 Idioma",
     ],
   ]]);
-  console = console
 }

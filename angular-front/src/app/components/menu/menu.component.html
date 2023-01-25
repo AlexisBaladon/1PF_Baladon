@@ -1,28 +1,39 @@
-<div id='left-menu' class="bg-light d-flex flex-column flex-shrink-0 pt-3 text-black">
-    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto ps-3 text-decoration-none">
-        <span class="fs-3"> 🔎 Navegación</span>
-    </a>
-    <hr>
-    <ul class="nav nav-pills flex-column mb-auto">
-        <li *ngFor="let option of options" class="nav-item">
-            <a href="#" class="menu-text nav-link fs-4"
-                    [ngClass]="option.active? 'active':''">
-                {{option.name}}
-            </a>
-        </li>
-        <li *ngFor="let scrollableOption of scrollableOptions | keyvalue" class="nav-item dropdown">
-            <a class="menu-text nav-link dropdown-toggle fs-4"
-                 href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
-                {{scrollableOption.key}}
-            </a>
-            <ul class="dropdown-menu text-black">
-                <li *ngFor="let option of scrollableOption.value">
-                    <a class="dropdown-item" href="#">{{option}}</a>
-                </li>
-            </ul>
-        </li>
-    </ul>
+<div id="collapsed-left-menu" class="collapse-horizontal collapse show ">
+    <div id='left-menu' class=" bg-light flex-column flex-shrink-0 pt-3 text-black">
+        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto ps-3 text-decoration-none">
+            <span class="fs-3 fw-bold"> Navegación</span>
+        </a>
+        <hr>
+        <ul class="nav nav-pills flex-column mb-auto">
+            <li *ngFor="let option of options" class="nav-item">
+                <a href="#" class="menu-text nav-link fs-4"
+                        [ngClass]="option.active? 'active':''">
+                    {{option.name}}
+                </a>
+            </li>
+            <li *ngFor="let scrollableOption of scrollableOptions | keyvalue" class="nav-item dropdown">
+                <a class="menu-text nav-link dropdown-toggle fs-3"
+                     href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
+                    {{scrollableOption.key}}
+                </a>
+                <ul class="dropdown-menu text-black fs-2">
+                    <li *ngFor="let option of scrollableOption.value">
+                        <a class="dropdown-item" href="#">{{option}}</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
 </div>
+<p style="left: 15px; bottom:0; position: absolute">
+    <button id="open-close-button"
+            class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapsed-left-menu"
+            onClick="this.innerHTML = this.innerHTML === '➕' ? 'Ver menos' : '➕'"
+            >
+        Ver menos
+    </button>
+</p>
+
 <!-- <button
     id="open-close-button"
     class="btn btn-dark"

@@ -1,18 +1,31 @@
-<table class="table table-light rounded rounded-3 overflow-hidden">
-    <thead class="table">
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Name</th>
-            <th scope="col">Surname</th>
-            <th scope="col">e-mail</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let student of students">
-            <th scope="row">1</th>
-            <td>{{student.name}}</td>
-            <td>{{student.surname}}</td>
-            <td>{{student.email}}</td>
-        </tr>
-    </tbody>
-</table>
+<div class="table-responsive">
+    <table class="table table-light rounded rounded-3 overflow-hidden">
+        <thead class="table">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Apellido</th>
+                <th scope="col">e-mail</th>
+                <th scope="col">Carrera</th>
+                <th scope="col">Promedio</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let student of students; let i = index">
+                <th scope="row">{{i+1}}</th>
+                <td>{{student.name}}</td>
+                <td>{{student.surname}}</td>
+                <td>{{student.email}}</td>
+                <td>{{student.career}}</td>
+                <ng-container *ngIf="student.averageGrade as grade">
+                    <td [style.color]="
+                        (grade > 6) ? 'green' :
+                        (grade > 4) ? 'orange' : 'red'
+                    ">
+                        {{student.averageGrade | number: '1.1-2'}}
+                    </td>
+                </ng-container>
+            </tr>
+        </tbody>
+    </table>
+</div>

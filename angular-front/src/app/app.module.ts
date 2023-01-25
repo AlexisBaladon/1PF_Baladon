@@ -6,8 +6,8 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { TableComponent } from './components/table/table.component';
-import { CardsComponent } from './components/cards/cards.component';
 import { IconComponent } from './components/widget/icon/icon.component';
+import { FiltersComponent } from './components/filters/filters.component';
 
 @NgModule({
   declarations: [
@@ -16,8 +16,8 @@ import { IconComponent } from './components/widget/icon/icon.component';
     MenuComponent,
     DashboardComponent,
     TableComponent,
-    CardsComponent,
-    IconComponent
+    IconComponent,
+    FiltersComponent
   ],
   imports: [
     BrowserModule

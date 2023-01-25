@@ -1,3 +1,7 @@
+@use './app/constants/fonts.styles.scss' as fonts;
+@use './app/constants/colors.styles.scss' as colors;
+
 body {
-    overflow: hidden;
+    font-family: fonts.$MAIN_FONT;
+    background-color: colors.$BACKGROUND_COLOR;
 }
