@@ -8,17 +8,17 @@
     width: 280px;
     height: 100vh - tb.$toolbar-height;
 
-    .active {
-        background-color: colors.$NEUTRAL_COLOR;
-    }
+    .active { background-color: colors.$NEUTRAL_COLOR; }
+    a { color: colors.$SEMI-DARK_COLOR; }
 
-    a {
-        color: colors.$DARK_COLOR;
-    }
-
-    .nav-link {
-        border-radius: 0;
-        width: 100%;
+    .nav {
+        flex-wrap: nowrap;
+        
+        .nav-link {    
+            border-radius: 0;
+            width: 100%;
+            padding: 5% 5% 5% 7.5%;
+        }
     }
 }
 

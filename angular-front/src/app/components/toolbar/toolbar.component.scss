@@ -8,10 +8,6 @@ $toolbar-height: 10vh;
     position: sticky;
     height: $toolbar-height;
     min-height: $toolbar-height;
-
-    #icon {
-        color: 'white'
-    }
 }
 
 @media (max-width: 1024px) {

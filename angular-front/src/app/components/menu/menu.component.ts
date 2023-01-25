@@ -12,9 +12,17 @@ interface IOption {
 })
 export class MenuComponent {
   options: IOption[] = [
-      {name: "🏠 Inicio", active: false},
-      {name: "👨🏼‍🎓 Usuarios", active: true},
-      {name: "📖 Clases", active: false},
-      {name: "📊 General", active: false},
+    {name: "🏠 Inicio", active: false},
+    {name: "👨🏼‍🎓 Usuarios", active: true},
+    {name: "📖 Clases", active: false},
+    {name: "📊 General", active: false},
   ]
+  scrollableOptions = new Map<string,string[]>([[
+    "⚙ Ajustes", [
+      "📝 Perfil",
+      "🔑 Cuenta",
+      "🌐 Idioma",
+    ],
+  ]]);
+  console = console
 }

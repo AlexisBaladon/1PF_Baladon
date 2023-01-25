@@ -1,25 +1,24 @@
-<div id='left-menu' class="bg-light d-flex flex-column flex-shrink-0 ps-3 pt-3 text-black">
-    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-decoration-none">
+<div id='left-menu' class="bg-light d-flex flex-column flex-shrink-0 pt-3 text-black">
+    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto ps-3 text-decoration-none">
         <span class="fs-3"> 🔎 Navegación</span>
     </a>
     <hr>
     <ul class="nav nav-pills flex-column mb-auto">
         <li *ngFor="let option of options" class="nav-item">
-            <a href="#" class="nav-link fs-4"
+            <a href="#" class="menu-text nav-link fs-4"
                     [ngClass]="option.active? 'active':''">
                 {{option.name}}
             </a>
         </li>
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle fs-4"
+        <li *ngFor="let scrollableOption of scrollableOptions | keyvalue" class="nav-item dropdown">
+            <a class="menu-text nav-link dropdown-toggle fs-4"
                  href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
-                ⚙ Ajustes
+                {{scrollableOption.key}}
             </a>
             <ul class="dropdown-menu text-black">
-                <li><a class="dropdown-item" href="#">Rock</a></li>
-                <li><a class="dropdown-item" href="#">Pop</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="#">Hip-hop/Rap</a></li>
+                <li *ngFor="let option of scrollableOption.value">
+                    <a class="dropdown-item" href="#">{{option}}</a>
+                </li>
             </ul>
         </li>
     </ul>

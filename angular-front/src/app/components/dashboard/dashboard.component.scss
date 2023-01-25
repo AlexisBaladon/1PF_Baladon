@@ -1,4 +1,5 @@
 @use '../toolbar/toolbar.component' as tb;
+@use '../../constants/colors.styles' as colors;
 
 #dashboard-container {
     font-size: 20px;
@@ -11,7 +12,7 @@
     max-height: 100vh - tb.$toolbar-height;
     max-width: unset;
     background: whitesmoke;
-    color: black;
+    color: colors.$DARK_COLOR;
 }
 
 #dashboard {
@@ -21,10 +22,6 @@
         width: 100%;
     }
 
-    #most-listened-title {
-        display: flex;
-        flex-direction: row;
-    }
 }
 
 @media (max-width: 768px) {
