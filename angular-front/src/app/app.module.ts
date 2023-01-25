@@ -8,6 +8,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { TableComponent } from './components/table/table.component';
 import { IconComponent } from './components/widget/icon/icon.component';
 import { FiltersComponent } from './components/filters/filters.component';
+import { InRangeStyleDirective } from './directives/in-range-style.directive';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { FiltersComponent } from './components/filters/filters.component';
     DashboardComponent,
     TableComponent,
     IconComponent,
-    FiltersComponent
+    FiltersComponent,
+    InRangeStyleDirective
   ],
   imports: [
     BrowserModule

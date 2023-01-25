@@ -18,11 +18,14 @@
                 <td>{{student.email}}</td>
                 <td>{{student.career}}</td>
                 <ng-container *ngIf="student.averageGrade as grade">
-                    <td [style.color]="
-                        (grade > 6) ? 'green' :
-                        (grade > 4) ? 'orange' : 'red'
-                    ">
-                        {{student.averageGrade | number: '1.1-2'}}
+                    <td [appInRangeStyleValue]="grade"
+                        [appInRangeStyle]="[
+                            {style: 'color', styleValue: 'red', min: 0, max: 4},
+                            {style: 'color', styleValue: 'orange', min: 4, max: 6},
+                            {style: 'color', styleValue: 'green', min: 6, max: 10},
+                        ]"
+                    >
+                        {{grade | number: '1.1-2'}}
                     </td>
                 </ng-container>
             </tr>
