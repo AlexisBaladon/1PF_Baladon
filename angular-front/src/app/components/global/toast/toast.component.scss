@@ -1,0 +1,14 @@
+$toast-height: 100px;
+$toast-margin: 10px;
+
+.toast {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 260px; height: $toast-height;
+    margin: 10px;
+}
+
+#tostada {
+    margin-bottom: $toast-height + 2*$toast-margin;
+}

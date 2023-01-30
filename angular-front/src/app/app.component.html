@@ -1,13 +1,15 @@
-<div id='app'>
-  <header>
-    <app-toolbar></app-toolbar>
-  </header>
-  <div id='main-content'>
-    <aside>
-      <app-menu></app-menu>
-    </aside>
-    <main>
-      <app-dashboard></app-dashboard>
-    </main>
-  </div>
+<div id='app' *ngIf="false">
+    <header>
+      <app-toolbar></app-toolbar>
+    </header>
+    <div id='main-content'>
+      <aside>
+        <app-menu></app-menu>
+      </aside>
+      <main>
+        <app-dashboard></app-dashboard>
+      </main>
+    </div>
 </div>
+<app-login *ngIf="true"></app-login>
+<app-toast *ngIf="false" [messages]="['Hola!', 'Adios!', 'Hola de nuevo!']"></app-toast>

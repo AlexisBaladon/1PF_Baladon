@@ -1,0 +1,40 @@
+<div id="login">
+    <div id="login-left">
+        <img src="assets/images/login-left2.png" alt="Login" />
+    </div>
+    <section id="login-right">
+        <div id="login-title-description">
+            <h1>¡Bienvenido nuevamente!</h1>
+            <p>En spanford nos aseguramos de que todos nuestros datos sean fácilmente accesibles mediante una interfaz amigable.</p>
+        </div>
+        <form id="login-form" method="GET" (ngSubmit)="onLogin()" [formGroup]="loginForm">
+            <input type="text" placeholder="Correo electrónico" formControlName="email" 
+                [style.border-color]="submitted && loginForm.dirty && loginForm.get('email')?.errors ? 'red' : null"
+            />
+            <input type="password" placeholder="Contraseña" formControlName="password"
+                [style.border-color]="submitted && loginForm.dirty && loginForm.get('password')?.errors ? 'red' : null"
+            />
+        </form>
+        <p class="login-forgot-password-text"><a href="#">¿Olvidaste tu contraseña?</a></p>
+        <button id="login-button" type="submit" form="login-form">Iniciar sesión</button>
+        <p class="login-continue-with-text">O continua con</p>
+        <div id="login-social">
+            <button *ngFor="let social of ['google.png', 'facebook.png', 'apple.png']">
+                <img [src]="'assets/images/'+social" [alt]="social" width="35px" />
+            </button>
+        </div>
+        <p class="login-register-text">¿No tienes una cuenta? <a href="#">Regístrate</a></p>
+    </section>
+    <div *ngIf="(loginForm.invalid || loginForm.dirty) && submitted">
+        
+        <app-toast 
+            [messages] = "[
+                loginForm.get('email')?.errors?.['required'] ? 'El correo electrónico es requerido' : null,
+                loginForm.get('email')?.errors?.['pattern'] ? 'El correo electrónico no es válido' : null,
+                loginForm.get('password')?.errors?.['required'] ? 'La contraseña es requerida' : null,
+                loginForm.get('password')?.errors?.['minlength'] ? 'La contraseña debe tener al menos '+MIN_PASSWORD_LENGTH+' caracteres' : null,
+            ]"
+        >
+        </app-toast>
+    </div>
+</div>
