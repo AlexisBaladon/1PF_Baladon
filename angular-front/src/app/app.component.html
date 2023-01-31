@@ -11,5 +11,4 @@
       </main>
     </div>
 </div>
-<app-login *ngIf="true"></app-login>
-<app-toast *ngIf="false" [messages]="['Hola!', 'Adios!', 'Hola de nuevo!']"></app-toast>
+<app-login [hasAccount]="false" *ngIf="true"></app-login>

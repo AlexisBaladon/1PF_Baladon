@@ -1,18 +1,30 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.([^\s@]+){2,4}$/;
 
 @Component({
   selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  templateUrl: './auth.component.html',
+  styleUrls: ['./auth.component.scss']
 })
-export class LoginComponent {
+export class AuthComponent {
   public MIN_PASSWORD_LENGTH = 6;
+  public MAX_NAME_LENGTH = 25;
+  public MAX_SURNAME_LENGTH = 30;
   public submitted = false;
 
+  @Input() public hasAccount = true;
+
   public loginForm = new FormGroup({
+    name: new FormControl('', [
+      Validators.required,
+      Validators.maxLength(this.MAX_NAME_LENGTH),
+    ]),
+    surname: new FormControl('', [
+      Validators.required,
+      Validators.maxLength(this.MAX_SURNAME_LENGTH),
+    ]),
     email: new FormControl('', [
       Validators.required, 
       Validators.pattern(EMAIL_REGEX),
@@ -21,12 +33,11 @@ export class LoginComponent {
       Validators.required,
       Validators.minLength(this.MIN_PASSWORD_LENGTH),
     ])
-  });  
+  });
 
-  onLogin() {
+  onAuth() {
     this.submitted = true;
     if (this.loginForm.invalid) return;
-
 
     const { email, password } = this.loginForm.value;
     const testUser = { email: 'a@a.com', password: '123456' };
@@ -34,7 +45,4 @@ export class LoginComponent {
       console.log('login success');
     }
   }
-
-  console = console;
-
 }

@@ -10,7 +10,7 @@ import { TableComponent } from './components/table/table.component';
 import { IconComponent } from './components/widget/icon/icon.component';
 import { FiltersComponent } from './components/filters/filters.component';
 import { InRangeStyleDirective } from './directives/in-range-style.directive';
-import { LoginComponent } from './pages/login/login.component';
+import { AuthComponent } from './pages/auth/auth.component';
 import { ToastComponent } from './components/global/toast/toast.component';
 
 @NgModule({
@@ -23,8 +23,8 @@ import { ToastComponent } from './components/global/toast/toast.component';
     IconComponent,
     FiltersComponent,
     InRangeStyleDirective,
-    LoginComponent,
-    ToastComponent
+    AuthComponent,
+    ToastComponent,
   ],
   imports: [
     BrowserModule,
