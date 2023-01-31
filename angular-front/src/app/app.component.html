@@ -1,4 +1,4 @@
-<div id='app' *ngIf="false">
+<div id='app' *ngIf="loggedIn">
     <header>
       <app-toolbar></app-toolbar>
     </header>
@@ -11,4 +11,4 @@
       </main>
     </div>
 </div>
-<app-login [hasAccount]="false" *ngIf="true"></app-login>
+<app-login [hasAccount]="false" (loggingIn)="logIn()" *ngIf="!loggedIn"></app-login>
