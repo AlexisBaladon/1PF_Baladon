@@ -20,6 +20,15 @@
             padding: 5% 5% 5% 7.5%;
         }
     }
+
+    .menu-dropdown-item {
+        border: none;
+        
+        &:hover {
+            background-color: colors.$LIGHT_COLOR;
+            cursor: pointer;
+        }
+    }
 }
 
 .left-menu {

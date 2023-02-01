@@ -12,15 +12,14 @@
                 </a>
             </li>
             <li *ngFor="let scrollableOption of scrollableOptions | keyvalue" class="nav-item dropdown">
-                <a class="menu-text nav-link dropdown-toggle fs-3"
-                     href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
+                <a class="menu-text nav-link dropdown-toggle fs-3" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
                     {{scrollableOption.key}}
                 </a>
-                <ul class="dropdown-menu text-black fs-2">
-                    <li *ngFor="let option of scrollableOption.value">
-                        <a class="dropdown-item" href="#">{{option}}</a>
-                    </li>
-                </ul>
+                <div class="collapse" id="collapseExample">
+                    <div class="menu-dropdown-item card card-body" *ngFor="let option of scrollableOption.value">
+                        {{option}}
+                    </div>
+                </div>
             </li>
         </ul>
     </div>
@@ -33,27 +32,3 @@
         Ver menos
     </button>
 </p>
-
-<!-- <button
-    id="open-close-button"
-    class="btn btn-dark"
-    type="button"
-    style="position: absolute; top: 11%; left: 280px; height: 50px; border-radius: 0 5px 5px 0 !important;"
-    onClick="
-        const MENU_CLOSED_CLASSNAME = 'left-menu';
-        const button = document.getElementById('open-close-button')
-        const leftMenu = document.getElementById('left-menu');
-        if (leftMenu.classList.contains(MENU_CLOSED_CLASSNAME)) {
-            leftMenu.classList.remove(MENU_CLOSED_CLASSNAME)
-            button.style.left = '280px';
-            button.innerHTML = '➖'
-        }
-        else {
-            leftMenu.classList.add(MENU_CLOSED_CLASSNAME);
-            button.style.left = '30px';
-            button.innerHTML = '➕'
-        }
-    "
-> 
-    ➖
-</button> -->

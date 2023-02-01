@@ -1,6 +1,6 @@
-<div id='app' *ngIf="loggedIn">
+<div id='app' *ngIf="loggedIn"  >
     <header>
-      <app-toolbar></app-toolbar>
+      <app-toolbar (loggingOut)="logOut()"></app-toolbar>
     </header>
     <div id='main-content'>
       <aside>

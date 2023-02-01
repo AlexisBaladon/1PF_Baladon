@@ -12,4 +12,8 @@ export class AppComponent {
   logIn() {
     this.loggedIn = true;
   }
+
+  logOut() {
+    this.loggedIn = false;
+  }
 }

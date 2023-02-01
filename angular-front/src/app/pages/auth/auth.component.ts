@@ -10,7 +10,7 @@ const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.([^\s@]+){2,4}$/;
 })
 export class AuthComponent {
   @Input() public hasAccount = true;
-  @Output() public loggingIn = new EventEmitter<boolean>();
+  @Output() public loggingIn = new EventEmitter();
 
   public MIN_PASSWORD_LENGTH = 6;
   public MAX_NAME_LENGTH = 25;
@@ -40,6 +40,6 @@ export class AuthComponent {
     this.submitted = true;
     if (this.loginForm.invalid) return;
 
-    this.loggingIn.emit(true);
+    this.loggingIn.emit();
   }
 }
