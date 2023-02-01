@@ -95,6 +95,8 @@
             padding: 2%;
             font-weight: 501;
             border: none;
+
+            &:hover {opacity: 0.8;}
         }
 
         #login-social {
@@ -104,6 +106,8 @@
                 background-color: transparent;
                 border-color: transparent;
                 border-width: 0;
+
+                &:hover {opacity: 0.5;}
             }
         }
 
@@ -144,9 +148,7 @@
         
     }
 
-    //height and landscape mode
     @media ( max-height: 1000px ) and ( orientation: landscape ) {
-        //remove gradient
         background: colors.$LIGHT_COLOR;
         padding: 0;
         
