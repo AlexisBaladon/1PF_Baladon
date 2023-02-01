@@ -12,6 +12,8 @@ import { FiltersComponent } from './components/filters/filters.component';
 import { InRangeStyleDirective } from './directives/in-range-style.directive';
 import { AuthComponent } from './pages/auth/auth.component';
 import { ToastComponent } from './components/global/toast/toast.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MaterialModule } from './material.module';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { ToastComponent } from './components/global/toast/toast.component';
   ],
   imports: [
     BrowserModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MaterialModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

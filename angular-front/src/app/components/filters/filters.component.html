@@ -1,18 +1,41 @@
 <section>
     <div id="accordion" class="accordion">
         <div id="filter-buttons-container">
-            <p>📶 Seleccione un filtro:</p>
-            <div class="accordion-item" *ngFor="let filter of filters; let i = index">
+            <div class="accordion-item">
                 <h2 class="accordion-header">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#filter-'+i" >
-                        {{filter.name}}
-                    </button>
+                    <p>
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#filter-3">
+                            <mat-icon class="mat-icon-rtl-mirror">filter_list</mat-icon>
+                            Seleccione un filtro:
+                        </button>
+                    </p>
                 </h2>
-                <div [id]="'filter-'+i" class="accordion-collapse collapse">
+                <div id="filter-3" class="accordion-collapse collapse">
                     <div class="accordion-body">
-                        <label class="py-3" for="filter-{{filter.name}}">{{filter.description}}</label>
-                        <br>
-                        <input type={{filter.type}} />
+                        <cdk-tree [dataSource]="dataSource" [treeControl]="treeControl">
+                            <!-- This is the tree node template for leaf nodes -->
+                            <cdk-tree-node *cdkTreeNodeDef="let node" cdkTreeNodePadding
+                                            [style.display]="shouldRender(node) ? 'flex' : 'none'"
+                                            class="example-tree-node">
+                                <!-- use a disabled button to provide padding for tree leaf -->
+                                <button mat-icon-button disabled></button>
+                                {{node.name}}
+                            </cdk-tree-node>
+                            <!-- This is the tree node template for expandable nodes -->
+                            <cdk-tree-node *cdkTreeNodeDef="let node; when: hasChild" cdkTreeNodePadding
+                                            [style.display]="shouldRender(node) ? 'flex' : 'none'"
+                                            class="example-tree-node">
+                                <button mat-icon-button cdkTreeNodeToggle
+                                        [attr.aria-label]="'Toggle ' + node.name"
+                                        (click)="node.isExpanded = !node.isExpanded"
+                                        [style.visibility]="node.expandable ? 'visible' : 'hidden'">
+                                <mat-icon class="mat-icon-rtl-mirror">
+                                    {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+                                </mat-icon>
+                                </button>
+                                {{node.name}}
+                            </cdk-tree-node>
+                        </cdk-tree>
                     </div>
                 </div>
             </div>
