@@ -10,17 +10,17 @@
         <form id="login-form" method="GET" (ngSubmit)="onAuth()" [formGroup]="loginForm">
             <div *ngIf="!hasAccount" id="signup-name-container">
                 <input type="text" placeholder="Nombre" formControlName="name" 
-                    [style.border-color]="submitted && loginForm.dirty && loginForm.get('name')?.errors ? 'red' : null"
+                    [style.border-color]="submitted && loginForm.get('name')?.errors ? 'red' : null"
                 />
                 <input type="text" placeholder="Apellido" formControlName="surname"
-                    [style.border-color]="submitted && loginForm.dirty && loginForm.get('surname')?.errors ? 'red' : null" 
+                    [style.border-color]="submitted && loginForm.get('surname')?.errors ? 'red' : null" 
                 />
             </div>
             <input type="text" placeholder="Correo electrónico" formControlName="email" 
-                [style.border-color]="submitted && loginForm.dirty && loginForm.get('email')?.errors ? 'red' : null"
+                [style.border-color]="submitted && loginForm.get('email')?.errors ? 'red' : null"
             />
             <input type="password" placeholder="Contraseña" formControlName="password"
-                [style.border-color]="submitted && loginForm.dirty && loginForm.get('password')?.errors ? 'red' : null"
+                [style.border-color]="submitted && loginForm.get('password')?.errors ? 'red' : null"
             />
         </form>
         <p *ngIf="hasAccount" class="login-forgot-password-text"><a href="#">¿Olvidaste tu contraseña?</a></p>
@@ -36,13 +36,13 @@
             <a (click)="hasAccount = !hasAccount" href="#">{{hasAccount? 'Regístrate' : 'Inicia sesión'}}</a>
         </p>
     </section>
-    <div *ngIf="(loginForm.invalid || loginForm.dirty) && submitted">
+    <div *ngIf="loginForm.invalid && submitted">
         <app-toast 
             [messages] = "[
-                loginForm.get('name')?.errors?.['maxLength'] ? 'El nombre debe tener al menos '+MAX_NAME_LENGTH+' caracteres' : null,
-                loginForm.get('name')?.errors?.['required'] ? 'El nombre debe tener al menos '+MAX_NAME_LENGTH+' caracteres' : null,
-                loginForm.get('surname')?.errors?.['maxLength'] ? 'El nombre debe tener no más de '+MAX_NAME_LENGTH+' caracteres' : null,
-                loginForm.get('surname')?.errors?.['required'] ? 'El nombre debe tener no más de '+MAX_NAME_LENGTH+' caracteres' : null,
+                loginForm.get('name')?.errors?.['maxlength'] ? 'El nombre debe tener no más de '+MAX_NAME_LENGTH+' caracteres' : null,
+                loginForm.get('name')?.errors?.['required'] ? 'El nombre es requerido' : null,
+                loginForm.get('surname')?.errors?.['maxlength'] ? 'El nombre debe tener no más de '+MAX_NAME_LENGTH+' caracteres' : null,
+                loginForm.get('surname')?.errors?.['required'] ? 'El apellido es requerido' : null,
                 loginForm.get('email')?.errors?.['required'] ? 'El correo electrónico es requerido' : null,
                 loginForm.get('email')?.errors?.['pattern'] ? 'El correo electrónico no es válido' : null,
                 loginForm.get('password')?.errors?.['required'] ? 'La contraseña es requerida' : null,
