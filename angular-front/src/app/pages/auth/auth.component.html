@@ -9,22 +9,38 @@
         </div>
         <form id="login-form" method="GET" (ngSubmit)="onAuth()" [formGroup]="loginForm">
             <div *ngIf="!hasAccount" id="signup-name-container">
-                <input type="text" placeholder="Nombre" formControlName="name" 
+                <input 
+                    type="text" 
+                    placeholder="Nombre" 
+                    formControlName="name" 
                     [style.border-color]="submitted && loginForm.get('name')?.errors ? 'red' : null"
                 />
-                <input type="text" placeholder="Apellido" formControlName="surname"
+                <input 
+                    type="text" 
+                    placeholder="Apellido" 
+                    formControlName="surname"
                     [style.border-color]="submitted && loginForm.get('surname')?.errors ? 'red' : null" 
                 />
             </div>
-            <input type="text" placeholder="Correo electrónico" formControlName="email" 
+            <input 
+                type="text" 
+                placeholder="Correo electrónico" 
+                formControlName="email" 
                 [style.border-color]="submitted && loginForm.get('email')?.errors ? 'red' : null"
             />
-            <input type="password" placeholder="Contraseña" formControlName="password"
+            <input 
+                type="password" 
+                placeholder="Contraseña" 
+                formControlName="password"
                 [style.border-color]="submitted && loginForm.get('password')?.errors ? 'red' : null"
             />
         </form>
-        <p *ngIf="hasAccount" class="login-forgot-password-text"><a href="#">¿Olvidaste tu contraseña?</a></p>
-        <button id="login-button" type="submit" form="login-form">{{hasAccount? 'Iniciar sesión' : 'Regístrate' }}</button>
+        <p *ngIf="hasAccount" class="login-forgot-password-text">
+            <a href="#">¿Olvidaste tu contraseña?</a>
+        </p>
+        <button id="login-button" type="submit" form="login-form">
+            {{hasAccount? 'Iniciar sesión' : 'Regístrate' }}
+        </button>
         <p class="login-continue-with-text">O continua con</p>
         <div id="login-social">
             <button *ngFor="let social of ['google.png', 'facebook.png', 'apple.png']">

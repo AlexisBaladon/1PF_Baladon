@@ -8,7 +8,10 @@
     width: 280px;
     height: 100vh - tb.$toolbar-height;
 
-    .active { background-color: colors.$NEUTRAL_COLOR; }
+    .active { 
+        background-color: colors.$MAIN_COLOR; 
+        color: colors.$LIGHT_COLOR;
+    }
     a { color: colors.$SEMI-DARK_COLOR; }
 
     .nav {

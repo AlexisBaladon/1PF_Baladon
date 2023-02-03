@@ -4,6 +4,7 @@
 body {
     font-family: fonts.$MAIN_FONT;
     background-color: colors.$BACKGROUND_COLOR;
+    --bs-body-bg: colors.$BACKGROUND_COLOR;
     --bs-body-font-family: fonts.$MAIN_FONT;
 }
 html, body { height: 100%; }

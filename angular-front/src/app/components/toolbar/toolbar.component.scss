@@ -8,6 +8,13 @@ $toolbar-height: 10vh;
     position: sticky;
     height: $toolbar-height;
     min-height: $toolbar-height;
+
+    h1 {
+        font-weight: 600;
+        font-size: 1.2rem;
+        display: inline-block;
+        padding-left: 2.5%;
+    }
 }
 
 @media (max-width: 1024px) {
