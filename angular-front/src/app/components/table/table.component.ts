@@ -1,5 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import databaseStudents from 'src/app/data/students';
+import type { FilterName } from 'src/app/interfaces/filters';
+import type { LogicFilterType } from 'src/app/interfaces/logic-filter-type';
+import type { Tree } from 'src/app/logic/filter/tree';
 
 @Component({
   selector: 'app-table',
@@ -7,6 +10,8 @@ import databaseStudents from 'src/app/data/students';
   styleUrls: ['./table.component.scss']
 })
 export class TableComponent {
+  @Input() public filters: Tree<LogicFilterType, FilterName> | undefined;
+
   students = databaseStudents;
 
   studentsGradeStyle = [

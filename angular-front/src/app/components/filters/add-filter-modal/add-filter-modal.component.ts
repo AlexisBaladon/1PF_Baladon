@@ -1,6 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { LogicFilterType, LogicFilterTypes } from '../types';
+import { FilterName } from 'src/app/interfaces/filters';
+import { LogicFilterType, LogicFilterTypes } from '../../../interfaces/logic-filter-type';
 
 interface Filter {
   name: FilterName;
@@ -8,9 +9,6 @@ interface Filter {
   type: 'text' | 'range' | 'date';
   active?: boolean;
 }
-
-type FilterName = 'Nombre' | 'Promedio' | 'Fecha de ingreso';
-
 @Component({
   selector: 'app-add-filter-modal',
   templateUrl: './add-filter-modal.component.html',
@@ -50,7 +48,6 @@ export class AddFilterModalComponent {
   types = LogicFilterTypes;
 
   chooseType(type: LogicFilterType | null) {
-    console.log('type', type);
     if (!type) return;
     this.data.type = type;
   }

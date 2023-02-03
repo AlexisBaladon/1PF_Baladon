@@ -12,11 +12,11 @@
                 </h2>
                 <div id="filter-3" class="accordion-collapse collapse">
                     <div class="accordion-body">
-                        <button *ngIf="!treeSize" mat-button (click)="openDialog()">
+                        <button *ngIf="!getTreeSize()" mat-button (click)="openDialog()">
                             <mat-icon class="mat-icon-rtl-mirror">add</mat-icon>
                             Agregar filtro
                         </button>
-                        <button *ngIf="!!treeSize" mat-button (click)="removeAllFilters()">
+                        <button *ngIf="!!getTreeSize()" mat-button (click)="removeAllFilters()">
                             <mat-icon class="mat-icon-rtl-mirror">delete</mat-icon>
                             Eliminar todos los filtros
                         </button>
@@ -32,16 +32,15 @@
                                         {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
                                     </mat-icon>
                                 </button>
-                                {{!isLeaf(node)? getTitle(node):''}}
-                                <button mat-button (click)="openDialog(node)">
+                                {{getTitle(node)}}
+                                <button *ngIf="!isLeaf(node)" mat-button (click)="openDialog(node)">
                                     <mat-icon class="mat-icon-rtl-mirror">add</mat-icon>
                                 </button>
-                                {{isLeaf(node)? getTitle(node):''}}
                             </cdk-tree-node>
                         </cdk-tree>
                     </div>
                     <div class="d-flex row p-4 justify-content-end">
-                        <button mat-raised-button color="primary" (click)="applyFilters()" style="width: fit-content">
+                        <button (click)="onFilterClick()" mat-raised-button color="primary" style="width: fit-content">
                             <mat-icon class="mat-icon-rtl-mirror">done</mat-icon>
                             Aplicar filtros
                         </button>

@@ -15,6 +15,7 @@ import { ToastComponent } from './components/global/toast/toast.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 import { AddFilterModalComponent } from './components/filters/add-filter-modal/add-filter-modal.component';
+import { FilterPipe } from './pipes/filter.pipe';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { AddFilterModalComponent } from './components/filters/add-filter-modal/a
     AuthComponent,
     ToastComponent,
     AddFilterModalComponent,
+    FilterPipe,
   ],
   imports: [
     BrowserModule,
