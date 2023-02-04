@@ -1,5 +1,5 @@
-@use '../toolbar/toolbar.component' as tb;
-@use '../../constants/colors.styles' as colors;
+@use '../../global/toolbar/toolbar.component.scss' as tb;
+@use '../../../constants/colors.styles' as colors;
 
 #dashboard-container {
     font-size: 20px;
@@ -29,6 +29,11 @@
     #dashboard-title {
         margin-bottom: 3%;
         p { padding-top: 0.5%; }
+    }
+
+    #add-student-btn {
+        background-color: colors.$MAIN_COLOR;
+        color: colors.$LIGHT_COLOR;
     }
 }
 

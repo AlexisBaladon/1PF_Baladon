@@ -1,5 +1,5 @@
 @use '../toolbar/toolbar.component' as tb;
-@use '../../constants/colors.styles.scss' as colors;
+@use '../../../constants/colors.styles.scss' as colors;
 
 #left-menu {
     position: sticky;

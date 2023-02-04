@@ -3,10 +3,10 @@ import { FlatTreeControl } from '@angular/cdk/tree';
 import { Component, EventEmitter, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AddFilterModalComponent } from '../add-filter-modal/add-filter-modal.component';
-import { LogicFilterType } from '../../../interfaces/logic-filter-type';
+import { LogicFilterType } from '../../../../interfaces/logic-filter-type';
 import { Tree } from 'src/app/logic/filter/tree';
-import type { FlatNode } from '../../../logic/filter/node';
-import type { FilterName } from '../../../interfaces/filters';
+import type { FlatNode } from '../../../../logic/filter/node';
+import type { FilterName } from '../../../../interfaces/filters';
 
 const treeData = new Tree<LogicFilterType, FilterName>();
 

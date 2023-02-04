@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FilterName } from 'src/app/interfaces/filters';
-import { LogicFilterType, LogicFilterTypes } from '../../../interfaces/logic-filter-type';
+import { LogicFilterType, LogicFilterTypes } from '../../../../interfaces/logic-filter-type';
 
 interface Filter {
   name: FilterName;

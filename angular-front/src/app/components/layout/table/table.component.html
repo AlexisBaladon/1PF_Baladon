@@ -1,0 +1,48 @@
+<div class="table-responsive">
+    <table class="table table-light rounded rounded-3 overflow-hidden">
+        <thead class="table">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Apellido</th>
+                <th scope="col">E-mail</th>
+                <th scope="col">Carrera</th>
+                <th scope="col">Fecha de ingreso</th>
+                <th scope="col">Promedio</th>
+            </tr>
+        </thead>
+        <tbody>
+            <ng-container *ngIf="students | filter:filters as filteredStudents; else noStudents">
+                <tr *ngFor="let student of filteredStudents; let i = index">
+                    <th scope="row">{{i+1}}</th>
+                    <td>{{student.name}}</td>
+                    <td>{{student.surname}}</td>
+                    <td>{{student.email}}</td>
+                    <td>{{student.career}}</td>
+                    <td>{{student.admissionDate | date: 'dd/MM/yyyy'}}</td>
+                    <ng-container *ngIf="student.averageGrade as grade">
+                        <td [appInRangeStyleValue]="grade"
+                            [appInRangeStyle]="[
+                                {style: 'color', styleValue: 'red', min: 0, max: 4},
+                                {style: 'color', styleValue: 'orange', min: 4, max: 6},
+                                {style: 'color', styleValue: 'green', min: 6, max: 10},
+                            ]"
+                        >
+                            {{grade | number: '1.1-2'}}
+                        </td>
+                    </ng-container>
+                </tr>
+                <ng-container *ngIf="!filteredStudents.length" [ngTemplateOutlet]="noStudents"></ng-container>
+            </ng-container>
+
+            <ng-template #noStudents>
+                <tr>
+                    <td colspan="7" class="text-center pt-4">
+                        <p>Ningún estudiante satisface los criterios de búsqueda</p>
+                    </td>
+                </tr>
+            </ng-template>
+
+        </tbody>
+    </table>
+</div>
