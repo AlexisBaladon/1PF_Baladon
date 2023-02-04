@@ -17,6 +17,7 @@ import { MaterialModule } from './material.module';
 import { AddFilterModalComponent } from './components/layout/filters/add-filter-modal/add-filter-modal.component';
 import { FilterPipe } from './pipes/filter.pipe';
 import { AddUserFormComponent } from './components/layout/add-user-form/add-user-form.component';
+import { ConfirmModalComponent } from './components/global/confirm-modal/confirm-modal.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { AddUserFormComponent } from './components/layout/add-user-form/add-user
     AddFilterModalComponent,
     FilterPipe,
     AddUserFormComponent,
+    ConfirmModalComponent,
   ],
   imports: [
     BrowserModule,

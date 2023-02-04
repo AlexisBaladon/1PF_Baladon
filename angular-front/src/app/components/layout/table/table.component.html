@@ -9,6 +9,7 @@
                 <th scope="col">Carrera</th>
                 <th scope="col">Fecha de ingreso</th>
                 <th scope="col">Promedio</th>
+                <th scope="col">Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -31,6 +32,16 @@
                             {{grade | number: '1.1-2'}}
                         </td>
                     </ng-container>
+                    <td>
+                        <div class="d-flex row justify-content-center">
+                            <button (click)="onEditStudent(student.id)" mat-mini-fab color="primary">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                            <button (click)="onDeleteStudent(student.id)" mat-icon-button color="accent">
+                                <mat-icon>delete</mat-icon>
+                            </button>
+                        </div>
+                    </td>
                 </tr>
                 <ng-container *ngIf="!filteredStudents.length" [ngTemplateOutlet]="noStudents"></ng-container>
             </ng-container>
