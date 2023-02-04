@@ -1,0 +1,32 @@
+<div mat-dialog>
+    <h1 mat-dialog-title>
+        Agregar/Modificar un usuario
+    </h1>
+    <div mat-dialog-content>
+        <form id="add-user-form">
+            <!-- <label for="user-image">Imagen</label>
+            <input id="user-image" name ="user-image" type="file" accept="image/*" /> -->
+            <div id="full-name-container" class="d-flex row">
+                <input type="text" placeholder="Nombre" name="name" />
+                <input type="text" placeholder="Apellido" name="surname" />
+            </div>
+            <input type="email" placeholder="Correo electrónico" name="email" />
+            <input type="password" placeholder="Contraseña" name="password" />
+            <div class="input-with-label">
+                <label for="birth-date">Fecha de nacimiento</label>
+                <input type="date" placeholder="Fecha de nacimiento" name="birth-date" />
+            </div>
+            <div class="input-with-label">
+                <label for="admission-date">Fecha de admisión</label>
+                <input type="date" placeholder="Fecha de ingreso" name="admission-date" />
+            </div>
+            <input type="phone" placeholder="Teléfono" name="phone" />
+            <input type="text" placeholder="Ciudad" name="city" />
+            <input type="text" placeholder="Carrera" name="career" />
+        </form>
+    </div>
+    <div id="submit-buttons-container">
+        <button mat-button>Cancelar</button>
+        <button mat-raised-button type="submit">Crear usuario</button>
+    </div>
+</div>

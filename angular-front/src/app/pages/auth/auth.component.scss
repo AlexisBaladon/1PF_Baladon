@@ -1,4 +1,5 @@
 @use '../../constants/colors.styles' as colors;
+@use '../../styles/forms.styles' as forms;
 
 #signup-name-container {
     display: flex;
@@ -68,29 +69,16 @@
         }
 
         input {
-            background-color: colors.$LIGHT_COLOR;
-            padding: 2%;
+            @include forms.input;
         }
 
         form {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
+            @include forms.form;
             width: 100%;
         }
 
-        
-        input::placeholder {
-            color: colors.$NEUTRAL_COLOR;
-        }
-        input:focus {
-            outline: none;
-            border: solid 1px colors.$MAIN_COLOR;
-        }
-
         #login-button {
-            background: linear-gradient(135deg, colors.$MAIN_COLOR, colors.$MAIN_LIGHT_COLOR);
+            background: colors.$LINEAR-GRADIENT-MAIN;
             color: colors.$LIGHT_COLOR;
             padding: 2%;
             font-weight: 501;

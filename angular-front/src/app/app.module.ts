@@ -16,6 +16,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 import { AddFilterModalComponent } from './components/layout/filters/add-filter-modal/add-filter-modal.component';
 import { FilterPipe } from './pipes/filter.pipe';
+import { AddUserFormComponent } from './components/layout/add-user-form/add-user-form.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { FilterPipe } from './pipes/filter.pipe';
     ToastComponent,
     AddFilterModalComponent,
     FilterPipe,
+    AddUserFormComponent,
   ],
   imports: [
     BrowserModule,
