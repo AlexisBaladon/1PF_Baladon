@@ -5,6 +5,9 @@
         "surname": "Doe",
         "email": "JohnDoe@mail.com",
         "admissionDate": "2020-01-01T00:00:00.000Z",
+        "birthDate": "1990-01-01T00:00:00.000Z",
+        "phone": "123456789",
+        "city": "Madrid",
         "averageGrade": 4.75,
         "career": "Gestión de Proyectos"
     },
@@ -14,6 +17,9 @@
         "surname": "Doe",
         "email": "JaneDoe@mail.com",
         "admissionDate": "2020-05-01T00:00:00.000Z",
+        "phone": "123456789",
+        "city": "Montevideo",
+        "birthDate": "1990-01-01T00:00:00.000Z",
         "averageGrade": 10,
         "career": "Diseño Gráfico"
     },
@@ -23,6 +29,9 @@
         "surname": "Brown",
         "email": "JakeBrown@mail.com",
         "admissionDate": "2000-07-05T00:00:00.000Z",
+        "phone": "123456789",
+        "city": "Buenos Aires",
+        "birthDate": "1990-01-01T00:00:00.000Z",
         "averageGrade": 1.5,
         "career": "Desarrollo Web"
     },
@@ -32,6 +41,9 @@
         "surname": "Mars",
         "email": "BrunoMars@mail.com",
         "admissionDate": "2010-01-01T00:00:00.000Z",
+        "phone": "123456789",
+        "city": "Sidney",
+        "birthDate": "1990-01-01T00:00:00.000Z",
         "averageGrade": 5.5,
         "career": "Desarrollo Web"
     },
@@ -41,6 +53,9 @@
         "surname": "Nadal Jr.",
         "email": "RafaNadal@mail.com",
         "admissionDate": "2015-01-01T00:00:00.000Z",
+        "birthDate": "1990-01-01T00:00:00.000Z",
+        "phone": "123456789",
+        "city": "Barcelona",
         "averageGrade": 9,
         "career": "Ciencia de Datos"
     },
@@ -50,6 +65,9 @@
         "surname": "Jane",
         "email": "MeryJane@mail.com",
         "admissionDate": "2010-01-01T00:00:00.000Z",
+        "birthDate": "1990-01-01T00:00:00.000Z",
+        "phone": "123456789",
+        "city": "Barcelona",
         "averageGrade": 8.8,
         "career": "Ciberseguridad"
     }

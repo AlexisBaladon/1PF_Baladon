@@ -52,6 +52,7 @@ $width-input: 80%;
     justify-content: flex-end;
     gap: 10px;
     width: $width-input;
+    margin: 0;
     padding: 25px 0;
 
     button[type="submit"] {

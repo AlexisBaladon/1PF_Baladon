@@ -15,7 +15,7 @@ type TreeFilter = Tree<LogicFilterType, FilterName>;
 export class FilterPipe implements PipeTransform {
   private filterFunction = new Map([
     ['Nombre', (student: Student, value: string) => !student.name.toLowerCase().includes(value.toLowerCase())],
-    ['Promedio', (student: Student, value: string) => student.averageGrade < Number(value)],
+    ['Promedio', (student: Student, value: string) => student.averageGrade ? student.averageGrade < Number(value): true],
     ['Fecha de ingreso', (student: Student, value: string) => student.admissionDate < new Date(value)]
   ]);
 
@@ -44,7 +44,6 @@ export class FilterPipe implements PipeTransform {
   }
 
   transform(students: Student[], treeData: TreeFilter | undefined): Student[] {
-    console.log(treeData, students);
     if (!treeData || !treeData.tree[0]) return students;
 
     return students.filter((student: Student) => {

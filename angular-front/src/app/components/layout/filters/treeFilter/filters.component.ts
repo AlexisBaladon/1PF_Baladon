@@ -97,8 +97,6 @@ export class FiltersComponent {
   }
 
   public onFilterClick() {
-    console.log('onFilterClick');
-    //deepcopy prevents the pipe from updating the table when a reference is modified
     this.treeEmitter.emit(treeData.deepCopy()); 
   }
 

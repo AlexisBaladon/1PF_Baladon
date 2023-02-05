@@ -3,30 +3,41 @@
         Agregar/Modificar un usuario
     </h1>
     <div mat-dialog-content>
-        <form id="add-user-form">
+        <form id="add-user-form" [formGroup]="formGroup" (ngSubmit)="onSubmit()">
             <!-- <label for="user-image">Imagen</label>
             <input id="user-image" name ="user-image" type="file" accept="image/*" /> -->
             <div id="full-name-container" class="d-flex row">
-                <input type="text" placeholder="Nombre" name="name" />
-                <input type="text" placeholder="Apellido" name="surname" />
+                <input type="text" placeholder="Nombre" formControlName="name" name="name" autocomplete="name" />
+                <input type="text" placeholder="Apellido" formControlName="surname" name="surname" autocomplete="surname"/>
             </div>
-            <input type="email" placeholder="Correo electrónico" name="email" />
-            <input type="password" placeholder="Contraseña" name="password" />
+            <input type="email" placeholder="Correo electrónico" formControlName="email" name="email" autocomplete="email" />
+            <input type="password" placeholder="Contraseña" formControlName="password" name="password" autocomplete="new-password" />
             <div class="input-with-label">
-                <label for="birth-date">Fecha de nacimiento</label>
-                <input type="date" placeholder="Fecha de nacimiento" name="birth-date" />
+                <label for="birthDate">Fecha de nacimiento</label>
+                <input type="date" placeholder="Fecha de nacimiento" formControlName="birthDate" name="birthDate" autocomplete="bday" />
             </div>
             <div class="input-with-label">
-                <label for="admission-date">Fecha de admisión</label>
-                <input type="date" placeholder="Fecha de ingreso" name="admission-date" />
+                <label for="admissionDate">Fecha de admisión</label>
+                <input type="date" placeholder="Fecha de ingreso" formControlName="admissionDate" name="admissionDate" autocomplete="admission-date" />
             </div>
-            <input type="phone" placeholder="Teléfono" name="phone" />
-            <input type="text" placeholder="Ciudad" name="city" />
-            <input type="text" placeholder="Carrera" name="career" />
+            <input type="phone" placeholder="Teléfono" formControlName="phone" name="phone" autocomplete="phone" />
+            <input type="text" placeholder="Ciudad" formControlName="city" name="city" autocomplete="city" />
+            <input type="text" placeholder="Carrera" formControlName="career" name="career" autocomplete="career" />
         </form>
     </div>
     <div id="submit-buttons-container">
-        <button mat-button>Cancelar</button>
-        <button mat-raised-button type="submit">Crear usuario</button>
+        <button mat-button (click)="onCancel()">Cancelar</button>
+        <button mat-raised-button type="submit" form="add-user-form">Crear usuario</button>
     </div>
+</div>
+<div *ngIf="formGroup.invalid && submitted">
+    <app-toast 
+        [messages] = "[
+            formGroup.get('name')?.errors?.['required'] ? 'El nombre es requerido' : null,
+            formGroup.get('surname')?.errors?.['required'] ? 'El apellido es requerido' : null,
+            formGroup.get('email')?.errors?.['required'] ? 'El correo electrónico es requerido' : null,
+            formGroup.get('password')?.errors?.['required'] ? 'La contraseña es requerida' : null,
+        ]"
+    >
+    </app-toast>
 </div>

@@ -21,7 +21,7 @@
                     <td>{{student.email}}</td>
                     <td>{{student.career}}</td>
                     <td>{{student.admissionDate | date: 'dd/MM/yyyy'}}</td>
-                    <ng-container *ngIf="student.averageGrade as grade">
+                    <ng-container *ngIf="student.averageGrade as grade else noGrade">
                         <td [appInRangeStyleValue]="grade"
                             [appInRangeStyle]="[
                                 {style: 'color', styleValue: 'red', min: 0, max: 4},
@@ -32,6 +32,9 @@
                             {{grade | number: '1.1-2'}}
                         </td>
                     </ng-container>
+                    <ng-template #noGrade>
+                        <td class="text-center">-</td>
+                    </ng-template>
                     <td>
                         <div class="d-flex row justify-content-center">
                             <button (click)="onEditStudent(student.id)" mat-mini-fab color="primary">

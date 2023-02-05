@@ -3,8 +3,10 @@ import { MatDialog } from '@angular/material/dialog';
 import type { FilterName } from 'src/app/interfaces/filters';
 import type { LogicFilterType } from 'src/app/interfaces/logic-filter-type';
 import type { Tree } from 'src/app/logic/filter/tree';
+import { jsonParser } from 'src/app/utils/jsonParser';
 import { AddUserFormComponent } from '../add-user-form/add-user-form.component';
-
+import * as databaseStudents from 'src/assets/data/students.json';
+import Student from 'src/app/interfaces/student';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -19,6 +21,8 @@ export class DashboardComponent {
 
   constructor(public dialog: MatDialog) {}
 
+  public students = jsonParser<Student>(databaseStudents)
+
   public openAddStudentDialog() {
     const dialogRef = this.dialog.open(AddUserFormComponent, {
       width: '750px',
@@ -28,7 +32,9 @@ export class DashboardComponent {
     });
 
     dialogRef.afterClosed().subscribe(result => {
+      console.log(result)
       if (!result) return;
+      this.students.push(result.student);
     });
   }
 
