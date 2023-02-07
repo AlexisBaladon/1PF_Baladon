@@ -21,6 +21,7 @@ import { ConfirmModalComponent } from './components/global/confirm-modal/confirm
 import { ValidInputDirective } from './directives/valid-input/valid-input.directive';
 import { FullNamePipe } from './pipes/users/full-name/full-name.pipe';
 import { FontSizeDirective } from './directives/fonts/size/font-size.directive';
+import { LayoutComponent } from './pages/layout/layout/layout.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { FontSizeDirective } from './directives/fonts/size/font-size.directive';
     ValidInputDirective,
     FullNamePipe,
     FontSizeDirective,
+    LayoutComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,14 +1,2 @@
-<div id='app' *ngIf="loggedIn"  >
-    <header>
-      <app-toolbar (loggingOut)="logOut()"></app-toolbar>
-    </header>
-    <div id='main-content'>
-      <aside>
-        <app-menu></app-menu>
-      </aside>
-      <main>
-        <app-dashboard></app-dashboard>
-      </main>
-    </div>
-</div>
+<app-layout *ngIf="loggedIn" (loggingOut)="logOut()"></app-layout>
 <app-auth [hasAccount]="false" (loggingIn)="logIn()" *ngIf="!loggedIn"></app-auth>
