@@ -1,9 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import Student from 'src/app/interfaces/student';
 import { FlatNode } from 'src/app/logic/filter/node';
-import { FilterName } from '../interfaces/filters';
-import { LogicFilterType } from '../interfaces/logic-filter-type';
-import { Tree } from '../logic/filter/tree';
+import { FilterName } from '../../interfaces/filters';
+import { LogicFilterType } from '../../interfaces/logic-filter-type';
+import { Tree } from '../../logic/filter/tree';
 
 type FlatNodeFilter = FlatNode<LogicFilterType, FilterName>;
 type TreeFilter = Tree<LogicFilterType, FilterName>;

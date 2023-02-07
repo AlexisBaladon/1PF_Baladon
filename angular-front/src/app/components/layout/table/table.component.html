@@ -4,7 +4,6 @@
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Nombre</th>
-                <th scope="col">Apellido</th>
                 <th scope="col">E-mail</th>
                 <th scope="col">Carrera</th>
                 <th scope="col">Fecha de ingreso</th>
@@ -16,8 +15,7 @@
             <ng-container *ngIf="students | filter:filters as filteredStudents; else noStudents">
                 <tr *ngFor="let student of filteredStudents; let i = index">
                     <th scope="row">{{i+1}}</th>
-                    <td>{{student.name}}</td>
-                    <td>{{student.surname}}</td>
+                    <td>{{student | fullName}}</td>
                     <td>{{student.email}}</td>
                     <td>{{student.career}}</td>
                     <td>{{student.admissionDate | date: 'dd/MM/yyyy'}}</td>

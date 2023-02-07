@@ -15,10 +15,11 @@ import { ToastComponent } from './components/global/toast/toast.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 import { AddFilterModalComponent } from './components/layout/filters/add-filter-modal/add-filter-modal.component';
-import { FilterPipe } from './pipes/filter.pipe';
+import { FilterPipe } from './pipes/filter/filter.pipe';
 import { AddUserFormComponent } from './components/layout/add-user-form/add-user-form.component';
 import { ConfirmModalComponent } from './components/global/confirm-modal/confirm-modal.component';
 import { ValidInputDirective } from './directives/valid-input/valid-input.directive';
+import { FullNamePipe } from './pipes/users/full-name/full-name.pipe';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { ValidInputDirective } from './directives/valid-input/valid-input.direct
     AddUserFormComponent,
     ConfirmModalComponent,
     ValidInputDirective,
+    FullNamePipe,
   ],
   imports: [
     BrowserModule,
