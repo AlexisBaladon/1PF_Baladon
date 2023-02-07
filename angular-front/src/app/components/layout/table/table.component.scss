@@ -1,34 +1,38 @@
 @use '../../../constants/colors.styles' as colors;
 
-table {
-    width: 100%;
-    background-color: white;
-    box-shadow: 0 0 3px 0 rgba(0,0,0,0.2);
 
-    .mat-mdc-header-row {
-        background-color: colors.$MAIN_COLOR;
+#students-table {   
+    overflow-x: auto;
 
-        .mat-mdc-header-cell {
-            color: colors.$LIGHT_COLOR !important;
-
-            .mat-sort-header-arrow {
-                * {
-
-                    color: #fff !important;
-                    opacity: 1 !important;
-                }
-                }
-        }
-        
-    }
-
-    tbody {
-        --bs-table-bg: colors.$LIGHT_COLOR;
-    }
-
+    table {
+        width: 100%;
+        background-color: white;
+        box-shadow: 0 0 3px 0 rgba(0,0,0,0.2);
     
-}
+        .mat-mdc-header-row {
+            background-color: colors.$MAIN_COLOR;
+    
+            .mat-mdc-header-cell {
+                color: colors.$LIGHT_COLOR !important;
+            }
+            
+        }
+    
+        tbody {
+            --bs-table-bg: colors.$LIGHT_COLOR;
+        }
+    }
+    
+    .mat-paginator-container {
+        background-color: colors.$LIGHT_COLOR;
+    }
 
-mat-paginator {
-    background-color: colors.$LIGHT_COLOR;
+    mat-paginator {
+        background-color: colors.$LIGHT_COLOR;
+        margin: 0;
+    }
+
+    mat-mdc-paginator-range-actions {
+        color: colors.$MAIN_COLOR;
+    }
 }
