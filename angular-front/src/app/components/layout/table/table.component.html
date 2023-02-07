@@ -1,7 +1,7 @@
 <div class="table-responsive">
     <table class="table table-light rounded rounded-3 overflow-hidden">
         <thead class="table">
-            <tr>
+            <tr [appFontSize]="'medium'">
                 <th scope="col">#</th>
                 <th scope="col">Nombre</th>
                 <th scope="col">E-mail</th>
@@ -13,7 +13,7 @@
         </thead>
         <tbody>
             <ng-container *ngIf="students | filter:filters as filteredStudents; else noStudents">
-                <tr *ngFor="let student of filteredStudents; let i = index">
+                <tr [appFontSize]="'medium'" *ngFor="let student of filteredStudents; let i = index">
                     <th scope="row">{{i+1}}</th>
                     <td>{{student | fullName}}</td>
                     <td>{{student.email}}</td>

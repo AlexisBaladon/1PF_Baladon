@@ -20,6 +20,7 @@ import { AddUserFormComponent } from './components/layout/add-user-form/add-user
 import { ConfirmModalComponent } from './components/global/confirm-modal/confirm-modal.component';
 import { ValidInputDirective } from './directives/valid-input/valid-input.directive';
 import { FullNamePipe } from './pipes/users/full-name/full-name.pipe';
+import { FontSizeDirective } from './directives/fonts/size/font-size.directive';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { FullNamePipe } from './pipes/users/full-name/full-name.pipe';
     ConfirmModalComponent,
     ValidInputDirective,
     FullNamePipe,
+    FontSizeDirective,
   ],
   imports: [
     BrowserModule,

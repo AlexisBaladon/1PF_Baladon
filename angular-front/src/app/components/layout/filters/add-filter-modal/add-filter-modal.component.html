@@ -1,5 +1,5 @@
 <div mat-dialog id="filter-dialog">
-    <h1 mat-dialog-title>Seleccione un filtro</h1>
+    <h1 mat-dialog-title [appFontSize]="'large'">Seleccione un filtro</h1>
     <div class="d-flex justify-content-around" mat-dialog-content>
         <ng-container  *ngFor="let type of types" >
             <button 

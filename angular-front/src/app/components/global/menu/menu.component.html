@@ -1,23 +1,25 @@
 <div id="collapsed-left-menu" class="collapse-horizontal collapse show ">
     <div id='left-menu' class=" bg-light flex-column flex-shrink-0 pt-3 text-black">
         <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto ps-3 text-decoration-none">
-            <span class="fs-3 fw-bold"> Navegación</span>
+            <span [appFontSize]="'x-large'" class="fw-bold"> Navegación</span>
         </a>
         <hr>
         <ul class="nav nav-pills flex-column mb-auto">
             <li *ngFor="let option of options" class="nav-item">
-                <a href="#" class="menu-text nav-link fs-4"
+                <a [appFontSize]="'large'" href="#" class="menu-text nav-link"
                         [ngClass]="option.active? 'active':''">
                     {{option.name}}
                 </a>
             </li>
             <li *ngFor="let scrollableOption of scrollableOptions | keyvalue" class="nav-item dropdown">
-                <a class="menu-text nav-link dropdown-toggle fs-3" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                <a [appFontSize]="'large'" class="menu-text nav-link dropdown-toggle" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
                     {{scrollableOption.key}}
                 </a>
                 <div class="collapse" id="collapseExample">
                     <div class="menu-dropdown-item card card-body" *ngFor="let option of scrollableOption.value">
-                        {{option}}
+                        <a [appFontSize]="'small'">
+                            {{option}}
+                        </a>
                     </div>
                 </div>
             </li>

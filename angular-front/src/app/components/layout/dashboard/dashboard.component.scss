@@ -22,18 +22,20 @@
         font-weight: 600;
     }
 
-    h1,h2,h3,h4,p {
-        width: 100%;
-    }
 
     #dashboard-title {
         margin-bottom: 3%;
         p { padding-top: 0.5%; }
+        flex-grow: 1;
     }
 
     #add-student-btn {
         background-color: colors.$MAIN_COLOR;
         color: colors.$LIGHT_COLOR;
+    }
+
+    .mat-mdc-button-base {
+        font-size: 12px !important;
     }
 }
 

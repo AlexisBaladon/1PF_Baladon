@@ -32,14 +32,13 @@ export class DashboardComponent {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result)
       if (!result) return;
       this.students.push(result.student);
     });
   }
 
   ngOnInit(): void {
-    this.openAddStudentDialog();
+    //this.openAddStudentDialog();
   }
 
 }
