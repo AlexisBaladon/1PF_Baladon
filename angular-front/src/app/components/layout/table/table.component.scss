@@ -5,14 +5,30 @@ table {
     background-color: white;
     box-shadow: 0 0 3px 0 rgba(0,0,0,0.2);
 
-    thead {
-        //--bs-table-bg: #586994 !important;
+    .mat-mdc-header-row {
         background-color: colors.$MAIN_COLOR;
-        color: colors.$LIGHT_COLOR;
+
+        .mat-mdc-header-cell {
+            color: colors.$LIGHT_COLOR !important;
+
+            .mat-sort-header-arrow {
+                * {
+
+                    color: #fff !important;
+                    opacity: 1 !important;
+                }
+                }
+        }
+        
     }
 
     tbody {
         --bs-table-bg: colors.$LIGHT_COLOR;
     }
 
+    
+}
+
+mat-paginator {
+    background-color: colors.$LIGHT_COLOR;
 }
