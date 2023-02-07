@@ -26,7 +26,7 @@
                 type="email" 
                 placeholder="Correo electrónico" 
                 formControlName="email" 
-                [style.border-color]="submitted && loginForm.get('email')?.errors ? 'red' : null"
+                [style]="submitted && loginForm.get('email')?.errors ? 'border-color: red' : null"
             />
             <input 
                 type="password" 

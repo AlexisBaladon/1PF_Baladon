@@ -7,22 +7,114 @@
             <!-- <label for="user-image">Imagen</label>
             <input id="user-image" name ="user-image" type="file" accept="image/*" /> -->
             <div id="full-name-container" class="d-flex row">
-                <input type="text" placeholder="Nombre" formControlName="name" name="name" autocomplete="name" />
-                <input type="text" placeholder="Apellido" formControlName="surname" name="surname" autocomplete="surname"/>
+                <div class="full-name-item">
+                    <label for="name">Nombre</label>
+                    <input 
+                        class="valid-input"
+                        [appValidInput]="!(submitted && !!formGroup.get('name')?.errors)" 
+                        type="text" placeholder="Nombre" 
+                        formControlName="name" 
+                        name="name" 
+                        autocomplete="name" 
+                    />
+                </div>
+                <div class="full-name-item">
+                    <label for="surname">Apellido</label>
+                    <input 
+                        class="valid-input"
+                        [appValidInput]="!(submitted && !!formGroup.get('surname')?.errors)"  
+                        type="text" 
+                        formControlName="surname" 
+                        placeholder="Apellido" 
+                        name="surname" 
+                        autocomplete="surname"
+                    />
+                </div>
             </div>
-            <input type="email" placeholder="Correo electrónico" formControlName="email" name="email" autocomplete="email" />
-            <input type="password" placeholder="Contraseña" formControlName="password" name="password" autocomplete="new-password" />
+            <div class="input-with-label">
+                <label for="email">Correo electrónico</label>
+                <input 
+                    class="valid-input"
+                    [appValidInput]="!(submitted && !!formGroup.get('email')?.errors)"  
+                    type="email" 
+                    formControlName="email" 
+                    placeholder="Correo electrónico" 
+                    name="email" 
+                    autocomplete="email" 
+                />
+            </div>
+            <div class="input-with-label">
+                <label for="password">Contraseña</label>
+                <input 
+                    class="valid-input"
+                    [appValidInput]="!(submitted && !!formGroup.get('password')?.errors)"  
+                    type="password" 
+                    formControlName="password" 
+                    placeholder="Contraseña" 
+                    name="password" 
+                    autocomplete="new-password" 
+                />
+            </div>
             <div class="input-with-label">
                 <label for="birthDate">Fecha de nacimiento</label>
-                <input type="date" placeholder="Fecha de nacimiento" formControlName="birthDate" name="birthDate" autocomplete="bday" />
+                <input 
+                    class="valid-input"
+                    [appValidInput]="!(submitted && !!formGroup.get('birthDate')?.errors)"  
+                    type="date"
+                    formControlName="birthDate" 
+                    placeholder="Fecha de nacimiento" 
+                    name="birthDate" 
+                    autocomplete="bday" 
+                />
             </div>
             <div class="input-with-label">
                 <label for="admissionDate">Fecha de admisión</label>
-                <input type="date" placeholder="Fecha de ingreso" formControlName="admissionDate" name="admissionDate" autocomplete="admission-date" />
+                <input 
+                    class="valid-input"
+                    [appValidInput]="!(submitted && !!formGroup.get('admissionDate')?.errors)"  
+                    type="date" 
+                    formControlName="admissionDate" 
+                    placeholder="Fecha de ingreso" 
+                    name="admissionDate" 
+                    autocomplete="admission-date" 
+                />
             </div>
-            <input type="phone" placeholder="Teléfono" formControlName="phone" name="phone" autocomplete="phone" />
-            <input type="text" placeholder="Ciudad" formControlName="city" name="city" autocomplete="city" />
-            <input type="text" placeholder="Carrera" formControlName="career" name="career" autocomplete="career" />
+            <div class="input-with-label">
+                <label for="phone">Teléfono</label>
+                <input 
+                    class="valid-input"
+                    [appValidInput]="!(submitted && !!formGroup.get('phone')?.errors)"  
+                    type="phone" 
+                    formControlName="phone" 
+                    placeholder="Teléfono" 
+                    name="phone" 
+                    autocomplete="phone" 
+                />
+            </div>
+            <div class="input-with-label">
+                <label for="address">Ciudad</label>
+                <input 
+                    class="valid-input"
+                    [appValidInput]="!(submitted && !!formGroup.get('city')?.errors)"  
+                    type="text" 
+                    formControlName="city" 
+                    placeholder="Ciudad" 
+                    name="city" 
+                    autocomplete="city" 
+                />
+            </div>
+            <div class="input-with-label">
+                <label for="address">Carrera</label>
+                <input 
+                    class="valid-input"
+                    [appValidInput]="!(submitted && !!formGroup.get('career')?.errors)"  
+                    type="text" 
+                    formControlName="career" 
+                    placeholder="Carrera" 
+                    name="career" 
+                    autocomplete="career" 
+                />
+            </div>
         </form>
     </div>
     <div id="submit-buttons-container">

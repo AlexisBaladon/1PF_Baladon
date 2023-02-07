@@ -9,7 +9,7 @@ import { DashboardComponent } from './components/layout/dashboard/dashboard.comp
 import { TableComponent } from './components/layout/table/table.component';
 import { IconComponent } from './components/widget/icon/icon.component';
 import { FiltersComponent } from './components/layout/filters/treeFilter/filters.component';
-import { InRangeStyleDirective } from './directives/in-range-style.directive';
+import { InRangeStyleDirective } from './directives/in-range-style/in-range-style.directive';
 import { AuthComponent } from './pages/auth/auth.component';
 import { ToastComponent } from './components/global/toast/toast.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -18,6 +18,7 @@ import { AddFilterModalComponent } from './components/layout/filters/add-filter-
 import { FilterPipe } from './pipes/filter.pipe';
 import { AddUserFormComponent } from './components/layout/add-user-form/add-user-form.component';
 import { ConfirmModalComponent } from './components/global/confirm-modal/confirm-modal.component';
+import { ValidInputDirective } from './directives/valid-input/valid-input.directive';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { ConfirmModalComponent } from './components/global/confirm-modal/confirm
     FilterPipe,
     AddUserFormComponent,
     ConfirmModalComponent,
+    ValidInputDirective,
   ],
   imports: [
     BrowserModule,
