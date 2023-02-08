@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { EMAIL_REGEX, SIMPLE_INPUTS_MIN_LENGTH, PASSWORD_MIN_LENGTH, INPUTS_MAX_LENGTH } from 'src/app/constants/validations';
+import { SIMPLE_VALIDATIONS, EMAIL_VALIDATIONS, PASSWORD_VALIDATIONS } from 'src/app/constants/validations';
 import { getErrorMessages, isValidInput } from 'src/app/utils/formControl';
 
 @Component({
@@ -13,29 +13,11 @@ export class AuthComponent {
   @Output() public loggingIn = new EventEmitter();
 
   public submitted = false;
-
   private formControls = {
-    name: [
-      Validators.required,
-      Validators.minLength(SIMPLE_INPUTS_MIN_LENGTH),
-      Validators.maxLength(INPUTS_MAX_LENGTH),
-    ],
-    surname: [
-      Validators.required,
-      Validators.minLength(SIMPLE_INPUTS_MIN_LENGTH),
-      Validators.maxLength(INPUTS_MAX_LENGTH),
-    ],
-    email: [
-      Validators.required, 
-      Validators.minLength(SIMPLE_INPUTS_MIN_LENGTH),
-      Validators.maxLength(INPUTS_MAX_LENGTH),
-      Validators.pattern(EMAIL_REGEX),
-    ],
-    password: [
-      Validators.required,
-      Validators.minLength(PASSWORD_MIN_LENGTH),
-      Validators.maxLength(INPUTS_MAX_LENGTH),
-    ]
+    name: SIMPLE_VALIDATIONS,
+    surname: SIMPLE_VALIDATIONS,
+    email: EMAIL_VALIDATIONS,
+    password: PASSWORD_VALIDATIONS,
   }
 
   private loginForm = new FormGroup({

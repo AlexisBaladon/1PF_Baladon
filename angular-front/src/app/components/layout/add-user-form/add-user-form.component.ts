@@ -1,9 +1,10 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import Student from 'src/app/interfaces/student';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl } from '@angular/forms';
 import { generateId } from 'src/app/utils/idGenerator';
 import { getErrorMessages, isValidInput } from 'src/app/utils/formControl';
+import { EMAIL_VALIDATIONS, PASSWORD_VALIDATIONS, SIMPLE_VALIDATIONS } from 'src/app/constants/validations';
 
 @Component({
   selector: 'app-add-user-form',
@@ -21,15 +22,15 @@ export class AddUserFormComponent {
   private defaultStudentData: Student = this.data.student ?? {} as Student;
 
   public formGroup = new FormGroup({
-    name: new FormControl(this.defaultStudentData.name, [Validators.required]),
-    surname: new FormControl(this.defaultStudentData.surname, [Validators.required]),
-    email: new FormControl(this.defaultStudentData.email, [Validators.required, Validators.email]),
-    password: new FormControl(this.defaultStudentData.password, [Validators.required]),
-    birthDate: new FormControl(this.defaultStudentData.birthDate, [Validators.required]),
-    admissionDate: new FormControl(this.defaultStudentData.admissionDate, [Validators.required]),
-    phone: new FormControl(this.defaultStudentData.phone, [Validators.required]),
-    city: new FormControl(this.defaultStudentData.city, [Validators.required]),
-    career: new FormControl(this.defaultStudentData.career, [Validators.required]),
+    name: new FormControl(this.defaultStudentData.name, SIMPLE_VALIDATIONS),
+    surname: new FormControl(this.defaultStudentData.surname, SIMPLE_VALIDATIONS),
+    email: new FormControl(this.defaultStudentData.email, EMAIL_VALIDATIONS),
+    password: new FormControl(this.defaultStudentData.password, PASSWORD_VALIDATIONS),
+    birthDate: new FormControl(this.defaultStudentData.birthDate, SIMPLE_VALIDATIONS),
+    admissionDate: new FormControl(this.defaultStudentData.admissionDate, SIMPLE_VALIDATIONS),
+    phone: new FormControl(this.defaultStudentData.phone, SIMPLE_VALIDATIONS),
+    city: new FormControl(this.defaultStudentData.city, SIMPLE_VALIDATIONS),
+    career: new FormControl(this.defaultStudentData.career, SIMPLE_VALIDATIONS),
   });
 
   public submitted = false;
@@ -49,18 +50,20 @@ export class AddUserFormComponent {
       }
     };
 
+    const formValues = this.formGroup.value;
+
     const student: Student = {
       id: this.data.student?.id ?? generateId(),
-      name: this.formGroup.get('name')?.value!,
-      surname: this.formGroup.get('surname')?.value!,
-      email: this.formGroup.get('email')?.value!,
-      password: this.formGroup.get('password')?.value!,
-      birthDate: this.formGroup.get('birthDate')?.value!,
-      admissionDate: this.formGroup.get('admissionDate')?.value!,
-      phone: this.formGroup.get('phone')?.value!,
-      city: this.formGroup.get('city')?.value!,
-      career: this.formGroup.get('career')?.value!,
-      averageGrade: this.data.student?.averageGrade ?? null,
+      name: formValues.name ?? '',
+      surname: formValues.surname ?? '',
+      email: formValues.email ?? '',
+      password: formValues.password ?? '',
+      birthDate: formValues.birthDate ?? new Date(),
+      admissionDate: formValues.admissionDate ?? new Date(),
+      phone: formValues.phone ?? '',
+      city: formValues.city ?? '',
+      career: formValues.career ?? '',
+      averageGrade: this.data.student?.averageGrade ?? null ?? 0,
     };
 
     this.data.student = student;
