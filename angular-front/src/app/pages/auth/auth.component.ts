@@ -12,7 +12,6 @@ export class AuthComponent {
   @Input() public hasAccount = true;
   @Output() public loggingIn = new EventEmitter();
 
-  public submitted = false;
   private formControls = {
     name: SIMPLE_VALIDATIONS,
     surname: SIMPLE_VALIDATIONS,
@@ -36,15 +35,21 @@ export class AuthComponent {
     return this.hasAccount ? this.loginForm : this.signupForm;
   }
 
+  private _submitted = false;
+
+  public get submitted(): boolean {
+    return this._submitted;
+  }
+
   public onAuth() {
-    this.submitted = true;
+    this._submitted = true;
     if (this.form.invalid) return;
 
     this.loggingIn.emit();
   }
 
   public changeAuthMode() {
-    this.submitted = false;
+    this._submitted = false;
     this.hasAccount = !this.hasAccount;
   }
 

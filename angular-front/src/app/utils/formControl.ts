@@ -1,12 +1,24 @@
 import type { FormGroup, AbstractControl } from '@angular/forms';
 
+const controlNames = new Map<string, string>([
+    ['name', 'nombre'],
+    ['surname', 'apellido'],
+    ['email', 'email'],
+    ['password', 'contraseña'],
+    ['birthDate', 'fecha de nacimiento'],
+    ['phone', 'teléfono'],
+    ['city', 'ciudad'],
+    ['career', 'carrera'],
+    ['admissionDate', 'fecha de admisión'],
+]);
+
 const getControlErrorMessages = (control: AbstractControl<any, any>, controlName: string): string[] => {
     const messages = [];
 
-    if (control.hasError('required')) messages.push(`El campo ${controlName} es obligatorio`);
-    if (control.hasError('minlength')) messages.push(`El largo mínimo de ${controlName} es ${control.errors?.["minlength"].requiredLength}`);
-    if (control.hasError('maxlength')) messages.push(`El largo máximo de ${controlName} es ${control.errors?.["maxlength"].requiredLength}`);
-    if (control.hasError('pattern')) messages.push(`El formato de ${controlName} es inválido`);
+    if (control.hasError('required')) messages.push(`El campo "${controlNames.get(controlName)}" es obligatorio`);
+    if (control.hasError('minlength')) messages.push(`El largo mínimo de "${controlNames.get(controlName)}" es ${control.errors?.["minlength"].requiredLength}`);
+    if (control.hasError('maxlength')) messages.push(`El largo máximo de "${controlNames.get(controlName)}" es ${control.errors?.["maxlength"].requiredLength}`);
+    if (control.hasError('pattern')) messages.push(`El formato de "${controlNames.get(controlName)}" es inválido`);
 
     return messages;
   }
