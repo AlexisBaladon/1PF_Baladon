@@ -15,6 +15,10 @@ $width-input: 80%;
         color: black;
         color: colors.$NEUTRAL_COLOR;
     }
+
+    input[type="date"]::-webkit-datetime-edit {
+        color: colors.$NEUTRAL_COLOR;
+    }
     
     input[name="user-image"] {
         width: 50px; height: 50px;

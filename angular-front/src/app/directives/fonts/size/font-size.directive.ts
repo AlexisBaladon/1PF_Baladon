@@ -10,7 +10,6 @@ export class FontSizeDirective {
   constructor(private renderer: Renderer2, private el: ElementRef) { }
 
   ngOnInit() {
-    //important
     this.renderer.setStyle(
       this.el.nativeElement, 
       'font-size', 

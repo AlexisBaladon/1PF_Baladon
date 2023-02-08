@@ -4,7 +4,7 @@ export const fontSize = new Map<fontSizes, string>([
   ['x-small', '8px'],
   ['small', '12px'],
   ['medium', '14px'],
-  ['large', '18px'],
+  ['large', '20px'],
   ['x-large', '22px'],
   ['xx-large', '26px']
 ]);
