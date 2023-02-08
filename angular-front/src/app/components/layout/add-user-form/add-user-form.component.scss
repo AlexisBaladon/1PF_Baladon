@@ -43,15 +43,6 @@ $width-input: 80%;
         }
     }
 
-    
-    .valid-input {
-        @include forms.input;
-    }
-    
-    .invalid-input {
-        @include forms.invalidInput;
-    }
-
     input {
         width: 80%;
     }

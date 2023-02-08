@@ -3,6 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import Student from 'src/app/interfaces/student';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { generateId } from 'src/app/utils/idGenerator';
+import { getErrorMessages, isValidInput } from 'src/app/utils/formControl';
 
 @Component({
   selector: 'app-add-user-form',
@@ -41,7 +42,6 @@ export class AddUserFormComponent {
     }
 
     const inputNames = Object.keys(this.formGroup.controls);
-
     for (const control in inputNames) {
       if (this.formGroup.get(control)?.invalid) {
         this.data.valid = false;
@@ -70,5 +70,13 @@ export class AddUserFormComponent {
 
   public onCancel() {
     this.dialogRef.close();
+  }
+
+  public getErrorMessages = (): string[] => {
+    return getErrorMessages(this.formGroup);
+  }
+
+  public isValidInput = (controlName: string) => {
+    return isValidInput(this.formGroup, controlName, this.submitted);
   }
 }

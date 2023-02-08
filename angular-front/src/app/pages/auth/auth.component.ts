@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-
-const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.([^\s@]+){2,4}$/;
+import { EMAIL_REGEX, SIMPLE_INPUTS_MIN_LENGTH, PASSWORD_MIN_LENGTH, INPUTS_MAX_LENGTH } from 'src/app/constants/validations';
+import { getErrorMessages, isValidInput } from 'src/app/utils/formControl';
 
 @Component({
   selector: 'app-auth',
@@ -12,34 +12,65 @@ export class AuthComponent {
   @Input() public hasAccount = true;
   @Output() public loggingIn = new EventEmitter();
 
-  public MIN_PASSWORD_LENGTH = 6;
-  public MAX_NAME_LENGTH = 25;
-  public MAX_SURNAME_LENGTH = 30;
   public submitted = false;
 
-  public loginForm = new FormGroup({
-    name: new FormControl('', [
+  private formControls = {
+    name: [
       Validators.required,
-      Validators.maxLength(this.MAX_NAME_LENGTH),
-    ]),
-    surname: new FormControl('', [
+      Validators.minLength(SIMPLE_INPUTS_MIN_LENGTH),
+      Validators.maxLength(INPUTS_MAX_LENGTH),
+    ],
+    surname: [
       Validators.required,
-      Validators.maxLength(this.MAX_SURNAME_LENGTH),
-    ]),
-    email: new FormControl('', [
+      Validators.minLength(SIMPLE_INPUTS_MIN_LENGTH),
+      Validators.maxLength(INPUTS_MAX_LENGTH),
+    ],
+    email: [
       Validators.required, 
+      Validators.minLength(SIMPLE_INPUTS_MIN_LENGTH),
+      Validators.maxLength(INPUTS_MAX_LENGTH),
       Validators.pattern(EMAIL_REGEX),
-    ]),
-    password: new FormControl('', [
+    ],
+    password: [
       Validators.required,
-      Validators.minLength(this.MIN_PASSWORD_LENGTH),
-    ])
+      Validators.minLength(PASSWORD_MIN_LENGTH),
+      Validators.maxLength(INPUTS_MAX_LENGTH),
+    ]
+  }
+
+  private loginForm = new FormGroup({
+    email: new FormControl('', [...this.formControls.email]),
+    password: new FormControl('', [...this.formControls.password]),
   });
 
-  onAuth() {
+  private signupForm = new FormGroup({
+    name: new FormControl('', [...this.formControls.name]),
+    surname: new FormControl('', [...this.formControls.surname]),
+    email: new FormControl('', [...this.formControls.email]),
+    password: new FormControl('', [...this.formControls.password]),
+  });
+
+  public get form(): FormGroup {
+    return this.hasAccount ? this.loginForm : this.signupForm;
+  }
+
+  public onAuth() {
     this.submitted = true;
-    if (this.loginForm.invalid) return;
+    if (this.form.invalid) return;
 
     this.loggingIn.emit();
+  }
+
+  public changeAuthMode() {
+    this.submitted = false;
+    this.hasAccount = !this.hasAccount;
+  }
+
+  public getErrorMessages() {
+    return getErrorMessages(this.form);
+  }
+
+  public isValidInput(controlName: string): boolean {
+    return isValidInput(this.form, controlName, this.submitted);
   }
 }

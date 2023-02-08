@@ -61,7 +61,7 @@
         .login-continue-with-text, .login-register-text 
             {text-align: center;}
 
-        input, #login-button {
+        #login-button {
             border: solid 1px colors.$LIGHT_COLOR;
             box-shadow: 0 0 3px 0 rgba(0,0,0,0.2);
             border-radius: 5px;
@@ -69,7 +69,8 @@
         }
 
         input {
-            @include forms.input;
+            width: 70%;
+            // @include forms.input;
         }
 
         form {

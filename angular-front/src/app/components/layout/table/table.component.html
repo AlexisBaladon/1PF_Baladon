@@ -72,9 +72,11 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
 </div>
-<mat-paginator 
-    class="container"
-    [pageSizeOptions]="[5, 10, 20]"
-    showFirstLastButtons
->
-</mat-paginator>
+<div id="students-paginator-container">
+    <mat-paginator 
+        class="container"
+        [pageSizeOptions]="[5, 10, 20]"
+        showFirstLastButtons
+    >
+    </mat-paginator>
+</div>

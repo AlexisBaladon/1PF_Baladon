@@ -8,7 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmModalComponent } from '../../global/confirm-modal/confirm-modal.component';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import {MatSort, Sort} from '@angular/material/sort';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-table',
@@ -39,9 +39,10 @@ export class TableComponent {
   }
 
   public compare(
-     a: number | string | Date | null,
-     b: number | string | Date | null, isAsc: boolean)
-  {
+      a: number | string | Date | null,
+      b: number | string | Date | null,
+        isAsc: boolean
+  ) {
     if (a === null || b === null) return 0;
     return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
   }

@@ -7,32 +7,32 @@
             <h1>{{hasAccount? '¡Bienvenido nuevamente!' : '¡Bienvenido a Spanford!'}}</h1>
             <p>En spanford nos aseguramos de que todos nuestros datos sean fácilmente accesibles mediante una interfaz amigable.</p>
         </div>
-        <form id="login-form" method="GET" (ngSubmit)="onAuth()" [formGroup]="loginForm">
+        <form id="login-form" method="GET" (ngSubmit)="onAuth()" [formGroup]="form">
             <div *ngIf="!hasAccount" id="signup-name-container">
                 <input 
                     type="text" 
                     placeholder="Nombre" 
                     formControlName="name" 
-                    [style.border-color]="submitted && loginForm.get('name')?.errors ? 'red' : null"
+                    [appValidInput]="isValidInput('name')"
                 />
                 <input 
                     type="text" 
                     placeholder="Apellido" 
                     formControlName="surname"
-                    [style.border-color]="submitted && loginForm.get('surname')?.errors ? 'red' : null" 
+                    [appValidInput]="isValidInput('surname')"
                 />
             </div>
             <input 
                 type="email" 
                 placeholder="Correo electrónico" 
                 formControlName="email" 
-                [style]="submitted && loginForm.get('email')?.errors ? 'border-color: red' : null"
+                [appValidInput]="isValidInput('email')"
             />
             <input 
                 type="password" 
                 placeholder="Contraseña" 
                 formControlName="password"
-                [style.border-color]="submitted && loginForm.get('password')?.errors ? 'red' : null"
+                [appValidInput]="isValidInput('password')"
             />
         </form>
         <p *ngIf="hasAccount" class="login-forgot-password-text">
@@ -49,21 +49,12 @@
         </div>
         <p class="login-register-text">
             {{hasAccount? '¿No tienes una cuenta?' : '¿Ya tienes cuenta?'}}
-            <a (click)="hasAccount = !hasAccount" href="#">{{hasAccount? 'Regístrate' : 'Inicia sesión'}}</a>
+            <a (click)="changeAuthMode()" href="#">{{hasAccount? 'Regístrate' : 'Inicia sesión'}}</a>
         </p>
     </section>
-    <div *ngIf="loginForm.invalid && submitted">
+    <div *ngIf="form.invalid && submitted">
         <app-toast 
-            [messages] = "[
-                loginForm.get('name')?.errors?.['maxlength'] ? 'El nombre debe tener no más de '+MAX_NAME_LENGTH+' caracteres' : null,
-                loginForm.get('name')?.errors?.['required'] ? 'El nombre es requerido' : null,
-                loginForm.get('surname')?.errors?.['maxlength'] ? 'El nombre debe tener no más de '+MAX_NAME_LENGTH+' caracteres' : null,
-                loginForm.get('surname')?.errors?.['required'] ? 'El apellido es requerido' : null,
-                loginForm.get('email')?.errors?.['required'] ? 'El correo electrónico es requerido' : null,
-                loginForm.get('email')?.errors?.['pattern'] ? 'El correo electrónico no es válido' : null,
-                loginForm.get('password')?.errors?.['required'] ? 'La contraseña es requerida' : null,
-                loginForm.get('password')?.errors?.['minlength'] ? 'La contraseña debe tener al menos '+MIN_PASSWORD_LENGTH+' caracteres' : null,
-            ]"
+            [messages] = "getErrorMessages()"
         >
         </app-toast>
     </div>

@@ -1,5 +1,6 @@
 @use './app/constants/fonts.styles.scss' as fonts;
 @use './app/constants/colors.styles.scss' as colors;
+@use './app/styles/forms.styles.scss' as forms;
 
 body {
     font-family: fonts.$MAIN_FONT;
@@ -8,3 +9,12 @@ body {
     --bs-body-font-family: fonts.$MAIN_FONT;
 }
 html, body { height: 100%; }
+
+
+.valid-input {
+    @include forms.input;
+}
+
+.invalid-input {
+    @include forms.invalidInput;
+}
