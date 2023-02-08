@@ -1,6 +1,6 @@
 <div mat-dialog>
     <h1 mat-dialog-title>
-        Agregar/Modificar un usuario
+        {{data.title}}
     </h1>
     <div mat-dialog-content>
         <form id="add-user-form" [formGroup]="formGroup" (ngSubmit)="onSubmit()">
@@ -58,7 +58,8 @@
                 <input 
                     class="valid-input"
                     [appValidInput]="isValidInput('birthDate')"
-                    type="date"
+                    type="text"
+                    onfocus="(this.type='date')"
                     formControlName="birthDate" 
                     placeholder="Fecha de nacimiento" 
                     name="birthDate" 
@@ -70,7 +71,8 @@
                 <input 
                     class="valid-input"
                     [appValidInput]="isValidInput('admissionDate')"
-                    type="date" 
+                    type="text"
+                    onfocus="(this.type='date')"
                     formControlName="admissionDate" 
                     placeholder="Fecha de ingreso" 
                     name="admissionDate" 
@@ -117,7 +119,7 @@
     </div>
     <div id="submit-buttons-container">
         <button mat-button (click)="onCancel()">Cancelar</button>
-        <button mat-raised-button type="submit" form="add-user-form">Crear usuario</button>
+        <button mat-raised-button type="submit" form="add-user-form">{{data.title}}</button>
     </div>
 </div>
 <div *ngIf="formGroup.invalid && submitted">

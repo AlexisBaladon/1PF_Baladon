@@ -27,7 +27,7 @@ export class DashboardComponent {
     const dialogRef = this.dialog.open(AddUserFormComponent, {
       width: '600px',
       data: { 
-        student: null, valid: true,
+        student: null, valid: true, title: 'Agregar usuario'
       }
     });
 

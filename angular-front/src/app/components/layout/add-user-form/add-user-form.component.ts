@@ -14,12 +14,14 @@ import { EMAIL_VALIDATIONS, PASSWORD_VALIDATIONS, SIMPLE_VALIDATIONS } from 'src
 export class AddUserFormComponent {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: {
+      title: string;
       student: Student | null;
       valid: boolean;
     }, private dialogRef: MatDialogRef<AddUserFormComponent>
   ) { }
 
   private defaultStudentData: Student = this.data.student ?? {} as Student;
+
 
   public formGroup = new FormGroup({
     name: new FormControl(this.defaultStudentData.name, SIMPLE_VALIDATIONS),

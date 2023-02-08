@@ -10,7 +10,6 @@ export class LayoutComponent {
 
   public logOut() {
     this.loggingOut.emit();
-    console.log('logOutEvent emitted');
   }
 
 }

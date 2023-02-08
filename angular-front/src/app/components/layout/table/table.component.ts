@@ -31,7 +31,6 @@ export class TableComponent {
   }
 
   ngOnChanges() {
-    console.log(this.students)
     this.dataSource = new MatTableDataSource(this.students);
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
@@ -77,7 +76,7 @@ export class TableComponent {
     const dialogRef = this.dialog.open(AddUserFormComponent, {
       width: '750px',
       data: { 
-        student: student, valid: true,
+        student: student, valid: true, title: 'Modificar usuario'
       }
     });
 
