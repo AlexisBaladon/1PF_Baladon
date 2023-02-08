@@ -25,7 +25,7 @@ export class DashboardComponent {
 
   public openAddStudentDialog() {
     const dialogRef = this.dialog.open(AddUserFormComponent, {
-      width: '750px',
+      width: '600px',
       data: { 
         student: null, valid: true,
       }
@@ -33,12 +33,8 @@ export class DashboardComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if (!result) return;
-      this.students.push(result.student);
+      this.students = [...this.students, result.student];
     });
-  }
-
-  ngOnInit(): void {
-    //this.openAddStudentDialog();
   }
 
 }

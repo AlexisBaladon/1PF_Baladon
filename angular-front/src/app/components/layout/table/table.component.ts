@@ -23,11 +23,18 @@ export class TableComponent {
 
   constructor(public dialog: MatDialog, public el: ElementRef) {}
   public displayedColumns: string[] = ['id', 'name', 'email', 'career', 'admissionDate', 'averageGrade', 'actions'];
-  public console =console
   public dataSource!: MatTableDataSource<Student>;
-  
+
+
   ngOnInit() {
     this.dataSource = new MatTableDataSource(this.students);
+  }
+
+  ngOnChanges() {
+    console.log(this.students)
+    this.dataSource = new MatTableDataSource(this.students);
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
   }
 
   ngAfterViewInit() { 
@@ -79,6 +86,7 @@ export class TableComponent {
 
       const studentIndex = this.students.findIndex(student => student.id === studentId);
       this.students.splice(studentIndex, 1, result.student);
+      this.dataSource = new MatTableDataSource(this.students);
     });
   }
 
@@ -93,6 +101,7 @@ export class TableComponent {
         onConfirm: () => {
           const studentIndex = this.students.findIndex(student => student.id === studentId);
           this.students.splice(studentIndex, 1);
+          this.dataSource = new MatTableDataSource(this.students);
           this.dialog.closeAll()
         },
         onCancel: () => {
