@@ -11,6 +11,9 @@
 #login {
     display: flex;
     flex-direction: row;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     height: 100vh;
     width: 100vw;
     gap: 0;
@@ -43,34 +46,48 @@
         }
 
         h1 {
-            font-size: 2.25rem;
+            font-size: 2rem;
             font-weight: 1000;
         }
 
         p {
-            font-size: 1.1rem;
+            margin: 0;
             color: colors.$NEUTRAL_COLOR;
             width: 70%;
         }
 
-        a {text-decoration: none;}
-
-        .login-forgot-password-text 
-            {text-align: end;}
-
-        .login-continue-with-text, .login-register-text 
-            {text-align: center;}
+        input { height: 2.75rem; }
+        label {  color: colors.$NEUTRAL_COLOR }
+        a { text-decoration: none; }
+        
+        .login-forgot-password-text  {text-align: end;}
+        .login-continue-with-text, .login-register-text {text-align: center;}
 
         #login-button {
             border: solid 1px colors.$LIGHT_COLOR;
             box-shadow: 0 0 3px 0 rgba(0,0,0,0.2);
             border-radius: 5px;
-            width: 70%;
+            width: 70%; height: 2.75rem;
+            background: colors.$LINEAR-GRADIENT-MAIN;
+            color: colors.$LIGHT_COLOR;
+            padding: 2%;
+            font-weight: 501;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            &:hover {opacity: 0.8;}
         }
 
-        input {
+        .user-input-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1%;
             width: 70%;
-            // @include forms.input;
+
+            input {
+                width: 100%;
+            }
         }
 
         form {
@@ -78,19 +95,7 @@
             width: 100%;
         }
 
-        #login-button {
-            background: colors.$LINEAR-GRADIENT-MAIN;
-            color: colors.$LIGHT_COLOR;
-            padding: 2%;
-            font-weight: 501;
-            border: none;
-
-            &:hover {opacity: 0.8;}
-        }
-
-        #login-social {
-            margin-top: -4%;
-            
+        #login-social {          
             button {
                 background-color: transparent;
                 border-color: transparent;
@@ -102,48 +107,45 @@
 
     }
 
-
-    @media only screen and (max-width: 1024px), ( max-height: 600px ) {           
+    @media (max-width: 1024px) {           
         background: linear-gradient(135deg, colors.$MAIN_COLOR, colors.$MAIN_LIGHT_COLOR);
-        padding: 25% 5% ;
+        padding: 5%;
 
-        #login-left {
-            display: none;
-        }
+        #login-left { display: none; }
 
         #login-right {
-            height: 100%;
             background-color: colors.$LIGHT_COLOR;
             border-radius: 12.5px;
             box-shadow: 0 3px 3px 0 rgba(0,0,0,0.25);
             gap : 1%;
     
             #login-title-description {
-                h1 {font-size: 1.5rem; text-align: center}
+                h1 {font-size: 1.25rem; text-align: center}
                 p {display: none}
             }
     
             input, #login-button {
-                font-size: 1rem;
+                font-size: 0.75rem;
                 padding: 0.25rem;
                 margin: 0.25rem 0;
                 height: 2.5rem;
-            }
-    
-            #login-social {
-                margin-top: -15px;
             }
         }
         
     }
 
-    @media ( max-height: 1000px ) and ( orientation: landscape ) {
+    @media ( max-height: 600px ) {
         background: colors.$LIGHT_COLOR;
         padding: 0;
-        
-        input, #login-button {
-            height: 2.9rem;
-        }
+        #login-left { display: none }
+        #login-right { box-shadow: none }
+        input, #login-button {  height: 2.9rem; }
+    }
 
+    @media ( max-width: 1024px ) {
+        #login-left { display: none; }
+        input, #login-button { height: 2.9rem; }
+        #login-right { height: 80vh; }
+        padding: 5%;
     }
 }

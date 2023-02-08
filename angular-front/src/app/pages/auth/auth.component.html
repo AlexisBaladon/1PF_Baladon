@@ -5,49 +5,65 @@
     <section id="login-right">
         <div id="login-title-description">
             <h1>{{hasAccount? '¡Bienvenido nuevamente!' : '¡Bienvenido a Spanford!'}}</h1>
-            <p>En spanford nos aseguramos de que todos nuestros datos sean fácilmente accesibles mediante una interfaz amigable.</p>
+            <p [appFontSize]="'medium'">En spanford nos aseguramos de que todos nuestros datos sean fácilmente accesibles mediante una interfaz amigable.</p>
         </div>
         <form id="login-form" method="GET" (ngSubmit)="onAuth()" [formGroup]="form">
             <div *ngIf="!hasAccount" id="signup-name-container">
+                <div class="user-input-container">
+                    <label [appFontSize]="'medium'"for="name">Nombre</label>
+                    <input 
+                        [appFontSize]="'medium'"
+                        type="text" 
+                        placeholder="Nombre" 
+                        formControlName="name" 
+                        [appValidInput]="isValidInput('name')"
+                    />
+                </div>
+                <div class="user-input-container">
+                    <label [appFontSize]="'medium'"for="surname">Apellido</label>
+                    <input 
+                        [appFontSize]="'medium'"
+                        type="text" 
+                        placeholder="Apellido" 
+                        formControlName="surname"
+                        [appValidInput]="isValidInput('surname')"
+                    />
+                </div>
+            </div>
+            <div class="user-input-container">
+                <label [appFontSize]="'medium'"for="email">Correo electrónico</label>
                 <input 
-                    type="text" 
-                    placeholder="Nombre" 
-                    formControlName="name" 
-                    [appValidInput]="isValidInput('name')"
-                />
-                <input 
-                    type="text" 
-                    placeholder="Apellido" 
-                    formControlName="surname"
-                    [appValidInput]="isValidInput('surname')"
+                    [appFontSize]="'medium'"
+                    type="email" 
+                    placeholder="Correo electrónico" 
+                    formControlName="email" 
+                    [appValidInput]="isValidInput('email')"
                 />
             </div>
-            <input 
-                type="email" 
-                placeholder="Correo electrónico" 
-                formControlName="email" 
-                [appValidInput]="isValidInput('email')"
-            />
-            <input 
-                type="password" 
-                placeholder="Contraseña" 
-                formControlName="password"
-                [appValidInput]="isValidInput('password')"
-            />
+            <div class="user-input-container">
+                <label [appFontSize]="'medium'"for="password">Contraseña</label>
+                    <input 
+                        [appFontSize]="'medium'" 
+                        type="password" 
+                        placeholder="Contraseña" 
+                        formControlName="password"
+                        [appValidInput]="isValidInput('password')"
+                    />
+            </div>
         </form>
-        <p *ngIf="hasAccount" class="login-forgot-password-text">
+        <p [appFontSize]="'medium'" *ngIf="hasAccount" class="login-forgot-password-text">
             <a href="#">¿Olvidaste tu contraseña?</a>
         </p>
         <button id="login-button" type="submit" form="login-form">
             {{hasAccount? 'Iniciar sesión' : 'Regístrate' }}
         </button>
-        <p class="login-continue-with-text">O continua con</p>
+        <p [appFontSize]="'medium'" class="login-continue-with-text">O continua con</p>
         <div id="login-social">
             <button *ngFor="let social of ['google.png', 'facebook.png', 'apple.png']">
                 <img [src]="'assets/images/'+social" [alt]="social" width="35px" height="35px" />
             </button>
         </div>
-        <p class="login-register-text">
+        <p [appFontSize]="'medium'" class="login-register-text">
             {{hasAccount? '¿No tienes una cuenta?' : '¿Ya tienes cuenta?'}}
             <a (click)="changeAuthMode()" href="#">{{hasAccount? 'Regístrate' : 'Inicia sesión'}}</a>
         </p>
