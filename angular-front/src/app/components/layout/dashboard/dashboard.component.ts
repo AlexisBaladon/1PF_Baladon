@@ -23,8 +23,15 @@ export class DashboardComponent {
     this.filters = tree;
   }
 
-  public onStudentsUpdate(students: Student[]) {
-    this.students = students;
+  public onStudentUpdate(student: Partial<Student>) {
+    this.students = this.students.map(s => {
+      if (s.id === student.id) return { ...s, ...student };
+      return s;
+    });
+  }
+
+  public onStudentDelete(id: Student['id']) {
+    this.students = this.students.filter(s => s.id !== id);
   }
 
   public openAddStudentDialog() {

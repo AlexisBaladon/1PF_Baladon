@@ -44,16 +44,6 @@ export class Tree<NodeType, Section> {
         childIndex = index + 1;
         level = node.level + 1;    
       }
-      
-      //node inversion
-      //if (!!node && this.isLeaf(node)) {
-      //  newChild = node.copy();
-      //  newChild.level += 1;
-      //  node.name = name;
-      //  node.type = type;
-      //  node.section = section;
-      //  node.value = value??'';
-      //}
 
       newChild = new FlatNode(type, name, level, false, section, value??'');
 
@@ -81,17 +71,13 @@ export class Tree<NodeType, Section> {
 
     public getChildren(node: FlatNode<NodeType,Section>): FlatNode<NodeType,Section>[] {
 		let nodeIndex = this._tree.indexOf(node);
-		let nextNode = this._tree[nodeIndex + 1];
-		if (!nextNode || nextNode.level <= node.level) {
-			return [];
-		}
-
-		let children: FlatNode<NodeType,Section>[] = [];
-		while (nextNode && nextNode.level > node.level) {
-			children.push(nextNode);
-			nodeIndex += 1;
-			nextNode = this._tree[nodeIndex + 1];
-		}
+    const children: FlatNode<NodeType,Section>[] = [];
+		
+    for (let i = nodeIndex + 1; i < this._tree.length && this._tree[i].level >= node.level + 1; i++) {
+      if (this._tree[i].level === node.level + 1) {
+        children.push(this._tree[i]);
+      }
+    }
 
 		return children;
     }

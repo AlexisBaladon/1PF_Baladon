@@ -14,7 +14,8 @@ import { MatSort } from '@angular/material/sort';
 })
 export class TableComponent {
   @Input() public students!: Student[];
-  @Output() public onStudentsUpdate = new EventEmitter<Student[]>();
+  @Output() public onStudentUpdate = new EventEmitter<Partial<Student>>();
+  @Output() public onStudentDelete = new EventEmitter<Student['id']>();
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -23,7 +24,6 @@ export class TableComponent {
   public dataSource!: MatTableDataSource<Student>;
 
   ngOnChanges() {
-    console.log('ngOnChanges');
     this.restartTable();
   }
 
@@ -71,19 +71,12 @@ export class TableComponent {
 
     const dialogRef = this.dialog.open(AddUserFormComponent, {
       width: '750px',
-      data: { 
-        student: student, valid: true, title: 'Modificar usuario'
-      }
+      data: {  student: student, valid: true, title: 'Modificar usuario' }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (!result || !result.valid) return;
-
-      const editedStudents = this.students.map(student => {
-        if (student.id === result.student.id) return result.student;
-        return student;
-      });
-      this.onStudentsUpdate.emit(editedStudents);
+      this.onStudentUpdate.emit(result.student);
     });
   }
 
@@ -96,8 +89,7 @@ export class TableComponent {
         confirmButtonText: 'Eliminar',
         cancelButtonText: 'Cancelar',
         onConfirm: () => {
-          const filteredStudents = this.students.filter(student => student.id !== studentId);
-          this.onStudentsUpdate.emit(filteredStudents);
+          this.onStudentDelete.emit(studentId);
           this.dialog.closeAll()
         },
         onCancel: () => {
@@ -106,10 +98,6 @@ export class TableComponent {
       }
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (!result) return;
-      this.onStudentsUpdate.emit(this.students);
-    });
   }
 
 }
