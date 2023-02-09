@@ -15,8 +15,7 @@ type FlatNodeLeaf = FlatNode<'LEAF', FilterName>;
 export class FilterPipe implements PipeTransform {
   	private filterFunction = new Map<FilterName, (student: Student, value: string) => boolean>([
 		['Nombre', (student: Student, value: string) => student.name.toLowerCase().includes(value.toLowerCase())],
-		['Promedio', (student: Student, value: string) => student.averageGrade ? student.averageGrade < Number(value): true],
-		['Fecha de ingreso', (student: Student, value: string) => student.admissionDate < new Date(value)]
+		['Promedio', (student: Student, value: string) => student.averageGrade ? student.averageGrade >= Number(value): true],
   	]);
 
   	private logicFilterFunction = new Map([

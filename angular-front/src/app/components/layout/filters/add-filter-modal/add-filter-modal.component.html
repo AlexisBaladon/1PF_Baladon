@@ -4,13 +4,31 @@
         <ng-container  *ngFor="let type of types" >
             <button 
                 *ngIf="!isLeaf(type)" 
-                mat-raised-button color="primary" 
-                (click)="chooseType(type);" 
+                (click)="
+                    chooseType(type); 
+                    switchFilter(false);
+                    selectedType = type;
+                "
+                class="filter-button"
+                [ngClass]="selectedType == type ? 'selected-button' : ''"
+                mat-raised-button 
+                color="primary" 
             >
-                {{type}}
+                {{logicOperatorTitles[type]}}
             </button>
         </ng-container>
-        <button mat-raised-button color="primary" (click)="isOpenFilter = !isOpenFilter">FILTRO</button>
+        <button 
+            class="filter-button"
+            mat-raised-button 
+            color="primary"
+            [ngClass]="selectedType == getLeafType() ? 'selected-button' : ''"
+            (click)="
+                switchFilter();
+                selectedType = getLeafType();   
+            "
+        >
+            FILTRO
+        </button>
     </div>
     <mat-accordion>
         <mat-expansion-panel 
@@ -27,7 +45,22 @@
                         {{filter.name}}
                     </mat-panel-title>
                 </mat-expansion-panel-header>
-                <input [type]="filter.type" (input)="onChange($event)">
+                <p>{{filter.description}}</p>
+                <input
+                    *ngIf="filter.type !== 'range'" 
+                    [type]="filter.type" 
+                    (input)="onChange($event, filter.name)"
+                >
+                <mat-slider *ngIf="filter.type === 'range'"
+                    class="example-margin"
+                    [max]="10"
+                    [min]="0"
+                    [step]="1"
+                    [discrete]="true"
+                    (input)="onChange($event, filter.name)"
+                >
+                <input matSliderThumb />
+                </mat-slider>
            </mat-expansion-panel>
         </mat-expansion-panel>
     </mat-accordion>

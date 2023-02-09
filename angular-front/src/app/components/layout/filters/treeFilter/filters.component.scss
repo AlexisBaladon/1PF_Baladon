@@ -5,6 +5,19 @@
     background-color: colors.$LIGHT_COLOR;
     box-shadow: 0 0 2px 0 rgba(0,0,0,0.2);
     border-radius: 5px;
+    .accordion-button {
+        padding: 1.5rem;
+
+        &:hover {
+            opacity: 0.6;
+            box-shadow: 0 0 15px 0 rgba(0,0,0,0.2);
+        }
+
+        // &:not(.collapsed) {
+        //     background-color: colors.$MAIN_COLOR;
+        //     color: black !important;
+        // }
+    }
 }
 
 #apply-filters-btn {

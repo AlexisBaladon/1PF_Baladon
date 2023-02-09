@@ -2,6 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FilterName } from 'src/app/interfaces/filters';
 import { LogicFilterType, LogicFilterTypes } from '../../../../interfaces/logic-filter-type';
+import { logicOperatorTitles } from 'src/app/constants/filter';
 
 interface Filter {
   name: FilterName;
@@ -20,19 +21,13 @@ export class AddFilterModalComponent {
   public filters: Filter[] = [
     {
       name: 'Nombre',
-      description: 'Nombre o apellido del estudiante (En construcción 👷🏼‍♂️)',
+      description: 'Contiene los caracteres ingresados',
       type: 'text',
     },
     {
       name: 'Promedio',
-      description: 'Promedio del estudiante (En construcción 👷🏼‍♂️)',
+      description: 'Promedio mayor o igual al ingresado',
       type: 'range',
-    },
-    {
-      name: 'Fecha de ingreso',
-      description: 'Fecha de ingreso del estudiante (En construcción 👷🏼‍♂️)',
-      type: 'date',
-      active: true,
     },
   ];
 
@@ -45,9 +40,15 @@ export class AddFilterModalComponent {
     private dialogRef: MatDialogRef<AddFilterModalComponent>
   ) { }
   
-  types = LogicFilterTypes;
+  public logicOperatorTitles = logicOperatorTitles;
+  public types = LogicFilterTypes;
+  public selectedType: LogicFilterType | null = null;
 
-  chooseType(type: LogicFilterType | null) {
+    public switchFilter(value?: boolean) {
+      this.isOpenFilter = value ?? !this.isOpenFilter;
+    }
+
+  public chooseType(type: LogicFilterType | null) {
     if (!type) return;
     this.data.type = type;
   }
@@ -55,7 +56,6 @@ export class AddFilterModalComponent {
   public values = new Map<FilterName, string>([
     ['Nombre', ''],
     ['Promedio', ''],
-    ['Fecha de ingreso', ''],
   ]);
 
   private currentFilter: FilterName | null = null;
@@ -70,7 +70,8 @@ export class AddFilterModalComponent {
     this.dialogRef.close(this.data);
   }
 
-  onChange(event: Event) {
+  onChange(event: Event, filterName: FilterName) {
+    this.chooseFilter(this.filters.find(filter => filter.name === filterName)!);
     const target = event.target as HTMLInputElement;
     this.values.set(this.currentFilter!, target.value);
   }

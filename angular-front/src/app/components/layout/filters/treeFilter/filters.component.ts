@@ -7,6 +7,7 @@ import { LogicFilterType } from '../../../../interfaces/logic-filter-type';
 import { Tree } from 'src/app/logic/filter/tree';
 import type { FlatNode } from '../../../../logic/filter/node';
 import type { FilterName } from '../../../../interfaces/filters';
+import { logicOperatorTitles } from '../../../../constants/filter';
 
 const treeData = new Tree<LogicFilterType, FilterName>();
 
@@ -32,16 +33,8 @@ export class FiltersComponent {
   private _formatValue(type: LogicFilterType, section?: string, value?: string) {
     if (type === 'LEAF' && !!section && !!value) {
       return `${section}: ${value}`;
-    }
-
-    const logicOperatorTitles: { [key in LogicFilterType]: string } = {
-      AND: 'Todos:',
-      OR: 'Alguno:',
-      NOT: 'Ninguno:',
-      LEAF: 'Filtro:',
-    };
-    
-    return logicOperatorTitles[type];
+    }    
+    return `${logicOperatorTitles[type]}:`;
   }
   
   constructor(public dialog: MatDialog) {}

@@ -18,3 +18,8 @@ html, body { height: 100%; }
 .invalid-input {
     @include forms.invalidInput;
 }
+
+.selected-button {
+    background-color: colors.$NEUTRAL_COLOR !important;
+    color: colors.$LIGHT_COLOR !important;
+}

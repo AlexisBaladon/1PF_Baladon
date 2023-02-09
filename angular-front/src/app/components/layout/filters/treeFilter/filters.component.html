@@ -2,14 +2,12 @@
     <div id="accordion" class="accordion">
         <div id="filter-buttons-container">
             <div class="accordion-item">
-                <h2 class="accordion-header">
-                    <p>
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#filter-3">
-                            <mat-icon class="mat-icon-rtl-mirror">filter_list</mat-icon>
-                            Seleccione un filtro:
-                        </button>
-                    </p>
-                </h2>
+                <h1 class="accordion-header">
+                    <button class="accordion-button collapsed bg-warn" type="button" data-bs-toggle="collapse" data-bs-target="#filter-3">
+                        <mat-icon class="mat-icon-rtl-mirror">filter_list</mat-icon>
+                        Seleccione un filtro:
+                    </button>
+                </h1>
                 <div id="filter-3" class="accordion-collapse collapse">
                     <div class="accordion-body">
                         <button *ngIf="!getTreeSize()" mat-button (click)="openDialog()">

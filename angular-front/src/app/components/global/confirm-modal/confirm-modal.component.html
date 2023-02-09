@@ -5,8 +5,8 @@
     <div mat-dialog-content>
         <p>{{data.message}}</p>
     </div>
-    <div id="submit-buttons-container">
-        <button mat-button (click)="data.onConfirm()">{{data.confirmButtonText}}</button>
-        <button mat-raised-button (click)="data.onCancel()">{{data.cancelButtonText}}</button>
+    <div mat-dialog-actions id="submit-buttons-container">
+        <button mat-raised-button color='warn' (click)="data.onConfirm()">{{data.confirmButtonText}}</button>
+        <button mat-button color="warning" (click)="data.onCancel()">{{data.cancelButtonText}}</button>
     </div>
 </div>
