@@ -1,7 +1,8 @@
 import User from './user';
 
 interface Student extends User {
-    averageGrade: number;
+    admissionDate: Date;
+    averageGrade: number | null;
     career: string;
 }
 

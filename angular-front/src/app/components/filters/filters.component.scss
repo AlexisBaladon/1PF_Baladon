@@ -1,8 +1,0 @@
-@use '../../constants/colors.styles' as colors;
-
-#filter-buttons-container {
-    background-color: colors.$LIGHT_COLOR;
-    box-shadow: 0 0 2px 0 rgba(0,0,0,0.2);
-    border-radius: 5px;
-    padding: 2% 3% 3% 3%;
-}

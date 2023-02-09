@@ -1,0 +1,46 @@
+<div mat-dialog id="filter-dialog">
+    <h1 mat-dialog-title [appFontSize]="'large'">Seleccione un filtro</h1>
+    <div class="d-flex justify-content-around" mat-dialog-content>
+        <ng-container  *ngFor="let type of types" >
+            <button 
+                *ngIf="!isLeaf(type)" 
+                mat-raised-button color="primary" 
+                (click)="chooseType(type);" 
+            >
+                {{type}}
+            </button>
+        </ng-container>
+        <button mat-raised-button color="primary" (click)="isOpenFilter = !isOpenFilter">FILTRO</button>
+    </div>
+    <mat-accordion>
+        <mat-expansion-panel 
+            [expanded]="isOpenFilter" 
+            (click)="chooseType(getLeafType())"
+            class="mt-3">
+            <mat-expansion-panel 
+              *ngFor="let filter of filters; let i = index" 
+              [ngClass]="i==0 ? 'mt-3' : ''"
+              (click)="chooseFilter(filter)"
+            >
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        {{filter.name}}
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <input [type]="filter.type" (input)="onChange($event)">
+           </mat-expansion-panel>
+        </mat-expansion-panel>
+    </mat-accordion>
+    <div  class="d-flex justify-content-end">
+        <div mat-dialog-actions>
+            <button mat-button [mat-dialog-close]="''" >Cancelar</button>
+            <button 
+                (click)="onSubmit()"
+                mat-button 
+                cdkFocusInitial
+            >
+                Ok
+            </button>
+        </div>
+    </div>
+</div>

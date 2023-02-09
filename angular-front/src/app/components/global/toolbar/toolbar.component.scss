@@ -1,0 +1,28 @@
+@use '../../../constants/colors.styles' as colors;
+
+$toolbar-height: 10vh;
+
+#toolbar {
+    background-color: colors.$MAIN_COLOR;
+    color: colors.$LIGHT_COLOR;
+    position: sticky;
+    height: $toolbar-height;
+    min-height: $toolbar-height;
+
+    h1 {
+        font-weight: 600;
+        font-size: 1.2rem;
+        display: inline-block;
+        padding-left: 2.5%;
+    }
+}
+
+@media (max-width: 1024px) {
+    #toolbar {
+        height: fit-content;
+
+        .show {
+            padding-bottom: 15px;
+        }
+    }
+}

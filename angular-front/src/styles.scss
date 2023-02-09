@@ -1,8 +1,20 @@
 @use './app/constants/fonts.styles.scss' as fonts;
 @use './app/constants/colors.styles.scss' as colors;
+@use './app/styles/forms.styles.scss' as forms;
 
 body {
     font-family: fonts.$MAIN_FONT;
     background-color: colors.$BACKGROUND_COLOR;
+    --bs-body-bg: colors.$BACKGROUND_COLOR;
     --bs-body-font-family: fonts.$MAIN_FONT;
+}
+html, body { height: 100%; }
+
+
+.valid-input {
+    @include forms.input;
+}
+
+.invalid-input {
+    @include forms.invalidInput;
 }

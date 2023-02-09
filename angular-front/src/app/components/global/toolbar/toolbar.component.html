@@ -1,0 +1,34 @@
+<nav id="toolbar" class="navbar navbar-expand-lg navbar-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">
+      <app-icon [size]="30"></app-icon>
+      <h1 [appFontSize]="'medium'">{{"\<Spanford University />"}}</h1>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a [appFontSize]="'medium'" class="nav-link" href="#">Novedades</a>
+        </li>
+        <li class="nav-item">
+          <a [appFontSize]="'medium'" class="nav-link active" href="#">Estadísticas</a>
+        </li>
+        <li class="nav-item">
+          <a [appFontSize]="'medium'" class="nav-link" href="#">Contacto</a>
+        </li>
+      </ul>
+      <div class="d-flex">
+        <button 
+          [appFontSize]="'small'" 
+          (click)="logOut()" 
+          class="btn btn-outline-light" 
+          type="button"
+        >
+          Cerrar sesión
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>

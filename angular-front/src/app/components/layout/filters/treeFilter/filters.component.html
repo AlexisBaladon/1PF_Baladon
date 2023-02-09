@@ -1,0 +1,55 @@
+<section>
+    <div id="accordion" class="accordion">
+        <div id="filter-buttons-container">
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <p>
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#filter-3">
+                            <mat-icon class="mat-icon-rtl-mirror">filter_list</mat-icon>
+                            Seleccione un filtro:
+                        </button>
+                    </p>
+                </h2>
+                <div id="filter-3" class="accordion-collapse collapse">
+                    <div class="accordion-body">
+                        <button *ngIf="!getTreeSize()" mat-button (click)="openDialog()">
+                            <mat-icon class="mat-icon-rtl-mirror">add</mat-icon>
+                            Agregar filtro
+                        </button>
+                        <button *ngIf="!!getTreeSize()" mat-button (click)="removeAllFilters()">
+                            <mat-icon class="mat-icon-rtl-mirror">delete</mat-icon>
+                            Eliminar todos los filtros
+                        </button>
+                        <cdk-tree [dataSource]="dataSource" [treeControl]="treeControl">
+                            <cdk-tree-node *cdkTreeNodeDef="let node" cdkTreeNodePadding
+                                            [style.display]="shouldRender(node) ? 'flex' : 'none'"
+                                            >
+                                <button mat-icon-button cdkTreeNodeToggle
+                                        [attr.aria-label]="'Toggle ' + getTitle(node)"
+                                        (click)="expand(node)"
+                                        [style.visibility]="isExpandable(node) ? 'visible' : 'hidden'">
+                                    <mat-icon class="mat-icon-rtl-mirror">
+                                        {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+                                    </mat-icon>
+                                </button>
+                                {{getTitle(node)}}
+                                <button *ngIf="!isLeaf(node)" mat-button (click)="openDialog(node)">
+                                    <mat-icon class="mat-icon-rtl-mirror">add</mat-icon>
+                                </button>
+                            </cdk-tree-node>
+                        </cdk-tree>
+                    </div>
+                    <div class="d-flex row p-4 justify-content-end">
+                        <button id="apply-filters-btn" (click)="onFilterClick()" mat-raised-button color="primary" style="width: fit-content">
+                            <mat-icon class="mat-icon-rtl-mirror">done</mat-icon>
+                            Aplicar filtros
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        
+    </div>
+</section>

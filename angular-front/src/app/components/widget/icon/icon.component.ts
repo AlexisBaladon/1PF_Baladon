@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-icon',
@@ -6,7 +6,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./icon.component.scss']
 })
 export class IconComponent {
-  private size = 45;
-  width=this.size; height=this.size;
-  color="#fafafa";
+  @Input() public size!: number;
+  width!: number; height!: number;
+
+  ngOnInit(): void {
+    this.width=this.size; this.height=this.size;
+  }
 }

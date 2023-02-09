@@ -1,0 +1,48 @@
+@use '../toolbar/toolbar.component' as tb;
+@use '../../../constants/colors.styles.scss' as colors;
+
+#left-menu {
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 225px;
+    height: 100vh - tb.$toolbar-height;
+
+    .active { 
+        background-color: colors.$MAIN_COLOR; 
+        color: colors.$LIGHT_COLOR;
+    }
+    a { color: colors.$SEMI-DARK_COLOR; }
+
+    hr {
+        margin-bottom: 0;
+    }
+
+    .nav {
+        flex-wrap: nowrap;
+        
+        .nav-link {    
+            border-radius: 0;
+            width: 100%;
+            padding: 5% 5% 5% 7.5%;
+        }
+    }
+
+    .menu-dropdown-item {
+        border: none;
+        
+        &:hover {
+            background-color: colors.$LIGHT_COLOR;
+            cursor: pointer;
+        }
+    }
+}
+
+.left-menu {
+    width: 0 !important;
+    font-size: 0;
+    *{display: none}
+  }
+  
+ 
+

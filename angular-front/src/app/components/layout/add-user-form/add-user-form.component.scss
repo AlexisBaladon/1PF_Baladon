@@ -1,0 +1,76 @@
+@use '../../../styles/forms.styles' as forms;
+@use '../../../constants/colors.styles' as colors;
+
+$width-input: 80%;
+
+#add-user-form {
+    overflow: none;
+    @include forms.form;
+    padding: (100% - $width-input)/2 0;
+
+    label {
+        text-align: left;
+        align-self: start;
+        padding-left: (100% - $width-input)/2;
+        color: black;
+        color: colors.$NEUTRAL_COLOR;
+    }
+
+    input[type="date"]::-webkit-datetime-edit {
+        color: colors.$NEUTRAL_COLOR;
+    }
+    
+    input[name="user-image"] {
+        width: 50px; height: 50px;
+    }
+
+    #full-name-container {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        width: $width-input;
+
+        input {
+            width: 100%;
+        }
+
+        .full-name-item {
+            width: 48%;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .full-name-item, label {
+            padding: 0;
+        }
+    }
+
+    input {
+        width: 80%;
+    }
+
+    .input-with-label{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+}
+
+#submit-buttons-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    gap: 10px;
+    width: $width-input;
+    margin: 0;
+    padding: 25px 0;
+
+    button[type="submit"] {
+        @include forms.button;
+        width: fit-content;
+    }
+}
