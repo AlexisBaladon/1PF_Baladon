@@ -1,7 +1,4 @@
-import { Component, ElementRef, Input, ViewChild } from '@angular/core';
-import type { FilterName } from 'src/app/interfaces/filters';
-import type { LogicFilterType } from 'src/app/interfaces/logic-filter-type';
-import type { Tree } from 'src/app/logic/filter/tree';
+import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import Student from 'src/app/interfaces/student';
 import { AddUserFormComponent } from '../add-user-form/add-user-form.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -16,8 +13,8 @@ import { MatSort } from '@angular/material/sort';
   styleUrls: ['./table.component.scss']
 })
 export class TableComponent {
-  @Input() public filters: Tree<LogicFilterType, FilterName> | undefined;
   @Input() public students!: Student[];
+  @Output() public onStudentsUpdate = new EventEmitter<Student[]>();
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -25,20 +22,19 @@ export class TableComponent {
   public displayedColumns: string[] = ['id', 'name', 'email', 'career', 'admissionDate', 'averageGrade', 'actions'];
   public dataSource!: MatTableDataSource<Student>;
 
-
-  ngOnInit() {
-    this.dataSource = new MatTableDataSource(this.students);
+  ngOnChanges() {
+    console.log('ngOnChanges');
+    this.restartTable();
   }
 
-  ngOnChanges() {
+  private restartTable() {
     this.dataSource = new MatTableDataSource(this.students);
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
   }
 
   ngAfterViewInit() { 
-    this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;
+    this.restartTable();
     this.el.nativeElement
     .querySelectorAll('.mat-sort-header-arrow')
     .forEach((arrow: any) => (arrow.style.color = 'white'));
@@ -83,9 +79,11 @@ export class TableComponent {
     dialogRef.afterClosed().subscribe(result => {
       if (!result || !result.valid) return;
 
-      const studentIndex = this.students.findIndex(student => student.id === studentId);
-      this.students.splice(studentIndex, 1, result.student);
-      this.dataSource = new MatTableDataSource(this.students);
+      const editedStudents = this.students.map(student => {
+        if (student.id === result.student.id) return result.student;
+        return student;
+      });
+      this.onStudentsUpdate.emit(editedStudents);
     });
   }
 
@@ -98,9 +96,8 @@ export class TableComponent {
         confirmButtonText: 'Eliminar',
         cancelButtonText: 'Cancelar',
         onConfirm: () => {
-          const studentIndex = this.students.findIndex(student => student.id === studentId);
-          this.students.splice(studentIndex, 1);
-          this.dataSource = new MatTableDataSource(this.students);
+          const filteredStudents = this.students.filter(student => student.id !== studentId);
+          this.onStudentsUpdate.emit(filteredStudents);
           this.dialog.closeAll()
         },
         onCancel: () => {
@@ -111,7 +108,7 @@ export class TableComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if (!result) return;
-      this.students.push(result.student);
+      this.onStudentsUpdate.emit(this.students);
     });
   }
 

@@ -7,6 +7,7 @@ import { jsonParser } from 'src/app/utils/jsonParser';
 import { AddUserFormComponent } from '../add-user-form/add-user-form.component';
 import * as databaseStudents from 'src/assets/data/students.json';
 import Student from 'src/app/interfaces/student';
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -14,14 +15,17 @@ import Student from 'src/app/interfaces/student';
 })
 export class DashboardComponent {
   public filters: Tree<LogicFilterType, FilterName> | undefined;
+  constructor(public dialog: MatDialog) {}
+
+  public students = jsonParser<Student>(databaseStudents)
 
   public onTreeEmitter(tree: Tree<LogicFilterType, FilterName>) {
     this.filters = tree;
   }
 
-  constructor(public dialog: MatDialog) {}
-
-  public students = jsonParser<Student>(databaseStudents)
+  public onStudentsUpdate(students: Student[]) {
+    this.students = students;
+  }
 
   public openAddStudentDialog() {
     const dialogRef = this.dialog.open(AddUserFormComponent, {

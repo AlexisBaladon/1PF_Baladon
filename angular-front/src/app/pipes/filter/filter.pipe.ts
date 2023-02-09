@@ -10,7 +10,6 @@ type TreeFilter = Tree<LogicFilterType, FilterName>;
 
 @Pipe({
   name: 'filter',
-  pure: false
 })
 export class FilterPipe implements PipeTransform {
   private filterFunction = new Map([

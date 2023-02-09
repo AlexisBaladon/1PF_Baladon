@@ -34,17 +34,16 @@ export class FiltersComponent {
       return `${section}: ${value}`;
     }
 
-    const logicalOperatorTitles: { [key in LogicFilterType]: string } = {
+    const logicOperatorTitles: { [key in LogicFilterType]: string } = {
       AND: 'Todos:',
       OR: 'Alguno:',
       NOT: 'Ninguno:',
       LEAF: 'Filtro:',
     };
     
-    return logicalOperatorTitles[type];
+    return logicOperatorTitles[type];
   }
   
-  //DIALOG
   constructor(public dialog: MatDialog) {}
 
   public removeAllFilters() {

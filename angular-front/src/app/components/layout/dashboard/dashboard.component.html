@@ -17,6 +17,6 @@
         <div class="mb-5">
             <app-filters (treeEmitter)="onTreeEmitter($event)"></app-filters>
         </div>
-        <app-table [students]="students" [filters]="filters"></app-table>
+        <app-table (onStudentsUpdate)="onStudentsUpdate($event)" [students]="students | filter: filters"></app-table>
     </section>
 </div>
