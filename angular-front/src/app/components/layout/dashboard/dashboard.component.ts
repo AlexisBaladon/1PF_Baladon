@@ -3,10 +3,10 @@ import { MatDialog } from '@angular/material/dialog';
 import type { FilterName } from 'src/app/interfaces/filters';
 import type { LogicFilterType } from 'src/app/interfaces/logic-filter-type';
 import type { Tree } from 'src/app/logic/filter/tree';
-import { jsonParser } from 'src/app/utils/jsonParser';
 import { AddUserFormComponent } from '../add-user-form/add-user-form.component';
-import * as databaseStudents from 'src/assets/data/students.json';
 import Student from 'src/app/interfaces/student';
+import { UserService } from 'src/app/services/users/user.service';
+import { BehaviorSubject, Subject, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
@@ -14,10 +14,18 @@ import Student from 'src/app/interfaces/student';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent {
+  constructor(public dialog: MatDialog, public userService: UserService) {}
+  public students: Student[] = [];
+  public students$!: Subscription;
   public filters: Tree<LogicFilterType, FilterName> | undefined;
-  constructor(public dialog: MatDialog) {}
 
-  public students = jsonParser<Student>(databaseStudents)
+  ngOnInit() {
+    this.students$ = this.userService.getStudents().subscribe(students => this.students = students);
+  }
+
+  ngOnDestroy() {
+    this.students$.unsubscribe();
+  }
 
   public onTreeEmitter(tree: Tree<LogicFilterType, FilterName>) {
     this.filters = tree;

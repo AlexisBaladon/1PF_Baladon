@@ -22,6 +22,7 @@ import { ValidInputDirective } from './directives/valid-input/valid-input.direct
 import { FullNamePipe } from './pipes/users/full-name/full-name.pipe';
 import { FontSizeDirective } from './directives/fonts/size/font-size.directive';
 import { LayoutComponent } from './pages/layout/layout/layout.component';
+import { ServicesModule } from './services/services.module';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { LayoutComponent } from './pages/layout/layout/layout.component';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     MaterialModule,
+    ServicesModule
   ],
   providers: [],
   bootstrap: [AppComponent]
