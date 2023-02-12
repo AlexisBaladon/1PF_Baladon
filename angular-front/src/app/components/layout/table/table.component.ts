@@ -6,6 +6,8 @@ import { ConfirmModalComponent } from '../../global/confirm-modal/confirm-modal.
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
+import { UserService } from 'src/app/services/users/user.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-table',
@@ -13,24 +15,29 @@ import { MatSort } from '@angular/material/sort';
   styleUrls: ['./table.component.scss']
 })
 export class TableComponent {
-  @Input() public students!: Student[];
-  @Output() public onStudentUpdate = new EventEmitter<Partial<Student>>();
-  @Output() public onStudentDelete = new EventEmitter<Student['id']>();
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-
-  constructor(public dialog: MatDialog, public el: ElementRef) {}
+  private students: Student[] = [];
+  public students$!: Subscription;
   public displayedColumns: string[] = ['id', 'name', 'email', 'career', 'admissionDate', 'averageGrade', 'actions'];
   public dataSource!: MatTableDataSource<Student>;
-
-  ngOnChanges() {
-    this.restartTable();
-  }
+  constructor(public dialog: MatDialog, public el: ElementRef, private userService: UserService) {}
 
   private restartTable() {
     this.dataSource = new MatTableDataSource(this.students);
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
+  }
+
+  ngOnInit() {
+    this.students$ = this.userService.getFilteredStudents().subscribe(students => {
+      this.students = students;
+      this.restartTable();
+    });
+  }
+
+  ngOnDestroy() {
+    this.students$.unsubscribe();
   }
 
   ngAfterViewInit() { 
@@ -75,13 +82,14 @@ export class TableComponent {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (!result || !result.valid) return;
-      this.onStudentUpdate.emit(result.student);
+      const resultStudent = result?.student;
+      if (!resultStudent) return;
+      this.userService.updateStudent(result.student);
     });
   }
 
   public onDeleteStudent(studentId: Student['id']) {
-    const dialogRef = this.dialog.open(ConfirmModalComponent, {
+    this.dialog.open(ConfirmModalComponent, {
       width: '400px',
       data: {
         title: 'Eliminar estudiante',
@@ -89,7 +97,7 @@ export class TableComponent {
         confirmButtonText: 'Eliminar',
         cancelButtonText: 'Cancelar',
         onConfirm: () => {
-          this.onStudentDelete.emit(studentId);
+          this.userService.deleteStudent(studentId);
           this.dialog.closeAll()
         },
         onCancel: () => {

@@ -8,6 +8,7 @@ import { Tree } from 'src/app/logic/filter/tree';
 import type { FlatNode } from '../../../../logic/filter/node';
 import type { FilterName } from '../../../../interfaces/filters';
 import { logicOperatorTitles } from '../../../../constants/filter';
+import { UserService } from 'src/app/services/users/user.service';
 
 const treeData = new Tree<LogicFilterType, FilterName>();
 
@@ -19,17 +20,14 @@ type FlatNodeFilter = FlatNode<LogicFilterType, FilterName>;
   styleUrls: ['./filters.component.scss']
 })
 export class FiltersComponent {
-  @Output() public treeEmitter = new EventEmitter<Tree<LogicFilterType, FilterName>>();
-
   public treeControl = new FlatTreeControl<FlatNodeFilter>(
     node => node.level,
     node => treeData.hasChildren(node),
   );
-
+  
   public dataSource = new ArrayDataSource(treeData.tree);
   public treeSize = treeData.getTreeSize();
 
-  
   private _formatValue(type: LogicFilterType, section?: string, value?: string) {
     if (type === 'LEAF' && !!section && !!value) {
       return `${section}: ${value}`;
@@ -37,7 +35,7 @@ export class FiltersComponent {
     return `${logicOperatorTitles[type]}:`;
   }
   
-  constructor(public dialog: MatDialog) {}
+  constructor(public dialog: MatDialog, private userService: UserService) {}
 
   public removeAllFilters() {
     treeData.chopTree();
@@ -89,7 +87,7 @@ export class FiltersComponent {
   }
 
   public onFilterClick() {
-    this.treeEmitter.emit(treeData.deepCopy()); 
+      this.userService.setStudentFilters(treeData);
   }
 
 }

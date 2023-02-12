@@ -1,4 +1,4 @@
-import { BehaviorSubject, filter, map, Observable, of } from 'rxjs';
+import { BehaviorSubject, map, Observable, Subject } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { FilterName } from 'src/app/interfaces/filters';
 import { LogicFilterType } from 'src/app/interfaces/logic-filter-type';
@@ -6,13 +6,16 @@ import Student from 'src/app/interfaces/student';
 import { Tree } from 'src/app/logic/filter/tree';
 import { jsonParser } from 'src/app/utils/jsonParser';
 import * as students from 'src/assets/data/students.json';
+import { FilterPipe } from 'src/app/pipes/filter/filter.pipe';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
+	private filters: Tree<LogicFilterType, FilterName> | undefined;
     private students: Student[] = jsonParser<Student>(students);
 	private students$: BehaviorSubject<Student[]> = new BehaviorSubject(this.students);
+	constructor(private filterPipe: FilterPipe) {}
 
 	public getStudents(): Observable<Student[]> {
 		return this.students$.asObservable();
@@ -35,10 +38,15 @@ export class UserService {
 		this.students = this.students.filter(s => s.id !== id);
 		this.students$.next(this.students);
 	}
+
+	public setStudentFilters(filters: Tree<LogicFilterType, FilterName> | undefined): void {
+		this.filters = filters;
+		this.students$.next(this.students.slice());
+	}
 		
-	public getFilteredStudents(filters: Tree<LogicFilterType, FilterName>): Observable<Student[]> {
+	public getFilteredStudents(): Observable<Student[]> {
 		return this.students$.pipe(
-			map(students => students.filter(student => true))//filters.evaluate(student)))
+			map(students => this.filterPipe.transform(students, this.filters))
 		);
 	}
 }

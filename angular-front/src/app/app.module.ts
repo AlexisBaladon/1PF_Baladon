@@ -52,7 +52,7 @@ import { ServicesModule } from './services/services.module';
     MaterialModule,
     ServicesModule
   ],
-  providers: [],
+  providers: [FilterPipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

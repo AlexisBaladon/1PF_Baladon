@@ -25,12 +25,13 @@ export class FilterPipe implements PipeTransform {
   	]);
   
 	private isValidStudent(node: FlatNodeLeaf, student: Student): boolean {
+		console.log(node, this.filterFunction);
 		const filter = node.section? this.filterFunction.get(node.section): null;
 		const isValid = filter ? filter(student, node.value) : false;
 		return isValid;
 	}
 
-	private isValid(node: FlatNodeFilter, student: Student, treeData: TreeFilter): boolean {
+	public isValid(node: FlatNodeFilter, student: Student, treeData: TreeFilter): boolean {
 		if (!node) return true;
 		if (node.type === 'LEAF') return this.isValidStudent(node as FlatNodeLeaf, student);
 		
@@ -42,11 +43,13 @@ export class FilterPipe implements PipeTransform {
 		return isValid;
 	}
 
-	transform(students: Student[], treeData: TreeFilter | undefined): Student[] {
-		if (!treeData || !treeData.tree[0]) return students;
-
+	public transform(students: Student[] | null, treeData: TreeFilter | undefined): Student[] {
+		if (!students) return [];
+		const treeRoot = treeData?.tree[0];
+		if (!treeRoot) return students;
+		console.log(treeRoot);
 		return students.filter((student: Student) => {
-			return this.isValid(treeData.tree[0], student, treeData)
+			return this.isValid(treeRoot, student, treeData)
 		});
 	}
 
