@@ -29,6 +29,12 @@
 
     mat-mdc-paginator-range-actions { color: colors.$MAIN_COLOR }
 
+    .edit-icon { 
+        background-color: colors.$MAIN_COLOR;
+        transform: scale(0.6);
+    }
+
+
 }
 
 #students-paginator-container {
