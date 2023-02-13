@@ -1,52 +1,61 @@
 import { BehaviorSubject, map, Observable, Subject } from 'rxjs';
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { FilterName } from 'src/app/interfaces/filters';
 import { LogicFilterType } from 'src/app/interfaces/logic-filter-type';
-import Student from 'src/app/interfaces/student';
-import { jsonParser } from 'src/app/utils/jsonParser';
-import * as students from 'src/assets/data/students.json';
 import { FilterPipe } from 'src/app/pipes/filter/filter.pipe';
 import { LogicNode } from 'src/app/logic/filter/logicNode';
+import { Filterable } from 'src/app/logic/filter/filterable';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UserService {
+export class UserService<F extends Filterable> {
 	private filters: LogicNode<LogicFilterType, FilterName> | null = null;
-    private students: Student[] = jsonParser<Student>(students);
-	private students$: BehaviorSubject<Student[]> = new BehaviorSubject(this.students);
-	constructor(private filterPipe: FilterPipe) {}
+	constructor(private filterPipe: FilterPipe, @Inject('filterableData') private filterableData: F[]) {}
+	private filterableData$: BehaviorSubject<F[]> = new BehaviorSubject(this.filterableData);
 
-	public getStudents(): Observable<Student[]> {
-		return this.students$.asObservable();
+	public getData(): Observable<F[]> {
+		return this.filterableData$.asObservable();
 	}
 
-	public addStudent(student: Student): void {
-		this.students = [...this.students, student];
-		this.students$.next(this.students);
+	public addData(filterableData: F): void {
+		this.filterableData = [...this.filterableData, filterableData];
+		this.filterableData$.next(this.filterableData);
 	}
 
-	public updateStudent(studentData: Partial<Student>): void {
-		this.students = this.students.map(s => {
-			if (s.id === studentData.id) return { ...s, ...studentData };
+	public updateData(filterableData: Partial<F>): void {
+		this.filterableData = this.filterableData.map(s => {
+			if (s.id === filterableData.id) return { ...s, ...filterableData };
 			return s;
 		});
-		this.students$.next(this.students);
+		this.filterableData$.next(this.filterableData);
 	}
 
-	public deleteStudent(id: Student['id']): void {
-		this.students = this.students.filter(s => s.id !== id);
-		this.students$.next(this.students);
+	public deleteStudent(id: F['id']): void {
+		this.filterableData = this.filterableData.filter(f => f.id !== id);
+		this.filterableData$.next(this.filterableData);
 	}
 
 	public setStudentFilters(filters: LogicNode<LogicFilterType, FilterName> | null): void {
 		this.filters = filters;
-		this.students$.next(this.students.slice());
+		this.filterableData$.next(this.filterableData.slice());
 	}
 		
-	public getFilteredStudents(): Observable<Student[]> {
-		return this.students$.pipe(
-			map(students => this.filterPipe.transform(students, this.filters) as Student[])
+	public getFilteredStudents(): Observable<F[]> {
+		return this.filterableData$.pipe(
+			map(students => this.filterPipe.transform(this.filterableData, this.filters) as F[])
 		);
 	}
+
+	//use typescript to infer F attribute types as returned values
+	public getFilterableAttributes(): Observable<string[]> {
+		return this.filterableData$.pipe(
+			map(students => {
+				if (students.length === 0) return [];
+				const student = students[0];
+				return student.getShownAttributes();
+			})
+		);
+	}
+
 }

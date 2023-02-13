@@ -1,10 +1,36 @@
 import { Filterable } from '../logic/filter/filterable';
 import User from './user';
 
-interface Student extends User, Filterable {
+class Student extends Filterable implements User {
+    name: string;
+    surname: string;
+    birthDate: Date;
+    phone: string;
+    city: string;
+    email: string;
+    password: string;
     admissionDate: Date;
     averageGrade: number | null;
     career: string;
+    
+    getShownAttributes(): (Partial<keyof Student>)[] {
+        return ['id', 'name', 'email', 'career', 'admissionDate', 'averageGrade']
+    }
+
+    constructor(id: string, name: string, surname: string, birthDate: Date, phone: string, city: string, email: string, password: string, admissionDate: Date, averageGrade: number | null, career: string) {
+        super(id);
+        this.name = name;
+        this.surname = surname;
+        this.birthDate = birthDate;
+        this.phone = phone;
+        this.city = city;
+        this.email = email;
+        this.password = password;
+        this.admissionDate = admissionDate;
+        this.averageGrade = averageGrade;
+        this.career = career;
+    }
+    
 }
 
 export function isStudent(filter: Filterable): filter is Student {

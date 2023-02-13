@@ -10,6 +10,8 @@ import { UserService } from 'src/app/services/users/user.service';
 import { LogicNode } from 'src/app/logic/filter/logicNode';
 import { ArrayDataSource } from '@angular/cdk/collections';
 import { LogicNodeFactory } from 'src/app/logic/filter/logicNodeFactory';
+import { FilterOption } from 'src/app/constants/text';
+import { Filterable } from 'src/app/logic/filter/filterable';
 
 type FlatLogicNode = LogicNode<LogicFilterType, FilterName>;
 let treeData: FlatLogicNode | null = null;
@@ -19,8 +21,9 @@ let treeData: FlatLogicNode | null = null;
   styleUrls: ['./filters.component.scss']
 })
 export class FiltersComponent {
-  constructor(public dialog: MatDialog, private userService: UserService) {}
+  constructor(public dialog: MatDialog, private userService: UserService<Filterable>) {}
   @Input() public filterableType!: string;
+  @Input() public filters!: FilterOption[];
   public treeControl = new FlatTreeControl<FlatLogicNode>(
     node => node.level,
     node => treeData !== null && node.hasChildren(),
@@ -74,7 +77,7 @@ export class FiltersComponent {
   public openDialog(node: FlatLogicNode | null = null) {
     const dialogRef = this.dialog.open(AddFilterModalComponent, {
       width: '500px',
-      data: { type: null, section: null, value: null }
+      data: { type: null, section: null, value: null, filters: this.filters }
     });
 
     dialogRef.afterClosed().subscribe((result: {

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { NAV_ROUTES, DASHBOARD_TEXT } from 'src/app/constants/text';
+import { NAV_ROUTES, DASHBOARD_TEXT, FILTER_OPTIONS } from 'src/app/constants/text';
 
 @Component({
   selector: 'app-layout',
@@ -12,6 +12,8 @@ export class LayoutComponent {
   private routes = ['Home', 'Students', 'Courses', 'General'];
   private dashboardRoutes = ['Students', 'Courses'];
   public currentRoute = 'Students';
+  public filterOptions = FILTER_OPTIONS;
+  
 
   public changeRoute(route: number) {
     this.currentRoute = this.routes[route];

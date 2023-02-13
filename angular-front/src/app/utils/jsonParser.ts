@@ -4,3 +4,19 @@ import Student from '../interfaces/student'
 export function jsonParser<T>(objects: Array<any>): T[] {
     return JSON.parse(JSON.stringify(objects)).default
 }
+
+export function studentCreator(students: Student[]): Student[] {
+    return students.map(s => new Student(
+        s.id,
+        s.name,
+        s.surname,
+        new Date(s.birthDate),
+        s.phone,
+        s.city,
+        s.email,
+        s.password,
+        s.admissionDate,
+        s.averageGrade,
+        s.career
+    ))
+}

@@ -54,20 +54,20 @@ export class AddUserFormComponent {
 
     const formValues = this.formGroup.value;
 
-    const student: Student = {
-      id: this.data.student?.id ?? generateId(),
-      name: formValues.name ?? '',
-      surname: formValues.surname ?? '',
-      email: formValues.email ?? '',
-      password: formValues.password ?? '',
-      birthDate: formValues.birthDate ?? new Date(),
-      admissionDate: formValues.admissionDate ?? new Date(),
-      phone: formValues.phone ?? '',
-      city: formValues.city ?? '',
-      career: formValues.career ?? '',
-      averageGrade: this.data.student?.averageGrade ?? null ?? 0,
-    };
-
+    const student = new Student(
+      this.data.student?.id ?? generateId(),
+      formValues.name ?? '',
+      formValues.surname ?? '',
+      formValues.birthDate ?? new Date(),
+      formValues.phone ?? '',
+      formValues.city ?? '',
+      formValues.email ?? '',
+      formValues.password ?? '',
+      formValues.admissionDate ?? new Date(),
+      this.data.student?.averageGrade ?? null ?? 0,
+      formValues.career ?? '',
+    );
+    
     this.data.student = student;
     this.data.valid = true;
     this.dialogRef.close(this.data);

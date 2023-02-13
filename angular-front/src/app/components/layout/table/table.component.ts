@@ -1,5 +1,5 @@
-import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
-import Student from 'src/app/interfaces/student';
+import { Component, ElementRef, ViewChild } from '@angular/core';
+import Student, { isStudent } from 'src/app/interfaces/student';
 import { AddUserFormComponent } from '../add-user-form/add-user-form.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmModalComponent } from '../../global/confirm-modal/confirm-modal.component';
@@ -8,6 +8,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { UserService } from 'src/app/services/users/user.service';
 import { Subscription } from 'rxjs';
+import { Filterable } from 'src/app/logic/filter/filterable';
 
 @Component({
   selector: 'app-table',
@@ -17,11 +18,12 @@ import { Subscription } from 'rxjs';
 export class TableComponent {
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  private students: Student[] = [];
+  private students: Filterable[] = [];
   public students$!: Subscription;
-  public displayedColumns: string[] = ['id', 'name', 'email', 'career', 'admissionDate', 'averageGrade', 'actions'];
-  public dataSource!: MatTableDataSource<Student>;
-  constructor(public dialog: MatDialog, public el: ElementRef, private userService: UserService) {}
+  public displayedColumns: string[] = [];
+  public displayedColumns$!: Subscription;
+  public dataSource!: MatTableDataSource<Filterable>;
+  constructor(public dialog: MatDialog, public el: ElementRef, private userService: UserService<Filterable>) {}
 
   private restartTable() {
     this.dataSource = new MatTableDataSource(this.students);
@@ -30,6 +32,9 @@ export class TableComponent {
   }
 
   ngOnInit() {
+    this.displayedColumns$ = this.userService.getFilterableAttributes().subscribe(attributes => {
+      this.displayedColumns = [...attributes, 'actions'];
+    });
     this.students$ = this.userService.getFilteredStudents().subscribe(students => {
       this.students = students;
       this.restartTable();
@@ -38,6 +43,7 @@ export class TableComponent {
 
   ngOnDestroy() {
     this.students$.unsubscribe();
+    this.displayedColumns$.unsubscribe();
   }
 
   ngAfterViewInit() { 
@@ -61,6 +67,7 @@ export class TableComponent {
     const direction = event.direction;
     this.dataSource.data = this.students.sort((a, b) => {
       const isAsc = direction === 'asc';
+      if (isStudent(a) && isStudent(b)) //TODO: This is a hack, fix it
       switch (sort) {
         case 'id': return this.compare(a.id, b.id, isAsc);
         case 'name': return this.compare(a.name, b.name, isAsc);
@@ -70,6 +77,7 @@ export class TableComponent {
         case 'averageGrade': return this.compare(a.averageGrade, b.averageGrade, isAsc);
         default: return 0;
       }
+      return 0;
     });
   }
 
@@ -84,7 +92,7 @@ export class TableComponent {
     dialogRef.afterClosed().subscribe(result => {
       const resultStudent = result?.student;
       if (!resultStudent) return;
-      this.userService.updateStudent(result.student);
+      this.userService.updateData(result.student);
     });
   }
 
