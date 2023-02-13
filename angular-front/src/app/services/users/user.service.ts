@@ -3,16 +3,16 @@ import { Injectable } from '@angular/core';
 import { FilterName } from 'src/app/interfaces/filters';
 import { LogicFilterType } from 'src/app/interfaces/logic-filter-type';
 import Student from 'src/app/interfaces/student';
-import { Tree } from 'src/app/logic/filter/tree';
 import { jsonParser } from 'src/app/utils/jsonParser';
 import * as students from 'src/assets/data/students.json';
 import { FilterPipe } from 'src/app/pipes/filter/filter.pipe';
+import { LogicNode } from 'src/app/logic/filter/logicNode';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-	private filters: Tree<LogicFilterType, FilterName> | undefined;
+	private filters: LogicNode<LogicFilterType, FilterName> | null = null;
     private students: Student[] = jsonParser<Student>(students);
 	private students$: BehaviorSubject<Student[]> = new BehaviorSubject(this.students);
 	constructor(private filterPipe: FilterPipe) {}
@@ -39,14 +39,14 @@ export class UserService {
 		this.students$.next(this.students);
 	}
 
-	public setStudentFilters(filters: Tree<LogicFilterType, FilterName> | undefined): void {
+	public setStudentFilters(filters: LogicNode<LogicFilterType, FilterName> | null): void {
 		this.filters = filters;
 		this.students$.next(this.students.slice());
 	}
 		
 	public getFilteredStudents(): Observable<Student[]> {
 		return this.students$.pipe(
-			map(students => this.filterPipe.transform(students, this.filters))
+			map(students => this.filterPipe.transform(students, this.filters) as Student[])
 		);
 	}
 }

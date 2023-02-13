@@ -10,11 +10,11 @@
                 </h1>
                 <div id="filter-3" class="accordion-collapse collapse">
                     <div class="accordion-body">
-                        <button *ngIf="!getTreeSize()" mat-button (click)="openDialog()">
+                        <button *ngIf="isEmptyTree()" mat-button (click)="openDialog()">
                             <mat-icon class="mat-icon-rtl-mirror">add</mat-icon>
                             Agregar filtro
                         </button>
-                        <button *ngIf="!!getTreeSize()" mat-button (click)="removeAllFilters()">
+                        <button *ngIf="!isEmptyTree()" mat-button (click)="removeAllFilters()">
                             <mat-icon class="mat-icon-rtl-mirror">delete</mat-icon>
                             Eliminar todos los filtros
                         </button>
