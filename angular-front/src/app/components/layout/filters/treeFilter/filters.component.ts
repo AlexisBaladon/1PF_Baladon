@@ -54,7 +54,6 @@ export class FiltersComponent {
 
   public shouldRender(node: FlatLogicNode) {
     const res = node.level === 0 || node.isParentExpanded();
-    console.log('PARENT', node.parentNode?.isExpanded, node.level);
     return res;
   }
 
@@ -88,9 +87,7 @@ export class FiltersComponent {
         const newNode = LogicNodeFactory.createNode(this.filterableType, result.type, result.section, result.value, title, node);
         if (node === null) { treeData = newNode; } 
         else { node.addChild(newNode); }
-        console.log(treeData);
         this.dataSource = this.createDataSource();
-        console.log(this.dataSource);
     });
   }
 

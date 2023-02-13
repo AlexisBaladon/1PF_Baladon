@@ -5,6 +5,7 @@ import { LogicFilterType } from 'src/app/interfaces/logic-filter-type';
 import { FilterPipe } from 'src/app/pipes/filter/filter.pipe';
 import { LogicNode } from 'src/app/logic/filter/logicNode';
 import { Filterable } from 'src/app/logic/filter/filterable';
+import { DASHBOARD_TEXT } from 'src/app/constants/text';
 
 @Injectable({
   providedIn: 'root'
@@ -47,13 +48,17 @@ export class UserService<F extends Filterable> {
 		);
 	}
 
-	//use typescript to infer F attribute types as returned values
-	public getFilterableAttributes(): Observable<string[]> {
+	public getFilterableAttributes(): Observable<{ attribute: string; attributeName: string }[]> {
 		return this.filterableData$.pipe(
 			map(students => {
 				if (students.length === 0) return [];
 				const student = students[0];
-				return student.getShownAttributes();
+				return student.getShownAttributes().map(attribute => {
+					return {
+						attribute,
+						attributeName: DASHBOARD_TEXT['Students'].attributeNames[attribute]
+					};
+				});
 			})
 		);
 	}

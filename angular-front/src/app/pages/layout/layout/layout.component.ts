@@ -14,7 +14,6 @@ export class LayoutComponent {
   public currentRoute = 'Students';
   public filterOptions = FILTER_OPTIONS;
   
-
   public changeRoute(route: number) {
     this.currentRoute = this.routes[route];
   }
@@ -28,7 +27,6 @@ export class LayoutComponent {
   }
 
   public getDashboardText() {
-    console.log(this.currentRoute);
     if (!this.dashboardRoutes.includes(this.currentRoute)) return null;
     return DASHBOARD_TEXT[this.currentRoute];
   }

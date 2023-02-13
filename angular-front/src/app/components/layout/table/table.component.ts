@@ -21,10 +21,10 @@ export class TableComponent {
   private students: Filterable[] = [];
   public students$!: Subscription;
   public displayedColumns: string[] = [];
+  public displayedColumnData: { attribute: string; attributeName: string }[] = [];
   public displayedColumns$!: Subscription;
   public dataSource!: MatTableDataSource<Filterable>;
   constructor(public dialog: MatDialog, public el: ElementRef, private userService: UserService<Filterable>) {}
-
   private restartTable() {
     this.dataSource = new MatTableDataSource(this.students);
     this.dataSource.sort = this.sort;
@@ -33,7 +33,8 @@ export class TableComponent {
 
   ngOnInit() {
     this.displayedColumns$ = this.userService.getFilterableAttributes().subscribe(attributes => {
-      this.displayedColumns = [...attributes, 'actions'];
+      this.displayedColumnData = attributes;
+      this.displayedColumns = attributes.map(a => a.attribute).concat(['actions']);
     });
     this.students$ = this.userService.getFilteredStudents().subscribe(students => {
       this.students = students;

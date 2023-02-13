@@ -6,48 +6,9 @@
         [dataSource]="dataSource"
         class="mat-elevation-z8"
     >
-        <ng-container matColumnDef="id">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by id"> No. </th>
-            <td mat-cell *matCellDef="let student"> {{student.id}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name"> Nombre </th>
-        <td mat-cell *matCellDef="let student"> {{student | fullName}} </td>
-        </ng-container>
-    
-        <ng-container matColumnDef="email">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by email">
-            E-mail 
-        </th>
-        <td mat-cell *matCellDef="let student"> {{student.email}} </td>
-        </ng-container>
-    
-        <ng-container matColumnDef="career">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by career"> Carrera </th>
-            <td mat-cell *matCellDef="let student"> {{student.career}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="admissionDate">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by admission date">
-                Fecha de ingreso 
-            </th>
-            <td mat-cell *matCellDef="let student"> {{student.admissionDate | date:'dd/MM/yyyy'}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="averageGrade">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by admission average grade">
-                Promedio 
-            </th>
-            <td mat-cell *matCellDef="let student">
-                <ng-container *ngIf="student.averageGrade as grade else noGrade">
-                    <span [appFontSize]="'large'"></span>
-                        {{grade | number: '1.1-2'}}
-                </ng-container>
-                <ng-template #noGrade>
-                    <td class="text-center">-</td>
-                </ng-template>
-            </td>
+        <ng-container *ngFor = "let column of displayedColumnData" [matColumnDef]="column.attribute">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> {{column.attributeName}} </th>
+            <td mat-cell *matCellDef="let student">{{student[column.attribute]}} </td>
         </ng-container>
 
         <ng-container matColumnDef="actions">
@@ -69,7 +30,7 @@
       </ng-container>
   
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
 </div>
 <div id="students-paginator-container">
