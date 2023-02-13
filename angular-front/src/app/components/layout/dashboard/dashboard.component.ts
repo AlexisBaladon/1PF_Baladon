@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import type { FilterName } from 'src/app/interfaces/filters';
 import type { LogicFilterType } from 'src/app/interfaces/logic-filter-type';
@@ -12,6 +12,11 @@ import { UserService } from 'src/app/services/users/user.service';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent {
+  @Input() public title!: string;
+  @Input() public description!: string;
+  @Input() public filterableType!: string;
+  @Input() public createDataTitle!: string;
+
   constructor(public dialog: MatDialog, public userService: UserService) {}
 
   public openAddStudentDialog() {

@@ -2,20 +2,20 @@
     <section id="dashboard" class="container">
         <div class="d-flex justify-content-between align-items-center">
             <div id="dashboard-title">
-                <h1 [appFontSize]="'x-large'">{{'👨🏼‍🎓 Usuarios'}}</h1>
+                <h1 [appFontSize]="'x-large'">{{title}}</h1>
                 <p [appFontSize]="'medium'">
-                    Visualiza datos de los estudiantes de la universidad.
+                    {{description}}
                 </p>
             </div>
             <p id="add-student-btn-text" [appFontSize]="'medium'" class="text-end">
                 <button mat-raised-button id="add-student-btn" (click)="openAddStudentDialog()">
                     <mat-icon [appFontSize]="'medium'" class="mr-2">add</mat-icon>
-                    Crea un usuario
+                    {{createDataTitle}}
                 </button>
             </p>
         </div>
         <div class="mb-5">
-            <app-filters [filterableType]="'Student'"></app-filters>
+            <app-filters [filterableType]="filterableType"></app-filters>
         </div>
         <app-table></app-table>
     </section>
