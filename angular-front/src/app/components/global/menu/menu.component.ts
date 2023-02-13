@@ -1,9 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
-interface IOption {
-  name: string,
-  active: boolean,
-}
 
 @Component({
   selector: 'app-menu',
@@ -11,12 +7,10 @@ interface IOption {
   styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent {
-  options: IOption[] = [
-    {name: "🏠 Inicio", active: false},
-    {name: "👨🏼‍🎓 Usuarios", active: true},
-    {name: "📖 Clases", active: false},
-    {name: "📊 General", active: false},
-  ]
+  @Input() public options: string[] = [];
+  @Input() public selectedMenuItem!: number;
+  @Output() public menuItemSelected = new EventEmitter();
+  
   scrollableOptions = new Map<string,string[]>([[
     "⚙ Ajustes", [
       "📝 Perfil",
@@ -24,4 +18,12 @@ export class MenuComponent {
       "🌐 Idioma",
     ],
   ]]);
+
+  public isSelected(option: string) {
+    return this.options.indexOf(option) === this.selectedMenuItem;
+  }
+
+  public changeRoute(option: string) {
+    this.menuItemSelected.emit(this.options.indexOf(option));
+  }
 }

@@ -4,7 +4,11 @@
     </header>
     <div id='main-content'>
         <aside>
-        <app-menu></app-menu>
+        <app-menu
+            [options]="getNavRoutes()"
+            [selectedMenuItem]="getCurrentRoute()"
+            (menuItemSelected)="changeRoute($event)"
+        ></app-menu>
         </aside>
         <main>
         <app-dashboard *ngIf="getDashboardText() as dbText"

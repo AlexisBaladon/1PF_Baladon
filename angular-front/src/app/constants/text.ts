@@ -1,27 +1,9 @@
-interface NavRoutes {
-    title: string,
-}
-
-export type NavRoutesData = Record<string, NavRoutes>;
-
-export const NAV_ROUTES: NavRoutesData = {
-    Home: {
-        title: '🏠 Inicio'
-    },
-    Students: {
-        title: '👨🏼‍🎓 Usuarios',
-    },
-    Courses: {
-        title: '📚 Cursos',
-    },
-    General: {
-        title: '📊 General',
-    },
-    Config: {
-        title: '⚙️ Ajustes',
-    },
-}
-
+export const NAV_ROUTES: string[] = [
+    '🏠 Inicio',
+    '👨🏼‍🎓 Usuarios',
+    '📚 Cursos',
+    '📊 General',
+]
 interface DashboardInput {
     title: string;
     description: string;

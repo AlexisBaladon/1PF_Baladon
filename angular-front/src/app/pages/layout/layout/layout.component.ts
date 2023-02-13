@@ -7,12 +7,18 @@ import { NAV_ROUTES, DASHBOARD_TEXT } from 'src/app/constants/text';
   styleUrls: ['./layout.component.scss']
 })
 export class LayoutComponent {
+  @Output() public menuItemSelected = new EventEmitter();
   @Output() public loggingOut = new EventEmitter();
+  private routes = ['Home', 'Students', 'Courses', 'General'];
   private dashboardRoutes = ['Students', 'Courses'];
-  private currentRoute = 'Students';
+  public currentRoute = 'Students';
 
-  public changeRoute(route: string) {
-    this.currentRoute = route;
+  public changeRoute(route: number) {
+    this.currentRoute = this.routes[route];
+  }
+
+  public getCurrentRoute() {
+    return this.routes.indexOf(this.currentRoute);
   }
 
   public getNavRoutes() {
@@ -22,7 +28,6 @@ export class LayoutComponent {
   public getDashboardText() {
     console.log(this.currentRoute);
     if (!this.dashboardRoutes.includes(this.currentRoute)) return null;
-    console.log(DASHBOARD_TEXT[this.currentRoute]);
     return DASHBOARD_TEXT[this.currentRoute];
   }
 

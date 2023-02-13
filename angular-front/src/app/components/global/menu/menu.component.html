@@ -6,9 +6,9 @@
         <hr>
         <ul class="nav nav-pills flex-column mb-auto">
             <li *ngFor="let option of options" class="nav-item">
-                <a [appFontSize]="'large'" href="#" class="menu-text nav-link"
-                        [ngClass]="option.active? 'active':''">
-                    {{option.name}}
+                <a (click)="changeRoute(option)" [appFontSize]="'large'" href="#" class="menu-text nav-link"
+                        [ngClass]="isSelected(option) ? 'active' : ''">
+                    {{option}}
                 </a>
             </li>
             <li *ngFor="let scrollableOption of scrollableOptions | keyvalue" class="nav-item dropdown">
