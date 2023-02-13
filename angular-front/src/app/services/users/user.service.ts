@@ -7,12 +7,9 @@ import { LogicNode } from 'src/app/logic/filter/logicNode';
 import { Filterable } from 'src/app/logic/filter/filterable';
 import { DASHBOARD_TEXT } from 'src/app/constants/text';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class UserService<F extends Filterable> {
+export abstract class UserService<F extends Filterable> {
 	private filters: LogicNode<LogicFilterType, FilterName> | null = null;
-	constructor(private filterPipe: FilterPipe, @Inject('filterableData') private filterableData: F[]) {}
+	constructor(private filterPipe: FilterPipe, private filterableData: F[]) {}
 	private filterableData$: BehaviorSubject<F[]> = new BehaviorSubject(this.filterableData);
 
 	public getData(): Observable<F[]> {
@@ -53,10 +50,11 @@ export class UserService<F extends Filterable> {
 			map(students => {
 				if (students.length === 0) return [];
 				const student = students[0];
+				const typeOfStudent = student.constructor.name;
 				return student.getShownAttributes().map(attribute => {
 					return {
 						attribute,
-						attributeName: DASHBOARD_TEXT['Students'].attributeNames[attribute]
+						attributeName: DASHBOARD_TEXT[typeOfStudent].attributeNames[attribute]
 					};
 				});
 			})

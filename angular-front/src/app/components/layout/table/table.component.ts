@@ -6,9 +6,9 @@ import { ConfirmModalComponent } from '../../global/confirm-modal/confirm-modal.
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
-import { UserService } from 'src/app/services/users/user.service';
 import { Subscription } from 'rxjs';
 import { Filterable } from 'src/app/logic/filter/filterable';
+import { StudentsService } from 'src/app/services/students/students.service';
 
 @Component({
   selector: 'app-table',
@@ -24,7 +24,8 @@ export class TableComponent {
   public displayedColumnData: { attribute: string; attributeName: string }[] = [];
   public displayedColumns$!: Subscription;
   public dataSource!: MatTableDataSource<Filterable>;
-  constructor(public dialog: MatDialog, public el: ElementRef, private userService: UserService<Filterable>) {}
+  constructor(public dialog: MatDialog, public el: ElementRef, private userService: StudentsService) {}
+
   private restartTable() {
     this.dataSource = new MatTableDataSource(this.students);
     this.dataSource.sort = this.sort;

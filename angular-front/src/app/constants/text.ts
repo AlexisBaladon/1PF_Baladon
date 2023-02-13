@@ -1,6 +1,4 @@
-import { Course } from "../interfaces/course";
 import { FilterName } from "../interfaces/filters";
-import Student from "../interfaces/student";
 
 export const NAV_ROUTES: string[] = [
     '🏠 Inicio',
@@ -16,7 +14,7 @@ export interface FilterOption {
 }
 
 export const FILTER_OPTIONS: Record<string, FilterOption[]> = {
-    Students: [
+    Student: [
         {
           name: 'Nombre',
           description: 'Contiene los caracteres ingresados',
@@ -28,7 +26,7 @@ export const FILTER_OPTIONS: Record<string, FilterOption[]> = {
           type: 'range',
         },
     ],
-    Courses: [
+    Course: [
         {
             name: 'Nombre',
             description: 'Contiene los caracteres ingresados',
@@ -54,12 +52,12 @@ interface DashboardInput {
 export type DashboardInputData = Record<string, DashboardInput>;
 
 export const DASHBOARD_TEXT: DashboardInputData = {
-    Students: {
+    Student: {
         title: '👨🏼‍🎓 Usuarios',
         description: 'Visualiza datos de los estudiantes de la universidad.',
         filterableType: 'Student',
         createDataTitle: 'Crea un usuario',
-        filterOptions: FILTER_OPTIONS['Students'],
+        filterOptions: FILTER_OPTIONS['Student'],
         attributeNames: {
             id: 'ID',
             name: 'Nombre',
@@ -74,12 +72,12 @@ export const DASHBOARD_TEXT: DashboardInputData = {
             averageGrade: 'Promedio',
         }
     },
-    Courses: {
+    Course: {
         title: '📚 Cursos',
         description: 'Visualiza datos de los cursos de la universidad.',
         filterableType: 'Course',
         createDataTitle: 'Crea un curso',
-        filterOptions: FILTER_OPTIONS['Courses'],
+        filterOptions: FILTER_OPTIONS['Course'],
         attributeNames: {
             id: 'ID',
             name: 'Nombre',

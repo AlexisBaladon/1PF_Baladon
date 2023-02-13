@@ -1,3 +1,4 @@
+import { Course } from '../interfaces/course'
 import Student from '../interfaces/student'
 
 //avoids typescript conversion errors
@@ -18,5 +19,17 @@ export function studentCreator(students: Student[]): Student[] {
         s.admissionDate,
         s.averageGrade,
         s.career
+    ))
+}
+
+export function courseCreator(courses: Course[]): Course[] {
+    return courses.map(c => new Course(
+        c.id,
+        c.name,
+        c.description,
+        c.credits,
+        c.teacher,
+        c.studentsId,
+        c.averageGrade
     ))
 }

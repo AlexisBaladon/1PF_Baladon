@@ -12,6 +12,7 @@ import { ArrayDataSource } from '@angular/cdk/collections';
 import { LogicNodeFactory } from 'src/app/logic/filter/logicNodeFactory';
 import { FilterOption } from 'src/app/constants/text';
 import { Filterable } from 'src/app/logic/filter/filterable';
+import { StudentsService } from 'src/app/services/students/students.service';
 
 type FlatLogicNode = LogicNode<LogicFilterType, FilterName>;
 let treeData: FlatLogicNode | null = null;
@@ -21,7 +22,7 @@ let treeData: FlatLogicNode | null = null;
   styleUrls: ['./filters.component.scss']
 })
 export class FiltersComponent {
-  constructor(public dialog: MatDialog, private userService: UserService<Filterable>) {}
+  constructor(public dialog: MatDialog, private userService: StudentsService) {}
   @Input() public filterableType!: string;
   @Input() public filters!: FilterOption[];
   public treeControl = new FlatTreeControl<FlatLogicNode>(
