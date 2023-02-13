@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import type { FilterName } from 'src/app/interfaces/filters';
 import type { LogicFilterType } from 'src/app/interfaces/logic-filter-type';
-import type { Tree } from 'src/app/logic/filter/tree';
 import { AddUserFormComponent } from '../add-user-form/add-user-form.component';
 import Student from 'src/app/interfaces/student';
 import { UserService } from 'src/app/services/users/user.service';
@@ -13,7 +12,6 @@ import { UserService } from 'src/app/services/users/user.service';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent {
-  public filters: Tree<LogicFilterType, FilterName> | undefined;
   constructor(public dialog: MatDialog, public userService: UserService) {}
 
   public openAddStudentDialog() {
