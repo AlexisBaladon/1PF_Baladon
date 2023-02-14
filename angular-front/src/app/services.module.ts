@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FilterPipe } from './pipes/filter/filter.pipe';
 import { StudentsService } from './services/students/students.service';
 import { CoursesService } from './services/courses/courses.service';
+import { FilterablesService } from './services/filterables/filterables.service';
 
 @NgModule({
   declarations: [],
@@ -20,7 +21,8 @@ import { CoursesService } from './services/courses/courses.service';
       provide: CoursesService,
       useFactory: () => new CoursesService(new FilterPipe()),
       deps: [FilterPipe]
-    }
+    },
+    FilterablesService,
   ]
 })
 export class ServicesModule { }

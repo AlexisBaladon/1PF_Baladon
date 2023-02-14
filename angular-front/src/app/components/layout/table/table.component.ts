@@ -8,7 +8,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { Subscription } from 'rxjs';
 import { Filterable } from 'src/app/logic/filter/filterable';
-import { StudentsService } from 'src/app/services/students/students.service';
+import { UserService } from 'src/app/services/users/user.service';
+import { FilterablesService } from 'src/app/services/filterables/filterables.service';
 
 @Component({
   selector: 'app-table',
@@ -18,13 +19,15 @@ import { StudentsService } from 'src/app/services/students/students.service';
 export class TableComponent {
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+  constructor(public dialog: MatDialog, public el: ElementRef, private filterableDataService: FilterablesService) {}
   private students: Filterable[] = [];
-  public students$!: Subscription;
+  public students$: Subscription | undefined;
   public displayedColumns: string[] = [];
   public displayedColumnData: { attribute: string; attributeName: string }[] = [];
-  public displayedColumns$!: Subscription;
+  public displayedColumns$: Subscription | undefined;
   public dataSource!: MatTableDataSource<Filterable>;
-  constructor(public dialog: MatDialog, public el: ElementRef, private userService: StudentsService) {}
+  private filterableService!: UserService<Filterable>;
+  private filterableService$!: Subscription;
 
   private restartTable() {
     this.dataSource = new MatTableDataSource(this.students);
@@ -32,20 +35,35 @@ export class TableComponent {
     this.dataSource.paginator = this.paginator;
   }
 
-  ngOnInit() {
-    this.displayedColumns$ = this.userService.getFilterableAttributes().subscribe(attributes => {
+  private unsuscribeFromData() {
+    if (this.students$ !== undefined) this.students$.unsubscribe();
+    if (this.displayedColumns$ !== undefined) this.displayedColumns$.unsubscribe();
+  }
+
+  private filterableSuscription() {
+    this.unsuscribeFromData();
+
+    this.students$ = this.filterableService.getFilteredStudents().subscribe(students => {
+      this.students = students;
+      this.restartTable();
+    });
+    this.displayedColumns$ = this.filterableService.getFilterableAttributes().subscribe(attributes => {
       this.displayedColumnData = attributes;
       this.displayedColumns = attributes.map(a => a.attribute).concat(['actions']);
-    });
-    this.students$ = this.userService.getFilteredStudents().subscribe(students => {
-      this.students = students;
       this.restartTable();
     });
   }
 
+  ngOnInit() { 
+    this.filterableService$ = this.filterableDataService.getService().subscribe(service => {
+      this.filterableService = service;
+      this.filterableSuscription()
+    });
+  }
+
   ngOnDestroy() {
-    this.students$.unsubscribe();
-    this.displayedColumns$.unsubscribe();
+    this.unsuscribeFromData();
+    this.filterableService$.unsubscribe();
   }
 
   ngAfterViewInit() { 
@@ -94,7 +112,7 @@ export class TableComponent {
     dialogRef.afterClosed().subscribe(result => {
       const resultStudent = result?.student;
       if (!resultStudent) return;
-      this.userService.updateData(result.student);
+      this.filterableService.updateData(result.student);
     });
   }
 
@@ -107,7 +125,7 @@ export class TableComponent {
         confirmButtonText: 'Eliminar',
         cancelButtonText: 'Cancelar',
         onConfirm: () => {
-          this.userService.deleteStudent(studentId);
+          this.filterableService.deleteStudent(studentId);
           this.dialog.closeAll()
         },
         onCancel: () => {

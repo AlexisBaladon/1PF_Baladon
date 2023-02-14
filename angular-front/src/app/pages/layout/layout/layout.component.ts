@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { NAV_ROUTES, DASHBOARD_TEXT, FILTER_OPTIONS } from 'src/app/constants/text';
 import { type FilterableType } from 'src/app/interfaces/filterableTypes';
+import { FilterablesService } from 'src/app/services/filterables/filterables.service';
 
 @Component({
   selector: 'app-layout',
@@ -10,6 +11,7 @@ import { type FilterableType } from 'src/app/interfaces/filterableTypes';
 export class LayoutComponent {
   @Output() public menuItemSelected = new EventEmitter();
   @Output() public loggingOut = new EventEmitter();
+  constructor(private filterableService: FilterablesService) { }
   private routes: (string | FilterableType)[] = ['Home', 'Student', 'Course', 'General'];
   private dashboardRoutes: FilterableType[] = ['Student', 'Course'];
   public currentRoute: FilterableType = 'Student';
@@ -17,6 +19,9 @@ export class LayoutComponent {
   
   public changeRoute(route: number) {
     this.currentRoute = this.routes[route] as FilterableType;
+    if (this.dashboardRoutes.includes(this.currentRoute)) {
+      this.filterableService.switchService(this.currentRoute);
+    }
   }
 
   public getCurrentRoute() {
