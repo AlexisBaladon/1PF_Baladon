@@ -3,25 +3,7 @@
         {{data.title}}
     </h1>
     <div mat-dialog-content>
-        <form id="add-user-form" [formGroup]="formGroup" (ngSubmit)="onSubmit()">
-            <div id="full-name-container" class="d-flex row">
-                <div class="full-name-item">
-                    <label for="name">Nombre</label>
-                    <input 
-                        class="valid-input"
-                        [appValidInput]="isValidInput('name')"
-                        type="text" placeholder="Nombre" 
-                        formControlName="name" 
-                        name="name" 
-                        autocomplete="name" 
-                    />
-                </div>
-            </div>
-        </form>
-    </div>
-    <div id="submit-buttons-container">
-        <button mat-button (click)="onCancel()">Cancelar</button>
-        <button mat-raised-button type="submit" form="add-user-form">{{data.title}}</button>
+        Aún no implementedo 👷🏼‍♂️
     </div>
 </div>
 <div *ngIf="formGroup.invalid && submitted">

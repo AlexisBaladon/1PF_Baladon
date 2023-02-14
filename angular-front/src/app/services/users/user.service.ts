@@ -49,8 +49,8 @@ export abstract class UserService<F extends Filterable> {
 	public getFilterableAttributes(): Observable<{ attribute: string; attributeName: string }[]> {
 		return this.filterableData$.pipe(
 			map(students => {
-				if (students.length === 0) return [];
 				const student = students[0];
+				if (!student) return [];
 				const typeOfStudent = student.constructor.name;
 				return student.getShownAttributes().map(attribute => {
 					return {
@@ -62,6 +62,6 @@ export abstract class UserService<F extends Filterable> {
 		);
 	}
 
-	public abstract openEditDialog(dialog: MatDialog, filterable: Partial<Filterable>, width?: string): MatDialogRef<any, any>;
+	public abstract openEditDialog(dialog: MatDialog, mode: 'create' | 'edit', filterable: Partial<Filterable>, width?: string): MatDialogRef<any, any>;
 
 }

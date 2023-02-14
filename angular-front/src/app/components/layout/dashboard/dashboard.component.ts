@@ -34,26 +34,8 @@ export class DashboardComponent {
     this.filterableService$.unsubscribe();
   }
 
-  private openAddStudentDialog() {
-    return this.dialog.open(AddUserFormComponent, {
-      width: '600px',
-      data: { 
-        student: null, valid: true, title: 'Agregar usuario'
-      }
-    });
-  }
-
-  private openAddCourseDialog() {
-    return this.dialog.open(AddCourseFormComponent, {
-      width: '600px',
-      data: {
-        student: null, valid: true, title: 'Agregar curso'
-      }
-    });
-  }
-
   public openDialog() {
-    const dialogRef = this.filterableType === 'Student' ? this.openAddStudentDialog() : this.openAddCourseDialog();
+    const dialogRef = this.filterableService.openEditDialog(this.dialog, 'create', {}, '600px');
     dialogRef.afterClosed().subscribe(result => {
       const resultFilterable: Filterable | undefined = result?.student;
       if (!resultFilterable) return;

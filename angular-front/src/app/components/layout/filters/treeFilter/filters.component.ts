@@ -14,7 +14,6 @@ import { Subscription } from 'rxjs';
 import { UserService } from 'src/app/services/users/user.service';
 
 type FlatLogicNode = LogicNode<LogicFilterType, FilterName>;
-let treeData: FlatLogicNode | null = null;
 @Component({
   selector: 'app-filters',
   templateUrl: './filters.component.html',
@@ -26,15 +25,20 @@ export class FiltersComponent {
   constructor(public dialog: MatDialog, private filterableDataService: FilterablesService) {}
   private filterableService$!: Subscription;
   private filterableService!: UserService<any>;
-  
+  private treeData: FlatLogicNode | null = null;
+  public dataSource = this.createDataSource();
+
   public treeControl = new FlatTreeControl<FlatLogicNode>(
     node => node.level,
-    node => treeData !== null && node.hasChildren(),
+    node => this.treeData !== null && node.hasChildren(),
   );
 
   ngOnInit() {
     this.filterableService$ = this.filterableDataService.getService().subscribe((service) => {
       this.filterableService = service;
+      this.treeData = null;
+      this.filterableService.setStudentFilters(null);
+      this.dataSource = this.createDataSource();
     });
   }
 
@@ -43,19 +47,17 @@ export class FiltersComponent {
   }
 
   private createDataSource() {
-    return new ArrayDataSource(treeData?.toArray() ?? []);
+    return new ArrayDataSource(this.treeData?.toArray() ?? []);
   }
   
   public removeAllFilters() {
-    treeData?.chopTree();
-    treeData = null;
+    this.treeData?.chopTree();
+    this.treeData = null;
     this.dataSource = this.createDataSource();
   }
 
-  public dataSource = this.createDataSource();
-
   public isEmptyTree() {
-    return treeData === null;
+    return this.treeData === null;
   }
 
   private _formatValue(type: LogicFilterType, section?: string, value?: string) {
@@ -98,14 +100,14 @@ export class FiltersComponent {
         if (!result) return;
         const title = this._formatValue(result.type, result.section, result.value);
         const newNode = LogicNodeFactory.createNode(this.filterableType, result.type, result.section, result.value, title, node);
-        if (node === null) { treeData = newNode; } 
+        if (node === null) { this.treeData = newNode; } 
         else { node.addChild(newNode); }
         this.dataSource = this.createDataSource();
     });
   }
 
   public onFilterClick() {
-      this.filterableService.setStudentFilters(treeData);
+      this.filterableService.setStudentFilters(this.treeData);
   }
 
 }

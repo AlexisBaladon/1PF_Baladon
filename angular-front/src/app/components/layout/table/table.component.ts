@@ -76,7 +76,7 @@ export class TableComponent {
   public onEditStudent(filterableId: Partial<Filterable['id']>) {
     const student = this.students.find(student => student.id === filterableId) ?? {};
 
-    const dialogRef = this.filterableService.openEditDialog(this.dialog, student, '750px');
+    const dialogRef = this.filterableService.openEditDialog(this.dialog, 'edit', student, '750px');
 
     dialogRef.afterClosed().subscribe(result => {
       const resultStudent = result?.student;

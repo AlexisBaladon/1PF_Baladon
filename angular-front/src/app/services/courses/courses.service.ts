@@ -18,10 +18,14 @@ export class CoursesService extends UserService<Course> {
     super(filterPipe, filterableData);
    }
 
-  public openEditDialog(dialog: MatDialog, filterable: Partial<Course>, width?: string | undefined): MatDialogRef<AddCourseFormComponent, any> {
+  public openEditDialog(dialog: MatDialog, mode: 'create' | 'edit', filterable: Partial<Course>, width?: string | undefined): MatDialogRef<AddCourseFormComponent, any> {
       return dialog.open(AddCourseFormComponent, {
           width: width || '600px',
-          data: { course: filterable, valid: true, title: 'Editar usuario' },
+          data: { 
+            course: filterable, 
+            valid: true, 
+            title: mode === 'create' ? 'Agregar curso' : 'Editar curso',
+          }
       });
   }
 

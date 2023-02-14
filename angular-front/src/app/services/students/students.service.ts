@@ -19,10 +19,14 @@ export class StudentsService extends UserService<Student> {
     super(filterPipe, filterableData);
    }
 
-   public openEditDialog(dialog: MatDialog, filterable: Partial<Student>, width?: string | undefined): MatDialogRef<AddUserFormComponent, any> {
+   public openEditDialog(dialog: MatDialog, mode: 'create' | 'edit', filterable: Partial<Student>, width?: string | undefined): MatDialogRef<AddUserFormComponent, any> {
     return dialog.open(AddUserFormComponent, {
       width: width || '600px',
-      data: { student: filterable, valid: true, title: 'Editar usuario' },
+      data: {
+        student: filterable, 
+        valid: true, 
+        title: mode === 'create' ? 'Agregar usuario' : 'Editar usuario',
+      },
     });
    }
 }
