@@ -73,41 +73,10 @@ export class TableComponent {
     .forEach((arrow: any) => (arrow.style.color = 'white'));
   }
 
-  public compare(
-      a: number | string | Date | null,
-      b: number | string | Date | null,
-        isAsc: boolean
-  ) {
-    if (a === null || b === null) return 0;
-    return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
-  }
+  public onEditStudent(filterableId: Partial<Filterable['id']>) {
+    const student = this.students.find(student => student.id === filterableId) ?? {};
 
-  public onSortData(event: {active: string, direction: string}) {
-    const sort = event.active;
-    const direction = event.direction;
-    this.dataSource.data = this.students.sort((a, b) => {
-      const isAsc = direction === 'asc';
-      if (isStudent(a) && isStudent(b)) //TODO: This is a hack, fix it
-      switch (sort) {
-        case 'id': return this.compare(a.id, b.id, isAsc);
-        case 'name': return this.compare(a.name, b.name, isAsc);
-        case 'email': return this.compare(a.email, b.email, isAsc);
-        case 'career': return this.compare(a.career, b.career, isAsc);
-        case 'admissionDate': return this.compare(a.admissionDate, b.admissionDate, isAsc);
-        case 'averageGrade': return this.compare(a.averageGrade, b.averageGrade, isAsc);
-        default: return 0;
-      }
-      return 0;
-    });
-  }
-
-  public onEditStudent(studentId: Student['id']) {
-    const student = this.students.find(student => student.id === studentId);
-
-    const dialogRef = this.dialog.open(AddUserFormComponent, {
-      width: '750px',
-      data: {  student: student, valid: true, title: 'Modificar usuario' }
-    });
+    const dialogRef = this.filterableService.openEditDialog(this.dialog, student, '750px');
 
     dialogRef.afterClosed().subscribe(result => {
       const resultStudent = result?.student;

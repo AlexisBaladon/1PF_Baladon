@@ -13,7 +13,7 @@ export class Course extends Filterable {
         return ['id', 'name', 'description', 'credits', 'teacher', 'studentsId', 'averageGrade'];
     }
 
-    constructor(id: string, name: string, description: string, credits: number, teacher: User["id"], studentsId: number[], averageGrade: number) {
+    constructor(id: Course['id'], name: string, description: string, credits: number, teacher: User["id"], studentsId: number[], averageGrade: number) {
         super(id);
         this.name = name;
         this.description = description;

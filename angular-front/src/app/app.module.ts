@@ -23,6 +23,7 @@ import { FullNamePipe } from './pipes/users/full-name/full-name.pipe';
 import { FontSizeDirective } from './directives/fonts/size/font-size.directive';
 import { LayoutComponent } from './pages/layout/layout/layout.component';
 import { ServicesModule } from './services.module';
+import { AddCourseFormComponent } from './components/layout/add-course-form-component/add-course-form-component/add-course-form.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { ServicesModule } from './services.module';
     FullNamePipe,
     FontSizeDirective,
     LayoutComponent,
+    AddCourseFormComponent,
   ],
   imports: [
     BrowserModule,

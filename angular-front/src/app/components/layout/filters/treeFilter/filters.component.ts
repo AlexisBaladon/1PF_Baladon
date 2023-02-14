@@ -1,18 +1,17 @@
-import { MatTreeFlattener } from '@angular/material/tree';
 import { FlatTreeControl } from '@angular/cdk/tree';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, Input, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AddFilterModalComponent } from '../add-filter-modal/add-filter-modal.component';
 import { LogicFilterType } from '../../../../interfaces/logic-filter-type';
 import type { FilterName } from '../../../../interfaces/filters';
 import { logicOperatorTitles } from '../../../../constants/filter';
-import { UserService } from 'src/app/services/users/user.service';
 import { LogicNode } from 'src/app/logic/filter/logicNode';
 import { ArrayDataSource } from '@angular/cdk/collections';
 import { LogicNodeFactory } from 'src/app/logic/filter/logicNodeFactory';
 import { FilterOption } from 'src/app/constants/text';
-import { Filterable } from 'src/app/logic/filter/filterable';
-import { StudentsService } from 'src/app/services/students/students.service';
+import { FilterablesService } from 'src/app/services/filterables/filterables.service';
+import { Subscription } from 'rxjs';
+import { UserService } from 'src/app/services/users/user.service';
 
 type FlatLogicNode = LogicNode<LogicFilterType, FilterName>;
 let treeData: FlatLogicNode | null = null;
@@ -22,13 +21,26 @@ let treeData: FlatLogicNode | null = null;
   styleUrls: ['./filters.component.scss']
 })
 export class FiltersComponent {
-  constructor(public dialog: MatDialog, private userService: StudentsService) {}
   @Input() public filterableType!: string;
   @Input() public filters!: FilterOption[];
+  constructor(public dialog: MatDialog, private filterableDataService: FilterablesService) {}
+  private filterableService$!: Subscription;
+  private filterableService!: UserService<any>;
+  
   public treeControl = new FlatTreeControl<FlatLogicNode>(
     node => node.level,
     node => treeData !== null && node.hasChildren(),
   );
+
+  ngOnInit() {
+    this.filterableService$ = this.filterableDataService.getService().subscribe((service) => {
+      this.filterableService = service;
+    });
+  }
+
+  ngOnDestroy() {
+    this.filterableService$.unsubscribe();
+  }
 
   private createDataSource() {
     return new ArrayDataSource(treeData?.toArray() ?? []);
@@ -93,7 +105,7 @@ export class FiltersComponent {
   }
 
   public onFilterClick() {
-      this.userService.setStudentFilters(treeData);
+      this.filterableService.setStudentFilters(treeData);
   }
 
 }

@@ -5,8 +5,6 @@ import { CoursesService } from '../courses/courses.service';
 import { StudentsService } from '../students/students.service';
 import { UserService } from '../users/user.service';
 import { BehaviorSubject } from 'rxjs';
-import Student from 'src/app/interfaces/student';
-import { Course } from 'src/app/interfaces/course';
 
 @Injectable({
   providedIn: 'root'
