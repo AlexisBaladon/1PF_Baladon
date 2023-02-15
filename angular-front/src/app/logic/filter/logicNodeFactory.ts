@@ -19,7 +19,7 @@ export class LogicNodeFactory {
             case 'LEAF':
                 return FilterNodeFactory.createNode(filterableType, section, value, title, level, parent, isExpanded);
             default:
-                throw new Error('Unknown node type');
+                return FilterNodeFactory.createNode(filterableType, section, value, title, level, parent, isExpanded);
         }
     }
 }

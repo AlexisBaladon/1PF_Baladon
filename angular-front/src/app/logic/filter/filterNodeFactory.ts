@@ -15,7 +15,7 @@ export class FilterNodeFactory {
             return CourseFilterNodeFactory.createNode(section, value, title, level, parent, isExpanded);
         }
         else {
-            throw new Error('Unknown filterable type');
+            return StudentFilterNodeFactory.createNode(section, value, title, level, parent, isExpanded);
         }
     }
 }
@@ -31,7 +31,8 @@ class StudentFilterNodeFactory {
                 return new LogicFilterNode<LogicFilterType, FilterName>(id, title, 'LEAF', section, level, parent, [], isExpanded, 
                     new StudentGradeFilter(value as number));
             default:
-                throw new Error('Unknown filter type');
+                return new LogicFilterNode<LogicFilterType, FilterName>(id, title, 'LEAF', section, level, parent, [], isExpanded, 
+                    new StudentNameFilter(value as string));
         }
     }
 }
@@ -47,7 +48,8 @@ class CourseFilterNodeFactory {
                 return new LogicFilterNode<LogicFilterType, FilterName>(id, title, 'LEAF', section, level, parent, [], isExpanded, 
                     new CourseAmountFilter(value as number));
             default:
-                throw new Error('Unknown filter type');
+                return new LogicFilterNode<LogicFilterType, FilterName>(id, title, 'LEAF', section, level, parent, [], isExpanded,
+                    new CourseNameFilter(value as string));
         }
     }
 }
