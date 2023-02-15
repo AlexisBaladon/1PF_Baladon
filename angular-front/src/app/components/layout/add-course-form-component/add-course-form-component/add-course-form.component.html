@@ -3,7 +3,46 @@
         {{data.title}}
     </h1>
     <div mat-dialog-content>
-        Aún no implementedo 👷🏼‍♂️
+        <form 
+            id="add-course-form"
+            [formGroup]="formGroup"
+            (ngSubmit)="onSubmit()"
+        >
+            <div class="form-group">
+                <label for="name">Nombre</label>
+                <input 
+                    type="text" 
+                    class="input-with-label"
+                    [appValidInput]="isValidInput('name')" 
+                    id="name" 
+                    formControlName="name"
+                >
+            </div>
+            <div class="form-group">
+                <label for="description">Descripción</label>
+                <input 
+                    type="text" 
+                    class="input-with-label" 
+                    [appValidInput]="isValidInput('description')"
+                    id="description" 
+                    formControlName="description"
+                >
+            </div>
+            <div class="form-group">
+                <label for="credits">Créditos</label>
+                <input 
+                    type="number" 
+                    class="input-with-label" 
+                    [appValidInput]="isValidInput('credits')"
+                    id="credits" 
+                    formControlName="credits"
+                >
+            </div>
+        </form>
+        <div id="submit-buttons-container">
+            <button mat-button (click)="onCancel()">Cancelar</button>
+            <button mat-raised-button (click)="onSubmit()" type="submit" form="add-user-form">{{data.title}}</button>
+        </div>
     </div>
 </div>
 <div *ngIf="formGroup.invalid && submitted">

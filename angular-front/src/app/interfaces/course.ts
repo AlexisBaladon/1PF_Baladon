@@ -5,15 +5,15 @@ export class Course extends Filterable {
     name: string;
     description: string;
     credits: number;
-    teacher: User["id"];
+    teacher: User["id"] | null;
     studentsId: number[];
-    averageGrade: number;
+    averageGrade: number | null;
 
     getShownAttributes(): (keyof Course)[] {
-        return ['id', 'name', 'description', 'credits', 'teacher', 'studentsId', 'averageGrade'];
+        return ['id', 'name', 'description', 'credits', 'studentsId'];
     }
 
-    constructor(id: Course['id'], name: string, description: string, credits: number, teacher: User["id"], studentsId: number[], averageGrade: number) {
+    constructor(id: Course['id'], name: string, description: string, credits: number, teacher: User["id"] | null, studentsId: number[], averageGrade: number | null) {
         super(id);
         this.name = name;
         this.description = description;

@@ -7,6 +7,7 @@ import { jsonParser, studentCreator } from 'src/app/utils/jsonParser';
 import { Filterable } from 'src/app/logic/filter/filterable';
 import { AddUserFormComponent } from 'src/app/components/layout/add-user-form/add-user-form.component';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { ConfirmModalComponent } from 'src/app/components/global/confirm-modal/confirm-modal.component';
 
 @Injectable({
   providedIn: 'root',
@@ -28,5 +29,24 @@ export class StudentsService extends UserService<Student> {
         title: mode === 'create' ? 'Agregar usuario' : 'Editar usuario',
       },
     });
+   }
+
+   public openDeleteDialog(dialog: MatDialog, filterableId: Filterable['id'], width?: string | undefined): MatDialogRef<any, any> {
+    return dialog.open(ConfirmModalComponent, {
+       width:  width || '400px',
+       data: {
+         title: 'Eliminar estudiante',
+         message: '¿Estás seguro de que quieres eliminar a este estudiante? Los datos perdidos no podrán recuperarse.',
+         confirmButtonText: 'Eliminar',
+         cancelButtonText: 'Cancelar',
+         onConfirm: () => {
+           this.deleteStudent(filterableId);
+           dialog.closeAll();
+         },
+         onCancel: () => {
+           dialog.closeAll();
+         },
+       }
+     });
    }
 }

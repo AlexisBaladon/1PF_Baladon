@@ -1,39 +1,44 @@
 [
     {
-        "name": "Math",
-        "description": "Math is a subject",
+        "id": 1,
+        "name": "Matemática",
+        "description": "Matemática es una asignatura",
         "credits": 5,
         "teacher": 1,
         "studentsId": [1, 2, 3],
         "averageGrade": 5
     },
     {
-        "name": "English",
-        "description": "English is a subject",
-        "credits": 5,
+        "id": 2,
+        "name": "Inglés",
+        "description": "Inglés es una asignatura",
+        "credits": 7,
         "teacher": 2,
-        "studentsId": [1, 2, 3],
+        "studentsId": [1, 2, 3, 4, 5, 6],
         "averageGrade": 5
     },
     {
-        "name": "History",
-        "description": "History is a subject",
-        "credits": 5,
+        "id": 3,
+        "name": "Historia",
+        "description": "Historia es una asignatura",
+        "credits": 8,
         "teacher": 3,
         "studentsId": [1, 2, 3],
         "averageGrade": 5
     },
     {
-        "name": "Science",
-        "description": "Science is a subject",
+        "id": 4,
+        "name": "Ciencia",
+        "description": "Ciencia es una asignatura",
         "credits": 5,
         "teacher": 4,
-        "studentsId": [1, 2, 3],
+        "studentsId": [1, 2],
         "averageGrade": 5
     },
     {
-        "name": "Art",
-        "description": "Art is a subject",
+        "id": 5,
+        "name": "Arte",
+        "description": "Arte es una asignatura",
         "credits": 5,
         "teacher": 5,
         "studentsId": [1],

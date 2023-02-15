@@ -4,7 +4,6 @@ import { FilterPipe } from './pipes/filter/filter.pipe';
 import { StudentsService } from './services/students/students.service';
 import { CoursesService } from './services/courses/courses.service';
 import { FilterablesService } from './services/filterables/filterables.service';
-import { MatDialog } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [],

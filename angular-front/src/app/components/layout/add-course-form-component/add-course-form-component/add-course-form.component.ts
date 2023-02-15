@@ -4,6 +4,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { getErrorMessages, isValidInput } from 'src/app/utils/formControl';
 import { SIMPLE_VALIDATIONS } from 'src/app/constants/validations';
 import { Course } from 'src/app/interfaces/course';
+import { generateId } from 'src/app/utils/idGenerator';
 
 @Component({
   selector: 'app-add-course-form',
@@ -19,19 +20,18 @@ export class AddCourseFormComponent {
     }, private dialogRef: MatDialogRef<AddCourseFormComponent>
   ) { }
 
-  private defaultCourseData: Partial<Course> = this.data.student ?? {} as Partial<Course>;
-
+  private defaultCourseData: Partial<Course> = this.data.student ?? {};
 
   public formGroup = new FormGroup({
     name: new FormControl(this.defaultCourseData.name, SIMPLE_VALIDATIONS),
     description: new FormControl(this.defaultCourseData.description, SIMPLE_VALIDATIONS),
     credits: new FormControl(this.defaultCourseData.credits, SIMPLE_VALIDATIONS),
-    teacher: new FormControl(this.defaultCourseData.teacher, SIMPLE_VALIDATIONS),
   });
 
   public submitted = false;
 
   public onSubmit() {
+
     this.submitted = true;
     if (this.formGroup.invalid) {
       this.data.valid = false;
@@ -48,14 +48,17 @@ export class AddCourseFormComponent {
 
     const formValues = this.formGroup.value;
 
-    const courseUpdatedFields: Partial<Course> = {
-      name: formValues.name ?? this.defaultCourseData.name,
-      description: formValues.description ?? this.defaultCourseData.description,
-      credits: formValues.credits ?? this.defaultCourseData.credits,
-      teacher: formValues.teacher ?? this.defaultCourseData.teacher,
-    };
+    const createdCourse = new Course(
+      this.data.student?.id ?? generateId(),
+      formValues.name ?? this.defaultCourseData.name ?? '',
+      formValues.description ?? this.defaultCourseData.description ?? '',
+      formValues.credits ?? this.defaultCourseData.credits ?? 0,
+      null,
+      [],
+      null,
+    );
     
-    this.data.student = courseUpdatedFields;
+    this.data.student = createdCourse;
     this.data.valid = true;
     this.dialogRef.close(this.data);
   }

@@ -1,6 +1,7 @@
 import type { FormGroup, AbstractControl } from '@angular/forms';
 
 const controlNames = new Map<string, string>([
+    ['id', 'id'],
     ['name', 'nombre'],
     ['surname', 'apellido'],
     ['email', 'email'],
@@ -10,6 +11,9 @@ const controlNames = new Map<string, string>([
     ['city', 'ciudad'],
     ['career', 'carrera'],
     ['admissionDate', 'fecha de admisión'],
+    ['averageGrade', 'promedio'],
+    ['description', 'descripción'],
+    ['credits', 'créditos'],
 ]);
 
 const getControlErrorMessages = (control: AbstractControl<any, any>, controlName: string): string[] => {

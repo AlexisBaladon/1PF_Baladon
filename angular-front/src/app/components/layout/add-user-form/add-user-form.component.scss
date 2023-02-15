@@ -6,12 +6,12 @@ $width-input: 80%;
 #add-user-form {
     overflow: none;
     @include forms.form;
-    padding: (100% - $width-input)/2 0;
+    padding: calc((100% - $width-input)/2) 0;
 
     label {
         text-align: left;
         align-self: start;
-        padding-left: (100% - $width-input)/2;
+        padding-left: calc(((100% - $width-input)/2));
         color: black;
         color: colors.$NEUTRAL_COLOR;
     }

@@ -5,6 +5,7 @@ import { StudentGradeFilter, StudentNameFilter } from "./studentFilter";
 import { LogicFilterNode } from "./filter";
 import { LogicNode } from "./logicNode";
 import { CourseAmountFilter, CourseNameFilter } from "./courseFilter";
+import { Filterable } from "./filterable";
 
 export class FilterNodeFactory {
     static createNode(filterableType: string, section: FilterName, value: string | number, title: string, level: number, parent: LogicNode<LogicFilterType, FilterName> | null, isExpanded: boolean): LogicFilterNode<LogicFilterType, FilterName> {

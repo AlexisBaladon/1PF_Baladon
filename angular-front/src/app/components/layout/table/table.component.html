@@ -7,7 +7,22 @@
     >
         <ng-container *ngFor = "let column of displayedColumnData" [matColumnDef]="column.attribute">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> {{column.attributeName}} </th>
-            <td mat-cell *matCellDef="let student">{{student[column.attribute]}} </td>
+            <td mat-cell *matCellDef="let student">
+                <ng-container *ngIf="student[column.attribute] as att">
+                    <ng-container *ngIf="hasFullName(column.attribute, student.surname)">
+                        {{student | fullName}}
+                    </ng-container>
+                    <ng-container *ngIf="isDate(att)">
+                        {{att | date:'dd/MM/yyyy'}}
+                    </ng-container>
+                    <ng-container *ngIf="isArray(att)">
+                        {{arrayLength(att)}}
+                    </ng-container>
+                    <ng-container *ngIf="isElse(att, column.attribute, student.surname)">
+                        {{att}}
+                    </ng-container>
+                </ng-container>
+            </td>
         </ng-container>
 
         <ng-container matColumnDef="actions">

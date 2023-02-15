@@ -1,13 +1,10 @@
 import { Component, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { AddUserFormComponent } from '../add-user-form/add-user-form.component';
-import Student from 'src/app/interfaces/student';
 import { FilterOption } from 'src/app/constants/text';
 import { FilterablesService } from 'src/app/services/filterables/filterables.service';
 import { Subscription } from 'rxjs';
 import { UserService } from 'src/app/services/users/user.service';
 import { Filterable } from 'src/app/logic/filter/filterable';
-import { AddCourseFormComponent } from '../add-course-form-component/add-course-form-component/add-course-form.component';
 
 @Component({
   selector: 'app-dashboard',

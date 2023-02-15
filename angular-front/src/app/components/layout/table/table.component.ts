@@ -10,6 +10,7 @@ import { Subscription } from 'rxjs';
 import { Filterable } from 'src/app/logic/filter/filterable';
 import { UserService } from 'src/app/services/users/user.service';
 import { FilterablesService } from 'src/app/services/filterables/filterables.service';
+import { Filter } from 'src/app/logic/filter/filter';
 
 @Component({
   selector: 'app-table',
@@ -75,34 +76,40 @@ export class TableComponent {
 
   public onEditStudent(filterableId: Partial<Filterable['id']>) {
     const student = this.students.find(student => student.id === filterableId) ?? {};
-
     const dialogRef = this.filterableService.openEditDialog(this.dialog, 'edit', student, '750px');
 
     dialogRef.afterClosed().subscribe(result => {
       const resultStudent = result?.student;
+      
       if (!resultStudent) return;
-      this.filterableService.updateData(result.student);
+      this.filterableService.updateData(resultStudent);
     });
   }
 
   public onDeleteStudent(studentId: Student['id']) {
-    this.dialog.open(ConfirmModalComponent, {
-      width: '400px',
-      data: {
-        title: 'Eliminar estudiante',
-        message: '¿Estás seguro de que quieres eliminar a este estudiante? Los datos perdidos no podrán recuperarse.',
-        confirmButtonText: 'Eliminar',
-        cancelButtonText: 'Cancelar',
-        onConfirm: () => {
-          this.filterableService.deleteStudent(studentId);
-          this.dialog.closeAll()
-        },
-        onCancel: () => {
-          this.dialog.closeAll()
-        },
-      }
-    });
+    this.filterableService.openDeleteDialog(this.dialog, studentId);  
+  }
+  
+  public isDate(value: any): boolean {
+    return RegExp(/\d{4}-\d{2}-\d{2}/).test(value);
+  }
 
+  public hasFullName(attribute: string | undefined, surname: string | undefined): boolean {
+    return (attribute === 'name' && surname !== undefined);
+  }
+
+  public isArray(value: any): boolean {
+    return Array.isArray(value);
+  }
+
+  public isElse(value: any, att: string | undefined, surname: string | undefined): boolean {
+    return !this.isDate(value) && !this.isArray(value) && !this.hasFullName(att, surname);
+  }
+
+  public arrayLength(value: any): number {
+    value = String(value);
+    if (value === '') return 0;
+    return value.split(',').length;
   }
 
 }

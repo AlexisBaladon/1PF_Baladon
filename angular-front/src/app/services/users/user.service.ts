@@ -22,9 +22,9 @@ export abstract class UserService<F extends Filterable> {
 		this.filterableData$.next(this.filterableData);
 	}
 
-	public updateData(filterableData: Partial<F>): void {
+	public updateData(filterableData: F): void {
 		this.filterableData = this.filterableData.map(s => {
-			if (s.id === filterableData.id) return { ...s, ...filterableData };
+			if (s.id === filterableData.id) return filterableData;
 			return s;
 		});
 		this.filterableData$.next(this.filterableData);
@@ -42,7 +42,7 @@ export abstract class UserService<F extends Filterable> {
 		
 	public getFilteredStudents(): Observable<F[]> {
 		return this.filterableData$.pipe(
-			map(students => this.filterPipe.transform(this.filterableData, this.filters) as F[])
+			map(filterableData => this.filterPipe.transform(filterableData, this.filters) as F[])
 		);
 	}
 
@@ -64,4 +64,5 @@ export abstract class UserService<F extends Filterable> {
 
 	public abstract openEditDialog(dialog: MatDialog, mode: 'create' | 'edit', filterable: Partial<Filterable>, width?: string): MatDialogRef<any, any>;
 
+	public abstract openDeleteDialog(dialog: MatDialog, filterableId: Filterable['id'], width?: string): MatDialogRef<any, any>;
 }

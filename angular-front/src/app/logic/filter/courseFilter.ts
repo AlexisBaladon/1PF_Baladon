@@ -24,7 +24,7 @@ export class CourseNameFilter extends CourseFilter {
     }
 }
 
-export class CourseAmountFilter extends StudentFilter {
+export class CourseAmountFilter extends CourseFilter {
     amountStudents: number;
 
     constructor(amountStudents: number) {

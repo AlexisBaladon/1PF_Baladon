@@ -1,7 +1,6 @@
 import { FilterName } from 'src/app/interfaces/filters';
 import { LogicFilterType } from 'src/app/interfaces/logic-filter-type';
 import { generateId } from 'src/app/utils/idGenerator';
-import { Filterable } from './filterable';
 import { FilterNodeFactory } from './filterNodeFactory';
 import { LogicNode, LogicNodeAnd, LogicNodeNot, LogicNodeOr } from './logicNode';
 
