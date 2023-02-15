@@ -1,7 +1,6 @@
 @use '../../../constants/colors.styles' as colors;
 
-
-#students-table {   
+#filterable-data-table {   
     overflow-x: auto;
     border-radius: 5px 5px 0 0;
 
@@ -37,7 +36,7 @@
 
 }
 
-#students-paginator-container {
+#filterable-data-paginator-container {
     border-radius: 0 0 5px 5px;
     overflow: hidden;
     width: 100%;

@@ -71,23 +71,23 @@ export class TableComponent {
     .forEach((arrow: any) => (arrow.style.color = 'white'));
   }
 
-  public onViewStudent(filterableId: Partial<Filterable['id']>) {
+  public onView(filterableId: Partial<Filterable['id']>) {
     this.filterablePromise = this.filterableService.getById(filterableId);
   }
 
-  public onEditStudent(filterableId: Partial<Filterable['id']>) {
+  public onEdit(filterableId: Partial<Filterable['id']>) {
     const filterableData = this.filterableData.find(filterableData => filterableData.id === filterableId) ?? {};
     const dialogRef = this.filterableService.openEditDialog(this.dialog, 'edit', filterableData, '750px');
 
     dialogRef.afterClosed().subscribe(result => {
-      const resultStudent = result?.filterableData;
+      const resultData = result?.filterableData;
       
-      if (!resultStudent) return;
-      this.filterableService.updateData(resultStudent);
+      if (!resultData) return;
+      this.filterableService.updateData(resultData);
     });
   }
 
-  public onDeleteStudent(filterableDataId: Filterable['id']) {
+  public onDelete(filterableDataId: Filterable['id']) {
     this.filterableService.openDeleteDialog(this.dialog, filterableDataId);  
   }
   

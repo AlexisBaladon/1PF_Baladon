@@ -1,4 +1,4 @@
-<div id="students-table">
+<div id="filterable-data-table">
     <table 
         mat-table 
         matSort 
@@ -7,10 +7,10 @@
     >
         <ng-container *ngFor="let column of displayedColumnData" [matColumnDef]="column.attribute">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> {{column.attributeName}} </th>
-            <td mat-cell *matCellDef="let student">
-                <ng-container *ngIf="student[column.attribute] as att">
-                    <ng-container *ngIf="hasFullName(column.attribute, student.surname)">
-                        {{student | fullName}}
+            <td mat-cell *matCellDef="let data">
+                <ng-container *ngIf="data[column.attribute] as att">
+                    <ng-container *ngIf="hasFullName(column.attribute, data.surname)">
+                        {{data | fullName}}
                     </ng-container>
                     <ng-container *ngIf="isDate(att)">
                         {{att | date:'dd/MM/yyyy'}}
@@ -18,7 +18,7 @@
                     <ng-container *ngIf="isArray(att)">
                         {{arrayLength(att)}}
                     </ng-container>
-                    <ng-container *ngIf="isElse(att, column.attribute, student.surname)">
+                    <ng-container *ngIf="isElse(att, column.attribute, data.surname)">
                         {{att}}
                     </ng-container>
                 </ng-container>
@@ -27,23 +27,23 @@
 
         <ng-container matColumnDef="actions">
             <th mat-header-cell *matHeaderCellDef>Acciones</th>
-            <td mat-cell *matCellDef="let student">
+            <td mat-cell *matCellDef="let data">
                 <div class="d-flex row justify-content-center align-items-center">
                     <button
                         class="edit-icon"
-                        (click)="onViewStudent(student.id)" 
+                        (click)="onView(data.id)" 
                         mat-mini-fab color="primary"
                     >
                         <mat-icon>visibility</mat-icon>
                     </button>
                     <button
                         class="edit-icon"
-                        (click)="onEditStudent(student.id)" 
+                        (click)="onEdit(data.id)" 
                         mat-mini-fab color="primary"
                     >
                         <mat-icon>edit</mat-icon>
                     </button>
-                    <button (click)="onDeleteStudent(student.id)" mat-icon-button color="accent">
+                    <button (click)="onDelete(data.id)" mat-icon-button color="accent">
                         <mat-icon color="accent">delete</mat-icon>
                     </button>
                 </div>
@@ -53,7 +53,7 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
 </div>
-<div id="students-paginator-container">
+<div id="filterable-data-paginator-container">
     <mat-paginator 
         class="container"
         [pageSizeOptions]="[5, 10, 20]"
