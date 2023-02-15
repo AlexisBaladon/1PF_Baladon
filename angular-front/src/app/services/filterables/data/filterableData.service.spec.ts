@@ -1,14 +1,14 @@
 import { TestBed } from '@angular/core/testing';
 import { Filterable } from 'src/app/logic/filter/filterable';
 
-import { UserService } from './user.service';
+import { FilterableDataService } from './filterableData.service';
 
 describe('UserService', () => {
-  let service: UserService<Filterable>; //TODO: see
+  let service: FilterableDataService<Filterable>; //TODO: see
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(UserService);
+    service = TestBed.inject(FilterableDataService);
   });
 
   it('should be created', () => {

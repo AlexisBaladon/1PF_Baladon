@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Course } from 'src/app/interfaces/course';
 import { FilterPipe } from 'src/app/pipes/filter/filter.pipe';
-import { FilterableDataService } from '../users/user.service';
+import { FilterableDataService } from '../../../filterables/data/filterableData.service';
 import * as courses from 'src/assets/data/courses.json';
 import { jsonParser, courseCreator } from 'src/app/utils/jsonParser';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';

@@ -1,9 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { FilterOption } from 'src/app/constants/text';
-import { FilterableStateService } from 'src/app/services/filterables/filterableState.service';
+import { FilterableContextService } from 'src/app/services/filterables/context/filterableContext.service';
 import { Subscription } from 'rxjs';
-import { FilterableDataService } from 'src/app/services/users/user.service';
+import { FilterableDataService } from 'src/app/services/filterables/data/filterableData.service';
 import { Filterable } from 'src/app/logic/filter/filterable';
 
 @Component({
@@ -17,12 +17,12 @@ export class DashboardComponent {
   @Input() public filterableType!: string;
   @Input() public createDataTitle!: string;
   @Input() public filterOptions!: FilterOption[];
-  constructor(public dialog: MatDialog, public filterableStateService: FilterableStateService) {}
+  constructor(public dialog: MatDialog, public filterableContextService: FilterableContextService) {}
   private filterableService$!: Subscription;
   private filterableService!: FilterableDataService<any>;
 
   ngOnInit() {
-    this.filterableService$ = this.filterableStateService.getService().subscribe((service) => {
+    this.filterableService$ = this.filterableContextService.getService().subscribe((service) => {
       this.filterableService = service;
     });
   }

@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FilterPipe } from './pipes/filter/filter.pipe';
-import { StudentsService } from './services/students/students.service';
-import { CoursesService } from './services/courses/courses.service';
-import { FilterableStateService } from './services/filterables/filterableState.service';
+import { StudentsService } from './services/filterables/concrete-data/students/students.service';
+import { CoursesService } from './services/filterables/concrete-data/courses/courses.service';
+import { FilterableContextService } from './services/filterables/context/filterableContext.service';
 
 @NgModule({
   declarations: [],
@@ -22,7 +22,7 @@ import { FilterableStateService } from './services/filterables/filterableState.s
       useFactory: () => new CoursesService(new FilterPipe()),
       deps: [FilterPipe]
     },
-    FilterableStateService,
+    FilterableContextService,
   ]
 })
 export class ServicesModule { }

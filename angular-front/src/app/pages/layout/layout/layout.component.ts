@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { NAV_ROUTES, DASHBOARD_TEXT, FILTER_OPTIONS } from 'src/app/constants/text';
 import { type FilterableType } from 'src/app/interfaces/filterableTypes';
-import { FilterableStateService } from 'src/app/services/filterables/filterableState.service';
+import { FilterableContextService } from 'src/app/services/filterables/context/filterableContext.service';
 
 @Component({
   selector: 'app-layout',
@@ -11,7 +11,7 @@ import { FilterableStateService } from 'src/app/services/filterables/filterableS
 export class LayoutComponent {
   @Output() public menuItemSelected = new EventEmitter();
   @Output() public loggingOut = new EventEmitter();
-  constructor(private filterableStateService: FilterableStateService) { }
+  constructor(private filterableContextService: FilterableContextService) { }
   private routes: (string | FilterableType)[] = ['Home', 'Student', 'Course', 'General'];
   private dashboardRoutes: FilterableType[] = ['Student', 'Course'];
   public currentRoute: FilterableType = 'Student';
@@ -20,7 +20,7 @@ export class LayoutComponent {
   public changeRoute(route: number) {
     this.currentRoute = this.routes[route] as FilterableType;
     if (this.dashboardRoutes.includes(this.currentRoute)) {
-      this.filterableStateService.switchService(this.currentRoute);
+      this.filterableContextService.switchService(this.currentRoute);
     }
   }
 

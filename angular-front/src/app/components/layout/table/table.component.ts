@@ -8,8 +8,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { Subscription } from 'rxjs';
 import { Filterable } from 'src/app/logic/filter/filterable';
-import { FilterableDataService } from 'src/app/services/users/user.service';
-import { FilterableStateService } from 'src/app/services/filterables/filterableState.service';
+import { FilterableDataService } from 'src/app/services/filterables/data/filterableData.service';
+import { FilterableContextService } from 'src/app/services/filterables/context/filterableContext.service';
 
 @Component({
   selector: 'app-table',
@@ -19,7 +19,7 @@ import { FilterableStateService } from 'src/app/services/filterables/filterableS
 export class TableComponent {
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  constructor(public dialog: MatDialog, public el: ElementRef, private filterableStateService: FilterableStateService) {}
+  constructor(public dialog: MatDialog, public el: ElementRef, private filterableContextService: FilterableContextService) {}
   private students: Filterable[] = [];
   public students$: Subscription | undefined;
   public displayedColumns: string[] = [];
@@ -56,7 +56,7 @@ export class TableComponent {
   }
 
   ngOnInit() { 
-    this.filterableService$ = this.filterableStateService.getService().subscribe(service => {
+    this.filterableService$ = this.filterableContextService.getService().subscribe(service => {
       this.filterableService = service;
       this.filterableSuscription()
     });

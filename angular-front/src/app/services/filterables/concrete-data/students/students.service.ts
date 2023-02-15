@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import Student from 'src/app/interfaces/student';
 import { FilterPipe } from 'src/app/pipes/filter/filter.pipe';
-import { FilterableDataService } from '../users/user.service';
+import { FilterableDataService } from '../../data/filterableData.service';
 import * as students from 'src/assets/data/students.json';
 import { jsonParser, studentCreator } from 'src/app/utils/jsonParser';
 import { Filterable } from 'src/app/logic/filter/filterable';

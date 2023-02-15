@@ -9,9 +9,9 @@ import { LogicNode } from 'src/app/logic/filter/logicNode';
 import { ArrayDataSource } from '@angular/cdk/collections';
 import { LogicNodeFactory } from 'src/app/logic/filter/logicNodeFactory';
 import { FilterOption } from 'src/app/constants/text';
-import { FilterableStateService } from 'src/app/services/filterables/filterableState.service';
+import { FilterableContextService } from 'src/app/services/filterables/context/filterableContext.service';
 import { Subscription } from 'rxjs';
-import { FilterableDataService } from 'src/app/services/users/user.service';
+import { FilterableDataService } from 'src/app/services/filterables/data/filterableData.service';
 
 type FlatLogicNode = LogicNode<LogicFilterType, FilterName>;
 @Component({
@@ -22,7 +22,7 @@ type FlatLogicNode = LogicNode<LogicFilterType, FilterName>;
 export class FiltersComponent {
   @Input() public filterableType!: string;
   @Input() public filters!: FilterOption[];
-  constructor(public dialog: MatDialog, private filterableStateService: FilterableStateService) {}
+  constructor(public dialog: MatDialog, private filterableContextService: FilterableContextService) {}
   private filterableService$!: Subscription;
   private filterableService!: FilterableDataService<any>;
   private treeData: FlatLogicNode | null = null;
@@ -34,7 +34,7 @@ export class FiltersComponent {
   );
 
   ngOnInit() {
-    this.filterableService$ = this.filterableStateService.getService().subscribe((service) => {
+    this.filterableService$ = this.filterableContextService.getService().subscribe((service) => {
       this.filterableService = service;
       this.treeData = null;
       this.filterableService.setFilters(null);

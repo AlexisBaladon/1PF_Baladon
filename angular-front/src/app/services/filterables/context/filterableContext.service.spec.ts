@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { FilterableStateService } from './filterableState.service';
+import { FilterableContextService } from './filterableContext.service';
 
 describe('FilterablesService', () => {
-  let service: FilterableStateService;
+  let service: FilterableContextService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(FilterableStateService);
+    service = TestBed.inject(FilterableContextService);
   });
 
   it('should be created', () => {
