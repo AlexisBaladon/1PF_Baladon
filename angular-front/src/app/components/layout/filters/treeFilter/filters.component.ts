@@ -4,7 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { AddFilterModalComponent } from '../add-filter-modal/add-filter-modal.component';
 import { LogicFilterType } from '../../../../interfaces/logic-filter-type';
 import type { FilterName } from '../../../../interfaces/filters';
-import { logicOperatorTitles } from '../../../../constants/filter';
+import { logicOperatorTitles } from '../../../../interfaces/filter';
 import { LogicNode } from 'src/app/logic/filter/logicNode';
 import { ArrayDataSource } from '@angular/cdk/collections';
 import { LogicNodeFactory } from 'src/app/logic/filter/logicNodeFactory';

@@ -33,7 +33,6 @@ export abstract class LogicNode<Type, Section> {
         this.isExpanded = isExpanded;
     }
 }
-
 export class LogicNodeAnd<Type, Section> extends LogicNode<Type, Section> {
     constructor(id: string, title: string, type: Type, section: Section, level: number = 0, parentNode: LogicNode<Type, Section> | null = null, children: LogicNode<Type, Section>[] = [], isExpanded: boolean = false) {
         super(id, title, type, section, level, parentNode, children, isExpanded);

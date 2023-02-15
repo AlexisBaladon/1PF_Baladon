@@ -2,7 +2,7 @@ import { Component, Inject, Input } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FilterName } from 'src/app/interfaces/filters';
 import { LogicFilterType, LogicFilterTypes } from '../../../../interfaces/logic-filter-type';
-import { logicOperatorTitles } from 'src/app/constants/filter';
+import { logicOperatorTitles } from 'src/app/interfaces/filter';
 import { type FilterOption } from 'src/app/constants/text';
 
 @Component({

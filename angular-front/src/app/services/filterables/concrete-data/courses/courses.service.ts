@@ -23,7 +23,7 @@ export class CoursesService extends FilterableDataService<Course> {
     return dialog.open(AddCourseFormComponent, {
           width: width || '400px',
           data: { 
-            student: filterable, 
+            filterableData: filterable, 
             valid: true, 
             title: mode === 'create' ? 'Agregar curso' : 'Editar curso',
           }

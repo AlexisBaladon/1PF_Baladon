@@ -1,8 +1,5 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import Student, { isStudent } from 'src/app/interfaces/student';
-import { AddUserFormComponent } from '../add-user-form/add-user-form.component';
 import { MatDialog } from '@angular/material/dialog';
-import { ConfirmModalComponent } from '../../global/confirm-modal/confirm-modal.component';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
@@ -20,8 +17,8 @@ export class TableComponent {
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   constructor(public dialog: MatDialog, public el: ElementRef, private filterableContextService: FilterableContextService) {}
-  private students: Filterable[] = [];
-  public students$: Subscription | undefined;
+  private filterableData: Filterable[] = [];
+  public filterableData$: Subscription | undefined;
   public displayedColumns: string[] = [];
   public displayedColumnData: { attribute: string; attributeName: string }[] = [];
   public displayedColumns$: Subscription | undefined;
@@ -31,21 +28,21 @@ export class TableComponent {
   public dataSource!: MatTableDataSource<Filterable>;
 
   private restartTable() {
-    this.dataSource = new MatTableDataSource(this.students);
+    this.dataSource = new MatTableDataSource(this.filterableData);
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
   }
 
   private unsuscribeFromData() {
-    if (this.students$ !== undefined) this.students$.unsubscribe();
+    if (this.filterableData$ !== undefined) this.filterableData$.unsubscribe();
     if (this.displayedColumns$ !== undefined) this.displayedColumns$.unsubscribe();
   }
 
   private filterableSuscription() {
     this.unsuscribeFromData();
 
-    this.students$ = this.filterableService.getFilteredData().subscribe(students => {
-      this.students = students;
+    this.filterableData$ = this.filterableService.getFilteredData().subscribe(filterableData => {
+      this.filterableData = filterableData;
       this.restartTable();
     });
     this.displayedColumns$ = this.filterableService.getFilterableAttributes().subscribe(attributes => {
@@ -79,19 +76,19 @@ export class TableComponent {
   }
 
   public onEditStudent(filterableId: Partial<Filterable['id']>) {
-    const student = this.students.find(student => student.id === filterableId) ?? {};
-    const dialogRef = this.filterableService.openEditDialog(this.dialog, 'edit', student, '750px');
+    const filterableData = this.filterableData.find(filterableData => filterableData.id === filterableId) ?? {};
+    const dialogRef = this.filterableService.openEditDialog(this.dialog, 'edit', filterableData, '750px');
 
     dialogRef.afterClosed().subscribe(result => {
-      const resultStudent = result?.student;
+      const resultStudent = result?.filterableData;
       
       if (!resultStudent) return;
       this.filterableService.updateData(resultStudent);
     });
   }
 
-  public onDeleteStudent(studentId: Student['id']) {
-    this.filterableService.openDeleteDialog(this.dialog, studentId);  
+  public onDeleteStudent(filterableDataId: Filterable['id']) {
+    this.filterableService.openDeleteDialog(this.dialog, filterableDataId);  
   }
   
   public isDate(value: any): boolean {

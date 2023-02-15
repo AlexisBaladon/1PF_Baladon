@@ -5,7 +5,6 @@ export const INPUTS_MAX_LENGTH = 30;
 export const PASSWORD_MIN_LENGTH = 6;
 export const SIMPLE_INPUTS_MIN_LENGTH = 2;
 
-//Validations
 export const SIMPLE_VALIDATIONS = [
     Validators.required,
     Validators.minLength(SIMPLE_INPUTS_MIN_LENGTH),

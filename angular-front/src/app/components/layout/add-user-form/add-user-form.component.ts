@@ -1,10 +1,10 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import Student from 'src/app/interfaces/student';
 import { FormGroup, FormControl } from '@angular/forms';
 import { generateId } from 'src/app/utils/idGenerator';
 import { getErrorMessages, isValidInput } from 'src/app/utils/formControl';
 import { EMAIL_VALIDATIONS, PASSWORD_VALIDATIONS, SIMPLE_VALIDATIONS } from 'src/app/constants/validations';
+import Student from 'src/app/interfaces/student';
 
 @Component({
   selector: 'app-add-user-form',
@@ -15,12 +15,12 @@ export class AddUserFormComponent {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: {
       title: string;
-      student: Student | null;
+      filterableData: Student | null;
       valid: boolean;
     }, private dialogRef: MatDialogRef<AddUserFormComponent>
   ) { }
 
-  private defaultStudentData: Student = this.data.student ?? {} as Student;
+  private defaultStudentData: Student = this.data.filterableData ?? {} as Student;
 
 
   public formGroup = new FormGroup({
@@ -55,7 +55,7 @@ export class AddUserFormComponent {
     const formValues = this.formGroup.value;
 
     const student = new Student(
-      this.data.student?.id ?? generateId(),
+      this.data.filterableData?.id ?? generateId(),
       formValues.name ?? '',
       formValues.surname ?? '',
       formValues.birthDate ?? new Date(),
@@ -64,11 +64,11 @@ export class AddUserFormComponent {
       formValues.email ?? '',
       formValues.password ?? '',
       formValues.admissionDate ?? new Date(),
-      this.data.student?.averageGrade ?? null ?? 0,
+      this.data.filterableData?.averageGrade ?? null ?? 0,
       formValues.career ?? '',
     );
     
-    this.data.student = student;
+    this.data.filterableData = student;
     this.data.valid = true;
     this.dialogRef.close(this.data);
   }

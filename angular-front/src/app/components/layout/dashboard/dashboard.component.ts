@@ -34,7 +34,7 @@ export class DashboardComponent {
   public openDialog() {
     const dialogRef = this.filterableService.openEditDialog(this.dialog, 'create', {}, '600px');
     dialogRef.afterClosed().subscribe(result => {
-      const resultFilterable: Filterable | undefined = result?.student;
+      const resultFilterable: Filterable | undefined = result?.filterableData;
       if (!resultFilterable) return;
       this.filterableService.addData(resultFilterable);
     });

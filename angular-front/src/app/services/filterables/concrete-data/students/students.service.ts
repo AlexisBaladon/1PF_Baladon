@@ -24,7 +24,7 @@ export class StudentsService extends FilterableDataService<Student> {
     return dialog.open(AddUserFormComponent, {
       width: width || '600px',
       data: {
-        student: filterable, 
+        filterableData: filterable, 
         valid: true, 
         title: mode === 'create' ? 'Agregar usuario' : 'Editar usuario',
       },
