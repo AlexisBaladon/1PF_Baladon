@@ -20,7 +20,7 @@ export class StudentNameFilter extends StudentFilter {
 
     public evaluate(filterable: Filterable): boolean {
         return this.isValidType(filterable) && 
-        (filterable as Student).name.toLowerCase().includes(this.name.toLowerCase());
+        (filterable as Student).name.toLowerCase().includes(this.name.trim().toLowerCase());
     }
 }
 

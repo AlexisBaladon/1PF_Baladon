@@ -5,7 +5,7 @@
         [dataSource]="dataSource"
         class="mat-elevation-z8"
     >
-        <ng-container *ngFor = "let column of displayedColumnData" [matColumnDef]="column.attribute">
+        <ng-container *ngFor="let column of displayedColumnData" [matColumnDef]="column.attribute">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> {{column.attributeName}} </th>
             <td mat-cell *matCellDef="let student">
                 <ng-container *ngIf="student[column.attribute] as att">
@@ -31,6 +31,13 @@
                 <div class="d-flex row justify-content-center align-items-center">
                     <button
                         class="edit-icon"
+                        (click)="onViewStudent(student.id)" 
+                        mat-mini-fab color="primary"
+                    >
+                        <mat-icon>visibility</mat-icon>
+                    </button>
+                    <button
+                        class="edit-icon"
                         (click)="onEditStudent(student.id)" 
                         mat-mini-fab color="primary"
                     >
@@ -41,8 +48,7 @@
                     </button>
                 </div>
             </td>
-      </ng-container>
-  
+      </ng-container>  
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
@@ -55,3 +61,13 @@
     >
     </mat-paginator>
 </div>
+
+<article style="margin-top: 2rem;">
+    <h1>Promesa!</h1>
+    <ng-container *ngIf="filterablePromise | async as filterable">
+        {{(filterable | json).split(",")[1].split("}")}}
+    </ng-container>
+    <ng-container *ngIf="!(filterablePromise | async)">
+        {{'Presiona un botón de 👁 y espera 2 segundos'}}
+    </ng-container>
+</article>

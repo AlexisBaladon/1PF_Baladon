@@ -1,7 +1,6 @@
 import { isCourse, type Course } from "src/app/interfaces/course";
 import { Filter } from "./filter";
 import { Filterable } from "./filterable";
-import { StudentFilter } from "./studentFilter";
 
 
 export abstract class CourseFilter extends Filter {
@@ -20,7 +19,7 @@ export class CourseNameFilter extends CourseFilter {
 
     public evaluate(filterable: Filterable): boolean {
         return this.isValidType(filterable) && 
-        (filterable as Course).name.toLowerCase().includes(this.name.toLowerCase());
+        (filterable as Course).name.trim().toLowerCase().includes(this.name.trim().toLowerCase());
     }
 }
 

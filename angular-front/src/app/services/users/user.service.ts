@@ -30,6 +30,15 @@ export abstract class UserService<F extends Filterable> {
 		this.filterableData$.next(this.filterableData);
 	}
 
+	public getById(id: F['id']): Promise<F> {
+		return new Promise(resolve => {
+			setTimeout(() => {
+				const student = this.filterableData.find(s => s.id === id);
+				if (student) resolve(student);
+			}, 3000);
+		});
+	}
+
 	public deleteStudent(id: F['id']): void {
 		this.filterableData = this.filterableData.filter(f => f.id !== id);
 		this.filterableData$.next(this.filterableData);

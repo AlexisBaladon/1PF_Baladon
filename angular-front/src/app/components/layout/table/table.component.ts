@@ -29,6 +29,7 @@ export class TableComponent {
   public dataSource!: MatTableDataSource<Filterable>;
   private filterableService!: UserService<Filterable>;
   private filterableService$!: Subscription;
+  public filterablePromise!: Promise<Filterable>;
 
   private restartTable() {
     this.dataSource = new MatTableDataSource(this.students);
@@ -72,6 +73,10 @@ export class TableComponent {
     this.el.nativeElement
     .querySelectorAll('.mat-sort-header-arrow')
     .forEach((arrow: any) => (arrow.style.color = 'white'));
+  }
+
+  public onViewStudent(filterableId: Partial<Filterable['id']>) {
+    this.filterablePromise = this.filterableService.getById(filterableId);
   }
 
   public onEditStudent(filterableId: Partial<Filterable['id']>) {
