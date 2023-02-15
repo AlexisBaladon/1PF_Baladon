@@ -1,5 +1,4 @@
 import { BehaviorSubject, map, Observable, Subject } from 'rxjs';
-import { Inject, Injectable } from '@angular/core';
 import { FilterName } from 'src/app/interfaces/filters';
 import { LogicFilterType } from 'src/app/interfaces/logic-filter-type';
 import { FilterPipe } from 'src/app/pipes/filter/filter.pipe';
@@ -8,7 +7,7 @@ import { Filterable } from 'src/app/logic/filter/filterable';
 import { DASHBOARD_TEXT } from 'src/app/constants/text';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
-export abstract class UserService<F extends Filterable> {
+export abstract class FilterableDataService<F extends Filterable> {
 	private filters: LogicNode<LogicFilterType, FilterName> | null = null;
 	constructor(private filterPipe: FilterPipe, private filterableData: F[]) {}
 	private filterableData$: BehaviorSubject<F[]> = new BehaviorSubject(this.filterableData);
@@ -33,23 +32,23 @@ export abstract class UserService<F extends Filterable> {
 	public getById(id: F['id']): Promise<F> {
 		return new Promise(resolve => {
 			setTimeout(() => {
-				const student = this.filterableData.find(s => s.id === id);
-				if (student) resolve(student);
+				const foundFilterable = this.filterableData.find(s => s.id === id);
+				if (foundFilterable) resolve(foundFilterable);
 			}, 3000);
 		});
 	}
 
-	public deleteStudent(id: F['id']): void {
+	public deleteFilterable(id: F['id']): void {
 		this.filterableData = this.filterableData.filter(f => f.id !== id);
 		this.filterableData$.next(this.filterableData);
 	}
 
-	public setStudentFilters(filters: LogicNode<LogicFilterType, FilterName> | null): void {
+	public setFilters(filters: LogicNode<LogicFilterType, FilterName> | null): void {
 		this.filters = filters;
 		this.filterableData$.next(this.filterableData.slice());
 	}
 		
-	public getFilteredStudents(): Observable<F[]> {
+	public getFilteredData(): Observable<F[]> {
 		return this.filterableData$.pipe(
 			map(filterableData => this.filterPipe.transform(filterableData, this.filters) as F[])
 		);

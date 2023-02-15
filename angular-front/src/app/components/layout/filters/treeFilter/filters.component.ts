@@ -9,9 +9,9 @@ import { LogicNode } from 'src/app/logic/filter/logicNode';
 import { ArrayDataSource } from '@angular/cdk/collections';
 import { LogicNodeFactory } from 'src/app/logic/filter/logicNodeFactory';
 import { FilterOption } from 'src/app/constants/text';
-import { FilterablesService } from 'src/app/services/filterables/filterables.service';
+import { FilterableStateService } from 'src/app/services/filterables/filterableState.service';
 import { Subscription } from 'rxjs';
-import { UserService } from 'src/app/services/users/user.service';
+import { FilterableDataService } from 'src/app/services/users/user.service';
 
 type FlatLogicNode = LogicNode<LogicFilterType, FilterName>;
 @Component({
@@ -22,9 +22,9 @@ type FlatLogicNode = LogicNode<LogicFilterType, FilterName>;
 export class FiltersComponent {
   @Input() public filterableType!: string;
   @Input() public filters!: FilterOption[];
-  constructor(public dialog: MatDialog, private filterableDataService: FilterablesService) {}
+  constructor(public dialog: MatDialog, private filterableStateService: FilterableStateService) {}
   private filterableService$!: Subscription;
-  private filterableService!: UserService<any>;
+  private filterableService!: FilterableDataService<any>;
   private treeData: FlatLogicNode | null = null;
   public dataSource = this.createDataSource();
 
@@ -34,10 +34,10 @@ export class FiltersComponent {
   );
 
   ngOnInit() {
-    this.filterableService$ = this.filterableDataService.getService().subscribe((service) => {
+    this.filterableService$ = this.filterableStateService.getService().subscribe((service) => {
       this.filterableService = service;
       this.treeData = null;
-      this.filterableService.setStudentFilters(null);
+      this.filterableService.setFilters(null);
       this.dataSource = this.createDataSource();
     });
   }
@@ -107,7 +107,7 @@ export class FiltersComponent {
   }
 
   public onFilterClick() {
-      this.filterableService.setStudentFilters(this.treeData);
+      this.filterableService.setFilters(this.treeData);
   }
 
 }

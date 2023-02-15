@@ -8,9 +8,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { Subscription } from 'rxjs';
 import { Filterable } from 'src/app/logic/filter/filterable';
-import { UserService } from 'src/app/services/users/user.service';
-import { FilterablesService } from 'src/app/services/filterables/filterables.service';
-import { Filter } from 'src/app/logic/filter/filter';
+import { FilterableDataService } from 'src/app/services/users/user.service';
+import { FilterableStateService } from 'src/app/services/filterables/filterableState.service';
 
 @Component({
   selector: 'app-table',
@@ -20,16 +19,16 @@ import { Filter } from 'src/app/logic/filter/filter';
 export class TableComponent {
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  constructor(public dialog: MatDialog, public el: ElementRef, private filterableDataService: FilterablesService) {}
+  constructor(public dialog: MatDialog, public el: ElementRef, private filterableStateService: FilterableStateService) {}
   private students: Filterable[] = [];
   public students$: Subscription | undefined;
   public displayedColumns: string[] = [];
   public displayedColumnData: { attribute: string; attributeName: string }[] = [];
   public displayedColumns$: Subscription | undefined;
-  public dataSource!: MatTableDataSource<Filterable>;
-  private filterableService!: UserService<Filterable>;
+  private filterableService!: FilterableDataService<Filterable>;
   private filterableService$!: Subscription;
   public filterablePromise!: Promise<Filterable>;
+  public dataSource!: MatTableDataSource<Filterable>;
 
   private restartTable() {
     this.dataSource = new MatTableDataSource(this.students);
@@ -45,7 +44,7 @@ export class TableComponent {
   private filterableSuscription() {
     this.unsuscribeFromData();
 
-    this.students$ = this.filterableService.getFilteredStudents().subscribe(students => {
+    this.students$ = this.filterableService.getFilteredData().subscribe(students => {
       this.students = students;
       this.restartTable();
     });
@@ -57,7 +56,7 @@ export class TableComponent {
   }
 
   ngOnInit() { 
-    this.filterableService$ = this.filterableDataService.getService().subscribe(service => {
+    this.filterableService$ = this.filterableStateService.getService().subscribe(service => {
       this.filterableService = service;
       this.filterableSuscription()
     });

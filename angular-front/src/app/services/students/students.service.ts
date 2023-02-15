@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import Student from 'src/app/interfaces/student';
 import { FilterPipe } from 'src/app/pipes/filter/filter.pipe';
-import { UserService } from '../users/user.service';
+import { FilterableDataService } from '../users/user.service';
 import * as students from 'src/assets/data/students.json';
 import { jsonParser, studentCreator } from 'src/app/utils/jsonParser';
 import { Filterable } from 'src/app/logic/filter/filterable';
@@ -12,7 +12,7 @@ import { ConfirmModalComponent } from 'src/app/components/global/confirm-modal/c
 @Injectable({
   providedIn: 'root',
 })
-export class StudentsService extends UserService<Student> {
+export class StudentsService extends FilterableDataService<Student> {
 
   constructor( filterPipe: FilterPipe ) {
     const parsedStudents: Student[] = jsonParser<Student>(students);
@@ -40,7 +40,7 @@ export class StudentsService extends UserService<Student> {
          confirmButtonText: 'Eliminar',
          cancelButtonText: 'Cancelar',
          onConfirm: () => {
-           this.deleteStudent(filterableId);
+           this.deleteFilterable(filterableId);
            dialog.closeAll();
          },
          onCancel: () => {
