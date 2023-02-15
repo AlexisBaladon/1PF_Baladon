@@ -53,9 +53,10 @@ export class AddCourseFormComponent {
       formValues.name ?? this.defaultCourseData.name ?? '',
       formValues.description ?? this.defaultCourseData.description ?? '',
       formValues.credits ?? this.defaultCourseData.credits ?? 0,
-      null,
-      [],
-      null,
+      this.defaultCourseData.teacher ?? null,
+      this.defaultCourseData.studentsId ?? [],
+      this.defaultCourseData.averageGrade ??
+      this.defaultCourseData.averageGrade ?? 0
     );
     
     this.data.filterableData = createdCourse;

@@ -42,10 +42,10 @@
                 >
             </div>
         </form>
-        <div id="submit-buttons-container">
-            <button mat-button (click)="onCancel()">Cancelar</button>
-            <button mat-raised-button (click)="onSubmit()" type="submit" form="add-user-form">{{data.title}}</button>
-        </div>
+    </div>
+    <div id="submit-buttons-container">
+        <button mat-button (click)="onCancel()">Cancelar</button>
+        <button mat-raised-button (click)="onSubmit()" type="submit" form="add-course-form">{{data.title}}</button>
     </div>
 </div>
 <div *ngIf="formGroup.invalid && submitted">
