@@ -21,9 +21,11 @@ import { ConfirmModalComponent } from './components/global/confirm-modal/confirm
 import { ValidInputDirective } from './directives/valid-input/valid-input.directive';
 import { FullNamePipe } from './pipes/users/full-name/full-name.pipe';
 import { FontSizeDirective } from './directives/fonts/size/font-size.directive';
-import { LayoutComponent } from './pages/layout/layout/layout.component';
 import { ServicesModule } from './services.module';
 import { AddCourseFormComponent } from './components/layout/add-course-form-component/add-course-form-component/add-course-form.component';
+import { RoutesModule } from './routes.module';
+import { StudentDashboardComponent } from './components/layout/student-dashboard/student-dashboard.component';
+import { CourseDashboardComponent } from './components/layout/course-dashboard/course-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -44,15 +46,17 @@ import { AddCourseFormComponent } from './components/layout/add-course-form-comp
     ValidInputDirective,
     FullNamePipe,
     FontSizeDirective,
-    LayoutComponent,
     AddCourseFormComponent,
+    StudentDashboardComponent,
+    CourseDashboardComponent,
   ],
   imports: [
     BrowserModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
     MaterialModule,
-    ServicesModule
+    ServicesModule,
+    RoutesModule
   ],
   bootstrap: [AppComponent]
 })

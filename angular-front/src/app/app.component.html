@@ -1,2 +1,19 @@
-<app-layout *ngIf="loggedIn" (loggingOut)="logOut()"></app-layout>
-<app-auth [hasAccount]="false" (loggingIn)="logIn()" *ngIf="!loggedIn"></app-auth>
+<!-- <app-layout *ngIf="loggedIn" (loggingOut)="logOut()"></app-layout>
+<app-auth [hasAccount]="false" (loggingIn)="logIn()" *ngIf="!loggedIn"></app-auth> -->
+<div id='app'>
+    <header *ngIf="loggedIn">
+        <app-toolbar (loggingOut)="logOut()"></app-toolbar>
+    </header>
+    <div id='main-content'>
+        <aside *ngIf="loggedIn">
+            <app-menu
+                [options]="getNavRoutes()"
+                [selectedMenuItem]="getCurrentRoute()"
+                (menuItemSelected)="changeRoute($event)"
+            ></app-menu>
+        </aside>
+        <main>
+            <router-outlet></router-outlet>
+        </main>
+    </div>
+</div>

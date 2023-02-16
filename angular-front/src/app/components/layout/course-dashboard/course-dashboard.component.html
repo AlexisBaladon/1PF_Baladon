@@ -1,0 +1,9 @@
+<app-dashboard
+    *ngIf="getDashboardText() as dbText"
+    [title]="dbText.title"
+    [description]="dbText.description"
+    [createDataTitle]="dbText.createDataTitle"
+    [filterableType]="dbText.filterableType"
+    [filterOptions]="dbText.filterOptions"
+>
+</app-dashboard>

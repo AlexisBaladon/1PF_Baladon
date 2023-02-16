@@ -1,18 +1,18 @@
 <div id="collapsed-left-menu" class="collapse-horizontal collapse show ">
     <div id='left-menu' class=" bg-light flex-column flex-shrink-0 pt-3 text-black">
-        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto ps-3 text-decoration-none">
+        <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto ps-3 text-decoration-none">
             <span [appFontSize]="'x-large'" class="fw-bold"> Navegación</span>
         </a>
         <hr>
         <ul class="nav nav-pills flex-column mb-auto">
             <li *ngFor="let option of options" class="nav-item">
-                <a (click)="changeRoute(option)" [appFontSize]="'large'" href="#" class="menu-text nav-link"
+                <a (click)="changeRoute(option)" [appFontSize]="'large'" class="menu-text nav-link"
                         [ngClass]="isSelected(option) ? 'active' : ''">
                     {{option}}
                 </a>
             </li>
             <li *ngFor="let scrollableOption of scrollableOptions | keyvalue" class="nav-item dropdown">
-                <a [appFontSize]="'large'" class="menu-text nav-link dropdown-toggle" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                <a [appFontSize]="'large'" class="menu-text nav-link dropdown-toggle" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="collapseExample">
                     {{scrollableOption.key}}
                 </a>
                 <div class="collapse" id="collapseExample">
