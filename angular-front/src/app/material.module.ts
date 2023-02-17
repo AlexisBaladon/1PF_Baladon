@@ -10,6 +10,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatSliderModule } from '@angular/material/slider';
+import { MatCardModule } from '@angular/material/card';
 
 const usedModules = [
   CdkTreeModule,
@@ -21,7 +22,8 @@ const usedModules = [
   MatTableModule,
   MatPaginatorModule,
   MatSortModule,
-  MatSliderModule
+  MatSliderModule,
+  MatCardModule,
 ];
 
 @NgModule({

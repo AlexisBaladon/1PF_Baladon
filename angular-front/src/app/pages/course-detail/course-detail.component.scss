@@ -5,15 +5,19 @@ h1 {
     margin: 0;
 }
 
+#course-detail {
+    padding: 2rem;
+}
+
 #data-blocks {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
     width: 100%;
-    margin-top: 2rem;
-    margin-bottom: 2rem;
+    margin: 0 0 1.5rem 0;
+    row-gap: 1rem;
 }
 
 .data-block {
@@ -25,15 +29,7 @@ h1 {
     justify-content: space-between;
     align-items: center;
     border-radius: 1rem;
-    margin: 0 1rem 1rem 1rem ;
     box-shadow: 0 0 5px 0 rgba(0,0,0,0.2);
-    cursor: pointer;
-    transition: transform 0.15s ease-in-out;
-    transform: scale(1);
-
-    &:hover {
-        transform: scale(1.05);
-    }
 
     .icon {
         transform: scale(2.5);
@@ -57,17 +53,6 @@ h1 {
     }
 }
 
-#course-data {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-    flex-wrap: wrap;
-    width: 100%;
-    margin-top: 2rem;
-    margin-bottom: 2rem;
-}
-
 #course-bottom-data {
     display: flex;
     flex-direction: row;
@@ -75,18 +60,16 @@ h1 {
     align-items: flex-start;
     flex-wrap: nowrap;
     width: 100%;
-    margin-top: 2rem;
-    margin-bottom: 2rem;
-    padding: 0 1rem;
     flex-grow: 1;
+    row-gap: 1rem;
 
     #course-bottom-center-data {
         display: flex;
         flex-direction: column;
         justify-content: space-around;
-        align-items: flex-start;
         width: 100%;
         flex-grow: 1;
+        row-gap: 1rem;
         
         #course-data {
             display: flex;
@@ -103,17 +86,7 @@ h1 {
                 align-items: flex-start;
                 width: 100%;
                 flex-grow: 1;
-                
-                #course-text-data {
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: space-around;
-                    align-items: flex-start;
-                    flex-wrap: nowrap;
-                }
             }
-    
-    
         }
     }
 
@@ -142,11 +115,14 @@ h1 {
 
 
     #course-students-data {
-        width: 40%;
         display: flex;
         flex-direction: column;
         justify-content: space-around;
         align-items: flex-start;
-        margin: 0 1rem 1rem 1rem ;
+        margin: 0 0 1rem 1rem ;
+
+        .students {
+            width: 100%;
+        }
     }
 }

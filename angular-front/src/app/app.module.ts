@@ -29,6 +29,8 @@ import { CourseDashboardComponent } from './pages/course-dashboard/course-dashbo
 import { CourseDetailComponent } from './pages/course-detail/course-detail.component';
 import { Error404Component } from './pages/error404/error404.component';
 import { CustomBackgroundDirective } from './directives/custom-background/custom-background.directive';
+import { SectionHeaderComponent } from './components/global/section-header/section-header.component';
+import { CardComponent } from './components/global/card/card/card.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +57,8 @@ import { CustomBackgroundDirective } from './directives/custom-background/custom
     CourseDetailComponent,
     Error404Component,
     CustomBackgroundDirective,
+    SectionHeaderComponent,
+    CardComponent,
   ],
   imports: [
     BrowserModule,
