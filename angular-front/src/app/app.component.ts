@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { DASHBOARD_TEXT, FILTER_OPTIONS, NAV_ROUTES } from './constants/text';
 import { FilterableType } from './interfaces/filterableTypes';
+import User from './interfaces/user';
+import { AuthService } from './services/auth/auth.service';
 import { FilterableContextService } from './services/filterables/context/filterableContext.service';
 
 @Component({
@@ -10,17 +13,27 @@ import { FilterableContextService } from './services/filterables/context/filtera
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  loggedIn = true;
+  private user: User | null = null;
+  private user$!: Subscription;
+  constructor( private filterableContextService: FilterableContextService, private router: Router, private authService: AuthService) { }
 
-  logIn() {
-    this.loggedIn = true;
+  ngOnInit() {
+    this.user$ = this.authService.getUser().subscribe(user => {
+      this.user = user;
+      if (!this.user) {
+        this.router.navigate(['/login']);
+      }
+    });
   }
 
-  logOut() {
-    this.loggedIn = false;
+  ngOnDestroy() {
+    if (!!this.user$) { this.user$.unsubscribe(); }
   }
 
-  constructor( private filterableContextService: FilterableContextService, private router: Router) { }
+  public isLoggedIn() {
+    return !!this.user;
+  }
+
   private routes: (string | FilterableType)[] = ['Home', 'Student', 'Course', 'General'];
   private dashboardRoutes: FilterableType[] = ['Student', 'Course'];
   private routesMap: Map<FilterableType, string> = new Map([

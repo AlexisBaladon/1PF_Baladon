@@ -1,4 +1,5 @@
-import { Component, ElementRef, EventEmitter, Output } from '@angular/core';
+import { Component } from '@angular/core';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
   selector: 'app-toolbar',
@@ -6,9 +7,10 @@ import { Component, ElementRef, EventEmitter, Output } from '@angular/core';
   styleUrls: ['./toolbar.component.scss']
 })
 export class ToolbarComponent {
-  @Output() public loggingOut = new EventEmitter();
+
+  constructor(private authService: AuthService) { }
 
   logOut() {
-    this.loggingOut.emit();
+    this.authService.logout();
   }
 }

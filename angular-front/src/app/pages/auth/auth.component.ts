@@ -1,6 +1,10 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Component } from '@angular/core';
+import { FormGroup, FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { SIMPLE_VALIDATIONS, EMAIL_VALIDATIONS, PASSWORD_VALIDATIONS } from 'src/app/constants/validations';
+import User from 'src/app/interfaces/user';
+import { AuthService } from 'src/app/services/auth/auth.service';
 import { getErrorMessages, isValidInput } from 'src/app/utils/formControl';
 
 @Component({
@@ -9,8 +13,37 @@ import { getErrorMessages, isValidInput } from 'src/app/utils/formControl';
   styleUrls: ['./auth.component.scss']
 })
 export class AuthComponent {
-  @Input() public hasAccount = true;
-  @Output() public loggingIn = new EventEmitter();
+  public hasAccount = true;
+  private _submitted = false;
+  private user: User | null = null;
+  private user$!: Subscription;
+  private error: string | null = null;
+  private error$!: Subscription;
+  
+  constructor(private router: Router, private authService: AuthService) {}
+
+  ngOnInit() {
+    this.user$ = this.authService.getUser().subscribe(user => {
+      this.user = user;
+    });
+
+    this.error$ = this.authService.getError().subscribe(error => {
+      this.error = error;
+    });
+
+    if (!!this.user) {
+      this.router.navigate(['/']);
+    }
+  }
+
+  ngOnDestroy() {
+    if (!!this.user$) {
+      this.user$.unsubscribe();
+    }
+    if (!!this.error$) {
+      this.error$.unsubscribe();
+    }
+  }
 
   private formControls = {
     name: SIMPLE_VALIDATIONS,
@@ -35,7 +68,6 @@ export class AuthComponent {
     return this.hasAccount ? this.loginForm : this.signupForm;
   }
 
-  private _submitted = false;
 
   public get submitted(): boolean {
     return this._submitted;
@@ -45,7 +77,18 @@ export class AuthComponent {
     this._submitted = true;
     if (this.form.invalid) return;
 
-    this.loggingIn.emit();
+    if (this.hasAccount) {
+      this.authService.login(this.form.value.email, this.form.value.password);
+    }
+    else {
+      this.authService.signup(this.form.value.name, this.form.value.surname, this.form.value.email, this.form.value.password);
+    }
+
+    if (!!this.error) {
+      console.warn(this.error);
+      return;
+    }
+    this.router.navigate(['/layout']);
   }
 
   public changeAuthMode() {

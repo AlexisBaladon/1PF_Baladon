@@ -1,9 +1,9 @@
 <div id='app'>
-    <header *ngIf="loggedIn">
-        <app-toolbar (loggingOut)="logOut()"></app-toolbar>
+    <header *ngIf="isLoggedIn()">
+        <app-toolbar></app-toolbar>
     </header>
     <div id='main-content'>
-        <aside *ngIf="loggedIn">
+        <aside *ngIf="isLoggedIn()">
             <app-menu
                 [options]="getNavRoutes()"
                 [selectedMenuItem]="getCurrentRoute()"

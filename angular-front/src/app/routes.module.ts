@@ -10,6 +10,7 @@ import { Error404Component } from './pages/error404/error404.component';
 const routes: Routes = [
   { path: 'login', component: AuthComponent },
   { path: 'layout', children: [
+      { path: '', redirectTo: 'students', pathMatch: 'full'},
       { path: 'students', component: StudentDashboardComponent }, 
       { path: 'courses', component: CourseDashboardComponent },
       { path: 'course/:id', component: CourseDetailComponent },

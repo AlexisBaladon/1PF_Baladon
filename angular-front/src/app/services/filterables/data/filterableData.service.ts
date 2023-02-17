@@ -10,7 +10,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 export abstract class FilterableDataService<F extends Filterable> {
 	private filters: LogicNode<LogicFilterType, FilterName> | null = null;
 	constructor(private filterPipe: FilterPipe, private filterableData: F[]) {}
-	private filterableData$: BehaviorSubject<F[]> = new BehaviorSubject(this.filterableData);
+	protected filterableData$: BehaviorSubject<F[]> = new BehaviorSubject(this.filterableData);
 
 	public getData(): Observable<F[]> {
 		return this.filterableData$.asObservable();
