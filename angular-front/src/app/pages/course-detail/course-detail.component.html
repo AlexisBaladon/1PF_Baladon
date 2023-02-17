@@ -1,0 +1,57 @@
+<div id="data-blocks">
+    <ng-container *ngFor="let blockInfo of [
+        {title: 'Total de Estudiantes', icon: 'people', value: course?.studentsId?.length, customBackground: 'linear-main'},
+        {title: 'Profesor del Curso', icon: 'person', value: course?.teacher, customBackground: 'linear-main'},
+        {title: 'Créditos', icon: 'school', value: course?.credits, customBackground: 'linear-main'},
+        {title: 'Nota promedio', icon: 'star', value: course?.averageGrade, customBackground: 'linear-main'}
+    ]">
+        <div class="data-block" [appCustomBackground]="blockInfo.customBackground">
+                <h1 [appFontSize]="'medium'">{{blockInfo.title}}</h1>
+                <div class="card-info">
+                    <mat-icon class="icon">{{blockInfo.icon}}</mat-icon>
+                    <h2>{{blockInfo.value}}</h2>
+                </div>
+        </div>
+    </ng-container>
+</div>
+
+<div id="course-bottom-data">
+    
+    <div id="course-bottom-center-data">
+        <section id="course-data" class="custom-container">
+            <div class="icon" [appCustomBackground]="'linear-main'">
+                <mat-icon>{{course?.icon}}</mat-icon>
+            </div>
+            <div id="course-text-data">
+                <h1>{{course?.name}}</h1>
+                <p>{{course?.description}}</p>
+            </div>
+        </section>
+
+        <section id="course-plots" class="custom-container">
+            <section class="">
+                <div class="icon" [appCustomBackground]="'linear-red'">
+                    <mat-icon>equalizer</mat-icon>
+                </div>
+                <h1>Estadísticas</h1>
+                <p>Gráficas de los estudiantes</p>
+            </section>
+            <div id="plots">
+                <img src='assets/images/plot.png' alt="plot" width="100%">
+            </div>
+        </section>
+    </div>
+
+    <section id="course-students-data" class="custom-container">
+        <h1>Estudiantes</h1>
+        <div class="students">
+            <ng-container *ngFor="let student of courseStudents">
+                <div class="student">
+                    <img [src]="student.pictureUrl" alt="user" width="50px" height="50px">
+                    <h2>{{student | fullName}}</h2>
+                    <p>{{student.email}}</p>
+                </div>
+            </ng-container>
+        </div>
+    </section>
+</div>

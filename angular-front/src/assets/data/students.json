@@ -10,7 +10,8 @@
         "phone": "123456789",
         "city": "Madrid",
         "averageGrade": 4.75,
-        "career": "Administración"
+        "career": "Administración",
+        "pictureUrl": "https://images.pexels.com/photos/1007066/pexels-photo-1007066.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
     },
     {
         "id": "2",
@@ -23,7 +24,8 @@
         "city": "Montevideo",
         "birthDate": "1990-01-01T00:00:00.000Z",
         "averageGrade": 10,
-        "career": "Diseño Gráfico"
+        "career": "Diseño Gráfico",
+        "pictureUrl": "https://images.pexels.com/photos/1007066/pexels-photo-1007066.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
     },
     {
         "id": "3",
@@ -36,7 +38,8 @@
         "city": "Buenos Aires",
         "birthDate": "1990-01-01T00:00:00.000Z",
         "averageGrade": 1.5,
-        "career": "Desarrollo Web"
+        "career": "Desarrollo Web",
+        "pictureUrl": "https://images.pexels.com/photos/1007066/pexels-photo-1007066.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
     },
     {
         "id": "4",
@@ -49,7 +52,8 @@
         "city": "Sidney",
         "birthDate": "1990-01-01T00:00:00.000Z",
         "averageGrade": 5.5,
-        "career": "Desarrollo Web"
+        "career": "Desarrollo Web",
+        "pictureUrl": "https://images.pexels.com/photos/1007066/pexels-photo-1007066.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
     },
     {
         "id": "5",
@@ -62,7 +66,8 @@
         "phone": "123456789",
         "city": "Barcelona",
         "averageGrade": 9,
-        "career": "Ciencia de Datos"
+        "career": "Ciencia de Datos",
+        "pictureUrl": "https://images.pexels.com/photos/1007066/pexels-photo-1007066.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
     },
     {
         "id": "6",
@@ -75,7 +80,8 @@
         "phone": "123456789",
         "city": "Barcelona",
         "averageGrade": 8.8,
-        "career": "Ciberseguridad"
+        "career": "Ciberseguridad",
+        "pictureUrl": "https://images.pexels.com/photos/1007066/pexels-photo-1007066.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
     }
 ]
     

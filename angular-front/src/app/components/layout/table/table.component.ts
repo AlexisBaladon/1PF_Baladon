@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
@@ -16,6 +16,7 @@ import { FilterableContextService } from 'src/app/services/filterables/context/f
 export class TableComponent {
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @Output() public onViewEmiter: EventEmitter<Filterable["id"]> = new EventEmitter();
   constructor(public dialog: MatDialog, public el: ElementRef, private filterableContextService: FilterableContextService) {}
   private filterableData: Filterable[] = [];
   public filterableData$: Subscription | undefined;
@@ -24,7 +25,6 @@ export class TableComponent {
   public displayedColumns$: Subscription | undefined;
   private filterableService!: FilterableDataService<Filterable>;
   private filterableService$!: Subscription;
-  public filterablePromise!: Promise<Filterable>;
   public dataSource!: MatTableDataSource<Filterable>;
 
   private restartTable() {
@@ -71,8 +71,8 @@ export class TableComponent {
     .forEach((arrow: any) => (arrow.style.color = 'white'));
   }
 
-  public onView(filterableId: Partial<Filterable['id']>) {
-    this.filterablePromise = this.filterableService.getById(filterableId);
+  public onView(filterableId: Filterable['id']) {
+    this.onViewEmiter.emit(filterableId);
   }
 
   public onEdit(filterableId: Partial<Filterable['id']>) {

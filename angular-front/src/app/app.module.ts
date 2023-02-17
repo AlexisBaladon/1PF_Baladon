@@ -24,8 +24,11 @@ import { FontSizeDirective } from './directives/fonts/size/font-size.directive';
 import { ServicesModule } from './services.module';
 import { AddCourseFormComponent } from './components/layout/add-course-form-component/add-course-form-component/add-course-form.component';
 import { RoutesModule } from './routes.module';
-import { StudentDashboardComponent } from './components/layout/student-dashboard/student-dashboard.component';
-import { CourseDashboardComponent } from './components/layout/course-dashboard/course-dashboard.component';
+import { StudentDashboardComponent } from './pages/student-dashboard/student-dashboard.component';
+import { CourseDashboardComponent } from './pages/course-dashboard/course-dashboard.component';
+import { CourseDetailComponent } from './pages/course-detail/course-detail.component';
+import { Error404Component } from './pages/error404/error404.component';
+import { CustomBackgroundDirective } from './directives/custom-background/custom-background.directive';
 
 @NgModule({
   declarations: [
@@ -49,6 +52,9 @@ import { CourseDashboardComponent } from './components/layout/course-dashboard/c
     AddCourseFormComponent,
     StudentDashboardComponent,
     CourseDashboardComponent,
+    CourseDetailComponent,
+    Error404Component,
+    CustomBackgroundDirective,
   ],
   imports: [
     BrowserModule,

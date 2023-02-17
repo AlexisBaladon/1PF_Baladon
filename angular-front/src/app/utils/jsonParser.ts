@@ -18,7 +18,8 @@ export function studentCreator(students: Student[]): Student[] {
         s.password,
         s.admissionDate,
         s.averageGrade,
-        s.career
+        s.career,
+        s.pictureUrl,
     ))
 }
 
@@ -30,6 +31,7 @@ export function courseCreator(courses: Course[]): Course[] {
         c.credits,
         c.teacher,
         c.studentsId,
-        c.averageGrade
+        c.averageGrade,
+        c.icon
     ))
 }

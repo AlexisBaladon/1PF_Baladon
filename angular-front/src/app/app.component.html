@@ -1,5 +1,3 @@
-<!-- <app-layout *ngIf="loggedIn" (loggingOut)="logOut()"></app-layout>
-<app-auth [hasAccount]="false" (loggingIn)="logIn()" *ngIf="!loggedIn"></app-auth> -->
 <div id='app'>
     <header *ngIf="loggedIn">
         <app-toolbar (loggingOut)="logOut()"></app-toolbar>

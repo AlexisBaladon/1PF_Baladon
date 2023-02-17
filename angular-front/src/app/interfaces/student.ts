@@ -12,12 +12,13 @@ class Student extends Filterable implements User {
     admissionDate: Date;
     averageGrade: number | null;
     career: string;
+    pictureUrl: string;
     
     getShownAttributes(): (Partial<keyof Student>)[] {
         return ['id', 'name', 'email', 'career', 'admissionDate', 'averageGrade']
     }
 
-    constructor(id: string, name: string, surname: string, birthDate: Date, phone: string, city: string, email: string, password: string, admissionDate: Date, averageGrade: number | null, career: string) {
+    constructor(id: string, name: string, surname: string, birthDate: Date, phone: string, city: string, email: string, password: string, admissionDate: Date, averageGrade: number | null, career: string, pictureUrl: string) {
         super(id);
         this.name = name;
         this.surname = surname;
@@ -29,6 +30,7 @@ class Student extends Filterable implements User {
         this.admissionDate = admissionDate;
         this.averageGrade = averageGrade;
         this.career = career;
+        this.pictureUrl = pictureUrl;
     }
     
 }

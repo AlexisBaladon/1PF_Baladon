@@ -17,6 +17,6 @@
         <div class="mb-5">
             <app-filters [filterableType]="filterableType" [filters]="filterOptions"></app-filters>
         </div>
-        <app-table></app-table>
+        <app-table (onViewEmiter)="handleViewEmitter($event)"></app-table>
     </section>
 </div>

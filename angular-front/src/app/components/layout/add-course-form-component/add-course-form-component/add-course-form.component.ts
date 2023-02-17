@@ -56,7 +56,8 @@ export class AddCourseFormComponent {
       this.defaultCourseData.teacher ?? null,
       this.defaultCourseData.studentsId ?? [],
       this.defaultCourseData.averageGrade ??
-      this.defaultCourseData.averageGrade ?? 0
+      this.defaultCourseData.averageGrade ?? 0,
+      this.defaultCourseData.icon ?? ''
     );
     
     this.data.filterableData = createdCourse;

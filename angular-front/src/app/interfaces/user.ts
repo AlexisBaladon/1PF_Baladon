@@ -7,6 +7,7 @@ interface User {
     birthDate: Date;
     phone: string;
     city: string;
+    pictureUrl: string;
 }
 
 export default User;

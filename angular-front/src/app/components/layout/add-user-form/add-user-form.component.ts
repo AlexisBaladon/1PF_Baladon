@@ -66,6 +66,7 @@ export class AddUserFormComponent {
       formValues.admissionDate ?? new Date(),
       this.data.filterableData?.averageGrade ?? null ?? 0,
       formValues.career ?? '',
+      this.data.filterableData?.pictureUrl ?? '',
     );
     
     this.data.filterableData = student;

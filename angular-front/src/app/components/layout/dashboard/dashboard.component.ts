@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { FilterOption } from 'src/app/constants/text';
 import { FilterableContextService } from 'src/app/services/filterables/context/filterableContext.service';
@@ -17,6 +17,7 @@ export class DashboardComponent {
   @Input() public filterableType!: string;
   @Input() public createDataTitle!: string;
   @Input() public filterOptions!: FilterOption[];
+  @Output() public onViewEmitter: EventEmitter<Filterable["id"]> = new EventEmitter();
   constructor(public dialog: MatDialog, public filterableContextService: FilterableContextService) {}
   private filterableService$!: Subscription;
   private filterableService!: FilterableDataService<any>;
@@ -40,4 +41,7 @@ export class DashboardComponent {
     });
   }
 
+  public handleViewEmitter(id: string) {
+    this.onViewEmitter.emit(id);
+  }
 }

@@ -29,13 +29,9 @@ export abstract class FilterableDataService<F extends Filterable> {
 		this.filterableData$.next(this.filterableData);
 	}
 
-	public getById(id: F['id']): Promise<F> {
-		return new Promise(resolve => {
-			setTimeout(() => {
-				const foundFilterable = this.filterableData.find(s => s.id === id);
-				if (foundFilterable) resolve(foundFilterable);
-			}, 3000);
-		});
+	public getById(id: F['id']): Observable<F> {
+		console.log(this.filterableData, id);
+		return this.filterableData$.pipe(map(filterableData => filterableData.find(f => f.id === id) as F));
 	}
 
 	public deleteFilterable(id: F['id']): void {

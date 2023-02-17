@@ -23,3 +23,10 @@ html, body { height: 100%; }
     background-color: colors.$NEUTRAL_COLOR !important;
     color: colors.$LIGHT_COLOR !important;
 }
+
+.custom-container {
+    background-color: #fafafa;
+    box-shadow: 0 0 5px 0 rgba(0,0,0,0.2);
+    border-radius: 1rem;
+    padding: 1rem;
+}

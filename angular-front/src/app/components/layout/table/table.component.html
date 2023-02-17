@@ -32,7 +32,8 @@
                     <button
                         class="edit-icon"
                         (click)="onView(data.id)" 
-                        mat-mini-fab color="primary"
+                        mat-mini-fab 
+                        color="primary"
                     >
                         <mat-icon>visibility</mat-icon>
                     </button>
@@ -61,13 +62,3 @@
     >
     </mat-paginator>
 </div>
-
-<article style="margin-top: 2rem;">
-    <h1>Promesa!</h1>
-    <ng-container *ngIf="filterablePromise | async as filterable">
-        {{(filterable | json).split(",")[1].split("}")}}
-    </ng-container>
-    <ng-container *ngIf="!(filterablePromise | async)">
-        {{'Presiona un botón de 👁 y espera 2 segundos'}}
-    </ng-container>
-</article>
