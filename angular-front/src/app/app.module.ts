@@ -26,13 +26,14 @@ import { AddCourseFormComponent } from './components/layout/add-course-form-comp
 import { RoutesModule } from './routes.module';
 import { StudentDashboardComponent } from './pages/student-dashboard/student-dashboard.component';
 import { CourseDashboardComponent } from './pages/course-dashboard/course-dashboard.component';
-import { CourseDetailComponent } from './pages/course-detail/course-detail.component';
+import { DetailComponent } from './pages/detail/detail.component';
 import { Error404Component } from './pages/error404/error404.component';
 import { CustomBackgroundDirective } from './directives/custom-background/custom-background.directive';
 import { SectionHeaderComponent } from './components/global/section-header/section-header.component';
 import { CardComponent } from './components/global/card/card/card.component';
 import { ChartjsModule } from './chartjs.module';
-import { ChartComponent } from './components/global/chart/chart/chart.component';
+import { StudentDetailComponent } from './pages/student-detail/student-detail/student-detail.component';
+import { CourseDetailComponent } from './pages/course-detail/course-detail/course-detail.component';
 
 @NgModule({
   declarations: [
@@ -56,12 +57,13 @@ import { ChartComponent } from './components/global/chart/chart/chart.component'
     AddCourseFormComponent,
     StudentDashboardComponent,
     CourseDashboardComponent,
-    CourseDetailComponent,
+    DetailComponent,
     Error404Component,
     CustomBackgroundDirective,
     SectionHeaderComponent,
     CardComponent,
-    ChartComponent,
+    StudentDetailComponent,
+    CourseDetailComponent,
   ],
   imports: [
     BrowserModule,

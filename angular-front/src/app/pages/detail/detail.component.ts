@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Course } from 'src/app/interfaces/course';
@@ -8,13 +8,31 @@ import { StudentsService } from 'src/app/services/filterables/concrete-data/stud
 import { Chart, ChartDataset, ChartData, ChartType } from 'chart.js';
 import { EnrollmentsService } from 'src/app/services/enrollments/enrollments.service';
 import { Enrollment } from 'src/app/models/enrollment';
+import { Filterable } from 'src/app/logic/filter/filterable';
+
+interface SectionHeaderData {
+	title: string;
+	description: string;
+	icon: string;
+}
 
 @Component({
-  selector: 'app-course-detail',
-  templateUrl: './course-detail.component.html',
-  styleUrls: ['./course-detail.component.scss']
+  selector: 'app-detail',
+  templateUrl: './detail.component.html',
+  styleUrls: ['./detail.component.scss']
 })
-export class CourseDetailComponent {
+export class DetailComponent {
+	@Input() public cardsData: { title: string, icon: string, value: string }[] = [];
+	@Input() public mainSectionData!: SectionHeaderData;
+	@Input() public chartSectionData!: SectionHeaderData;
+	@Input() public chartData!: { label: string, datasetLabels: string[], datasets: number[] };
+	@Input() public enrollmentSectionData!: SectionHeaderData;
+	@Input() public enrollmentData!: { pictureUrl: string, title: string, description: string }[];
+	@Input() public enrollmentSeeMoreAction!: (id: Filterable['id']) => void;
+	@Input() public doughnutSectionData!: SectionHeaderData;
+	@Input() public doughnutData!: { label: string, datasetLabels: string[], datasets: number[] };
+
+	@Input() public students!: Student[];
 	private id: Course['id'] | null = null;
 	private course$!: Subscription;
 	private students$!: Subscription;

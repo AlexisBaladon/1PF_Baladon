@@ -27,7 +27,7 @@ export class AppComponent {
   }
 
   ngOnDestroy() {
-    if (!!this.user$) { this.user$.unsubscribe(); }
+    if (!!this.user$) this.user$.unsubscribe();
   }
 
   public isLoggedIn() {

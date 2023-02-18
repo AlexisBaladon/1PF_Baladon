@@ -4,8 +4,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { AuthComponent } from './pages/auth/auth.component';
 import { StudentDashboardComponent } from './pages/student-dashboard/student-dashboard.component';
 import { CourseDashboardComponent } from './pages/course-dashboard/course-dashboard.component';
-import { CourseDetailComponent } from './pages/course-detail/course-detail.component';
 import { Error404Component } from './pages/error404/error404.component';
+import { CourseDetailComponent } from './pages/course-detail/course-detail/course-detail.component';
 
 const routes: Routes = [
   { path: 'login', component: AuthComponent },
