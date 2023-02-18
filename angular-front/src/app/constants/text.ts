@@ -1,12 +1,11 @@
 import { FilterName } from "../interfaces/filters";
 
-export const NAV_ROUTES: string[] = [
-    '🏠 Inicio',
-    '👨🏼‍🎓 Usuarios',
-    '📚 Cursos',
-    '📊 General',
+export const NAV_ROUTES: {title: string, icon: string, route: string}[] = [
+    {title: 'Inicio', icon: 'home', route: '/layout/home'},
+    {title: 'Usuarios', icon: 'person', route: '/layout/students'},
+    {title: 'Cursos', icon: 'school', route: '/layout/courses'},
+    {title: 'General', icon: 'bar_chart', route: '/layout/general'},
 ]
-
 export interface FilterOption {
     name: FilterName;
     description: string;
@@ -41,6 +40,7 @@ export const FILTER_OPTIONS: Record<string, FilterOption[]> = {
 };
 
 interface DashboardInput {
+    icon: string;
     title: string;
     description: string;
     filterableType: string;
@@ -53,7 +53,8 @@ export type DashboardInputData = Record<string, DashboardInput>;
 
 export const DASHBOARD_TEXT: DashboardInputData = {
     Student: {
-        title: '👨🏼‍🎓 Usuarios',
+        icon: 'person',
+        title: 'Usuarios',
         description: 'Visualiza datos de los estudiantes de la universidad.',
         filterableType: 'Student',
         createDataTitle: 'Crea un usuario',
@@ -73,7 +74,8 @@ export const DASHBOARD_TEXT: DashboardInputData = {
         }
     },
     Course: {
-        title: '📚 Cursos',
+        icon: 'school',
+        title: 'Cursos',
         description: 'Visualiza datos de los cursos de la universidad.',
         filterableType: 'Course',
         createDataTitle: 'Crea un curso',

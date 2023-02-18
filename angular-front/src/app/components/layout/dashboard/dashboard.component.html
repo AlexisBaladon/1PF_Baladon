@@ -1,12 +1,7 @@
 <div id="dashboard-container" >
     <section id="dashboard" class="container">
-        <div class="d-flex justify-content-between align-items-center">
-            <div id="dashboard-title">
-                <h1 [appFontSize]="'x-large'">{{title}}</h1>
-                <p [appFontSize]="'medium'">
-                    {{description}}
-                </p>
-            </div>
+        <div id="dashboard-title" class="custom-container d-flex justify-content-between align-items-end">
+            <app-section-header [icon]="icon" [title]="title" [description]="description"></app-section-header>
             <p id="add-filterable-data-btn-text" [appFontSize]="'medium'" class="text-end">
                 <button mat-raised-button id="add-filterable-data-btn" (click)="openDialog()">
                     <mat-icon [appFontSize]="'medium'" class="mr-2">add</mat-icon>
@@ -14,9 +9,11 @@
                 </button>
             </p>
         </div>
-        <div class="mb-5">
-            <app-filters [filterableType]="filterableType" [filters]="filterOptions"></app-filters>
+        <div class="custom-container">
+            <div class="mb-5">
+                <app-filters [filterableType]="filterableType" [filters]="filterOptions"></app-filters>
+            </div>
+            <app-table (onViewEmiter)="handleViewEmitter($event)"></app-table>
         </div>
-        <app-table (onViewEmiter)="handleViewEmitter($event)"></app-table>
     </section>
 </div>

@@ -26,15 +26,26 @@
             width: 100%;
             padding: 5% 5% 5% 7.5%;
         }
+
+        .nav-item {
+            .nav-item-title {
+                padding: 5% 5% 5% 7.5%;
+                margin-left: 7.5%;
+            }
+
+            &:hover {
+                opacity: 0.8;
+                cursor: pointer;
+            }
+        }
     }
 
-    .menu-dropdown-item {
-        border: none;
-        
-        &:hover {
-            background-color: colors.$LIGHT_COLOR;
-            cursor: pointer;
-        }
+    .icon {
+        margin-right: 5%;
+        padding-top: 2px;
+        left: 12px;
+        overflow:visible;
+        position:absolute;
     }
 }
 

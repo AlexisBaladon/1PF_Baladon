@@ -31,6 +31,8 @@ import { Error404Component } from './pages/error404/error404.component';
 import { CustomBackgroundDirective } from './directives/custom-background/custom-background.directive';
 import { SectionHeaderComponent } from './components/global/section-header/section-header.component';
 import { CardComponent } from './components/global/card/card/card.component';
+import { ChartjsModule } from './chartjs.module';
+import { ChartComponent } from './components/global/chart/chart/chart.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +61,7 @@ import { CardComponent } from './components/global/card/card/card.component';
     CustomBackgroundDirective,
     SectionHeaderComponent,
     CardComponent,
+    ChartComponent,
   ],
   imports: [
     BrowserModule,
@@ -66,7 +69,8 @@ import { CardComponent } from './components/global/card/card/card.component';
     BrowserAnimationsModule,
     MaterialModule,
     ServicesModule,
-    RoutesModule
+    RoutesModule,
+    ChartjsModule,
   ],
   bootstrap: [AppComponent]
 })

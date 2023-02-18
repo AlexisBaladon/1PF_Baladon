@@ -6,22 +6,11 @@
         <hr>
         <ul class="nav nav-pills flex-column mb-auto">
             <li *ngFor="let option of options" class="nav-item">
-                <a (click)="changeRoute(option)" [appFontSize]="'large'" class="menu-text nav-link"
-                        [ngClass]="isSelected(option) ? 'active' : ''">
-                    {{option}}
+                <a (click)="changeRoute(option.title)" [appFontSize]="'large'" class="menu-text nav-link"
+                [ngClass]="isSelected(option.title) ? 'active' : ''">
+                    <mat-icon class="icon">{{option.icon}}</mat-icon>
+                    <span class="nav-item-title">{{option.title}}</span>
                 </a>
-            </li>
-            <li *ngFor="let scrollableOption of scrollableOptions | keyvalue" class="nav-item dropdown">
-                <a [appFontSize]="'large'" class="menu-text nav-link dropdown-toggle" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="collapseExample">
-                    {{scrollableOption.key}}
-                </a>
-                <div class="collapse" id="collapseExample">
-                    <div class="menu-dropdown-item card card-body" *ngFor="let option of scrollableOption.value">
-                        <a [appFontSize]="'small'">
-                            {{option}}
-                        </a>
-                    </div>
-                </div>
             </li>
         </ul>
     </div>

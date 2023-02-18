@@ -32,7 +32,7 @@ export class AuthComponent {
     });
 
     if (!!this.user) {
-      this.router.navigate(['/']);
+      this.router.navigate(['/layout']);
     }
   }
 

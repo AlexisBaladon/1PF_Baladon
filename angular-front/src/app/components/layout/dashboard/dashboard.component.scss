@@ -24,6 +24,8 @@
 
 
     #dashboard-title {
+        display: flex;
+        flex-direction: row;
         margin-bottom: 3%;
         p { padding-top: 0.5%; }
         flex-grow: 1;

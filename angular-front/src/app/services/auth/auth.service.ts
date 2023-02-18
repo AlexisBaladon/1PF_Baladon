@@ -15,7 +15,6 @@ export class AuthService {
 
   constructor(private userService: UsersService) {
     this.userService$ = this.userService.getUsers().subscribe(users => {
-      console.log(users)
       this.users = users;
     });
   }
@@ -41,7 +40,6 @@ export class AuthService {
     }
 
     const foundUser = this.users.find(user => user.email === email && user.password === password);
-    console.log(this.users, foundUser)
     if (!!foundUser) {
       this.user$.next(foundUser);
     }

@@ -36,6 +36,10 @@
             ],
             "scripts": [
               "node_modules/bootstrap/dist/js/bootstrap.min.js"
+            ],
+            "allowedCommonJsDependencies": [
+              "chart.js",
+              "chartjs-plugin-datalabels"
             ]
           },
           "configurations": {

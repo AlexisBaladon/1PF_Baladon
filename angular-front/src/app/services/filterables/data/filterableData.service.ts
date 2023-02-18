@@ -30,7 +30,6 @@ export abstract class FilterableDataService<F extends Filterable> {
 	}
 
 	public getById(id: F['id']): Observable<F> {
-		console.log(this.filterableData, id);
 		return this.filterableData$.pipe(map(filterableData => filterableData.find(f => f.id === id) as F));
 	}
 

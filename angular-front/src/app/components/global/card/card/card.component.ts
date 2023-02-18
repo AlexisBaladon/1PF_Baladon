@@ -12,7 +12,4 @@ export class CardComponent {
   @Input() pictureHeight: number = 50;
   @Input() pictureAlt: string = 'card picture';
   @Input() footerText!: string;
-
-  ngOnInit() {console.log(this.pictureHeight)}
-
 }

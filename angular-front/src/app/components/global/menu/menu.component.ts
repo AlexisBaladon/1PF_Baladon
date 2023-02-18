@@ -7,23 +7,15 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent {
-  @Input() public options: string[] = [];
+  @Input() public options: {title: string, icon: string, route: string}[] = [];
   @Input() public selectedMenuItem!: number;
   @Output() public menuItemSelected = new EventEmitter();
-  
-  scrollableOptions = new Map<string,string[]>([[
-    "⚙ Ajustes", [
-      "📝 Perfil",
-      "🔑 Cuenta",
-      "🌐 Idioma",
-    ],
-  ]]);
 
   public isSelected(option: string) {
-    return this.options.indexOf(option) === this.selectedMenuItem;
+    return this.options.map(option => option.title).indexOf(option) === this.selectedMenuItem;
   }
 
   public changeRoute(option: string) {
-    this.menuItemSelected.emit(this.options.indexOf(option));
+    this.menuItemSelected.emit(this.options.map(option => option.title).indexOf(option));
   }
 }

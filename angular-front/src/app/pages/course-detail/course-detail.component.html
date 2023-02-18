@@ -1,12 +1,13 @@
 <div id="course-detail">
-    <div id="data-blocks">
+
+    <div id="data-blocks" class="custom-co">
         <ng-container *ngFor="let blockInfo of [
-            {title: 'Total de Estudiantes', icon: 'people', value: course?.studentsId?.length, customBackground: 'linear-main'},
-            {title: 'Profesor del Curso', icon: 'person', value: course?.teacher, customBackground: 'linear-main'},
             {title: 'Créditos', icon: 'school', value: course?.credits, customBackground: 'linear-main'},
-            {title: 'Nota promedio', icon: 'star', value: course?.averageGrade, customBackground: 'linear-main'}
+            {title: 'Profesor del Curso', icon: 'person', value: course?.teacher, customBackground: 'linear-main'},
+            {title: 'Nota promedio', icon: 'star', value: course?.averageGrade, customBackground: 'linear-main'},
+            {title: 'Total de Estudiantes', icon: 'people', value: course?.studentsId?.length, customBackground: 'linear-main'},
         ]">
-            <div class="data-block" [appCustomBackground]="blockInfo.customBackground">
+            <div class="data-block" [appCustomBackground]="'linear-main'">
                     <h1 [appFontSize]="'medium'">{{blockInfo.title}}</h1>
                     <div class="card-info">
                         <mat-icon class="icon">{{blockInfo.icon}}</mat-icon>
@@ -15,10 +16,8 @@
             </div>
         </ng-container>
     </div>
-
-    <div id="course-bottom-data">
-        
-        <div id="course-bottom-center-data">
+    <div id="course-bottom-data" class="row">
+        <div id="course-bottom-center-data" class="col-md-6">
             <app-section-header
                 id="course-header"
                 class = "custom-container"
@@ -34,43 +33,68 @@
                     [title]="'Estadísticas'"
                     [description]="'Estadísticas de los estudiantes'"
                     [icon]="'equalizer'"
-                    [customBackground]="'linear-red'"
+                    [customBackground]="'linear-main'"
                 >
                 </app-section-header>
                 <div id="plots">
-                    <img src='assets/images/plot.png' alt="plot" width="100%">
+                    <div class="chart-wrapper">
+                        <canvas baseChart 
+                            [datasets]="lineChartData" 
+                            [labels]="lineChartLabels" 
+                            [options]="lineChartOptions"
+                            [legend]="lineChartLegend" 
+                        >
+                        </canvas>
+                    </div>
                 </div>
             </section>
         </div>
 
-        <section id="course-students-data" class="custom-container">
-            <app-section-header
-                id="course-students-header"
-                [title]="'Estudiantes'"
-                [description]="'Estudiantes del curso'"
-                [icon]="'people'"
-                [customBackground]="'linear-green'"
-            >
-            </app-section-header>
-            <div class="students">
-                <ng-container *ngFor="let student of courseStudents.slice(0,4)">
-                    <app-card
-                        [title]="student | fullName"
-                        [description]="student.email"
-                        [pictureUrl]="student.pictureUrl"
-                        [pictureHeight]="80"
-                        [pictureAlt]="student.name"
-                        [footerText]="student.email"
-                    >
+        <aside id="course-detail-right" class="col-md-4">
+            <section id="course-students-data" class="custom-container">
+                <app-section-header
+                    id="course-students-header"
+                    [title]="'Estudiantes'"
+                    [description]="'Estudiantes del curso'"
+                    [icon]="'people'"
+                    [customBackground]="'linear-main'"
+                >
+                </app-section-header>
+                <div class="students">
+                    <ng-container *ngFor="let student of courseStudents.slice(0,4)">
+                        <app-card
+                            [title]="student | fullName"
+                            [description]="student.email"
+                            [pictureUrl]="student.pictureUrl"
+                            [pictureHeight]="80"
+                            [pictureAlt]="student.name"
+                            [footerText]="student.email"
+                        >
                     </app-card>
                 </ng-container>
-                <div class="see-more row">
-                    <button mat-raised-button routerLink="/course/{{course?.id}}/students" color="primary">
-                        <mat-icon>keyboard_arrow_right</mat-icon>
-                        Ver más
-                    </button>
-                </div>
+                <button id="students-see-more" [appCustomBackground]="'linear-main'" mat-raised-button routerLink="/course/{{course?.id}}/students" color="primary">
+                    <mat-icon>keyboard_arrow_right</mat-icon>
+                    Ver más
+                </button>
             </div>
-        </section>
+            </section>
+
+            <div class="custom-container">
+                <app-section-header
+                    id="course-students-header"
+                    [title]="'Carreras'"
+                    [description]="'Distribución de estudiantes por carrera'"
+                    [icon]="'donut_small'"
+                    [customBackground]="'linear-main'"
+                >
+                </app-section-header>
+                <canvas baseChart class="chart"
+                    [data]="doughnutChartData"
+                    [type]="doughnutChartType"
+                    [options]="doughnutChartOptions"
+                >
+                </canvas>
+            </div>
+        </aside>
     </div>
 </div>

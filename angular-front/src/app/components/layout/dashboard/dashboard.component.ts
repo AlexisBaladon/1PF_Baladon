@@ -17,6 +17,7 @@ export class DashboardComponent {
   @Input() public filterableType!: string;
   @Input() public createDataTitle!: string;
   @Input() public filterOptions!: FilterOption[];
+  @Input() public icon!: string;
   @Output() public onViewEmitter: EventEmitter<Filterable["id"]> = new EventEmitter();
   constructor(public dialog: MatDialog, public filterableContextService: FilterableContextService) {}
   private filterableService$!: Subscription;
