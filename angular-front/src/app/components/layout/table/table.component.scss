@@ -15,6 +15,10 @@
         }
     
         tbody { --bs-table-bg: colors.$LIGHT_COLOR }
+
+        #table-actions-td {
+            width: 150px;
+        }
     }
     
     .mat-paginator-container {

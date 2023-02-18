@@ -1,4 +1,4 @@
-<div id="dashboard-container" >
+<div id="dashboard-container" class="layout-child" >
     <section id="dashboard" class="container">
         <div id="dashboard-title" class="custom-container d-flex justify-content-between align-items-end">
             <app-section-header [icon]="icon" [title]="title" [description]="description"></app-section-header>
@@ -10,7 +10,7 @@
             </p>
         </div>
         <div class="custom-container">
-            <div class="mb-5">
+            <div class="mb-4">
                 <app-filters [filterableType]="filterableType" [filters]="filterOptions"></app-filters>
             </div>
             <app-table (onViewEmiter)="handleViewEmitter($event)"></app-table>

@@ -1,32 +1,43 @@
-@use './src/app/constants/colors.styles.scss' as colors;
+.custom-card2 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    min-width: 225px;
+    margin-bottom: 20px;
+    background-color: #fff;
+    border: 1px solid #e5e5e5;
+    box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease-in-out;
+}
+.custom-card2:hover {
+    transform: scale(1.01);
+    cursor: pointer;
+}
+.custom-card2 .image-container {
+    width: 30%;
+    height: 100%;
+    margin-right: 10px;
+}
+.image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.custom-card-text {
+    width: 100%;
+    padding: 5px 5px 15px 5px;
+}
+.custom-card-text h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0 0 10px 0;
+}
 
-#custom-card {
-    transition: box-shadow 0.2s ease-in-out;
-
-    &:hover {
-        cursor: pointer;
-        box-shadow: 0 0 4px 0 colors.$MAIN_COLOR;
-    }
-
-
-    .card-body {
-        padding: 0.75rem 1rem 0.75rem 1rem;
-
-    }
-
-    img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-    
-    p {
-        font-size: x-small;
-        margin: 0;
-    }
-
-    h5 {
-        font-weight: 600;
-        font-size: medium;
-    }
+.custom-card-text p {
+    font-size: 0.8rem;
+    margin: 0;
 }

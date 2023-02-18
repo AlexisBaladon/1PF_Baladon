@@ -1,6 +1,7 @@
 @use './app/constants/fonts.styles.scss' as fonts;
 @use './app/constants/colors.styles.scss' as colors;
 @use './app/styles/forms.styles.scss' as forms;
+@use './app/components/global/toolbar/toolbar.component.scss' as tb;
 
 body {
     font-family: fonts.$MAIN_FONT;
@@ -29,4 +30,9 @@ html, body { height: 100%; }
     box-shadow: 0 0 2px 0 rgba(0,0,0,0.2);
     border-radius: 0.5rem;
     padding: 0.75rem 1rem 0.75rem 1rem;
+}
+
+.layout-child {
+    overflow-y: auto;
+    max-height: 100vh - tb.$toolbar-height;
 }

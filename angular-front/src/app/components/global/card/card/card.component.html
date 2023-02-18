@@ -1,22 +1,9 @@
-<div id="custom-card" class="card mb-3">
-    <div class="row g-0" [style.height.px]="pictureHeight">
-        <div class="col-md-4" [style.height.px]="pictureHeight">
-            <img [src]="pictureUrl" class="rounded-start" [alt]="pictureAlt">
-        </div>
-        <div class="col-md-8">
-            <div class="card-body">
-                <h5 class="card-title">
-                    {{title}}
-                </h5>
-                <p class="card-text">
-                   {{description}}
-                </p>
-                <p class="card-text">
-                    <small class="text-muted">
-                        {{footerText}}
-                    </small>
-                </p>
-            </div>
-        </div>
+<div class="custom-card2">
+    <div class="image-container">
+        <img [src]="pictureUrl" [alt]="pictureAlt" [style.height.px]="pictureHeight" [style.width.px]="pictureHeight">
+    </div>
+    <div class="custom-card-text">
+        <h3>{{title}}</h3>
+        <p>{{description}}</p>
     </div>
 </div>

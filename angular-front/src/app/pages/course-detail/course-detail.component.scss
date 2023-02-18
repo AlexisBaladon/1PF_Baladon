@@ -1,4 +1,3 @@
-
 h1 {
     font-weight: 600;
     font-size: 1.5rem;
@@ -136,7 +135,8 @@ h1 {
 }
 
 #course-detail-right {
-    margin: 0 0 1rem 1rem ;
+    min-width: 300px;
+    margin: 0 0 1rem 0 ;
 }
 
 #course-plots {
