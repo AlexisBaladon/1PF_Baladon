@@ -17,16 +17,16 @@ import { StudentsService } from 'src/app/services/filterables/concrete-data/stud
 })
 export class CourseDetailComponent {
 	public cardsData: { title: string, icon: string, value: string }[] = [];
-	public mainSectionData!: { title: string, icon: string, description: string };
-	public chartSectionData!: { title: string, icon: string, description: string };
-	public chartData!: { label: string, datasetLabels: string[], datasets: number[] };
-	public enrollmentSectionData!: { title: string, icon: string, description: string };
-	public enrollmentData!: { pictureUrl: string, title: string, description: string }[];
-	public enrollmentSeeMoreAction!: (id: Filterable['id']) => void;
-	public doughnutSectionData!: { title: string, icon: string, description: string };
-	public doughnutData!: { label: string, datasetLabels: string[], datasets: number[] };
+	public mainSectionData: { title: string, icon: string, description: string } = { title: '', icon: '', description: '' };
+	public chartSectionData: { title: string, icon: string, description: string } = { title: '', icon: '', description: '' };
+	public chartData: { label: string, datasetLabels: string[], datasets: (string | number)[] } = { label: '', datasetLabels: [], datasets: [] };
+	public enrollmentSectionData: { title: string, icon: string, description: string } = { title: '', icon: '', description: '' };
+	public enrollmentData: { pictureUrl: string, title: string, description: string }[] = [];
+	public enrollmentSeeMoreAction: (id: Filterable['id']) => void = (id: Filterable['id']) => {};
+	public doughnutSectionData: { title: string, icon: string, description: string } = { title: '', icon: '', description: '' };
+	public doughnutData: { datasetLabels: string[], datasets: number[] } = { datasetLabels: [], datasets: [] };
 
-	private id: Course['id'] | null = null;
+	public id: Course['id'] | null = null;
 	private course$!: Subscription;
 	private students$!: Subscription;
 	private enrollments$!: Subscription;
@@ -60,7 +60,6 @@ export class CourseDetailComponent {
 	private initializeSecondaryServices(id: Course['id']) {
 		this.course$ = this.coursesService.getById(id).subscribe(course => {
 			this.course = course;
-			//this.setDetailsData();
 		});
 
 		this.students$ = this.studentsService.getFilteredData().subscribe(students => {
@@ -78,18 +77,6 @@ export class CourseDetailComponent {
 				this.countStudentsGrades(enrollments);
 			}
 		});
-	}
-
-	private setDetailsData(course?: Course): void {
-		this.cardsData = this.getCardsData(course);
-		this.mainSectionData = this.getMainSectionData(course);
-		this.chartSectionData = this.getChartSectionData(course);
-		this.chartData = this.getChartData(course);
-		this.enrollmentSectionData = this.getEnrollmentSectionData(course);
-		this.enrollmentData = this.getEnrollmentData(course);
-		this.enrollmentSeeMoreAction = this.getEnrollmentSeeMoreAction();
-		this.doughnutSectionData = this.getDoughnutSectionData(course);
-		this.doughnutData = this.getDoughnutData(course);
 	}
 
 	public getCardsData(course?: Course): { title: string, icon: string, value: string }[] {
@@ -112,10 +99,9 @@ export class CourseDetailComponent {
 		return ({title: 'Estadísticas', icon: 'equalizer', description: 'Estadísticas de los estudiantes'});
 	}
 
-	//TODO: Datasets should be an array of numbers
 	public getChartData(course?: Course): { label: string, datasetLabels: string[], datasets: number[] } {
 		if (course === undefined) return { label: '', datasetLabels: [], datasets: [] };
-		return ({label: 'Estudiantes', datasetLabels: ['Estudiantes'], datasets: [course.studentsId?.length || 0]});
+		return ({label: 'Nota de estudiantes', datasetLabels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"], datasets: this.studentsGrades});
 	}
 
 	public getEnrollmentSectionData(course?: Course): { title: string, icon: string, description: string } {
@@ -140,14 +126,12 @@ export class CourseDetailComponent {
 	}
 
 	//TODO: Datasets should be an array of numbers
-	public getDoughnutData(course?: Course): { label: string, datasetLabels: string[], datasets: number[] } {
-		if (course === undefined) return { label: '', datasetLabels: [], datasets: [] };
-		return ({label: 'Carreras', datasetLabels: ['Carreras'], datasets: [course.studentsId?.length || 0]});
+	public getDoughnutData(course?: Course): { datasetLabels: string[], datasets: number[] } {
+		if (course === undefined) return { datasetLabels: [], datasets: [] };
+		return ({datasetLabels: this.doughnutData.datasetLabels, datasets: this.doughnutData.datasets});
 	}
 
 	private initializeChart() {
-		let dataLabels: string[] = []
-
 		const SHOWN_COURSES = 3;
 		const uniqueCarriers = Array.from(new Set(this.courseStudents.map(student => student.career)));
 		const careerCount = uniqueCarriers.map(label => ({
@@ -156,17 +140,10 @@ export class CourseDetailComponent {
 		})).sort((a, b) => b.count - a.count)
 		const mostFrequentedCareers = careerCount.slice(0, SHOWN_COURSES);
 		const othersCount = mostFrequentedCareers.slice(SHOWN_COURSES).reduce((acc, curr) => acc + curr.count, 0);
-		dataLabels = mostFrequentedCareers.map(career => career.career);
-		const doughnutChartDataset = mostFrequentedCareers.map(career => career.count);
-		dataLabels.push('Otros');
-		doughnutChartDataset.push(othersCount);
-		const datasets = {
-			labels: dataLabels,
-			datasets: [
-				{ data: doughnutChartDataset },
-			]
-		};
-		return datasets;
+		this.doughnutData.datasets = mostFrequentedCareers.map(career => career.count);
+		this.doughnutData.datasetLabels = mostFrequentedCareers.map(career => career.career);
+		this.doughnutData.datasetLabels.push('Otros');
+		this.doughnutData.datasets.push(othersCount);
 	}
 
 	private countStudentsGrades(enrollments: Enrollment[]) {

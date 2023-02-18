@@ -1,4 +1,5 @@
 <app-detail
+    *ngIf="id && course"
     [cardsData]="getCardsData(course)"
     [mainSectionData]="getMainSectionData(course)"
     [chartSectionData]="getChartSectionData(course)"
