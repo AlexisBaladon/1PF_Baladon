@@ -6,6 +6,8 @@ import Student from 'src/app/interfaces/student';
 import { CoursesService } from 'src/app/services/filterables/concrete-data/courses/courses.service';
 import { StudentsService } from 'src/app/services/filterables/concrete-data/students/students.service';
 import { Chart, ChartDataset, ChartData, ChartType } from 'chart.js';
+import { EnrollmentsService } from 'src/app/services/enrollments/enrollments.service';
+import { Enrollment } from 'src/app/models/enrollment';
 
 @Component({
   selector: 'app-course-detail',
@@ -16,31 +18,37 @@ export class CourseDetailComponent {
 	private id: Course['id'] | null = null;
 	private course$!: Subscription;
 	private students$!: Subscription;
+	private enrollments$!: Subscription;
+	private studentsGrades: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 	public course: Course | undefined;
 	public courseDetails = [];
 	public courseStudents: Student[] = []
 	public studentsGradeChart: Chart | undefined;
+
+	constructor(
+		private route: ActivatedRoute, 
+		private coursesService: CoursesService, 
+		private studentsService: StudentsService,
+		private enrollmentService: EnrollmentsService,
+	) { }
 	
-	//chartjs
-	private studentsGrades = [0, 0, 1, 4, 2, 6, 8, 9, 4, 2, 1];
-	lineChartData: ChartDataset[] = [
+	//<------------------------CHARTS------------------------>
+	public lineChartData: ChartDataset[] = [
 		{ data: this.studentsGrades, label: 'Nota de estudiantes' },
 	];
-	lineChartLabels = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-	lineChartOptions = {
+	public lineChartLabels = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+	public lineChartOptions = {
 		responsive: true,
 	};
-	lineChartLegend = true;
-	lineChartPlugins = [];
-	lineChartType = 'line';
+	public lineChartLegend = true;
+	public lineChartPlugins = [];
+	public lineChartType = 'line';
 
 	public doughnutChartLabels: string[] = [];
 	public doughnutChartDataset: number[] = [];
 	public doughnutChartData!: ChartData<'doughnut'>;
 	public doughnutChartType: ChartType = 'doughnut';
-	public doughnutChartOptions = {
-		responsive: true,
-	};
+	public doughnutChartOptions = { responsive: true };
 
 	private initializeChart() {
 		const SHOWN_COURSES = 3;
@@ -63,28 +71,54 @@ export class CourseDetailComponent {
 		};
 	}
 
-	constructor(private route: ActivatedRoute, private coursesService: CoursesService, private studentsService: StudentsService) { }
+	//<------------------------END-CHARTS------------------------>
+
+	private countStudentsGrades(enrollments: Enrollment[]) {
+		const studentsEnrollments = enrollments.filter(enrollment => this.courseStudents.map(student => student.id).includes(enrollment.studentId));
+		const studentsGrades = studentsEnrollments.map(enrollment => enrollment.grade);
+		const studentGradesPivot = studentsGrades.reduce((acc, curr) => {
+			acc.has(curr) ? acc.set(curr, acc.get(curr) + 1) : acc.set(curr, 1);
+			return acc;
+		}, new Map());
+		this.studentsGrades = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+		Array.from(studentGradesPivot.entries()).forEach(([key, value]) => {
+			this.studentsGrades[key - 1] = value;
+		});
+		this.lineChartData = [
+			{ data: this.studentsGrades, label: 'Nota de estudiantes' },
+		];
+	}
+
+	private initializeSecondaryServices(id: Course['id']) {
+		this.course$ = this.coursesService.getById(id).subscribe(course => {
+			this.course = course;
+		});
+
+		this.students$ = this.studentsService.getFilteredData().subscribe(students => {
+			if (this.course?.studentsId != undefined) {
+				this.courseStudents = students.filter(student => this.course?.studentsId?.includes(student.id));
+				this.initializeChart();
+			}
+		});
+
+		this.enrollments$ = this.enrollmentService.getEnrollments().subscribe(enrollments => {
+			if (this.course?.studentsId != undefined) {
+				this.countStudentsGrades(enrollments);
+			}
+		});
+	}
 
 	ngOnInit(): void {
 		this.id = this.route.snapshot.paramMap.get('id');
 		if (this.id != undefined) {
-			this.course$ = this.coursesService.getById(this.id).subscribe(course => {
-				this.course = course;
-			});
-			this.students$ = this.studentsService.getFilteredData().subscribe(students => {
-				if (this.course?.studentsId != undefined) {
-					this.courseStudents = students.filter(student => this.course?.studentsId?.includes(student.id));
-					this.initializeChart();
-				}
-			}
-			);
+			this.initializeSecondaryServices(this.id);
 		}
 	}
 
 	ngOnDestroy(): void {
 		this.course$.unsubscribe();
 		this.students$.unsubscribe();
+		this.enrollments$.unsubscribe();
 	}
-
 
 }

@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Enrollment } from 'src/app/models/enrollment';
+import { jsonParser } from 'src/app/utils/jsonParser';
+import * as enrollments from 'src/assets/data/enrollments.json';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EnrollmentsService {
-  private enrollments$: BehaviorSubject<Enrollment[]> = new BehaviorSubject<Enrollment[]>([]);
+  private enrollments$: BehaviorSubject<Enrollment[]> = new BehaviorSubject<Enrollment[]>(jsonParser<Enrollment>(enrollments));
 
   public getEnrollments(): Observable<Enrollment[]> {
     return this.enrollments$.asObservable();

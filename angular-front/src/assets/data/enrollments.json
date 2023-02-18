@@ -1,0 +1,542 @@
+[
+    {
+        "id": "1",
+        "studentId": "1",
+        "courseId": "1",
+        "finished": true,
+        "grade": 8,
+        "enrollmentDate": "2019-01-01",
+        "finishDate": "2019-01-01"
+    },
+    {
+        "id": "2",
+        "studentId": "1",
+        "courseId": "1",
+        "finished": false,
+        "grade": 7,
+        "enrollmentDate": "2019-01-01",
+        "finishDate": "2019-01-01"
+    },
+    {
+        "id": "3",
+        "studentId": "1",
+        "courseId": "1",
+        "finished": false,
+        "grade": 9,
+        "enrollmentDate": "2019-01-01",
+        "finishDate": "2019-01-01"
+    },
+    {
+        "id": "4",
+        "studentId": "2",
+        "courseId": "1",
+        "finished": true,
+        "grade": 7,
+        "enrollmentDate": "2019-01-01",
+        "finishDate": "2019-01-01"
+    },
+    {
+        "id": "5",
+        "studentId": "3",
+        "courseId": "1",
+        "finished": true,
+        "grade": 6,
+        "enrollmentDate": "2019-01-01",
+        "finishDate": "2019-01-01"
+    },
+    {
+        "id": "6",
+        "studentId": "5",
+        "courseId": "1",
+        "finished": true,
+        "grade": 8,
+        "enrollmentDate": "2019-01-01",
+        "finishDate": "2019-01-01"
+    },
+    {
+        "id": "7",
+        "studentId": "6",
+        "courseId": "1",
+        "finished": true,
+        "grade": 7,
+        "enrollmentDate": "2019-01-01",
+        "finishDate": "2019-01-01"
+    },
+    {
+        "id": "8",
+        "studentId": "4",
+        "courseId": "1",
+        "finished": true,
+        "grade": 4,
+        "enrollmentDate": "2019-01-01",
+        "finishDate": "2019-01-01"
+    },
+    {
+        "id": "9",
+        "studentId": "2",
+        "courseId": "1",
+        "finished": true,
+        "grade": 2,
+        "enrollmentDate": "2019-01-01",
+        "finishDate": "2019-01-01"
+    },
+    {
+        "id": "10",
+        "studentId": "3",
+        "courseId": "1",
+        "finished": true,
+        "grade": 5,
+        "enrollmentDate": "2019-01-01",
+        "finishDate": "2019-01-01"
+    },
+    {
+        "id": "11",
+        "studentId": "4",
+        "courseId": "1",
+        "finished": true,
+        "grade": 6,
+        "enrollmentDate": "2019-01-01",
+        "finishDate": "2019-01-01"
+    },
+    {
+        "id": "12",
+        "studentId": "5",
+        "courseId": "2",
+        "finished": true,
+        "grade": 7,
+        "enrollmentDate": "2019-01-01",
+        "finishDate": "2019-01-01"
+    },
+    {
+        "id": "13",
+        "studentId": "6",
+        "courseId": "2",
+        "finished": true,
+        "grade": 8,
+        "enrollmentDate": "2019-01-01",
+        "finishDate": "2019-01-01"
+    },
+    {
+        "id": "14",
+        "studentId": "6",
+        "courseId": "2",
+        "finished": true,
+        "grade": 9,
+        "enrollmentDate": "2019-01-01",
+        "finishDate": "2019-01-01"
+    },
+    {
+        "id": "15",
+        "studentId": "2",
+        "courseId": "2",
+        "finished": true,
+        "grade": 10,
+        "enrollmentDate": "2019-01-01",
+        "finishDate": "2019-01-01"
+    },
+    {
+        "id": "16",
+        "studentId": "1",
+        "courseId": "2",
+        "finished": true,
+        "grade": 9,
+        "enrollmentDate": "2019-01-01",
+        "finishDate": "2019-01-01"
+    },
+    {
+        "id": "17",
+        "studentId": "3",
+        "courseId": "2",
+        "finished": true,
+        "grade": 8,
+        "enrollmentDate": "2019-01-01",
+        "finishDate": "2019-01-01"
+    },
+    {
+        "id": "18",
+        "studentId": "4",
+        "courseId": "2",
+        "finished": true,
+        "grade": 7,
+        "enrollmentDate": "2019-01-01",
+        "finishDate": "2019-01-01"
+    },
+    {
+        "id": "19",
+        "studentId": "5",
+        "courseId": "2",
+        "finished": true,
+        "grade": 6,
+        "enrollmentDate": "2019-01-01",
+        "finishDate": "2019-01-01"
+    },
+    {
+        "id": "20",
+        "studentId": "6",
+        "courseId": "2",
+        "finished": true,
+        "grade": 5,
+        "enrollmentDate": "2019-01-01",
+        "finishDate": "2019-01-01"
+    },
+    {
+        "id": "21",
+        "studentId": "1",
+        "courseId": "2",
+        "finished": true,
+        "grade": 4,
+        "enrollmentDate": "2019-01-01",
+        "finishDate": "2019-01-01"
+    },
+    {
+        "id": "22",
+        "studentId": "2",
+        "courseId": "2",
+        "finished": true,
+        "grade": 3,
+        "enrollmentDate": "2019-01-01",
+        "finishDate": "2019-01-01"
+    },
+    {
+        "id": "23",
+        "studentId": "3",
+        "courseId": "3",
+        "finished": true,
+        "grade": 2,
+        "enrollmentDate": "2019-01-01",
+        "finishDate": "2019-01-01"
+    },
+    {
+        "id": "24",
+        "studentId": "4",
+        "courseId": "3",
+        "finished": true,
+        "grade": 1,
+        "enrollmentDate": "2019-01-01",
+        "finishDate": "2019-01-01"
+    },
+    {
+        "id": "25",
+        "studentId": "5",
+        "courseId": "3",
+        "finished": true,
+        "grade": 10,
+        "enrollmentDate": "2019-01-01",
+        "finishDate": "2019-01-01"
+    },
+    {
+        "id": "26",
+        "studentId": "6",
+        "courseId": "3",
+        "finished": true,
+        "grade": 1,
+        "enrollmentDate": "2019-01-01",
+        "finishDate": "2019-01-01"
+    },
+    {
+        "id": "27",
+        "studentId": "1",
+        "courseId": "3",
+        "finished": true,
+        "grade": 2,
+        "enrollmentDate": "2019-01-01",
+        "finishDate": "2019-01-01"
+    },
+    {
+        "id": "28",
+        "studentId": "2",
+        "courseId": "3",
+        "finished": true,
+        "grade": 3,
+        "enrollmentDate": "2019-01-01",
+        "finishDate": "2019-01-01"
+    },
+    {
+        "id": "29",
+        "studentId": "3",
+        "courseId": "3",
+        "finished": true,
+        "grade": 4,
+        "enrollmentDate": "2019-01-01",
+        "finishDate": "2019-01-01"
+    },
+    {
+        "id": "30",
+        "studentId": "4",
+        "courseId": "3",
+        "finished": true,
+        "grade": 5,
+        "enrollmentDate": "2019-01-01",
+        "finishDate": "2019-01-01"
+    },
+    {
+        "id": "31",
+        "studentId": "5",
+        "courseId": "3",
+        "finished": true,
+        "grade": 6,
+        "enrollmentDate": "2019-01-01",
+        "finishDate": "2019-01-01"
+    },
+    {
+        "id": "32",
+        "studentId": "6",
+        "courseId": "3",
+        "finished": true,
+        "grade": 7,
+        "enrollmentDate": "2019-01-01",
+        "finishDate": "2019-01-01"
+    },
+    {
+        "id": "33",
+        "studentId": "1",
+        "courseId": "3",
+        "finished": true,
+        "grade": 8,
+        "enrollmentDate": "2019-01-01",
+        "finishDate": "2019-01-01"
+    },
+    {
+        "id": "34",
+        "studentId": "2",
+        "courseId": "4",
+        "finished": true,
+        "grade": 9,
+        "enrollmentDate": "2019-01-01",
+        "finishDate": "2019-01-01"
+    },
+    {
+        "id": "35",
+        "studentId": "3",
+        "courseId": "4",
+        "finished": true,
+        "grade": 10,
+        "enrollmentDate": "2019-01-01",
+        "finishDate": "2019-01-01"
+    },
+    {
+        "id": "36",
+        "studentId": "4",
+        "courseId": "4",
+        "finished": true,
+        "grade": 9,
+        "enrollmentDate": "2019-01-01",
+        "finishDate": "2019-01-01"
+    },
+    {
+        "id": "37",
+        "studentId": "5",
+        "courseId": "4",
+        "finished": true,
+        "grade": 8,
+        "enrollmentDate": "2019-01-01",
+        "finishDate": "2019-01-01"
+    },
+    {
+        "id": "38",
+        "studentId": "6",
+        "courseId": "4",
+        "finished": true,
+        "grade": 7,
+        "enrollmentDate": "2019-01-01",
+        "finishDate": "2019-01-01"
+    },
+    {
+        "id": "39",
+        "studentId": "1",
+        "courseId": "4",
+        "finished": true,
+        "grade": 6,
+        "enrollmentDate": "2019-01-01",
+        "finishDate": "2019-01-01"
+    },
+    {
+        "id": "40",
+        "studentId": "2",
+        "courseId": "4",
+        "finished": true,
+        "grade": 5,
+        "enrollmentDate": "2019-01-01",
+        "finishDate": "2019-01-01"
+    },
+    {
+        "id": "41",
+        "studentId": "3",
+        "courseId": "4",
+        "finished": true,
+        "grade": 4,
+        "enrollmentDate": "2019-01-01",
+        "finishDate": "2019-01-01"
+    },
+    {
+        "id": "42",
+        "studentId": "4",
+        "courseId": "4",
+        "finished": true,
+        "grade": 3,
+        "enrollmentDate": "2019-01-01",
+        "finishDate": "2019-01-01"
+    },
+    {
+        "id": "43",
+        "studentId": "5",
+        "courseId": "4",
+        "finished": true,
+        "grade": 2,
+        "enrollmentDate": "2019-01-01",
+        "finishDate": "2019-01-01"
+    },
+    {
+        "id": "44",
+        "studentId": "6",
+        "courseId": "5",
+        "finished": true,
+        "grade": 1,
+        "enrollmentDate": "2019-01-01",
+        "finishDate": "2019-01-01"
+    },
+    {
+        "id": "45",
+        "studentId": "1",
+        "courseId": "5",
+        "finished": true,
+        "grade": 10,
+        "enrollmentDate": "2019-01-01",
+        "finishDate": "2019-01-01"
+    },
+    {
+        "id": "46",
+        "studentId": "2",
+        "courseId": "5",
+        "finished": true,
+        "grade": 9,
+        "enrollmentDate": "2019-01-01",
+        "finishDate": "2019-01-01"
+    },
+    {
+        "id": "47",
+        "studentId": "3",
+        "courseId": "5",
+        "finished": true,
+        "grade": 8,
+        "enrollmentDate": "2019-01-01",
+        "finishDate": "2019-01-01"
+    },
+    {
+        "id": "48",
+        "studentId": "4",
+        "courseId": "5",
+        "finished": true,
+        "grade": 7,
+        "enrollmentDate": "2019-01-01",
+        "finishDate": "2019-01-01"
+    },
+    {
+        "id": "49",
+        "studentId": "5",
+        "courseId": "5",
+        "finished": true,
+        "grade": 6,
+        "enrollmentDate": "2019-01-01",
+        "finishDate": "2019-01-01"
+    },
+    {
+        "id": "50",
+        "studentId": "6",
+        "courseId": "5",
+        "finished": true,
+        "grade": 5,
+        "enrollmentDate": "2019-01-01",
+        "finishDate": "2019-01-01"
+    },
+    {
+        "id": "51",
+        "studentId": "1",
+        "courseId": "5",
+        "finished": true,
+        "grade": 4,
+        "enrollmentDate": "2019-01-01",
+        "finishDate": "2019-01-01"
+    },
+    {
+        "id": "52",
+        "studentId": "2",
+        "courseId": "5",
+        "finished": true,
+        "grade": 3,
+        "enrollmentDate": "2019-01-01",
+        "finishDate": "2019-01-01"
+    },
+    {
+        "id": "53",
+        "studentId": "3",
+        "courseId": "5",
+        "finished": true,
+        "grade": 2,
+        "enrollmentDate": "2019-01-01",
+        "finishDate": "2019-01-01"
+    },
+    {
+        "id": "54",
+        "studentId": "4",
+        "courseId": "4",
+        "finished": true,
+        "grade": 1,
+        "enrollmentDate": "2019-01-01",
+        "finishDate": "2019-01-01"
+    },
+    {
+        "id": "55",
+        "studentId": "5",
+        "courseId": "4",
+        "finished": true,
+        "grade": 10,
+        "enrollmentDate": "2019-01-01",
+        "finishDate": "2019-01-01"
+    },
+    {
+        "id": "56",
+        "studentId": "6",
+        "courseId": "4",
+        "finished": true,
+        "grade": 9,
+        "enrollmentDate": "2019-01-01",
+        "finishDate": "2019-01-01"
+    },
+    {
+        "id": "57",
+        "studentId": "1",
+        "courseId": "4",
+        "finished": true,
+        "grade": 8,
+        "enrollmentDate": "2019-01-01",
+        "finishDate": "2019-01-01"
+    },
+    {
+        "id": "58",
+        "studentId": "2",
+        "courseId": "4",
+        "finished": true,
+        "grade": 7,
+        "enrollmentDate": "2019-01-01",
+        "finishDate": "2019-01-01"
+    },
+    {
+        "id": "59",
+        "studentId": "3",
+        "courseId": "4",
+        "finished": true,
+        "grade": 6,
+        "enrollmentDate": "2019-01-01",
+        "finishDate": "2019-01-01"
+    },
+    {
+        "id": "60",
+        "studentId": "4",
+        "courseId": "4",
+        "finished": true,
+        "grade": 5,
+        "enrollmentDate": "2019-01-01",
+        "finishDate": "2019-01-01"
+    }
+]
