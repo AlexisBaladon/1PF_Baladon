@@ -8,6 +8,8 @@ import { Component, Input } from '@angular/core';
 export class SectionHeaderComponent {
   @Input() title!: string;
   @Input() description!: string;
-  @Input() icon!: string;
+  @Input() icon?: string;
+  @Input() pictureUrl?: string;
+  @Input() pictureAlt: string = 'section header picture';
   @Input() customBackground: string = 'linear-main';
 }

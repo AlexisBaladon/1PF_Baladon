@@ -1,6 +1,13 @@
 <div class="custom-card2">
-    <div class="image-container">
+    <div *ngIf="pictureUrl" class="image-container">
         <img [src]="pictureUrl" [alt]="pictureAlt" [style.height.px]="pictureHeight" [style.width.px]="pictureHeight">
+    </div>
+    <div *ngIf="!pictureUrl && icon" class="icon-container">
+        <app-bg-icon
+            [icon]="icon"
+            [customBackground]="customIconBackground"
+        >
+        </app-bg-icon>
     </div>
     <div class="custom-card-text">
         <h3>{{title}}</h3>

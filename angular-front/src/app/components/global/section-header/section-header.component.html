@@ -1,7 +1,9 @@
 <section id="header-data">
-    <div class="icon" [appCustomBackground]="customBackground">
-        <mat-icon>{{icon}}</mat-icon>
-    </div>
+    <app-bg-icon *ngIf="icon"
+        [icon]="icon"
+        [customBackground]="customBackground"
+    ></app-bg-icon>
+    <img class="section-image" *ngIf="pictureUrl" [src]="pictureUrl" [alt]="pictureAlt">
     <div id="header-text-data">
         <h1>{{title}}</h1>
         <p>{{description}}</p>

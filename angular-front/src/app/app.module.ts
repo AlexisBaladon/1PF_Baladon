@@ -35,6 +35,7 @@ import { ChartjsModule } from './chartjs.module';
 import { StudentDetailComponent } from './pages/student-detail/student-detail/student-detail.component';
 import { CourseDetailComponent } from './pages/course-detail/course-detail/course-detail.component';
 import { DatePipe } from '@angular/common';
+import { BgIconComponent } from './components/global/bg-icon/bg-icon.component';
 
 @NgModule({
   providers: [
@@ -69,6 +70,7 @@ import { DatePipe } from '@angular/common';
     CardComponent,
     StudentDetailComponent,
     CourseDetailComponent,
+    BgIconComponent,
   ],
   imports: [
     BrowserModule,

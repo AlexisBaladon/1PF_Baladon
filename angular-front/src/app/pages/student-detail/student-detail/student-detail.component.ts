@@ -99,10 +99,10 @@ export class StudentDetailComponent {
         ]
 	}
 
-	public getMainSectionData(student?: Student): { title: string, icon: string, description: string } {
-		if (student === undefined) return { title: '', icon: '', description: '' };
+	public getMainSectionData(student?: Student): { title: string, pictureUrl: string, description: string } {
+		if (student === undefined) return { title: '', pictureUrl: '', description: '' };
 		const studentName = this.fullNamePipe.transform(student);
-		return ({title: studentName, icon: 'person', description: `Realizando la carrera de ${student?.career}`});
+		return ({title: studentName, pictureUrl: student.pictureUrl, description: `Realizando la carrera de ${student?.career}`});
 	}
 
 	public getChartSectionData(student?: Student): { title: string, icon: string, description: string } {
@@ -121,11 +121,11 @@ export class StudentDetailComponent {
 		return ({title: 'Cursos', icon: 'web_asset', description: 'Cursos del estudiante'});
 	}
 
-	public getEnrollmentData(student?: Student): { pictureUrl: string, title: string, description: string }[] {
+	public getEnrollmentData(student?: Student): { icon: string, title: string, description: string }[] {
 		if (student === undefined) return [];
 		return this.studentCourses.map(course => {
 			return {
-				pictureUrl: 'https://media.istockphoto.com/id/1366428092/photo/webinar-e-learning-skills-business-internet-technology-concepts-training-webinar-e-learning.jpg?b=1&s=170667a&w=0&k=20&c=qjK4h0qt4W_NNG8TmboGw8RDRv8TNzEoFM_JEDZ1Ah0=',
+				icon: course.icon,
 				title: course.name,
 				description: course.description
 			}

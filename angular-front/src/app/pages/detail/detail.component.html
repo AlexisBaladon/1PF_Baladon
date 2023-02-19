@@ -19,6 +19,7 @@
                 [description]="mainSectionData.description"
                 [icon]="mainSectionData.icon"
                 [customBackground]="appStyle"
+                [pictureUrl]="mainSectionData.pictureUrl"
             >
             </app-section-header>
             <section id="course-plots" class="custom-container">
@@ -60,8 +61,10 @@
                             [title]="data.title"
                             [description]="data.description"
                             [pictureUrl]="data.pictureUrl"
+                            [icon]="data.icon"
                             [pictureHeight]="80"
                             [pictureAlt]="data.title"
+                            [customIconBackground]="secondaryAppStyle"
                         >
                     </app-card>
                 </ng-container>

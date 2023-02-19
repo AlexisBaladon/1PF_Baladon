@@ -6,25 +6,22 @@
     justify-content: flex-start;
     width: 100%;
 
+    .section-image {
+        //image sometimes is shown instead of icon
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 6.25rem;
+        height: 6.25rem;
+        margin: 0 1rem 0 0;
+        border-radius: 5px;
+        box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.1);
+    }
+
     h1 {
         font-size: 1.5rem;
         font-weight: 600;
         margin: 0;
-    }
-
-    .icon {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        transform: scale(1.5);
-        border-radius: 5px;
-        padding: 0.2rem;
-        height: 2.25rem; width: 2.25rem;
-        margin: 0.75rem 2rem 0 0.5rem;
-    
-        mat-icon {
-            color: white;
-        }
     }
 
     #header-text-data {

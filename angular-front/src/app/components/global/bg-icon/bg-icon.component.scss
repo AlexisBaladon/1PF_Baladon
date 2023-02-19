@@ -1,0 +1,14 @@
+.icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: scale(1.5);
+    border-radius: 5px;
+    padding: 0.2rem;
+    height: 2.25rem; width: 2.25rem;
+    margin: 0.75rem 2rem 0 0.5rem;
+
+    mat-icon {
+        color: white;
+    }
+}

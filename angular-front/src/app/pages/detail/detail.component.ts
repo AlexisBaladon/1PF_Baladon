@@ -5,7 +5,8 @@ import { Filterable } from 'src/app/logic/filter/filterable';
 interface SectionHeaderData {
 	title: string;
 	description: string;
-	icon: string;
+	icon?: string;
+	pictureUrl?: string;
 }
 
 @Component({
@@ -19,12 +20,13 @@ export class DetailComponent {
 	@Input() public chartSectionData!: SectionHeaderData;
 	@Input() public chartData!: { label: string, datasetLabels: string[], datasets: (number | string)[] };
 	@Input() public enrollmentSectionData!: SectionHeaderData;
-	@Input() public enrollmentData!: { pictureUrl: string, title: string, description: string }[];
+	@Input() public enrollmentData!: { pictureUrl?: string, icon?: string, title: string, description: string }[];
 	@Input() public enrollmentSeeMoreAction!: (id: Filterable['id']) => void;
 	@Input() public doughnutSectionData!: SectionHeaderData;
 	@Input() public doughnutData!: { datasetLabels: string[], datasets: (number | string)[] };
 	@Input() public maxEnrollmentsShown = 4;
 	@Input() public appStyle = 'linear-main';
+	@Input() public secondaryAppStyle = 'linear-skyblue';
 
 	public lineChartOptions = { responsive: true };
 	public lineChartLegend = true;
