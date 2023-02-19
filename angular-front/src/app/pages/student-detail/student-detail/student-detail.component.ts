@@ -121,10 +121,11 @@ export class StudentDetailComponent {
 		return ({title: 'Cursos', icon: 'web_asset', description: 'Cursos del estudiante'});
 	}
 
-	public getEnrollmentData(student?: Student): { icon: string, title: string, description: string }[] {
+	public getEnrollmentData(student?: Student): { id: string, icon: string, title: string, description: string }[] {
 		if (student === undefined) return [];
 		return this.studentCourses.map(course => {
 			return {
+				id: course.id,
 				icon: course.icon,
 				title: course.name,
 				description: course.description
@@ -132,9 +133,9 @@ export class StudentDetailComponent {
 		});
 	}
 
-	public getEnrollmentSeeMoreAction(): (id: Filterable['id']) => void {
-		return (id: Filterable['id']) => {
-			this.router.navigate([`/layout/students/${id}`]);
+	public getEnrollmentSeeMoreAction(): (id: Course['id']) => void {
+		return (id: Course['id']) => {
+			this.router.navigate([`/layout/course/${id}`]);
 		}
 	}
 

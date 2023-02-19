@@ -21,7 +21,7 @@ export class CourseDetailComponent {
 	public chartSectionData: { title: string, icon: string, description: string } = { title: '', icon: '', description: '' };
 	public chartData: { label: string, datasetLabels: string[], datasets: (string | number)[] } = { label: '', datasetLabels: [], datasets: [] };
 	public enrollmentSectionData: { title: string, icon: string, description: string } = { title: '', icon: '', description: '' };
-	public enrollmentData: { pictureUrl: string, title: string, description: string }[] = [];
+	public enrollmentData: { id: string, pictureUrl: string, title: string, description: string }[] = [];
 	public enrollmentSeeMoreAction: (id: Filterable['id']) => void = (id: Filterable['id']) => {};
 	public doughnutSectionData: { title: string, icon: string, description: string } = { title: '', icon: '', description: '' };
 	public doughnutData: { datasetLabels: string[], datasets: number[] } = { datasetLabels: [], datasets: [] };
@@ -66,7 +66,7 @@ export class CourseDetailComponent {
 			if (this.course?.studentsId != undefined) {
 				this.courseStudents = students.filter(student => this.course?.studentsId?.includes(student.id));
 				this.enrollmentData = this.courseStudents.map(student => { 
-					return { pictureUrl: student.pictureUrl, title: student.name, description: student.email }
+					return { id: student.id, pictureUrl: student.pictureUrl, title: student.name, description: student.email }
 				});
 				this.initializeChart();
 			}
@@ -109,14 +109,14 @@ export class CourseDetailComponent {
 		return ({title: 'Estudiantes', icon: 'school', description: 'Estudiantes del curso'});
 	}
 
-	public getEnrollmentData(course?: Course): { pictureUrl: string, title: string, description: string }[] {
+	public getEnrollmentData(course?: Course): { id: Course['id'], pictureUrl: string, title: string, description: string }[] {
 		if (course === undefined) return [];
 		return this.enrollmentData;
 	}
 
-	public getEnrollmentSeeMoreAction(): (id: Filterable['id']) => void {
-		return (id: Filterable['id']) => {
-			this.router.navigate([`/courses/${id}`]);
+	public getEnrollmentSeeMoreAction(): (id: Student['id']) => void {
+		return (id: Student['id']) => {
+			this.router.navigate([`layout/student/${id}`]);
 		}
 	}
 
