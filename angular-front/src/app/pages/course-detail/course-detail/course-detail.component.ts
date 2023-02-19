@@ -125,7 +125,6 @@ export class CourseDetailComponent {
 		return ({title: 'Carreras', icon: 'donut_small', description: 'Distribución de estudiantes por carrera'});
 	}
 
-	//TODO: Datasets should be an array of numbers
 	public getDoughnutData(course?: Course): { datasetLabels: string[], datasets: number[] } {
 		if (course === undefined) return { datasetLabels: [], datasets: [] };
 		return ({datasetLabels: this.doughnutData.datasetLabels, datasets: this.doughnutData.datasets});

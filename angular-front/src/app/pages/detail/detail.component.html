@@ -1,7 +1,7 @@
 <div id="course-detail" class="layout-child">
     <div id="data-blocks" class="custom-co">
         <ng-container *ngFor="let blockInfo of cardsData">
-            <div class="data-block" [appCustomBackground]="'linear-main'">
+            <div class="data-block" [appCustomBackground]="appStyle">
                     <h1 [appFontSize]="'medium'">{{blockInfo.title}}</h1>
                     <div class="card-info">
                         <mat-icon class="icon">{{blockInfo.icon}}</mat-icon>
@@ -18,7 +18,7 @@
                 [title]="mainSectionData.title"
                 [description]="mainSectionData.description"
                 [icon]="mainSectionData.icon"
-                [customBackground]="'linear-main'"
+                [customBackground]="appStyle"
             >
             </app-section-header>
             <section id="course-plots" class="custom-container">
@@ -27,7 +27,7 @@
                     [title]="chartSectionData.title"
                     [description]="chartSectionData.description"
                     [icon]="chartSectionData.icon"
-                    [customBackground]="'linear-main'"
+                    [customBackground]="appStyle"
                 >
                 </app-section-header>
                 <div id="plots">
@@ -51,7 +51,7 @@
                     [title]="enrollmentSectionData.title"
                     [description]="enrollmentSectionData.description"
                     [icon]="enrollmentSectionData.icon"
-                    [customBackground]="'linear-main'"
+                    [customBackground]="appStyle"
                 >
                 </app-section-header>
                 <div class="students">
@@ -65,7 +65,7 @@
                         >
                     </app-card>
                 </ng-container>
-                <button id="students-see-more" [appCustomBackground]="'linear-main'" mat-raised-button color="primary">
+                <button id="students-see-more" [appCustomBackground]="appStyle" mat-raised-button color="primary">
                     <mat-icon>keyboard_arrow_right</mat-icon>
                     Ver más
                 </button>
@@ -78,7 +78,7 @@
                     [title]="doughnutSectionData.title"
                     [description]="doughnutSectionData.description"
                     [icon]="doughnutSectionData.icon"
-                    [customBackground]="'linear-main'"
+                    [customBackground]="appStyle"
                 >
                 </app-section-header>
                 <canvas baseChart class="chart"

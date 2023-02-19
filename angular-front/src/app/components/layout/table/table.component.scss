@@ -3,6 +3,7 @@
 #filterable-data-table {   
     overflow-x: auto;
     border-radius: 5px 5px 0 0;
+    box-shadow: 0 0 3px 0 rgba(0,0,0,0.2);
 
     table {
         width: 100%;
@@ -41,6 +42,7 @@
 }
 
 #filterable-data-paginator-container {
+    box-shadow: 0 0 3px 0 rgba(0,0,0,0.2);
     border-radius: 0 0 5px 5px;
     overflow: hidden;
     width: 100%;

@@ -88,6 +88,7 @@ export const DASHBOARD_TEXT: DashboardInputData = {
             teacher: 'Profesor',
             studentsId: 'Estudiantes',
             averageGrade: 'Promedio',
+            category: 'Categoría',
         }
     },
 }

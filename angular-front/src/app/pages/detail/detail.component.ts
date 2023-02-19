@@ -24,6 +24,7 @@ export class DetailComponent {
 	@Input() public doughnutSectionData!: SectionHeaderData;
 	@Input() public doughnutData!: { datasetLabels: string[], datasets: (number | string)[] };
 	@Input() public maxEnrollmentsShown = 4;
+	@Input() public appStyle = 'linear-main';
 
 	public lineChartOptions = { responsive: true };
 	public lineChartLegend = true;

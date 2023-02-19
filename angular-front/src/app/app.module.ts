@@ -34,8 +34,13 @@ import { CardComponent } from './components/global/card/card/card.component';
 import { ChartjsModule } from './chartjs.module';
 import { StudentDetailComponent } from './pages/student-detail/student-detail/student-detail.component';
 import { CourseDetailComponent } from './pages/course-detail/course-detail/course-detail.component';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
+  providers: [
+    FullNamePipe,
+    DatePipe,
+  ],
   declarations: [
     AppComponent,
     ToolbarComponent,

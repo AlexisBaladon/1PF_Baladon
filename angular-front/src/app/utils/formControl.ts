@@ -14,6 +14,7 @@ const controlNames = new Map<string, string>([
     ['averageGrade', 'promedio'],
     ['description', 'descripción'],
     ['credits', 'créditos'],
+    ['category', 'categoría'],
 ]);
 
 const getControlErrorMessages = (control: AbstractControl<any, any>, controlName: string): string[] => {
