@@ -19,34 +19,4 @@ export class CoursesService extends FilterableDataService<Course> {
     super(filterPipe, filterableData);
    }
 
-  public openEditDialog(dialog: MatDialog, mode: 'create' | 'edit', filterable: Partial<Course>, width?: string | undefined): MatDialogRef<AddCourseFormComponent, any> {
-    return dialog.open(AddCourseFormComponent, {
-          width: width || '400px',
-          data: { 
-            filterableData: filterable, 
-            valid: true, 
-            title: mode === 'create' ? 'Agregar curso' : 'Editar curso',
-          }
-      });
-  }
-
-  public openDeleteDialog(dialog: MatDialog, filterableId: Course['id'], width?: string | undefined): MatDialogRef<any, any> {
-    return dialog.open(ConfirmModalComponent, {
-       width: width || '400px',
-       data: {
-         title: 'Eliminar curso',
-         message: '¿Estás seguro de que quieres eliminar este curso? Los datos perdidos no podrán recuperarse.',
-         confirmButtonText: 'Eliminar',
-         cancelButtonText: 'Cancelar',
-         onConfirm: () => {
-           this.deleteFilterable(filterableId);
-           dialog.closeAll();
-         },
-         onCancel: () => {
-           dialog.closeAll();
-         },
-       }
-     });
-   }
-
 }

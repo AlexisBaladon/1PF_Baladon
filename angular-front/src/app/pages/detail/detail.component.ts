@@ -21,7 +21,7 @@ export class DetailComponent {
 	@Input() public chartData!: { label: string, datasetLabels: string[], datasets: (number | string)[], backgroundColor?: string };
 	@Input() public enrollmentSectionData!: SectionHeaderData;
 	@Input() public enrollmentData!: { id: Filterable['id'], pictureUrl?: string, icon?: string, title: string, description: string }[];
-	@Input() public enrollmentSeeMoreAction!: (id: Filterable['id']) => void;
+	@Input() public enrollmentSeeMoreAction!: () => void;
 	@Input() public doughnutSectionData!: SectionHeaderData;
 	@Input() public doughnutData!: { datasetLabels: string[], datasets: (number | string)[] };
 	@Input() public maxEnrollmentsShown = 4;
@@ -36,9 +36,4 @@ export class DetailComponent {
 	public doughnutChartData!: ChartData<'doughnut'>;
 	public doughnutChartType: ChartType = 'doughnut';
 	public doughnutChartOptions = { responsive: true };
-
-	ngOnInit(): void {
-		console.log(this.chartData.backgroundColor)
-	}
-
 }

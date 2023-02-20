@@ -9,7 +9,7 @@ import { CourseDetailComponent } from '../pages/course-detail/course-detail/cour
 
 const routes: Routes = [
   { path: 'layout', children: [
-      { path: '', redirectTo: '/students', pathMatch: 'full'},
+      { path: '', redirectTo: 'students', pathMatch: 'full'},
       { path: 'students', component: StudentDashboardComponent },
       { path: 'courses', component: CourseDashboardComponent },
       { path: 'student/:id', component: StudentDetailComponent },

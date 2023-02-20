@@ -114,9 +114,9 @@ export class CourseDetailComponent {
 		return this.enrollmentData;
 	}
 
-	public getEnrollmentSeeMoreAction(): (id: Student['id']) => void {
-		return (id: Student['id']) => {
-			this.router.navigate([`layout/student/${id}`]);
+	public getEnrollmentSeeMoreAction(): () => void {
+		return () => {
+			this.router.navigate([`layout/students`]);
 		}
 	}
 

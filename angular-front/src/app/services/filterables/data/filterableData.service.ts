@@ -65,7 +65,4 @@ export abstract class FilterableDataService<F extends Filterable> {
 		);
 	}
 
-	public abstract openEditDialog(dialog: MatDialog, mode: 'create' | 'edit', filterable: Partial<Filterable>, width?: string): MatDialogRef<any, any>;
-
-	public abstract openDeleteDialog(dialog: MatDialog, filterableId: Filterable['id'], width?: string): MatDialogRef<any, any>;
 }

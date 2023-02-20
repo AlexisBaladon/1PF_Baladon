@@ -133,9 +133,9 @@ export class StudentDetailComponent {
 		});
 	}
 
-	public getEnrollmentSeeMoreAction(): (id: Course['id']) => void {
-		return (id: Course['id']) => {
-			this.router.navigate([`/layout/course/${id}`]);
+	public getEnrollmentSeeMoreAction(): () => void {
+		return () => {
+			this.router.navigate([`/layout/courses`]);
 		}
 	}
 

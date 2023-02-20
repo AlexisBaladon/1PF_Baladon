@@ -15,7 +15,14 @@ import { FilterableContextService } from './services/filterables/context/filtera
 export class AppComponent {
   private user: User | null = null;
   private user$!: Subscription;
-  constructor( private filterableContextService: FilterableContextService, private router: Router, private authService: AuthService) { }
+  private router$!: Subscription;
+  public filterOptions = FILTER_OPTIONS;
+
+  constructor( 
+    private filterableContextService: FilterableContextService, 
+    private router: Router,
+    private authService: AuthService
+  ) { }
 
   ngOnInit() {
     this.user$ = this.authService.getUser().subscribe(user => {
@@ -24,36 +31,47 @@ export class AppComponent {
         this.router.navigate(['/login']);
       }
     });
+
+    this.router$ = this.router.events.subscribe(() => {
+      const currentRoute = this.getLastRoute(this.router.url);
+      const currentRouteType = this.routesMap.get(currentRoute)
+      if (!currentRouteType) return;
+      this.filterableContextService.switchService(currentRouteType);
+    });
+      
   }
 
   ngOnDestroy() {
     if (!!this.user$) this.user$.unsubscribe();
+    if (!!this.router$) this.router$.unsubscribe();
   }
 
   public isLoggedIn() {
     return !!this.user;
   }
 
-  private routes: (string | FilterableType)[] = ['Home', 'Student', 'Course', 'General'];
-  private dashboardRoutes: FilterableType[] = ['Student', 'Course'];
-  private routesMap: Map<FilterableType, string> = new Map([
-    ['Student', 'students'],
-    ['Course', 'courses'],
+  private routesMap: Map<string, FilterableType> = new Map([
+    ['students', 'Student'],
+    ['courses', 'Course'],
   ]);
 
-  public currentRoute: FilterableType = 'Student';
-  public filterOptions = FILTER_OPTIONS;
-  
+  private getLastRoute(route: string): string {
+    const lastRoute = route.split('/').slice(-1)[0];
+    if (!lastRoute) return this.getLastRoute(NAV_ROUTES[1].route)
+    return lastRoute;
+  }
+
   public changeRoute(route: number) {
-    this.currentRoute = this.routes[route] as FilterableType;
-    if (this.dashboardRoutes.includes(this.currentRoute)) {
-      this.filterableContextService.switchService(this.currentRoute);
-      this.router.navigate(['/layout', this.routesMap.get(this.currentRoute)]);
-    }
+    const currentRoute = this.getLastRoute(NAV_ROUTES[route].route);
+    const currentRouteType = this.routesMap.get(currentRoute)
+    if (currentRouteType == null) return;
+    this.filterableContextService.switchService(currentRouteType);
+    this.router.navigate(['/layout', currentRoute]);
   }
 
   public getCurrentRoute() {
-    return this.routes.indexOf(this.currentRoute);
+    const currentRoute = this.getLastRoute(this.router.url);
+    return NAV_ROUTES.findIndex(route => this.getLastRoute(route.route) === currentRoute);
   }
 
   public getNavRoutes() {
@@ -61,10 +79,8 @@ export class AppComponent {
   }
 
   public getDashboardText() {
-    if (!this.dashboardRoutes.includes(this.currentRoute)) return null;
-    return DASHBOARD_TEXT[this.currentRoute];
+    const currentRoute = this.routesMap.get(this.getLastRoute(this.router.url));
+    if (currentRoute == null) return;
+    return DASHBOARD_TEXT[currentRoute];
   }
-
-  public navRoutes = NAV_ROUTES;
-  public dashboardText = DASHBOARD_TEXT;
 }

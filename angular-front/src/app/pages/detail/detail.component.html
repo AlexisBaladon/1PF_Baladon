@@ -57,8 +57,8 @@
                 </app-section-header>
                 <div class="students">
                     <ng-container *ngFor="let data of enrollmentData.slice(0,maxEnrollmentsShown)">
+                        <div>
                         <app-card
-                            (click)="enrollmentSeeMoreAction(data.id)"
                             [title]="data.title"
                             [description]="data.description"
                             [pictureUrl]="data.pictureUrl"
@@ -67,12 +67,13 @@
                             [pictureAlt]="data.title"
                             [customIconBackground]="secondaryAppStyle"
                         >
-                    </app-card>
+                    </app-card></div>
                 </ng-container>
                 <button 
                     id="students-see-more" 
                     [appCustomBackground]="appStyle" 
                     mat-raised-button color="primary"
+                    (click)="enrollmentSeeMoreAction()"
                 >
                     <mat-icon>keyboard_arrow_right</mat-icon>
                     Ver más

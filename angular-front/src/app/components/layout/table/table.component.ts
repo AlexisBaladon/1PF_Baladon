@@ -1,5 +1,5 @@
-import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
@@ -16,6 +16,8 @@ import { FilterableContextService } from 'src/app/services/filterables/context/f
 export class TableComponent {
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @Input() public openEditDialog!: (dialog: MatDialog, mode: 'create' | 'edit', filterable?: Filterable, width?: string | undefined) => MatDialogRef<any, any>;
+  @Input() public openDeleteDialog!: (dialog: MatDialog, filterableId: Filterable['id'], width?: string | undefined) =>  MatDialogRef<any, any>;
   @Output() public onViewEmiter: EventEmitter<Filterable["id"]> = new EventEmitter();
   constructor(public dialog: MatDialog, public el: ElementRef, private filterableContextService: FilterableContextService) {}
   private filterableData: Filterable[] = [];
@@ -75,9 +77,9 @@ export class TableComponent {
     this.onViewEmiter.emit(filterableId);
   }
 
-  public onEdit(filterableId: Partial<Filterable['id']>) {
-    const filterableData = this.filterableData.find(filterableData => filterableData.id === filterableId) ?? {};
-    const dialogRef = this.filterableService.openEditDialog(this.dialog, 'edit', filterableData, '750px');
+  public onEdit(filterableId: Filterable['id']) {
+    const filterableData = this.filterableData.find(filterableData => filterableData.id === filterableId) ?? {} as Filterable;
+    const dialogRef = this.openEditDialog(this.dialog, 'edit', filterableData, '750px');
 
     dialogRef.afterClosed().subscribe(result => {
       const resultData = result?.filterableData;
@@ -88,7 +90,7 @@ export class TableComponent {
   }
 
   public onDelete(filterableDataId: Filterable['id']) {
-    this.filterableService.openDeleteDialog(this.dialog, filterableDataId);  
+    this.openDeleteDialog(this.dialog, filterableDataId);  
   }
   
   public isDate(value: any): boolean {

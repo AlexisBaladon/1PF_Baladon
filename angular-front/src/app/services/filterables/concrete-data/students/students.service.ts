@@ -27,33 +27,5 @@ export class StudentsService extends FilterableDataService<Student> {
     );
   }
 
-   public openEditDialog(dialog: MatDialog, mode: 'create' | 'edit', filterable: Partial<Student>, width?: string | undefined): MatDialogRef<AddUserFormComponent, any> {
-    return dialog.open(AddUserFormComponent, {
-      width: width || '600px',
-      data: {
-        filterableData: filterable, 
-        valid: true, 
-        title: mode === 'create' ? 'Agregar usuario' : 'Editar usuario',
-      },
-    });
-   }
-
-   public openDeleteDialog(dialog: MatDialog, filterableId: Filterable['id'], width?: string | undefined): MatDialogRef<any, any> {
-    return dialog.open(ConfirmModalComponent, {
-       width:  width || '400px',
-       data: {
-         title: 'Eliminar estudiante',
-         message: '¿Estás seguro de que quieres eliminar a este estudiante? Los datos perdidos no podrán recuperarse.',
-         confirmButtonText: 'Eliminar',
-         cancelButtonText: 'Cancelar',
-         onConfirm: () => {
-           this.deleteFilterable(filterableId);
-           dialog.closeAll();
-         },
-         onCancel: () => {
-           dialog.closeAll();
-         },
-       }
-     });
-   }
+   
 }

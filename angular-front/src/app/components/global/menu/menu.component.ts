@@ -11,6 +11,10 @@ export class MenuComponent {
   @Input() public selectedMenuItem!: number;
   @Output() public menuItemSelected = new EventEmitter();
 
+  ngOnChanges() {
+    console.log(this.options, this.selectedMenuItem);
+  }
+
   public isSelected(option: string) {
     return this.options.map(option => option.title).indexOf(option) === this.selectedMenuItem;
   }
