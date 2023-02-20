@@ -18,7 +18,7 @@ export class DetailComponent {
 	@Input() public cardsData: { title: string, icon: string, value: string }[] = [];
 	@Input() public mainSectionData!: SectionHeaderData;
 	@Input() public chartSectionData!: SectionHeaderData;
-	@Input() public chartData!: { label: string, datasetLabels: string[], datasets: (number | string)[] };
+	@Input() public chartData!: { label: string, datasetLabels: string[], datasets: (number | string)[], backgroundColor?: string };
 	@Input() public enrollmentSectionData!: SectionHeaderData;
 	@Input() public enrollmentData!: { id: Filterable['id'], pictureUrl?: string, icon?: string, title: string, description: string }[];
 	@Input() public enrollmentSeeMoreAction!: (id: Filterable['id']) => void;
@@ -36,5 +36,9 @@ export class DetailComponent {
 	public doughnutChartData!: ChartData<'doughnut'>;
 	public doughnutChartType: ChartType = 'doughnut';
 	public doughnutChartOptions = { responsive: true };
+
+	ngOnInit(): void {
+		console.log(this.chartData.backgroundColor)
+	}
 
 }

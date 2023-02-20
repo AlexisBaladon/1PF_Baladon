@@ -34,7 +34,7 @@
                 <div id="plots">
                     <div class="chart-wrapper">
                         <canvas baseChart 
-                            [datasets]="[{data: chartData.datasets, label: chartData.label}]" 
+                            [datasets]="[{data: chartData.datasets, label: chartData.label, backgroundColor: chartData.backgroundColor}]"
                             [labels]="chartData.datasetLabels" 
                             [options]="lineChartOptions"
                             [legend]="lineChartLegend" 

@@ -1,6 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Chart, ChartData, ChartDataset, ChartType } from 'chart.js';
+import { Chart } from 'chart.js';
 import { Subscription } from 'rxjs';
 import { Course } from 'src/app/interfaces/course';
 import Student from 'src/app/interfaces/student';
@@ -19,7 +19,7 @@ export class CourseDetailComponent {
 	public cardsData: { title: string, icon: string, value: string }[] = [];
 	public mainSectionData: { title: string, icon: string, description: string } = { title: '', icon: '', description: '' };
 	public chartSectionData: { title: string, icon: string, description: string } = { title: '', icon: '', description: '' };
-	public chartData: { label: string, datasetLabels: string[], datasets: (string | number)[] } = { label: '', datasetLabels: [], datasets: [] };
+	public chartData: { label: string, datasetLabels: string[], backgroundColor: string } = { label: '', datasetLabels: [], backgroundColor: '#000' };
 	public enrollmentSectionData: { title: string, icon: string, description: string } = { title: '', icon: '', description: '' };
 	public enrollmentData: { id: string, pictureUrl: string, title: string, description: string }[] = [];
 	public enrollmentSeeMoreAction: (id: Filterable['id']) => void = (id: Filterable['id']) => {};
@@ -99,9 +99,9 @@ export class CourseDetailComponent {
 		return ({title: 'Estadísticas', icon: 'equalizer', description: 'Estadísticas de los estudiantes'});
 	}
 
-	public getChartData(course?: Course): { label: string, datasetLabels: string[], datasets: number[] } {
-		if (course === undefined) return { label: '', datasetLabels: [], datasets: [] };
-		return ({label: 'Nota de estudiantes', datasetLabels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"], datasets: this.studentsGrades});
+	public getChartData(course?: Course): { label: string, datasetLabels: string[], datasets: number[], backgroundColor: string } {
+		if (course === undefined) return { label: '', datasetLabels: [], datasets: [], backgroundColor: 'green' };
+		return ({label: 'Nota de estudiantes', datasetLabels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"], datasets: this.studentsGrades, backgroundColor: 'rgba(113, 201, 132, 0.8)'});
 	}
 
 	public getEnrollmentSectionData(course?: Course): { title: string, icon: string, description: string } {
@@ -157,7 +157,7 @@ export class CourseDetailComponent {
 			this.studentsGrades[key - 1] = value;
 		});
 		const chartData = [
-			{ data: this.studentsGrades, label: 'Nota de estudiantes' },
+			{ data: this.studentsGrades, label: 'Nota de estudiantes', backgroundColor: '#000' },
 		];
 		return chartData;
 	}	
