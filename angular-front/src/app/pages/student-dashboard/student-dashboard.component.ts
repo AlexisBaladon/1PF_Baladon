@@ -5,7 +5,6 @@ import { ConfirmModalComponent } from 'src/app/components/global/confirm-modal/c
 import { AddUserFormComponent } from 'src/app/components/layout/add-user-form/add-user-form.component';
 import { DASHBOARD_TEXT } from 'src/app/constants/text';
 import { Filterable } from 'src/app/logic/filter/filterable';
-import Student from 'src/app/interfaces/student';
 import { StudentsService } from 'src/app/services/filterables/concrete-data/students/students.service';
 
 @Component({

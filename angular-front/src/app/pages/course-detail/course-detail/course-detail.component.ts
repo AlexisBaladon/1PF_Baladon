@@ -120,6 +120,12 @@ export class CourseDetailComponent {
 		}
 	}
 
+	public getEnrollmentSeeDetailAction(): (id: Filterable['id']) => void {
+		return (id: Filterable['id']) => {
+			this.router.navigate([`layout/student/${id}`]);
+		}
+	}
+
 	public getDoughnutSectionData(course?: Course): { title: string, icon: string, description: string } {
 		if (course === undefined) return { title: '', icon: '', description: '' };
 		return ({title: 'Carreras', icon: 'donut_small', description: 'Distribución de estudiantes por carrera'});

@@ -59,6 +59,7 @@
                     <ng-container *ngFor="let data of enrollmentData.slice(0,maxEnrollmentsShown)">
                         <div>
                         <app-card
+                            (click)="enrollmentSeeDetailAction(data.id)"
                             [title]="data.title"
                             [description]="data.description"
                             [pictureUrl]="data.pictureUrl"

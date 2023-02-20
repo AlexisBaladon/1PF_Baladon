@@ -26,12 +26,12 @@ export class AddCourseFormComponent {
     name: new FormControl(this.defaultCourseData.name, SIMPLE_VALIDATIONS),
     description: new FormControl(this.defaultCourseData.description, SIMPLE_VALIDATIONS),
     credits: new FormControl(this.defaultCourseData.credits, SIMPLE_VALIDATIONS),
+    category: new FormControl(this.defaultCourseData.category, SIMPLE_VALIDATIONS),
   });
 
   public submitted = false;
 
   public onSubmit() {
-
     this.submitted = true;
     if (this.formGroup.invalid) {
       this.data.valid = false;
@@ -58,7 +58,7 @@ export class AddCourseFormComponent {
       this.defaultCourseData.averageGrade ??
       this.defaultCourseData.averageGrade ?? 0,
       this.defaultCourseData.icon ?? '',
-      this.defaultCourseData.category ?? ''
+      formValues.category ?? '',
     );
     
     this.data.filterableData = createdCourse;

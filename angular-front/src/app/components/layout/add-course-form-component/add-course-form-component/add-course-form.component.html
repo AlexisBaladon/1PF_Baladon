@@ -41,6 +41,17 @@
                     placeholder="Créditos del curso"
                 >
             </div>
+            <div class="form-group">
+                <label for="credits">Categoría</label>
+                <input 
+                    type="text" 
+                    class="input-with-label" 
+                    [appValidInput]="isValidInput('category')"
+                    id="category" 
+                    formControlName="category"
+                    placeholder="Categoría del curso"
+                >
+            </div>
         </form>
     </div>
     <div id="submit-buttons-container">

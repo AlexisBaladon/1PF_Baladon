@@ -22,6 +22,7 @@ export class DetailComponent {
 	@Input() public enrollmentSectionData!: SectionHeaderData;
 	@Input() public enrollmentData!: { id: Filterable['id'], pictureUrl?: string, icon?: string, title: string, description: string }[];
 	@Input() public enrollmentSeeMoreAction!: () => void;
+	@Input() public enrollmentSeeDetailAction!: (id: Filterable['id']) => void;
 	@Input() public doughnutSectionData!: SectionHeaderData;
 	@Input() public doughnutData!: { datasetLabels: string[], datasets: (number | string)[] };
 	@Input() public maxEnrollmentsShown = 4;

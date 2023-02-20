@@ -139,6 +139,12 @@ export class StudentDetailComponent {
 		}
 	}
 
+	public getEnrollmentSeeDetailAction(): (id: Filterable['id']) => void {
+		return (id: Filterable['id']) => {
+			this.router.navigate([`layout/course/${id}`]);
+		}
+	}
+
 	public getDoughnutSectionData(student?: Student): { title: string, icon: string, description: string } {
 		if (student === undefined) return { title: '', icon: '', description: '' };
 		this.initializeChart();
