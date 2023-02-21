@@ -25,6 +25,9 @@ export class AuthComponent {
   ngOnInit() {
     this.user$ = this.authService.getUser().subscribe(user => {
       this.user = user;
+      if (!!user) {
+        this.router.navigate(['/layout']);
+      }
     });
 
     this.error$ = this.authService.getError().subscribe(error => {
@@ -88,6 +91,8 @@ export class AuthComponent {
       console.warn(this.error);
       return;
     }
+    
+    console.log("Logged in");
     this.router.navigate(['/layout']);
   }
 

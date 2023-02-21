@@ -6,6 +6,7 @@ import { StudentDashboardComponent } from '../pages/student-dashboard/student-da
 import { CourseDashboardComponent } from '../pages/course-dashboard/course-dashboard.component';
 import { StudentDetailComponent } from '../pages/student-detail/student-detail/student-detail.component';
 import { CourseDetailComponent } from '../pages/course-detail/course-detail/course-detail.component';
+import { AuthComponent } from '../pages/auth/auth.component';
 
 const routes: Routes = [
   { path: 'layout', children: [
@@ -16,6 +17,7 @@ const routes: Routes = [
       { path: 'course/:id', component: CourseDetailComponent },
   ]},
   { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: 'login', component: AuthComponent },
   { path: '**', component: Error404Component }
 ]
 

@@ -66,7 +66,8 @@ export class AuthService {
       email,
       password,
     });
-    
+
+    this.login(email, password);
   }
 
   public logout(): void {

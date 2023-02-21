@@ -58,7 +58,7 @@
 
         input { height: 2.75rem; }
         label {  color: colors.$NEUTRAL_COLOR }
-        a { text-decoration: none; }
+        a { color: colors.$MAIN_COLOR; cursor: pointer }
         
         .login-forgot-password-text  {text-align: end;}
         .login-continue-with-text, .login-register-text {text-align: center;}
