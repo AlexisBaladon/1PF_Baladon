@@ -43,8 +43,9 @@ export class DashboardComponent {
 
   public handleOpenEditDialog(mode: 'create' | 'edit', filterable?: Filterable) {
     const dialogRef = this.openEditDialog(this.dialog, mode, filterable);
-    dialogRef.afterClosed().subscribe((result: {filterableData: Filterable}) => {
-        const filterableData = result.filterableData;
+    dialogRef.afterClosed().subscribe((result: {filterableData?: Filterable}) => {
+        const filterableData = result?.filterableData;
+        if (!filterableData) return;
         if (mode === 'create') this.filterableDataService$.addData(filterableData);
         else this.filterableDataService$.updateData(filterableData);
     });

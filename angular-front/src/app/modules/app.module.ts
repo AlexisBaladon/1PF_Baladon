@@ -28,7 +28,6 @@ import { GlobalComponentsModule } from './shared/global-components/global-compon
     AcademicDetailModule,
     AcademicListModule,
     AuthModule,
-    MatDialogModule,
   ],
   bootstrap: [AppComponent]
 })

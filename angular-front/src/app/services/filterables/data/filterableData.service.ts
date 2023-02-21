@@ -5,7 +5,6 @@ import { FilterPipe } from 'src/app/pipes/filter/filter.pipe';
 import { LogicNode } from 'src/app/logic/filter/logicNode';
 import { Filterable } from 'src/app/logic/filter/filterable';
 import { DASHBOARD_TEXT } from 'src/app/constants/text';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 export abstract class FilterableDataService<F extends Filterable> {
 	private filters: LogicNode<LogicFilterType, FilterName> | null = null;
