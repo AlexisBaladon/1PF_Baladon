@@ -10,7 +10,7 @@ import { AuthModule } from './feature/auth/auth.module';
 import { RoutesModule } from './routes.module';
 import { DirectivesModule } from './shared/directives/directives.module';
 import { GlobalComponentsModule } from './shared/global-components/global-components.module';
-
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   providers: [
     MatDialog
@@ -21,6 +21,7 @@ import { GlobalComponentsModule } from './shared/global-components/global-compon
   imports: [
     CommonModule,
     BrowserModule,
+    HttpClientModule,
     RoutesModule,
     ServicesModule,
     GlobalComponentsModule,

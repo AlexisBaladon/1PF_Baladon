@@ -1,0 +1,9 @@
+{
+    "/api": {
+      "target": "https://academic-workstation.onrender.com",
+      "secure": true,
+      "changeOrigin": true,
+      "logLevel": "info"
+    }
+  }
+  

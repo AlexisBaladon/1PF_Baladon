@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import User from 'src/app/interfaces/user';
@@ -13,7 +14,7 @@ export class AuthService {
   private error$ = new BehaviorSubject<string | null>(null);
   private userService$: Subscription | null = null;
 
-  constructor(private userService: UsersService) {
+  constructor(private userService: UsersService, private http: HttpClient) {
     this.userService$ = this.userService.getUsers().subscribe(users => {
       this.users = users;
     });
