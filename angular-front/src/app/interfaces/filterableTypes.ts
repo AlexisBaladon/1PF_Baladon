@@ -1,1 +1,1 @@
-export type FilterableType = 'Student' | 'Course';
+export type FilterableType = 'Student' | 'Course' | 'User';

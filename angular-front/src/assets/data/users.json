@@ -4,6 +4,9 @@
         "name": "John",
         "surname": "Doe",
         "email": "test@test.com",
-        "password": "123456"
+        "password": "123456",
+        "profile": "admin",
+        "direction": "Calle 1",
+        "phone": "123456789"
     }
 ]

@@ -11,7 +11,7 @@
             <div class="form-group" *ngFor="let input of data.inputs">
                 <label for="description">{{input.label}}</label>
                 <input 
-                    type="text" 
+                    [type]="input.type" 
                     class="input-with-label" 
                     [appValidInput]="isValidInput(input.name)"
                     [id]="input.name"

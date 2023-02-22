@@ -45,3 +45,21 @@ export function createCourse(course: Course): Course {
 export function createCourses(courses: Course[]): Course[] {
     return courses.map(c => createCourse(c));
 }
+
+export function createUser(user: User): User {
+    return new User(
+        user.id,
+        user.email,
+        user.name,
+        user.surname,
+        user.password,
+        user.profile,
+        user.direction,
+        user.phone,
+        user.pictureUrl,
+    )
+}
+
+export function createUsers(users: User[]): User[] {
+    return users.map(u => createUser(u));
+}

@@ -18,7 +18,7 @@ export class DashboardComponent {
   @Input() public createDataTitle!: string;
   @Input() public filterOptions!: FilterOption[];
   @Input() public icon!: string;
-  @Input() public openEditDialog!: (dialog: MatDialog, mode: 'create' | 'edit', filterable?: Filterable, width?: string | undefined) => MatDialogRef<any, any>;
+  @Input() public openEditDialog!: (dialog: MatDialog, mode: 'create' | 'edit', data?: Filterable, width?: string | undefined) => MatDialogRef<any, any>;
   @Input() public openDeleteDialog!: (dialog: MatDialog, filterableId: Filterable['id'], width?: string | undefined) => MatDialogRef<any, any>;
   @Input() public onView!: (id: string) => void;
   @Output() public onViewEmitter: EventEmitter<Filterable["id"]> = new EventEmitter();
@@ -43,8 +43,8 @@ export class DashboardComponent {
 
   public handleOpenEditDialog(mode: 'create' | 'edit', filterable?: Filterable) {
     const dialogRef = this.openEditDialog(this.dialog, mode, filterable);
-    dialogRef.afterClosed().subscribe((result: {filterableData?: Filterable}) => {
-        const filterableData = result?.filterableData;
+    dialogRef.afterClosed().subscribe((result: {data?: Filterable}) => {
+        const filterableData = result?.data;
         if (!filterableData) return;
         if (mode === 'create') this.filterableDataService$.addData(filterableData);
         else this.filterableDataService$.updateData(filterableData);

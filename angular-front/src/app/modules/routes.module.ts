@@ -7,14 +7,18 @@ import { CourseDashboardComponent } from '../pages/course-dashboard/course-dashb
 import { StudentDetailComponent } from '../pages/student-detail/student-detail/student-detail.component';
 import { CourseDetailComponent } from '../pages/course-detail/course-detail/course-detail.component';
 import { AuthComponent } from '../pages/auth/auth.component';
+import { UserDashboardComponent } from '../pages/user-dashboard/user-dashboard.component';
+import { UserDetailComponent } from '../pages/user-detail/user-detail.component';
 
 const routes: Routes = [
   { path: 'layout', children: [
       { path: '', redirectTo: 'students', pathMatch: 'full'},
       { path: 'students', component: StudentDashboardComponent },
       { path: 'courses', component: CourseDashboardComponent },
+      { path: 'users', component: UserDashboardComponent },
       { path: 'student/:id', component: StudentDetailComponent },
       { path: 'course/:id', component: CourseDetailComponent },
+      { path: 'user/:id', component: UserDetailComponent }
   ]},
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: AuthComponent },

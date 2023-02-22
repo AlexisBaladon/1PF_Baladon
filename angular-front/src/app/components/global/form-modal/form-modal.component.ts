@@ -29,6 +29,7 @@ export class FormModalComponent {
         placeholder: string
         validationType?: 'simple' | 'email' | 'password' | 'number'
       }[];
+      convertData?: (data: any) => any;
     }, private dialogRef: MatDialogRef<FormModalComponent>
   ) { }
 
@@ -60,7 +61,10 @@ export class FormModalComponent {
     };
 
     const formValues = this.formGroup.value;
-    const createdCourse = Object.assign(this.defaultCourseData, formValues);
+    let createdCourse = Object.assign(this.defaultCourseData, formValues);
+    if (this.data.convertData) {
+      createdCourse = this.data.convertData(createdCourse);
+    }
     
     this.data.data = createdCourse;
     this.data.valid = true;

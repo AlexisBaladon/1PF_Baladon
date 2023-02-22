@@ -53,6 +53,7 @@ export class AppComponent {
   private routesMap: Map<string, FilterableType> = new Map([
     ['students', 'Student'],
     ['courses', 'Course'],
+    ['users', 'User']
   ]);
 
   private secondaryRoutesMap: Map<string, string> = new Map([

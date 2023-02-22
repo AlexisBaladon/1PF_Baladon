@@ -28,7 +28,7 @@ export class CourseDashboardComponent {
       const dialogRef =  dialog.open(AddCourseFormComponent, {
           width: width || '400px',
           data: { 
-            filterableData: filterable, 
+            data: filterable, 
             valid: true, 
             title: mode === 'create' ? 'Agregar curso' : 'Editar curso',
           }

@@ -15,12 +15,12 @@ export class AddCourseFormComponent {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: {
       title: string;
-      filterableData: Course | null;
+      data: Course | null;
       valid: boolean;
     }, private dialogRef: MatDialogRef<AddCourseFormComponent>
   ) { }
 
-  private defaultCourseData: Course = this.data.filterableData ?? {} as Course;
+  private defaultCourseData: Course = this.data.data ?? {} as Course;
 
   public formGroup = new FormGroup({
     name: new FormControl(this.defaultCourseData.name, SIMPLE_VALIDATIONS),
@@ -49,7 +49,7 @@ export class AddCourseFormComponent {
     const formValues = this.formGroup.value;
 
     const createdCourse = new Course(
-      this.data.filterableData?.id ?? generateId(),
+      this.data.data?.id ?? generateId(),
       formValues.name ?? this.defaultCourseData.name ?? '',
       formValues.description ?? this.defaultCourseData.description ?? '',
       formValues.credits ?? this.defaultCourseData.credits ?? 0,
@@ -61,7 +61,7 @@ export class AddCourseFormComponent {
       formValues.category ?? '',
     );
     
-    this.data.filterableData = createdCourse;
+    this.data.data = createdCourse;
     this.data.valid = true;
     this.dialogRef.close(this.data);
   }

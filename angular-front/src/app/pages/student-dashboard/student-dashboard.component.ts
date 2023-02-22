@@ -27,9 +27,9 @@ export class StudentDashboardComponent {
     const dialogRef = dialog.open(AddUserFormComponent, {
       width: width || '600px',
       data: {
-        filterableData: filterable, 
+        data: filterable, 
         valid: true, 
-        title: mode === 'create' ? 'Agregar usuario' : 'Editar usuario',
+        title: mode === 'create' ? 'Agregar estudiante' : 'Editar estudiante',
       },
     });
 

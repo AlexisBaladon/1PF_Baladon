@@ -29,8 +29,8 @@ export class ToolbarComponent {
     ['student', 'Estudiantes'],
     ['courses', 'Cursos'],
     ['course', 'Cursos'],
-    ['Users', 'Usuarios'],
-    ['Enrollments', 'Inscripciones'],
+    ['users', 'Usuarios'],
+    ['enrollments', 'Inscripciones'],
   ]);
 
   public get currentRoute() {

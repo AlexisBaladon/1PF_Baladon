@@ -1,7 +1,7 @@
 import { Filterable } from '../logic/filter/filterable';
 import User from './user';
 
-class Student extends Filterable implements User {
+class Student extends Filterable {
     name: string;
     surname: string;
     birthDate: Date;

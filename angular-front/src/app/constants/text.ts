@@ -58,7 +58,7 @@ export const DASHBOARD_TEXT: DashboardInputData = {
         title: 'Estudiantes',
         description: 'Visualiza datos de los estudiantes de la universidad.',
         filterableType: 'Student',
-        createDataTitle: 'Crea un usuario',
+        createDataTitle: 'Crea un estudiante',
         filterOptions: FILTER_OPTIONS['Student'],
         attributeNames: {
             id: 'ID',
@@ -92,4 +92,26 @@ export const DASHBOARD_TEXT: DashboardInputData = {
             category: 'Categoría',
         }
     },
+    User: {
+        icon: 'person',
+        title: 'Usuarios',
+        description: 'Visualiza datos de los usuarios de la universidad.',
+        filterableType: 'User',
+        createDataTitle: 'Crea un usuario',
+        filterOptions: FILTER_OPTIONS['User'],
+        attributeNames: {
+            id: 'ID',
+            name: 'Nombre',
+            surname: 'Apellido',
+            phone: 'Teléfono',
+            password: 'Contraseña',
+            city: 'Ciudad',
+            birthDate: 'Fecha de nacimiento',
+            email: 'Correo',
+            career: 'Carrera',
+            admissionDate: 'Fecha de ingreso',
+            averageGrade: 'Promedio',
+            profile: 'Perfil',
+        },
+    }
 }

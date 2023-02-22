@@ -8,11 +8,12 @@ import { DirectivesModule } from '../shared/directives.module';
 import { MaterialModule } from '../shared/libraries/material.module';
 import { PipesModule } from '../shared/pipes.module';
 import { UserDetailComponent } from '../../pages/user-detail/user-detail.component';
+import { UserDashboardComponent } from '../../pages/user-dashboard/user-dashboard.component';
 
 
 @NgModule({
   declarations: [ 
-    UserDetailComponent
+    UserDetailComponent, UserDashboardComponent
   ],
   imports: [
     CommonModule,

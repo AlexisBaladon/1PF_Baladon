@@ -133,7 +133,6 @@ export class CourseDetailComponent {
 					width: '500px',
 				}).afterClosed().subscribe((data: {data: CourseClass}) => {
 					if (data != undefined) {
-						console.log(data);
 						this.classesService.addCourseClass({
 							...data.data,
 							courseId: course?.id,
