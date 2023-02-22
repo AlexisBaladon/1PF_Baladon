@@ -55,6 +55,12 @@ export class AppComponent {
     ['courses', 'Course'],
   ]);
 
+  private secondaryRoutesMap: Map<string, string> = new Map([
+    ['student', 'students'],
+    ['course', 'courses'],
+  ]);
+
+
   private getLastRoute(route: string): string {
     const lastRoute = route.split('/').slice(-1)[0];
     if (!lastRoute) return this.getLastRoute(NAV_ROUTES[1].route)
@@ -71,7 +77,15 @@ export class AppComponent {
 
   public getCurrentRoute() {
     const currentRoute = this.getLastRoute(this.router.url);
-    return NAV_ROUTES.findIndex(route => this.getLastRoute(route.route) === currentRoute);
+    let newRoute = NAV_ROUTES.findIndex(route => this.getLastRoute(route.route) === currentRoute);
+    if (newRoute === -1) {
+      const secondaryRoute = this.router.url.split('/');
+      const secondaryRouteName = secondaryRoute.slice(-2)[0];
+      const mappedSecondaryRouteName = this.secondaryRoutesMap.get(secondaryRouteName);
+      newRoute = NAV_ROUTES.findIndex(route => this.getLastRoute(route.route) === mappedSecondaryRouteName);
+      if (newRoute === -1) return 0;
+    }
+    return newRoute;
   }
 
   public getNavRoutes() {
