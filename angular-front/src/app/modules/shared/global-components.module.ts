@@ -9,9 +9,9 @@ import { SectionHeaderComponent } from 'src/app/components/global/section-header
 import { IconComponent } from 'src/app/components/widget/icon/icon.component';
 import { ConfirmModalComponent } from 'src/app/components/global/confirm-modal/confirm-modal.component';
 import { Error404Component } from 'src/app/pages/error404/error404.component';
-import { MaterialModule } from '../libraries/material.module';
-import { DirectivesModule } from '../directives/directives.module';
-import { FormModalComponent } from '../../../components/global/form-modal/form-modal.component';
+import { MaterialModule } from './libraries/material.module';
+import { DirectivesModule } from './directives.module';
+import { FormModalComponent } from '../../components/global/form-modal/form-modal.component';
 import { ReactiveFormsModule } from '@angular/forms';
 
 const components = [

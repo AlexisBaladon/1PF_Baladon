@@ -4,7 +4,7 @@ import { FilterPipe } from '../../pipes/filter/filter.pipe';
 import { StudentsService } from '../../services/filterables/concrete-data/students/students.service';
 import { CoursesService } from '../../services/filterables/concrete-data/courses/courses.service';
 import { FilterableContextService } from '../../services/filterables/context/filterableContext.service';
-import { AcademicListModule } from '../feature/academic-list/academic-list.module';
+import { AcademicListModule } from '../shared/academic-list.module';
 
 @NgModule({
   declarations: [],

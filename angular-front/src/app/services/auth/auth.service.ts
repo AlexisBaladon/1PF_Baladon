@@ -9,7 +9,7 @@ import { UsersService } from '../users/users.service';
 })
 export class AuthService {
   private users: User[] = [];
-  private user$ = new BehaviorSubject<User | null>({email: '', id: '', name: '', password: '', surname: ''}); //TODO: REMOVE
+  private user$ = new BehaviorSubject<User | null>({email: '', id: '', name: 'Lucas', password: '', surname: ''}); //TODO: REMOVE
   private error$ = new BehaviorSubject<string | null>(null);
   private userService$: Subscription | null = null;
 

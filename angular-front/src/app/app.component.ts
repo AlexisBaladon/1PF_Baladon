@@ -69,6 +69,7 @@ export class AppComponent {
 
   public changeRoute(route: number) {
     const currentRoute = this.getLastRoute(NAV_ROUTES[route].route);
+    if (route === NAV_ROUTES.length - 1) this.authService.logout();
     const currentRouteType = this.routesMap.get(currentRoute)
     if (currentRouteType == null) return;
     this.filterableContextService.switchService(currentRouteType);

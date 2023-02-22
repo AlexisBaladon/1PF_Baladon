@@ -10,24 +10,14 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a [appFontSize]="'medium'" class="nav-link">Novedades</a>
-        </li>
-        <li class="nav-item">
-          <a [appFontSize]="'medium'" class="nav-link active">Estadísticas</a>
-        </li>
-        <li class="nav-item">
-          <a [appFontSize]="'medium'" class="nav-link">Contacto</a>
+          <a [appFontSize]="'medium'" class="nav-link">{{currentRoute}}</a>
         </li>
       </ul>
       <div class="d-flex">
-        <button 
-          [appFontSize]="'small'" 
-          (click)="logOut()" 
-          class="btn btn-outline-light" 
-          type="button"
-        >
-          Cerrar sesión
-        </button>
+        <div class="d-flex align-items-center">
+          <mat-icon class="me-2">account_circle</mat-icon>
+          <a class="nav-link" [appFontSize]="'medium'">{{user?.name}}</a>
+        </div>
       </div>
     </div>
   </div>

@@ -1,0 +1,15 @@
+<app-detail
+    *ngIf="id && user"
+    [cardsData]="getCardsData(user)"
+    [mainSectionData]="getMainSectionData(user)"
+    [chartSectionData]="getChartSectionData(user)"
+    [chartData]="getChartData(user)"
+    [enrollmentSectionData]="getEnrollmentSectionData(user)"
+    [enrollmentData]="getEnrollmentData(user)"
+    [enrollmentSeeMoreAction]="getEnrollmentSeeMoreAction()"
+    [enrollmentSeeDetailAction]="getEnrollmentSeeDetailAction()"
+    [doughnutSectionData]="getDoughnutSectionData(user)"
+    [doughnutData]="getDoughnutData(user)"
+    [appStyle]="'linear-main'"
+    [secondaryAppStyle]="'linear-green'"
+></app-detail>
