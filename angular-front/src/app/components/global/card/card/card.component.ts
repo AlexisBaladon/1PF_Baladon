@@ -13,5 +13,6 @@ export class CardComponent {
   @Input() customIconBackground: string = 'linear-main';
   @Input() pictureHeight: number = 50;
   @Input() pictureAlt: string = 'card picture';
-  @Input() footerText!: string;
+  @Input() editAction?: () => void;
+  @Input() deleteAction?: () => void;
 }

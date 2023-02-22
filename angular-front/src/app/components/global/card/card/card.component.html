@@ -9,8 +9,26 @@
         >
         </app-bg-icon>
     </div>
-    <div class="custom-card-text">
+    <div class="custom-card-text" [style.marginLeft.px]="editAction ? 40 : 0">
         <h3>{{title}}</h3>
         <p>{{description}}</p>
+    </div>
+    <div class="custom-card-actions" *ngIf="editAction && deleteAction">
+        <div class="edit-button">
+            <button
+                mat-icon-button
+                (click)="editAction()"
+            >
+                <mat-icon>edit</mat-icon>
+            </button>
+        </div>
+        <div class="delete-button">
+            <button
+                mat-icon-button
+                (click)="deleteAction()"
+            >
+                <mat-icon>delete</mat-icon>
+            </button>
+        </div>
     </div>
 </div>

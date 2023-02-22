@@ -11,6 +11,8 @@ import { ConfirmModalComponent } from 'src/app/components/global/confirm-modal/c
 import { Error404Component } from 'src/app/pages/error404/error404.component';
 import { MaterialModule } from '../libraries/material.module';
 import { DirectivesModule } from '../directives/directives.module';
+import { FormModalComponent } from '../../../components/global/form-modal/form-modal.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 const components = [
   ToolbarComponent,
@@ -25,11 +27,12 @@ const components = [
 ]
 
 @NgModule({
-  declarations: [ components ],
+  declarations: [ components, FormModalComponent ],
   imports: [
     CommonModule,
     MaterialModule,
     DirectivesModule,
+    ReactiveFormsModule,
   ],
   exports: [ components ]
 })

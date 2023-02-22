@@ -19,8 +19,8 @@ export class DetailComponent {
 	@Input() public mainSectionData!: SectionHeaderData;
 	@Input() public chartSectionData!: SectionHeaderData;
 	@Input() public chartData!: { label: string, datasetLabels: string[], datasets: (number | string)[], backgroundColor?: string };
-	@Input() public classesSectionData?: SectionHeaderData;
-	@Input() public classesData?: { icon?: string, title: string, description: string }[];
+	@Input() public classesSectionData?: SectionHeaderData & {addAction: () => void, editAction: (id: string) => void, deleteAction: (id: Filterable['id']) => void };
+	@Input() public classesData?: { id: string, icon?: string, title: string, description: string }[];
 	@Input() public enrollmentSectionData!: SectionHeaderData;
 	@Input() public enrollmentData!: { id: Filterable['id'], pictureUrl?: string, icon?: string, title: string, description: string }[];
 	@Input() public enrollmentSeeMoreAction!: () => void;
@@ -40,8 +40,15 @@ export class DetailComponent {
 	public doughnutChartType: ChartType = 'doughnut';
 	public doughnutChartOptions = { responsive: true };
 
-	ngOnInit(): void {
-		console.log(this.classesSectionData);
-		console.log(this.classesData);
+	public addAction = () => {
+		this.classesSectionData?.addAction();
+	}
+
+	public editAction = (id: string) => {
+		return () => {this.classesSectionData?.editAction(id)};
+	}
+
+	public deleteAction = (id: string) => {
+		return () => {this.classesSectionData?.deleteAction(id)};
 	}
 }

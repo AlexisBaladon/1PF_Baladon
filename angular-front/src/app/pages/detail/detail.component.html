@@ -52,24 +52,38 @@
                     [customBackground]="appStyle"
                 >
                 </app-section-header>
+                <button  
+                    id="lessons-see-more" 
+                    (click)="addAction()"
+                    [appCustomBackground]="appStyle" 
+                    mat-raised-button color="primary"
+                    class="mb-3"
+                >
+                    <mat-icon>add</mat-icon>
+                    Agregar clase
+                </button>
                 <div class="row">
-                    <div id="lessons" class="col-lg-6" *ngFor="let lesson of classesData; let i = index" style="display: block">
+                    <div id="lessons" class="col-xl-6" *ngFor="let lesson of classesData; let i = index" style="display: block">
                         <ng-container>
-                            <div *ngIf="(i+1)%2">
+                            <div *ngIf="(i%2)">
                                 <app-card
                                 [title]="lesson.title"
                                 [description]="lesson.description"
                                 [icon]="lesson.icon"
                                 [customIconBackground]="secondaryAppStyle"
+                                [editAction]="editAction(lesson.id)"
+                                [deleteAction]="deleteAction(lesson.id)"
                             >
                                 </app-card>
                             </div>
-                            <div *ngIf="i%2 && i+1 < classesData.length">
+                            <div *ngIf="((i+1)%2) && (i+1 < classesData.length)">
                                 <app-card
-                                    [title]="classesData[i+1].title"
-                                    [description]="classesData[i+1].description"
-                                    [icon]="classesData[i+1].icon"
+                                    [title]="classesData[i].title"
+                                    [description]="classesData[i].description"
+                                    [icon]="classesData[i].icon"
                                     [customIconBackground]="secondaryAppStyle"
+                                    [editAction]="editAction(lesson.id)"
+                                    [deleteAction]="deleteAction(lesson.id)"
                                     >
                                 </app-card>
                             </div>

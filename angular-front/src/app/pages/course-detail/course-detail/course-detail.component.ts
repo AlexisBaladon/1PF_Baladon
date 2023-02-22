@@ -11,6 +11,10 @@ import { ClassesService } from 'src/app/services/classes/classes.service';
 import { EnrollmentsService } from 'src/app/services/enrollments/enrollments.service';
 import { CoursesService } from 'src/app/services/filterables/concrete-data/courses/courses.service';
 import { StudentsService } from 'src/app/services/filterables/concrete-data/students/students.service';
+import { FormModalComponent } from 'src/app/components/global/form-modal/form-modal.component';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmModalComponent } from 'src/app/components/global/confirm-modal/confirm-modal.component';
+import { generateId } from 'src/app/utils/idGenerator';
 
 @Component({
   selector: 'app-course-detail',
@@ -18,16 +22,7 @@ import { StudentsService } from 'src/app/services/filterables/concrete-data/stud
   styleUrls: ['./course-detail.component.scss']
 })
 export class CourseDetailComponent {
-	public cardsData: { title: string, icon: string, value: string }[] = [];
-	public mainSectionData: { title: string, icon: string, description: string } = { title: '', icon: '', description: '' };
-	public chartSectionData: { title: string, icon: string, description: string } = { title: '', icon: '', description: '' };
-	public chartData: { label: string, datasetLabels: string[], backgroundColor: string } = { label: '', datasetLabels: [], backgroundColor: '#000' };
-	public classesSectionData: { title: string, icon: string, description: string } = { title: '', icon: '', description: '' };
-	public classesData: { icon: string, title: string, description: string }[] = [];
-	public enrollmentSectionData: { title: string, icon: string, description: string } = { title: '', icon: '', description: '' };
 	public enrollmentData: { id: string, pictureUrl: string, title: string, description: string }[] = [];
-	public enrollmentSeeMoreAction: (id: Filterable['id']) => void = (id: Filterable['id']) => {};
-	public doughnutSectionData: { title: string, icon: string, description: string } = { title: '', icon: '', description: '' };
 	public doughnutData: { datasetLabels: string[], datasets: number[] } = { datasetLabels: [], datasets: [] };
 
 	public id: Course['id'] | null = null;
@@ -49,6 +44,7 @@ export class CourseDetailComponent {
 		private studentsService: StudentsService,
 		private classesService: ClassesService,
 		private enrollmentService: EnrollmentsService,
+		private dialog: MatDialog,	
 	) { }
 
 	ngOnInit(): void {
@@ -115,18 +111,73 @@ export class CourseDetailComponent {
 		return ({label: 'Nota de estudiantes', datasetLabels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"], datasets: this.studentsGrades, backgroundColor: 'rgba(113, 201, 132, 0.8)'});
 	}
 
-	public getClassesSectionData(course?: Course): { title: string, icon: string, description: string } {
-		if (course === undefined) return { title: '', icon: '', description: '' };
-		return ({title: 'Horarios', icon: 'calendar_month', description: 'Horarios de cursos'});
+	public getClassesSectionData(course?: Course): { title: string, description: string, icon: string, addAction: () => void, editAction: (id: string) => void, deleteAction: (id: string) => void } {
+		if (course === undefined) return { title: '', description: '', icon: '', addAction: () => {}, editAction: (id: string) => {}, deleteAction: (id: string) => {} };
+		const inputs = [
+			{ name: 'startTime', type: 'datetime-local', label: 'Fecha de inicio', placeholder: 'Fecha de inicio', validationType: 'simple'},
+			{ name: 'durationHours', type: 'number', label: 'Horas', placeholder: 'Horas', validationType: 'number'},
+			{ name: 'durationMinutes', type: 'number', label: 'Minutos', placeholder: 'Minutos', validationType: 'number'},
+			{ name: 'classroom', type: 'text', label: 'Salón', placeholder: 'Salón', validationType: 'simple'},
+		]
+		return ({
+			title: 'Horarios', 
+			icon: 'calendar_month', 
+			description: 'Horarios de cursos',
+			addAction: () => {
+				this.dialog.open(FormModalComponent, {
+					data: {
+						title: 'Agregar clase',
+						data: { durationHours: 0, durationMinutes: 0, classroom: '', startTime: '' },
+						inputs,
+					},
+					width: '500px',
+				}).afterClosed().subscribe((data: {data: CourseClass}) => {
+					if (data != undefined) {
+						console.log(data);
+						this.classesService.addCourseClass({
+							...data.data,
+							courseId: course?.id,
+							id: generateId(),
+						});
+					}
+				});
+			},
+			editAction: (id: string) => {
+				this.dialog.open(FormModalComponent, {
+					data: {
+						title: 'Editar clase',
+						data: this.classes.find(courseClass => courseClass.id === id),
+						inputs,
+					},
+					width: '500px',
+				}).afterClosed().subscribe(result => {
+					if (result) {
+						this.classesService.addCourseClass(result);
+					}
+				});
+			}, 
+			deleteAction: (id: string) => {
+				this.dialog.open(ConfirmModalComponent, {
+					data: { 
+						title: 'Eliminar clase', 
+						message: '¿Está seguro que desea eliminar esta clase?',
+						confirmButtonText: 'Eliminar',
+						cancelButtonText: 'Cancelar',
+						onConfirm: () => {this.classesService.removeCourseClass(id); this.dialog.closeAll()},
+						onCancel: () => {this.dialog.closeAll();},
+					},
+				});
+			}
+		});
 	}
 
-	public getClassesData(course?: Course): { icon: string, title: string, description: string }[] {
+	public getClassesData(course?: Course): { id: string, icon: string, title: string, description: string }[] {
 		if (course === undefined) return [];
-		console.log(this.classes, course);
 		const classes = this.classes.filter(courseClass => courseClass.courseId === course.id);
-		if (classes.length === 0) return [{icon: 'schedule', title: 'Sin clases', description: 'No hay clases asignadas a este curso'}];
+		if (classes.length === 0) return [{id: '', icon: 'schedule', title: 'Sin clases', description: 'No hay clases asignadas a este curso'}];
 		return classes.map(courseClass => {
 			return {
+				id: courseClass.id,
 				icon: 'schedule', 
 				title: `Salón ${courseClass.classroom}`,
 				description: `Fecha: ${courseClass.startTime} - Duración: ${courseClass.durationHours}.${courseClass.durationMinutes}hs`,

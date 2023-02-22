@@ -21,15 +21,15 @@ export class ClassesService {
     this.classes$.next(classes);
   }
 
-  public removeCourseClass(courseClass: CourseClass) {
+  public removeCourseClass(courseClassId: CourseClass['id']) {
     let classes = this.classes$.getValue();
-    classes = classes.filter(e => e.id !== courseClass.id);
+    classes = classes.filter(e => e.id !== courseClassId);
     this.classes$.next(classes);
   }
 
-  public updateCourseClass(courseClass: CourseClass) {
+  public updateCourseClass(courseClass: Partial<CourseClass>) {
     let classes = this.classes$.getValue();
-    classes = classes.map(e => e.id === courseClass.id ? courseClass : e);
+    classes = classes.map(e => e.id === courseClass.id ? {...e, ...courseClass} : e);
     this.classes$.next(classes);
   }
 
