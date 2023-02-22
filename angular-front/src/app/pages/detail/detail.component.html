@@ -43,6 +43,40 @@
                     </div>
                 </div>
             </section>
+            <section id="course-lessons" class="custom-container" *ngIf="classesData && classesSectionData">
+                <app-section-header
+                    id="course-lessons-header"
+                    [title]="classesSectionData.title"
+                    [description]="classesSectionData.description"
+                    [icon]="classesSectionData.icon"
+                    [customBackground]="appStyle"
+                >
+                </app-section-header>
+                <div class="row">
+                    <div id="lessons" class="col-lg-6" *ngFor="let lesson of classesData; let i = index" style="display: block">
+                        <ng-container>
+                            <div *ngIf="(i+1)%2">
+                                <app-card
+                                [title]="lesson.title"
+                                [description]="lesson.description"
+                                [icon]="lesson.icon"
+                                [customIconBackground]="secondaryAppStyle"
+                            >
+                                </app-card>
+                            </div>
+                            <div *ngIf="i%2 && i+1 < classesData.length">
+                                <app-card
+                                    [title]="classesData[i+1].title"
+                                    [description]="classesData[i+1].description"
+                                    [icon]="classesData[i+1].icon"
+                                    [customIconBackground]="secondaryAppStyle"
+                                    >
+                                </app-card>
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+            </section>
         </div>
 
         <aside id="course-detail-right" class="col-lg-4">
@@ -81,7 +115,6 @@
                 </button>
             </div>
             </section>
-
             <div class="custom-container">
                 <app-section-header
                     id="course-students-header"

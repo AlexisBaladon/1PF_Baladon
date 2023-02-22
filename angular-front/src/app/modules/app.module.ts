@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from '../app.component';
 import { ServicesModule } from './core/services.module';
@@ -12,9 +11,7 @@ import { DirectivesModule } from './shared/directives/directives.module';
 import { GlobalComponentsModule } from './shared/global-components/global-components.module';
 
 @NgModule({
-  providers: [
-    MatDialog
-  ],
+  providers: [ ],
   declarations: [
     AppComponent,
   ],

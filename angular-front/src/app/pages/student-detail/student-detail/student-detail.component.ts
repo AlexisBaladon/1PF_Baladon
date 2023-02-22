@@ -6,8 +6,10 @@ import { Subscription } from 'rxjs';
 import { Course } from 'src/app/interfaces/course';
 import Student from 'src/app/interfaces/student';
 import { Filterable } from 'src/app/logic/filter/filterable';
+import { CourseClass } from 'src/app/models/courses';
 import { Enrollment } from 'src/app/models/enrollment';
 import { FullNamePipe } from 'src/app/pipes/users/full-name/full-name.pipe';
+import { ClassesService } from 'src/app/services/classes/classes.service';
 import { EnrollmentsService } from 'src/app/services/enrollments/enrollments.service';
 import { CoursesService } from 'src/app/services/filterables/concrete-data/courses/courses.service';
 import { StudentsService } from 'src/app/services/filterables/concrete-data/students/students.service';
@@ -22,6 +24,8 @@ export class StudentDetailComponent {
 	public mainSectionData: { title: string, icon: string, description: string } = { title: '', icon: '', description: '' };
 	public chartSectionData: { title: string, icon: string, description: string } = { title: '', icon: '', description: '' };
 	public chartData: { label: string, datasetLabels: string[], datasets: (string | number)[] } = { label: '', datasetLabels: [], datasets: [] };
+	public classesSectionData: { title: string, icon: string, description: string } = { title: '', icon: '', description: '' };
+	public classesData: { id: Filterable['id'], icon: string, title: string, description: string }[] = [];
 	public enrollmentSectionData: { title: string, icon: string, description: string } = { title: '', icon: '', description: '' };
 	public enrollmentData: { pictureUrl: string, title: string, description: string }[] = [];
 	public enrollmentSeeMoreAction: (id: Filterable['id']) => void = (id: Filterable['id']) => {};
@@ -32,6 +36,8 @@ export class StudentDetailComponent {
 	private student$!: Subscription;
 	private courses$!: Subscription;
 	private enrollments$!: Subscription;
+	private classes!: CourseClass[];
+	private classes$!: Subscription;
 	private studentsGrades: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 	public student: Student | undefined;
 	public courseDetails = [];
@@ -45,6 +51,7 @@ export class StudentDetailComponent {
 		private coursesService: CoursesService, 
 		private studentsService: StudentsService,
 		private enrollmentService: EnrollmentsService,
+		private classesService: ClassesService,
 		private fullNamePipe: FullNamePipe,
 		private datePipe: DatePipe
 	) { }
@@ -60,6 +67,7 @@ export class StudentDetailComponent {
 		this.student$.unsubscribe();
 		this.courses$.unsubscribe();
 		this.enrollments$.unsubscribe();
+		this.classes$.unsubscribe();
 	}
 
 	private initializeSecondaryServices(id: Student['id']) {
@@ -84,6 +92,10 @@ export class StudentDetailComponent {
 				});
 			}
 			this.studentCourses = Array.from(studentCourses);
+		});
+
+		this.classes$ = this.classesService.getClasses().subscribe(classes => {
+			this.classes = classes;
 		});
 	}
 

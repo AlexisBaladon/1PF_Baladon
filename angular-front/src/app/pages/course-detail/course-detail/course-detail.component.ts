@@ -5,7 +5,9 @@ import { Subscription } from 'rxjs';
 import { Course } from 'src/app/interfaces/course';
 import Student from 'src/app/interfaces/student';
 import { Filterable } from 'src/app/logic/filter/filterable';
+import { CourseClass } from 'src/app/models/courses';
 import { Enrollment } from 'src/app/models/enrollment';
+import { ClassesService } from 'src/app/services/classes/classes.service';
 import { EnrollmentsService } from 'src/app/services/enrollments/enrollments.service';
 import { CoursesService } from 'src/app/services/filterables/concrete-data/courses/courses.service';
 import { StudentsService } from 'src/app/services/filterables/concrete-data/students/students.service';
@@ -20,6 +22,8 @@ export class CourseDetailComponent {
 	public mainSectionData: { title: string, icon: string, description: string } = { title: '', icon: '', description: '' };
 	public chartSectionData: { title: string, icon: string, description: string } = { title: '', icon: '', description: '' };
 	public chartData: { label: string, datasetLabels: string[], backgroundColor: string } = { label: '', datasetLabels: [], backgroundColor: '#000' };
+	public classesSectionData: { title: string, icon: string, description: string } = { title: '', icon: '', description: '' };
+	public classesData: { icon: string, title: string, description: string }[] = [];
 	public enrollmentSectionData: { title: string, icon: string, description: string } = { title: '', icon: '', description: '' };
 	public enrollmentData: { id: string, pictureUrl: string, title: string, description: string }[] = [];
 	public enrollmentSeeMoreAction: (id: Filterable['id']) => void = (id: Filterable['id']) => {};
@@ -29,6 +33,8 @@ export class CourseDetailComponent {
 	public id: Course['id'] | null = null;
 	private course$!: Subscription;
 	private students$!: Subscription;
+	private classes!: CourseClass[];
+	private classes$!: Subscription;
 	private enrollments$!: Subscription;
 	private studentsGrades: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 	public course: Course | undefined;
@@ -41,6 +47,7 @@ export class CourseDetailComponent {
 		private router: Router,
 		private coursesService: CoursesService, 
 		private studentsService: StudentsService,
+		private classesService: ClassesService,
 		private enrollmentService: EnrollmentsService,
 	) { }
 
@@ -77,6 +84,10 @@ export class CourseDetailComponent {
 				this.countStudentsGrades(enrollments);
 			}
 		});
+
+		this.classes$ = this.classesService.getClasses().subscribe(classes => {
+			this.classes = classes;
+		});
 	}
 
 	public getCardsData(course?: Course): { title: string, icon: string, value: string }[] {
@@ -102,6 +113,25 @@ export class CourseDetailComponent {
 	public getChartData(course?: Course): { label: string, datasetLabels: string[], datasets: number[], backgroundColor: string } {
 		if (course === undefined) return { label: '', datasetLabels: [], datasets: [], backgroundColor: 'green' };
 		return ({label: 'Nota de estudiantes', datasetLabels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"], datasets: this.studentsGrades, backgroundColor: 'rgba(113, 201, 132, 0.8)'});
+	}
+
+	public getClassesSectionData(course?: Course): { title: string, icon: string, description: string } {
+		if (course === undefined) return { title: '', icon: '', description: '' };
+		return ({title: 'Horarios', icon: 'calendar_month', description: 'Horarios de cursos'});
+	}
+
+	public getClassesData(course?: Course): { icon: string, title: string, description: string }[] {
+		if (course === undefined) return [];
+		console.log(this.classes, course);
+		const classes = this.classes.filter(courseClass => courseClass.courseId === course.id);
+		if (classes.length === 0) return [{icon: 'schedule', title: 'Sin clases', description: 'No hay clases asignadas a este curso'}];
+		return classes.map(courseClass => {
+			return {
+				icon: 'schedule', 
+				title: `Salón ${courseClass.classroom}`,
+				description: `Fecha: ${courseClass.startTime} - Duración: ${courseClass.durationHours}.${courseClass.durationMinutes}hs`,
+			}
+		})
 	}
 
 	public getEnrollmentSectionData(course?: Course): { title: string, icon: string, description: string } {
