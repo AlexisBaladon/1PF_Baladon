@@ -32,6 +32,7 @@ export class ToolbarComponent {
     ['users', 'Usuarios'],
     ['enrollments', 'Inscripciones'],
     ['user', 'Usuario'],
+    ['enrollment', 'Inscripción'],
   ]);
 
   public get currentRoute() {

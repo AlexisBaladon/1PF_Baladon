@@ -11,7 +11,7 @@ class User extends Filterable {
     pictureUrl?: string;
 
     getShownAttributes(): string[] {
-        return ['name', 'email', 'profile'];
+        return ['id', 'name', 'email', 'profile'];
     }
 
     constructor(id: string, email: string, name: string, surname: string, password: string, profile: 'user' | 'admin', direction?: string, phone?: string, pictureUrl?: string) {

@@ -10,6 +10,7 @@ import { AuthComponent } from '../pages/auth/auth.component';
 import { UserDashboardComponent } from '../pages/user-dashboard/user-dashboard.component';
 import { UserDetailComponent } from '../pages/user-detail/user-detail.component';
 import { EnrollmentDashboardComponent } from '../pages/enrollment-dashboard/enrollment-dashboard.component';
+import { EnrollmentDetailComponent } from '../pages/enrollment-detail/enrollment-detail.component';
 
 const routes: Routes = [
   { path: 'layout', children: [
@@ -20,6 +21,7 @@ const routes: Routes = [
       { path: 'enrollments', component: EnrollmentDashboardComponent },
       { path: 'student/:id', component: StudentDetailComponent },
       { path: 'course/:id', component: CourseDetailComponent },
+      { path: 'enrollment/:id', component: EnrollmentDetailComponent},
       { path: 'user/:id', component: UserDetailComponent }
   ]},
   { path: '', redirectTo: '/login', pathMatch: 'full' },

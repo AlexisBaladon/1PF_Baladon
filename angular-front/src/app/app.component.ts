@@ -61,6 +61,7 @@ export class AppComponent {
     ['student', 'students'],
     ['course', 'courses'],
     ['user', 'users'],
+    ['enrollment', 'enrollments']
   ]);
 
 

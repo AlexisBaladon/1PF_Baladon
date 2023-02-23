@@ -9,9 +9,11 @@ import { AcademicDetailModule } from '../shared/academic-detail.module';
 import { AcademicListModule } from '../shared/academic-list.module';
 import { MaterialModule } from '../shared/libraries/material.module';
 import { PipesModule } from '../shared/pipes.module';
+import { EnrollmentDetailComponent } from 'src/app/pages/enrollment-detail/enrollment-detail.component';
 
 const components = [
   EnrollmentDashboardComponent,
+  EnrollmentDetailComponent,
 ]
 
 @NgModule({
