@@ -1,6 +1,6 @@
 {
     "/api": {
-      "target": "https://academic-workstation.onrender.com",
+      "target": "http://localhost:5000",
       "secure": true,
       "changeOrigin": true,
       "logLevel": "info"

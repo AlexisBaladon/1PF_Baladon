@@ -62,7 +62,7 @@ export class StudentDetailComponent {
 
 	private initializeSecondaryServices(id: Student['id']) {
 		this.student$ = this.studentsService.getById(id).subscribe(student => {
-			this.student = student;
+			this.student = Array.isArray(student) ? student[0] : student;
 			this.initializeStudentCourses();
 		});
 		

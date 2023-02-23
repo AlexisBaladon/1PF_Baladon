@@ -32,7 +32,7 @@ export class EnrollmentDetailComponent {
   
     private initializeSecondaryServices(id: Enrollment['id']) {
       this.enrollment$ = this.enrollmentsService.getById(id).subscribe(enrollment => {
-        this.enrollment = enrollment;
+        this.enrollment = Array.isArray(enrollment) ? enrollment[0] : enrollment;
       });
     }
 }

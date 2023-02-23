@@ -7,35 +7,31 @@ import { FilterableContextService } from '../../services/filterables/context/fil
 import { AcademicListModule } from '../shared/academic-list.module';
 import { UsersService } from 'src/app/services/users/users.service';
 import { EnrollmentsService } from 'src/app/services/enrollments/enrollments.service';
+import { HttpClientModule, HttpHandler } from '@angular/common/http';
+import { PipesModule } from '../shared/pipes.module';
+import { BASE_URL } from 'src/app/tokens/env';
 
 @NgModule({
   declarations: [],
   imports: [
     CommonModule,
     AcademicListModule,
+    HttpClientModule,
+    PipesModule,
   ],
   providers: [
     FilterPipe,
     {
       provide: StudentsService,
-      useFactory: () => new StudentsService(new FilterPipe()),
-      deps: [FilterPipe],
     },
     {
       provide: CoursesService,
-      useFactory: () => new CoursesService(new FilterPipe()),
-      deps: [FilterPipe],
     },
     {
       provide: UsersService,
-      useFactory: () => new UsersService(new FilterPipe()),
-      deps: [FilterPipe],
     },
-    {
-      provide: EnrollmentsService,
-      useFactory: () => new EnrollmentsService(new FilterPipe()),
-      deps: [FilterPipe],
-    },
+    FilterPipe,
+    UsersService,
     FilterableContextService,
   ]
 })

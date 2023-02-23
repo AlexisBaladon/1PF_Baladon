@@ -35,7 +35,7 @@ export class UserDetailComponent {
   
     private initializeSecondaryServices(id: User['id']) {
       this.users$ = this.usersService.getById(id).subscribe(user => {
-        this.user = user;
+        this.user = Array.isArray(user) ? user[0] : user;
       });
     }
   

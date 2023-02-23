@@ -57,7 +57,7 @@ export class CourseDetailComponent {
 	
 	private initializeSecondaryServices(id: Course['id']) {
 		this.course$ = this.coursesService.getById(id).subscribe(course => {
-			this.course = course;
+			this.course = Array.isArray(course) ? course[0] : course;
 			this.initializeCourseStudents(id);
 			this.initializeChart(this.courseStudents);
 			this.countStudentsGrades(this.enrollments, this.courseStudentsId);
