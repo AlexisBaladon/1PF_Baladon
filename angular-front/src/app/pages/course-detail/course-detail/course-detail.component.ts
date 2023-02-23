@@ -59,8 +59,8 @@ export class CourseDetailComponent {
 		this.course$ = this.coursesService.getById(id).subscribe(course => {
 			this.course = course;
 			this.initializeCourseStudents(id);
-			this.countStudentsGrades(this.enrollments, this.courseStudentsId);
 			this.initializeChart(this.courseStudents);
+			this.countStudentsGrades(this.enrollments, this.courseStudentsId);
 		});
 
 		this.enrollments$ = this.enrollmentService.getData().subscribe(enrollments => {
@@ -72,15 +72,15 @@ export class CourseDetailComponent {
 				}
 			});
 			this.initializeCourseStudents(id);
-			this.countStudentsGrades(enrollments, this.courseStudentsId);
 			this.initializeChart(this.courseStudents);
+			this.countStudentsGrades(enrollments, this.courseStudentsId);
 		});
 
 		this.students$ = this.studentsService.getData().subscribe(students => {
 			this.students = students;
 			this.initializeCourseStudents(id);
-			this.countStudentsGrades(this.enrollments, this.courseStudentsId);
 			this.initializeChart(this.courseStudents);
+			this.countStudentsGrades(this.enrollments, this.courseStudentsId);
 		});
 
 	}
@@ -199,20 +199,22 @@ export class CourseDetailComponent {
 	}
 
 	private countStudentsGrades(enrollments: Enrollment[], courseStudents: Student['id'][]) {
-		this.studentsGrades = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+		const studentGradesDistribution = Array.from({length: 10}, () => 0);
 		const studentsEnrollments = enrollments.filter(
 			enrollment => courseStudents.includes(enrollment.studentId) && enrollment.courseId === this.id
 		);
+		console.log(studentsEnrollments);
 		const studentsGrades = studentsEnrollments.map(enrollment => enrollment.grade);
 		const studentGradesPivot = studentsGrades.reduce((acc, curr) => {
 			acc.has(curr) ? acc.set(curr, acc.get(curr) + 1) : acc.set(curr, 1);
 			return acc;
 		}, new Map());
 		Array.from(studentGradesPivot.entries()).forEach(([key, value]) => {
-			this.studentsGrades[key - 1] = value;
+			studentGradesDistribution[key - 1] = value;
 		});
+		this.studentsGrades = studentGradesDistribution;
 		const chartData = [
-			{ data: this.studentsGrades, label: 'Nota de estudiantes', backgroundColor: '#000' },
+			{ data: studentGradesDistribution, label: 'Nota de estudiantes', backgroundColor: '#000' },
 		];
 		return chartData;
 	}
