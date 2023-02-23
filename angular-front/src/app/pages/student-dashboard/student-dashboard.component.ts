@@ -4,8 +4,10 @@ import { Router } from '@angular/router';
 import { ConfirmModalComponent } from 'src/app/components/global/confirm-modal/confirm-modal.component';
 import { AddUserFormComponent } from 'src/app/components/layout/add-user-form/add-user-form.component';
 import { DASHBOARD_TEXT } from 'src/app/constants/text';
+import Student from 'src/app/interfaces/student';
 import { Filterable } from 'src/app/logic/filter/filterable';
 import { StudentsService } from 'src/app/services/filterables/concrete-data/students/students.service';
+import { FilterableDataService } from 'src/app/services/filterables/data/filterableData.service';
 
 @Component({
   selector: 'app-student-dashboard',
@@ -27,16 +29,16 @@ export class StudentDashboardComponent {
     const dialogRef = dialog.open(AddUserFormComponent, {
       width: width || '600px',
       data: {
-        filterableData: filterable, 
+        data: filterable, 
         valid: true, 
-        title: mode === 'create' ? 'Agregar usuario' : 'Editar usuario',
+        title: mode === 'create' ? 'Agregar estudiante' : 'Editar estudiante',
       },
     });
 
     return dialogRef;
    }
 
-   public openDeleteDialog(dialog: MatDialog, filterableId: Filterable['id'],  width?: string | undefined): MatDialogRef<any, any> {
+   public openDeleteDialog(dialog: MatDialog, filterableId: Filterable['id'],  width?: string | undefined, filterableService?: FilterableDataService<Student>): MatDialogRef<any, any> {
       return dialog.open(ConfirmModalComponent, {
         width:  width || '400px',
         data: {
@@ -45,7 +47,7 @@ export class StudentDashboardComponent {
           confirmButtonText: 'Eliminar',
           cancelButtonText: 'Cancelar',
           onConfirm: () => {
-            this.studentService.deleteFilterable(filterableId);
+            filterableService?.deleteFilterable(filterableId);
             dialog.closeAll();
           },
           onCancel: () => {

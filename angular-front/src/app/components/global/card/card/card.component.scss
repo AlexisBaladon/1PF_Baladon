@@ -1,4 +1,4 @@
-.custom-card2 {
+.custom-card {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -13,11 +13,11 @@
     box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.1);
     transition: all 0.2s ease-in-out;
 }
-.custom-card2:hover {
+.custom-card:hover {
     transform: scale(1.01);
     cursor: pointer;
 }
-.custom-card2 .image-container {
+.custom-card .image-container {
     width: 30%;
     height: 100%;
     margin-right: 10px;

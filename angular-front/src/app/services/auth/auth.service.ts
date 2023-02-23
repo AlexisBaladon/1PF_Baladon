@@ -10,12 +10,12 @@ import { UsersService } from '../users/users.service';
 })
 export class AuthService {
   private users: User[] = [];
-  private user$ = new BehaviorSubject<User | null>({email: '', id: '', name: '', password: '', surname: ''}); //TODO: REMOVE
+  private user$ = new BehaviorSubject<User | null>(new User(generateId(), "", "Lucas", "", "", "admin"));
   private error$ = new BehaviorSubject<string | null>(null);
   private userService$: Subscription | null = null;
 
   constructor(private userService: UsersService, private http: HttpClient) {
-    this.userService$ = this.userService.getUsers().subscribe(users => {
+    this.userService$ = this.userService.getData().subscribe(users => {
       this.users = users;
     });
   }
@@ -60,14 +60,14 @@ export class AuthService {
       return;
     }
 
-    this.userService.addUser({
-      id: generateId(),
+    this.userService.addData(new User(
+      generateId(),
+      email,
       name,
       surname,
-      email,
       password,
-    });
-
+      'user'
+    ))
     this.login(email, password);
   }
 

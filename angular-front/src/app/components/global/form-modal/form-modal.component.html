@@ -1,0 +1,34 @@
+<div mat-dialog>
+    <h1 mat-dialog-title>
+        {{data.title}}
+    </h1>
+    <div mat-dialog-content>
+        <form 
+            id="add-course-form"
+            [formGroup]="formGroup"
+            (ngSubmit)="onSubmit()"
+        >
+            <div class="form-group" *ngFor="let input of data.inputs">
+                <label for="description">{{input.label}}</label>
+                <input 
+                    [type]="input.type" 
+                    class="input-with-label" 
+                    [appValidInput]="isValidInput(input.name)"
+                    [id]="input.name"
+                    [formControlName]="input.name"
+                    [placeholder]="input.placeholder"
+                >
+            </div>
+        </form>
+    </div>
+    <div id="submit-buttons-container">
+        <button mat-button (click)="onCancel()">Cancelar</button>
+        <button mat-raised-button (click)="onSubmit()" type="submit" form="add-course-form">{{data.title}}</button>
+    </div>
+</div>
+<div *ngIf="formGroup.invalid && submitted">
+    <app-toast 
+        [messages] = "getErrorMessages()"
+    >
+    </app-toast>
+</div>

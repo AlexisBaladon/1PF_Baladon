@@ -92,7 +92,6 @@ export class AuthComponent {
       return;
     }
     
-    console.log("Logged in");
     this.router.navigate(['/layout']);
   }
 

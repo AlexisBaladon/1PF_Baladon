@@ -1,0 +1,13 @@
+<app-dashboard
+    *ngIf="getDashboardText() as dbText"
+    [icon]="dbText.icon"
+    [title]="dbText.title"
+    [description]="dbText.description"
+    [createDataTitle]="dbText.createDataTitle"
+    [filterableType]="dbText.filterableType"
+    [filterOptions]="dbText.filterOptions"
+    [openEditDialog]="openEditDialog"
+    [openDeleteDialog]="openDeleteDialog"
+    (onViewEmitter)="onViewEmitter($event)"
+>
+</app-dashboard>

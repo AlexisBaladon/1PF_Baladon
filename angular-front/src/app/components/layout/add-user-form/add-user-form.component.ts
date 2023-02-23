@@ -15,12 +15,12 @@ export class AddUserFormComponent {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: {
       title: string;
-      filterableData: Student | null;
+      data: Student | null;
       valid: boolean;
     }, private dialogRef: MatDialogRef<AddUserFormComponent>
   ) { }
 
-  private defaultStudentData: Student = this.data.filterableData ?? {} as Student;
+  private defaultStudentData: Student = this.data.data ?? {} as Student;
 
 
   public formGroup = new FormGroup({
@@ -55,7 +55,7 @@ export class AddUserFormComponent {
     const formValues = this.formGroup.value;
 
     const student = new Student(
-      this.data.filterableData?.id ?? generateId(),
+      this.data.data?.id ?? generateId(),
       formValues.name ?? '',
       formValues.surname ?? '',
       formValues.birthDate ?? new Date(),
@@ -64,12 +64,12 @@ export class AddUserFormComponent {
       formValues.email ?? '',
       formValues.password ?? '',
       formValues.admissionDate ?? new Date(),
-      this.data.filterableData?.averageGrade ?? null ?? 0,
+      this.data.data?.averageGrade ?? null ?? 0,
       formValues.career ?? '',
-      this.data.filterableData?.pictureUrl ?? '',
+      this.data.data?.pictureUrl ?? '',
     );
     
-    this.data.filterableData = student;
+    this.data.data = student;
     this.data.valid = true;
     this.dialogRef.close(this.data);
   }

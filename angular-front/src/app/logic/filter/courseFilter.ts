@@ -32,7 +32,7 @@ export class CourseAmountFilter extends CourseFilter {
     }
 
     public evaluate(filterable: Filterable): boolean {
-        const amountStudents = (filterable as Course).studentsId.length;
+        const amountStudents = 3; //TODO: get amount of students from backend
         return this.isValidType(filterable) &&  amountStudents >= this.amountStudents;
     }
 }

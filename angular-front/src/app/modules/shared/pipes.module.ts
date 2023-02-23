@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 
-import { FilterPipe } from '../../../pipes/filter/filter.pipe';
-import { FullNamePipe } from '../../../pipes/users/full-name/full-name.pipe';
+import { FilterPipe } from '../../pipes/filter/filter.pipe';
+import { FullNamePipe } from '../../pipes/users/full-name/full-name.pipe';
 
 const pipes = [
   FilterPipe,

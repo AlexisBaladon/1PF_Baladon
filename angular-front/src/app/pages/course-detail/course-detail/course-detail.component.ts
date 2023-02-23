@@ -9,6 +9,8 @@ import { Enrollment } from 'src/app/models/enrollment';
 import { EnrollmentsService } from 'src/app/services/enrollments/enrollments.service';
 import { CoursesService } from 'src/app/services/filterables/concrete-data/courses/courses.service';
 import { StudentsService } from 'src/app/services/filterables/concrete-data/students/students.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmModalComponent } from 'src/app/components/global/confirm-modal/confirm-modal.component';
 
 @Component({
   selector: 'app-course-detail',
@@ -16,25 +18,20 @@ import { StudentsService } from 'src/app/services/filterables/concrete-data/stud
   styleUrls: ['./course-detail.component.scss']
 })
 export class CourseDetailComponent {
-	public cardsData: { title: string, icon: string, value: string }[] = [];
-	public mainSectionData: { title: string, icon: string, description: string } = { title: '', icon: '', description: '' };
-	public chartSectionData: { title: string, icon: string, description: string } = { title: '', icon: '', description: '' };
-	public chartData: { label: string, datasetLabels: string[], backgroundColor: string } = { label: '', datasetLabels: [], backgroundColor: '#000' };
-	public enrollmentSectionData: { title: string, icon: string, description: string } = { title: '', icon: '', description: '' };
-	public enrollmentData: { id: string, pictureUrl: string, title: string, description: string }[] = [];
-	public enrollmentSeeMoreAction: (id: Filterable['id']) => void = (id: Filterable['id']) => {};
-	public doughnutSectionData: { title: string, icon: string, description: string } = { title: '', icon: '', description: '' };
 	public doughnutData: { datasetLabels: string[], datasets: number[] } = { datasetLabels: [], datasets: [] };
 
 	public id: Course['id'] | null = null;
+	public course: Course | null = null;
 	private course$!: Subscription;
+	private students: Student[] = [];
 	private students$!: Subscription;
 	private enrollments$!: Subscription;
+	private enrollments: Enrollment[] = [];
 	private studentsGrades: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-	public course: Course | undefined;
 	public courseDetails = [];
-	public courseStudents: Student[] = []
 	public studentsGradeChart: Chart | undefined;
+	public courseStudents: Student[] = []
+	private courseStudentsId: Student['id'][] = [];
 
 	constructor(
 		private route: ActivatedRoute,
@@ -42,6 +39,7 @@ export class CourseDetailComponent {
 		private coursesService: CoursesService, 
 		private studentsService: StudentsService,
 		private enrollmentService: EnrollmentsService,
+		private dialog: MatDialog,	
 	) { }
 
 	ngOnInit(): void {
@@ -56,36 +54,61 @@ export class CourseDetailComponent {
 		this.students$.unsubscribe();
 		this.enrollments$.unsubscribe();
 	}
-
+	
 	private initializeSecondaryServices(id: Course['id']) {
 		this.course$ = this.coursesService.getById(id).subscribe(course => {
 			this.course = course;
+			this.initializeCourseStudents(id);
+			this.initializeChart(this.courseStudents);
+			this.countStudentsGrades(this.enrollments, this.courseStudentsId);
 		});
 
-		this.students$ = this.studentsService.getFilteredData().subscribe(students => {
-			if (this.course?.studentsId != undefined) {
-				this.courseStudents = students.filter(student => this.course?.studentsId?.includes(student.id));
-				this.enrollmentData = this.courseStudents.map(student => { 
-					return { id: student.id, pictureUrl: student.pictureUrl, title: student.name, description: student.email }
-				});
-				this.initializeChart();
-			}
+		this.enrollments$ = this.enrollmentService.getData().subscribe(enrollments => {
+			this.courseStudentsId = [];
+			this.enrollments = enrollments;
+			enrollments.forEach(enrollment => {
+				if (enrollment.courseId === this.id) {
+					this.courseStudentsId.push(enrollment.studentId);
+				}
+			});
+			this.initializeCourseStudents(id);
+			this.initializeChart(this.courseStudents);
+			this.countStudentsGrades(enrollments, this.courseStudentsId);
 		});
 
-		this.enrollments$ = this.enrollmentService.getEnrollments().subscribe(enrollments => {
-			if (this.course?.studentsId != undefined) {
-				this.countStudentsGrades(enrollments);
+		this.students$ = this.studentsService.getData().subscribe(students => {
+			this.students = students;
+			this.initializeCourseStudents(id);
+			this.initializeChart(this.courseStudents);
+			this.countStudentsGrades(this.enrollments, this.courseStudentsId);
+		});
+
+	}
+
+	private initializeCourseStudents(id: Course['id']) {
+		const courseStudents: Student[] = [];
+		const courseStudentsId: Student['id'][] = [];
+		this.enrollments.forEach(enrollment => {
+			if (enrollment.courseId === id) {
+				courseStudentsId.push(enrollment.studentId);
 			}
 		});
+		this.students.forEach(student => {
+			if (courseStudentsId.includes(student.id)) {
+				courseStudents.push(student);
+			}
+		});
+		this.courseStudents = courseStudents;
+		this.courseStudentsId = courseStudentsId;
 	}
 
 	public getCardsData(course?: Course): { title: string, icon: string, value: string }[] {
 		if (course === undefined) return [];
 		return [
             {title: 'Créditos', icon: 'school', value: String(course?.credits)},
-            {title: 'Profesor del Curso', icon: 'person', value: String(course?.teacher)},
+            {title: 'Categoría del curso', icon: 'category', value: course?.category},
             {title: 'Nota promedio', icon: 'star', value: String(course?.averageGrade)},
-            {title: 'Total de Estudiantes', icon: 'people', value: String(course?.studentsId?.length)},
+            {title: 'Total de Estudiantes', icon: 'people', value: String(this.courseStudents.length)},
         ]
 	}
 
@@ -104,19 +127,43 @@ export class CourseDetailComponent {
 		return ({label: 'Nota de estudiantes', datasetLabels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"], datasets: this.studentsGrades, backgroundColor: 'rgba(113, 201, 132, 0.8)'});
 	}
 
-	public getEnrollmentSectionData(course?: Course): { title: string, icon: string, description: string } {
+	public getEnrollmentSectionData(course?: Course): { title: string, icon: string, description: string, deleteAction?: (id: string) => void } {
 		if (course === undefined) return { title: '', icon: '', description: '' };
-		return ({title: 'Estudiantes', icon: 'school', description: 'Estudiantes del curso'});
+		return ({
+			title: 'Estudiantes', 
+			icon: 'school', 
+			description: 'Estudiantes del curso',
+			deleteAction: (id: string) => {
+				this.dialog.open(ConfirmModalComponent, {
+					data: { 
+						title: 'Eliminar inscripción', 
+						message: '¿Está seguro que desea eliminar esta inscripción?',
+						confirmButtonText: 'Eliminar',
+						cancelButtonText: 'Cancelar',
+						onConfirm: () => {this.enrollmentService.deleteFilterable(id); this.dialog.closeAll()},
+						onCancel: () => {this.dialog.closeAll();},
+					},
+				});
+			}
+		});
 	}
 
-	public getEnrollmentData(course?: Course): { id: Course['id'], pictureUrl: string, title: string, description: string }[] {
+	public getEnrollmentData(course?: Course): { academicId: Course['id'], enrollmentId: Enrollment['id'], pictureUrl: string, title: string, description: string }[] {
 		if (course === undefined) return [];
-		return this.enrollmentData;
+		return this.courseStudents.map(student => { 
+			return ({ 
+				academicId: student.id, 
+				enrollmentId: this.enrollments.find(enrollment => enrollment.studentId === student.id && enrollment.courseId === this.id)?.id || '',
+				pictureUrl: student.pictureUrl, 
+				title: `${student.name} (${student.id})`,
+				description: student.email
+			})
+		});
 	}
 
 	public getEnrollmentSeeMoreAction(): () => void {
 		return () => {
-			this.router.navigate([`layout/students`]);
+			this.router.navigate([`layout/enrollments`]);
 		}
 	}
 
@@ -136,12 +183,12 @@ export class CourseDetailComponent {
 		return ({datasetLabels: this.doughnutData.datasetLabels, datasets: this.doughnutData.datasets});
 	}
 
-	private initializeChart() {
+	private initializeChart(courseStudents: Student[]) {
 		const SHOWN_COURSES = 3;
-		const uniqueCarriers = Array.from(new Set(this.courseStudents.map(student => student.career)));
+		const uniqueCarriers = Array.from(new Set(courseStudents.map(student => student.career)));
 		const careerCount = uniqueCarriers.map(label => ({
 			career: label,
-			count: this.courseStudents.filter(student => student.career == label).length
+			count: courseStudents.filter(student => student.career == label).length
 		})).sort((a, b) => b.count - a.count)
 		const mostFrequentedCareers = careerCount.slice(0, SHOWN_COURSES);
 		const othersCount = mostFrequentedCareers.slice(SHOWN_COURSES).reduce((acc, curr) => acc + curr.count, 0);
@@ -151,20 +198,23 @@ export class CourseDetailComponent {
 		this.doughnutData.datasets.push(othersCount);
 	}
 
-	private countStudentsGrades(enrollments: Enrollment[]) {
-		const studentsEnrollments = enrollments.filter(enrollment => this.courseStudents.map(student => student.id).includes(enrollment.studentId));
+	private countStudentsGrades(enrollments: Enrollment[], courseStudents: Student['id'][]) {
+		const studentGradesDistribution = Array.from({length: 10}, () => 0);
+		const studentsEnrollments = enrollments.filter(
+			enrollment => courseStudents.includes(enrollment.studentId) && enrollment.courseId === this.id
+		);
 		const studentsGrades = studentsEnrollments.map(enrollment => enrollment.grade);
 		const studentGradesPivot = studentsGrades.reduce((acc, curr) => {
 			acc.has(curr) ? acc.set(curr, acc.get(curr) + 1) : acc.set(curr, 1);
 			return acc;
 		}, new Map());
-		this.studentsGrades = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 		Array.from(studentGradesPivot.entries()).forEach(([key, value]) => {
-			this.studentsGrades[key - 1] = value;
+			studentGradesDistribution[key - 1] = value;
 		});
+		this.studentsGrades = studentGradesDistribution;
 		const chartData = [
-			{ data: this.studentsGrades, label: 'Nota de estudiantes', backgroundColor: '#000' },
+			{ data: studentGradesDistribution, label: 'Nota de estudiantes', backgroundColor: '#000' },
 		];
 		return chartData;
-	}	
+	}
 }

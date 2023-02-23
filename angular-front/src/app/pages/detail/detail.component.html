@@ -55,11 +55,21 @@
                     [customBackground]="appStyle"
                 >
                 </app-section-header>
+                <button 
+                    id="enrollments-add-more" 
+                    [appCustomBackground]="appStyle" 
+                    mat-raised-button color="primary"
+                    class="mb-3"
+                    (click)="enrollmentAddMoreAction()"
+                >
+                    <mat-icon>add</mat-icon>
+                    Agregar más
+                </button>
                 <div class="students">
                     <ng-container *ngFor="let data of enrollmentData.slice(0,maxEnrollmentsShown)">
                         <div>
                         <app-card
-                            (click)="enrollmentSeeDetailAction(data.id)"
+                            [handleClick]="seeMoreAction(data.academicId)"
                             [title]="data.title"
                             [description]="data.description"
                             [pictureUrl]="data.pictureUrl"
@@ -67,6 +77,7 @@
                             [pictureHeight]="80"
                             [pictureAlt]="data.title"
                             [customIconBackground]="secondaryAppStyle"
+                            [deleteAction]="deleteAction(data.enrollmentId)"
                         >
                     </app-card></div>
                 </ng-container>
@@ -81,7 +92,6 @@
                 </button>
             </div>
             </section>
-
             <div class="custom-container">
                 <app-section-header
                     id="course-students-header"

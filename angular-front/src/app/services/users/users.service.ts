@@ -2,18 +2,23 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, map, Observable } from 'rxjs';
 import User from 'src/app/interfaces/user';
-import { jsonParser } from 'src/app/utils/jsonParser';
+import { FilterPipe } from 'src/app/pipes/filter/filter.pipe';
+import { createUsers, jsonParser } from 'src/app/utils/jsonParser';
 import * as users from 'src/assets/data/users.json';
-import { API_URL } from 'src/app/constants/env';
+import { FilterableDataService } from '../filterables/data/filterableData.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UsersService {
+export class UsersService extends FilterableDataService<User> {
   private users: User[] = jsonParser<User>(users);
   private users$: BehaviorSubject<User[]> = new BehaviorSubject<User[]>(this.users);
-
-  constructor(private http: HttpClient) { }
+  
+  constructor( filterPipe: FilterPipe, private http: HttpClient ) {
+    const parsedUsers: User[] = jsonParser<User>(users);
+    const filterableData: User[] = createUsers(parsedUsers);
+    super(filterPipe, filterableData);
+   }
 
   public getUsers(): Observable<User[]> {
     this.http.get<User[]>(`/api/users`).subscribe(users => {

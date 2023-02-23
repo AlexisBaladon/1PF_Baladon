@@ -17,7 +17,7 @@ export class TableComponent {
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @Input() public openEditDialog!: (dialog: MatDialog, mode: 'create' | 'edit', filterable?: Filterable, width?: string | undefined) => MatDialogRef<any, any>;
-  @Input() public openDeleteDialog!: (dialog: MatDialog, filterableId: Filterable['id'], width?: string | undefined) =>  MatDialogRef<any, any>;
+  @Input() public openDeleteDialog!: (dialog: MatDialog, filterableId: Filterable['id'], width?: string | undefined, filterableService?: FilterableDataService<Filterable>) =>  MatDialogRef<any, any>;
   @Output() public onViewEmiter: EventEmitter<Filterable["id"]> = new EventEmitter();
   constructor(public dialog: MatDialog, public el: ElementRef, private filterableContextService: FilterableContextService) {}
   private filterableData: Filterable[] = [];
@@ -82,7 +82,7 @@ export class TableComponent {
     const dialogRef = this.openEditDialog(this.dialog, 'edit', filterableData, '750px');
 
     dialogRef.afterClosed().subscribe(result => {
-      const resultData = result?.filterableData;
+      const resultData = result?.data;
       
       if (!resultData) return;
       this.filterableService.updateData(resultData);
@@ -90,7 +90,7 @@ export class TableComponent {
   }
 
   public onDelete(filterableDataId: Filterable['id']) {
-    this.openDeleteDialog(this.dialog, filterableDataId);  
+    this.openDeleteDialog(this.dialog, filterableDataId, '500px', this.filterableService);
   }
   
   public isDate(value: any): boolean {
@@ -105,8 +105,13 @@ export class TableComponent {
     return Array.isArray(value);
   }
 
+  public isBoolean(value: any, data?: string): boolean {
+    const valueString = String(value);
+    return ['true', 'false'].includes(valueString);
+  }
+
   public isElse(value: any, att: string | undefined, surname: string | undefined): boolean {
-    return !this.isDate(value) && !this.isArray(value) && !this.hasFullName(att, surname);
+    return !this.isDate(value) && !this.isArray(value) && !this.hasFullName(att, surname) && !this.isBoolean(value);
   }
 
   public arrayLength(value: any): number {

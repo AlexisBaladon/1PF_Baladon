@@ -1,10 +1,11 @@
 import { FilterName } from "../interfaces/filters";
 
 export const NAV_ROUTES: {title: string, icon: string, route: string}[] = [
-    {title: 'Inicio', icon: 'home', route: '/layout/home'},
-    {title: 'Usuarios', icon: 'person', route: '/layout/students'},
+    {title: 'Estudiantes', icon: 'face', route: '/layout/students'},
     {title: 'Cursos', icon: 'school', route: '/layout/courses'},
-    {title: 'General', icon: 'bar_chart', route: '/layout/general'},
+    {title: 'Usuarios', icon: 'person', route: '/layout/users'},
+    {title: 'Inscripciones', icon: 'assignment', route: '/layout/enrollments'},
+    {title: 'Cerrar sesión', icon: 'logout', route: '/login'}
 ]
 export interface FilterOption {
     name: FilterName;
@@ -53,11 +54,11 @@ export type DashboardInputData = Record<string, DashboardInput>;
 
 export const DASHBOARD_TEXT: DashboardInputData = {
     Student: {
-        icon: 'person',
-        title: 'Usuarios',
+        icon: 'face',
+        title: 'Estudiantes',
         description: 'Visualiza datos de los estudiantes de la universidad.',
         filterableType: 'Student',
-        createDataTitle: 'Crea un usuario',
+        createDataTitle: 'Crea un estudiante',
         filterOptions: FILTER_OPTIONS['Student'],
         attributeNames: {
             id: 'ID',
@@ -86,9 +87,46 @@ export const DASHBOARD_TEXT: DashboardInputData = {
             description: 'Descripción',
             credits: 'Créditos',
             teacher: 'Profesor',
-            studentsId: 'Estudiantes',
             averageGrade: 'Promedio',
             category: 'Categoría',
         }
     },
-}
+    User: {
+        icon: 'person',
+        title: 'Usuarios',
+        description: 'Visualiza datos de los usuarios de la universidad.',
+        filterableType: 'User',
+        createDataTitle: 'Crea un usuario',
+        filterOptions: FILTER_OPTIONS['User'],
+        attributeNames: {
+            id: 'ID',
+            name: 'Nombre',
+            surname: 'Apellido',
+            phone: 'Teléfono',
+            password: 'Contraseña',
+            city: 'Ciudad',
+            birthDate: 'Fecha de nacimiento',
+            email: 'Correo',
+            career: 'Carrera',
+            admissionDate: 'Fecha de ingreso',
+            averageGrade: 'Promedio',
+            profile: 'Perfil',
+        },
+    },
+    Enrollment: {
+        icon: 'assignment',
+        title: 'Inscripciones',
+        description: 'Visualiza datos de las inscripciones de la universidad.',
+        filterableType: 'Enrollment',
+        createDataTitle: 'Crea una inscripción',
+        filterOptions: FILTER_OPTIONS['Enrollment'],
+        attributeNames: {
+            id: 'ID',
+            studentId: 'Estudiante',
+            courseId: 'Curso',
+            grade: 'Nota',
+            enrollmentDate: 'Fecha de inscripción',
+            finishDate: 'Fecha de finalización',
+        },
+    },
+};

@@ -5,17 +5,27 @@ import { CoursesService } from '../../filterables/concrete-data/courses/courses.
 import { StudentsService } from '../concrete-data/students/students.service';
 import { FilterableDataService } from '../data/filterableData.service';
 import { BehaviorSubject } from 'rxjs';
+import { UsersService } from '../../users/users.service';
+import { EnrollmentsService } from '../../enrollments/enrollments.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FilterableContextService {
-  constructor(private studentService: StudentsService, private coursesService: CoursesService) { }
+  constructor(
+    private studentService: StudentsService, 
+    private coursesService: CoursesService,
+    private usersService: UsersService,
+    private enrollmentsService: EnrollmentsService,
+  ) { }
+
   private currentService$ = new BehaviorSubject<FilterableDataService<any>>(this.studentService);
 
   private serviceByType: { [key in FilterableType]: FilterableDataService<any> } = {
     Student: this.studentService,
-    Course: this.coursesService
+    Course: this.coursesService,
+    User: this.usersService,
+    Enrollment: this.enrollmentsService,
   };
 
   public getService(): Observable<FilterableDataService<any>> {

@@ -19,4 +19,12 @@ export class ConfirmModalComponent {
     private dialogRef: MatDialogRef<ConfirmModalComponent>
   ) { }
 
+  public onConfirm() {
+    this.data.onConfirm();
+  }
+
+  public onCancel() {
+    this.data.onCancel();
+  }
+
 }

@@ -1,6 +1,7 @@
 import { Validators } from '@angular/forms';
 
 export const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.([^\s@]+){2,4}$/;
+export const NUMBER_REGEX = /^[0-9]+$/;
 export const INPUTS_MAX_LENGTH = 30;
 export const PASSWORD_MIN_LENGTH = 6;
 export const SIMPLE_INPUTS_MIN_LENGTH = 2;
@@ -19,4 +20,11 @@ export const EMAIL_VALIDATIONS = [
 export const PASSWORD_VALIDATIONS = [
     ...SIMPLE_VALIDATIONS,
     Validators.minLength(PASSWORD_MIN_LENGTH),
+]
+
+export const NUMBER_VALIDATIONS = [
+    Validators.required,
+    Validators.min(0),
+    Validators.max(100),
+    Validators.pattern(NUMBER_REGEX),
 ]

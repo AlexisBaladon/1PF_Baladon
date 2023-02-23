@@ -7,6 +7,7 @@ import { DASHBOARD_TEXT } from 'src/app/constants/text';
 import { Course } from 'src/app/interfaces/course';
 import { Filterable } from 'src/app/logic/filter/filterable';
 import { CoursesService } from 'src/app/services/filterables/concrete-data/courses/courses.service';
+import { FilterableDataService } from 'src/app/services/filterables/data/filterableData.service';
 
 @Component({
   selector: 'app-course-dashboard',
@@ -28,7 +29,7 @@ export class CourseDashboardComponent {
       const dialogRef =  dialog.open(AddCourseFormComponent, {
           width: width || '400px',
           data: { 
-            filterableData: filterable, 
+            data: filterable, 
             valid: true, 
             title: mode === 'create' ? 'Agregar curso' : 'Editar curso',
           }
@@ -37,7 +38,7 @@ export class CourseDashboardComponent {
       return dialogRef;
   }    
 
-  public openDeleteDialog(dialog: MatDialog, filterableId: Course['id'], width?: string | undefined): MatDialogRef<any, any> {
+  public openDeleteDialog(dialog: MatDialog, filterableId: Course['id'], width?: string | undefined, filterableService?: FilterableDataService<Course>): MatDialogRef<any, any> {
     return dialog.open(ConfirmModalComponent, {
       width: width || '400px',
       data: {
@@ -46,7 +47,7 @@ export class CourseDashboardComponent {
         confirmButtonText: 'Eliminar',
         cancelButtonText: 'Cancelar',
         onConfirm: () => {
-          this.coursesService.deleteFilterable(filterableId);
+          filterableService?.deleteFilterable(filterableId);
           dialog.closeAll();
         },
         onCancel: () => {
