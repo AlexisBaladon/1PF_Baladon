@@ -1,0 +1,98 @@
+[
+    {
+        "id": "1",
+        "studentId": "1",
+        "courseId": "1",
+        "grade": 8,
+        "enrollmentDate": "2019-01-01",
+        "finishDate": "2020-01-01"
+    },
+    {
+        "id": "4",
+        "studentId": "1",
+        "courseId": "2",
+        "grade": 7,
+        "enrollmentDate": "2019-01-01",
+        "finishDate": "2020-01-01"
+    },
+    {
+        "id": "5",
+        "studentId": "1",
+        "courseId": "3",
+        "grade": 6,
+        "enrollmentDate": "2019-01-01",
+        "finishDate": "2020-01-01"
+    },
+    {
+        "id": "6",
+        "studentId": "1",
+        "courseId": "4",
+        "grade": 8,
+        "enrollmentDate": "2019-01-01",
+        "finishDate": "2020-01-01"
+    },
+    {
+        "id": "7",
+        "studentId": "2",
+        "courseId": "1",
+        "grade": 7,
+        "enrollmentDate": "2019-01-01",
+        "finishDate": "2020-01-01"
+    },
+    {
+        "id": "8",
+        "studentId": "2",
+        "courseId": "2",
+        "grade": 4,
+        "enrollmentDate": "2019-01-01",
+        "finishDate": "2020-01-01"
+    },
+    {
+        "id": "9",
+        "studentId": "2",
+        "courseId": "3",
+        "grade": 2,
+        "enrollmentDate": "2019-01-01",
+        "finishDate": "2020-01-01"
+    },
+    {
+        "id": "10",
+        "studentId": "2",
+        "courseId": "6",
+        "grade": 5,
+        "enrollmentDate": "2019-01-01",
+        "finishDate": "2020-01-01"
+    },
+    {
+        "id": "11",
+        "studentId": "3",
+        "courseId": "1",
+        "grade": 6,
+        "enrollmentDate": "2019-01-01",
+        "finishDate": "2020-01-01"
+    },
+    {
+        "id": "12",
+        "studentId": "3",
+        "courseId": "5",
+        "grade": 7,
+        "enrollmentDate": "2019-01-01",
+        "finishDate": "2020-01-01"
+    },
+    {
+        "id": "13",
+        "studentId": "4",
+        "courseId": "2",
+        "grade": 8,
+        "enrollmentDate": "2019-01-01",
+        "finishDate": "2020-01-01"
+    },
+    {
+        "id": "14",
+        "studentId": "5",
+        "courseId": "6",
+        "grade": 9,
+        "enrollmentDate": "2019-01-01",
+        "finishDate": "2020-01-01"
+    }
+]

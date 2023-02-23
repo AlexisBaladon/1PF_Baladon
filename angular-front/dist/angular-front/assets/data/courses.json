@@ -1,0 +1,52 @@
+[
+    {
+        "id": "1",
+        "name": "Matemática",
+        "description": "Matemática es una asignatura",
+        "credits": 5,
+        "teacher": 1,
+"averageGrade": 5,
+        "icon": "functions",
+        "category": "Ciencias"
+    },
+    {
+        "id": "2",
+        "name": "Inglés",
+        "description": "Inglés es una asignatura",
+        "credits": 7,
+        "teacher": 2,
+"averageGrade": 5,
+        "icon": "translate",
+        "category": "Lenguaje"
+    },
+    {
+        "id": "3",
+        "name": "Historia",
+        "description": "Historia es una asignatura",
+        "credits": 8,
+        "teacher": 3,
+        "averageGrade": 5,
+        "icon": "menu_book",
+        "category": "Humanidades"
+    },
+    {
+        "id": "4",
+        "name": "Ciencia",
+        "description": "Ciencia es una asignatura",
+        "credits": 5,
+        "teacher": 4,
+        "averageGrade": 5,
+        "icon": "science",
+        "category": "Ciencias"
+    },
+    {
+        "id": "5",
+        "name": "Arte",
+        "description": "Arte es una asignatura",
+        "credits": 5,
+        "teacher": 5,
+        "averageGrade": 5,
+        "icon": "palette",
+        "category": "Humanidades"
+    }
+]

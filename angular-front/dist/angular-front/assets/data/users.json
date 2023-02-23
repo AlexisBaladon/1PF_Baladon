@@ -1,0 +1,22 @@
+[
+    {
+        "id": "1",
+        "name": "Juan",
+        "surname": "Doe",
+        "email": "test@test.com",
+        "password": "123456",
+        "profile": "admin",
+        "direction": "Calle 1",
+        "phone": "123456789"
+    },
+    {
+        "id": "2",
+        "name": "Juanita",
+        "surname": "Doe",
+        "email": "juana.juanita@mail.com",
+        "password": "123456",
+        "profile": "user",
+        "direction": "Calle 2",
+        "phone": "987654321"
+    }
+]
