@@ -1,15 +1,43 @@
-<app-detail
-    *ngIf="id && user"
-    [cardsData]="getCardsData(user)"
-    [mainSectionData]="getMainSectionData(user)"
-    [chartSectionData]="getChartSectionData(user)"
-    [chartData]="getChartData(user)"
-    [enrollmentSectionData]="getEnrollmentSectionData(user)"
-    [enrollmentData]="getEnrollmentData(user)"
-    [enrollmentSeeMoreAction]="getEnrollmentSeeMoreAction()"
-    [enrollmentSeeDetailAction]="getEnrollmentSeeDetailAction()"
-    [doughnutSectionData]="getDoughnutSectionData(user)"
-    [doughnutData]="getDoughnutData(user)"
-    [appStyle]="'linear-main'"
-    [secondaryAppStyle]="'linear-green'"
-></app-detail>
+<section *ngIf="user" class="layout-child vh-100" style="background-color: #f4f5f7;">
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col col-lg-6 mb-4 mb-lg-0">
+          <div class="card mb-3" style="border-radius: .5rem;">
+            <div class="row g-0">
+              <div class="col-md-4 d-flex align-items-center justify-content-center text-light"
+                [appCustomBackground]="'linear-main'"
+                style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
+                <div class="card-body text-center">
+                    <mat-icon class="icon mb-5" style="transform: scale(3.5); margin-top: 50px">person</mat-icon>
+                    <h5>{{user | fullName}}</h5>
+                    <p>{{user.profile | titlecase }}</p>
+                </div>
+              </div>
+              <div class="col-md-8">
+                <div class="card-body p-4">
+                  <h6>Información personal</h6>
+                  <hr class="mt-0 mb-4">
+                  <div class="row pt-1">
+                    <div class="col-6 mb-3">
+                      <h6>Email</h6>
+                      <p class="text-muted">{{user.email}}</p>
+                    </div>
+                    <div class="col-6 mb-3">
+                      <h6>Teléfono</h6>
+                      <p class="text-muted">{{user?.phone ?? '-'}}</p>
+                    </div>
+                  </div>
+                  <div class="row pt-1">
+                    <div class="col-6 mb-3">
+                      <h6>Ubicación</h6>
+                      <p class="text-muted">{{user?.direction}}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>

@@ -9,7 +9,7 @@
                 <a (click)="changeRoute(option.title)" [appFontSize]="'large'" class="menu-text nav-link"
                     [ngClass]="isSelected(option.title) ? 'active' : ''">
                     <mat-icon class="icon">{{option.icon}}</mat-icon>
-                    <span class="nav-item-title">{{option.title}}</span>
+                    <span class="nav-item-title" style="font-weight: 200">{{option.title}}</span>
                 </a>
             </li>
         </ul>

@@ -59,6 +59,7 @@ export class AppComponent {
   private secondaryRoutesMap: Map<string, string> = new Map([
     ['student', 'students'],
     ['course', 'courses'],
+    ['user', 'users'],
   ]);
 
 
