@@ -35,8 +35,6 @@ export function createCourse(course: Course): Course {
         course.name,
         course.description,
         course.credits,
-        course.teacher,
-        course.studentsId,
         course.averageGrade,
         course.icon,
         course.category,

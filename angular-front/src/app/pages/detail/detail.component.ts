@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { ChartData, ChartType } from 'chart.js';
 import { Filterable } from 'src/app/logic/filter/filterable';
+import { Enrollment } from 'src/app/models/enrollment';
 
 interface SectionHeaderData {
 	title: string;
@@ -19,10 +20,8 @@ export class DetailComponent {
 	@Input() public mainSectionData!: SectionHeaderData;
 	@Input() public chartSectionData!: SectionHeaderData;
 	@Input() public chartData!: { label: string, datasetLabels: string[], datasets: (number | string)[], backgroundColor?: string };
-	@Input() public classesSectionData?: SectionHeaderData & {addAction: () => void, editAction: (id: string) => void, deleteAction: (id: Filterable['id']) => void };
-	@Input() public classesData?: { id: string, icon?: string, title: string, description: string }[];
-	@Input() public enrollmentSectionData!: SectionHeaderData;
-	@Input() public enrollmentData!: { id: Filterable['id'], pictureUrl?: string, icon?: string, title: string, description: string }[];
+	@Input() public enrollmentSectionData!: SectionHeaderData & {deleteAction?: (id: string) => void};
+	@Input() public enrollmentData!: { academicId: string, enrollmentId: Enrollment['id'],  pictureUrl?: string, icon?: string, title: string, description: string }[];
 	@Input() public enrollmentSeeMoreAction!: () => void;
 	@Input() public enrollmentSeeDetailAction!: (id: Filterable['id']) => void;
 	@Input() public doughnutSectionData!: SectionHeaderData;
@@ -40,15 +39,11 @@ export class DetailComponent {
 	public doughnutChartType: ChartType = 'doughnut';
 	public doughnutChartOptions = { responsive: true };
 
-	public addAction = () => {
-		this.classesSectionData?.addAction();
-	}
-
-	public editAction = (id: string) => {
-		return () => {this.classesSectionData?.editAction(id)};
-	}
-
 	public deleteAction = (id: string) => {
-		return () => {this.classesSectionData?.deleteAction(id)};
+		return () => {this.enrollmentSectionData?.deleteAction?.(id)};
+	}
+
+	public seeMoreAction = (id: string) => {
+		return () => {this.enrollmentSeeDetailAction(id)};
 	}
 }

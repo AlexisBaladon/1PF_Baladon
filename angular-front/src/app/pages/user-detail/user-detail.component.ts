@@ -65,9 +65,9 @@ export class UserDetailComponent {
           {icon: 'school', title: 'Apellido paterno', description: user.surname},
           {icon: 'school', title: 'Correo electrónico', description: user.email},
           {icon: 'school', title: 'Perfil', description: user.profile},
-          {icon: 'school', title: 'Teléfono', description: user?.phone ?? 'No especificado'},
-          {icon: 'school', title: 'Dirección', description: user?.direction ?? 'No especificado'},
-          {icon: 'school', title: 'Dirección', description: user?.direction ?? 'No especificado'},  
+          {icon: 'school', title: 'Teléfono', description: user.phone ?? 'No especificado'},
+          {icon: 'school', title: 'Dirección', description: user.direction ?? 'No especificado'},
+          {icon: 'school', title: 'Dirección', description: user.direction ?? 'No especificado'},  
           
         ]
     }

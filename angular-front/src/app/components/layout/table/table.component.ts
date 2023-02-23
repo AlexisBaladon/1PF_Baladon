@@ -106,7 +106,6 @@ export class TableComponent {
   }
 
   public isBoolean(value: any, data?: string): boolean {
-    console.log(value, data)
     const valueString = String(value);
     return ['true', 'false'].includes(valueString);
   }

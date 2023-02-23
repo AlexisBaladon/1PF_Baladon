@@ -79,7 +79,6 @@ export class EnrollmentDashboardComponent {
           confirmButtonText: 'Eliminar',
           cancelButtonText: 'Cancelar',
           onConfirm: () => {
-            console.log(filterableService)
             filterableService?.deleteFilterable(filterableId);
             dialog.closeAll();
           },

@@ -5,16 +5,12 @@ import { Subscription } from 'rxjs';
 import { Course } from 'src/app/interfaces/course';
 import Student from 'src/app/interfaces/student';
 import { Filterable } from 'src/app/logic/filter/filterable';
-import { CourseClass } from 'src/app/models/courses';
 import { Enrollment } from 'src/app/models/enrollment';
-import { ClassesService } from 'src/app/services/classes/classes.service';
 import { EnrollmentsService } from 'src/app/services/enrollments/enrollments.service';
 import { CoursesService } from 'src/app/services/filterables/concrete-data/courses/courses.service';
 import { StudentsService } from 'src/app/services/filterables/concrete-data/students/students.service';
-import { FormModalComponent } from 'src/app/components/global/form-modal/form-modal.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmModalComponent } from 'src/app/components/global/confirm-modal/confirm-modal.component';
-import { generateId } from 'src/app/utils/idGenerator';
 
 @Component({
   selector: 'app-course-detail',
@@ -22,27 +18,26 @@ import { generateId } from 'src/app/utils/idGenerator';
   styleUrls: ['./course-detail.component.scss']
 })
 export class CourseDetailComponent {
-	public enrollmentData: { id: string, pictureUrl: string, title: string, description: string }[] = [];
 	public doughnutData: { datasetLabels: string[], datasets: number[] } = { datasetLabels: [], datasets: [] };
 
 	public id: Course['id'] | null = null;
+	public course: Course | null = null;
 	private course$!: Subscription;
+	private students: Student[] = [];
 	private students$!: Subscription;
-	private classes!: CourseClass[];
-	private classes$!: Subscription;
 	private enrollments$!: Subscription;
+	private enrollments: Enrollment[] = [];
 	private studentsGrades: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-	public course: Course | undefined;
 	public courseDetails = [];
-	public courseStudents: Student[] = []
 	public studentsGradeChart: Chart | undefined;
+	public courseStudents: Student[] = []
+	private courseStudentsId: Student['id'][] = [];
 
 	constructor(
 		private route: ActivatedRoute,
 		private router: Router,
 		private coursesService: CoursesService, 
 		private studentsService: StudentsService,
-		private classesService: ClassesService,
 		private enrollmentService: EnrollmentsService,
 		private dialog: MatDialog,	
 	) { }
@@ -59,40 +54,61 @@ export class CourseDetailComponent {
 		this.students$.unsubscribe();
 		this.enrollments$.unsubscribe();
 	}
-
+	
 	private initializeSecondaryServices(id: Course['id']) {
 		this.course$ = this.coursesService.getById(id).subscribe(course => {
 			this.course = course;
+			this.initializeCourseStudents(id);
+			this.countStudentsGrades(this.enrollments, this.courseStudentsId);
+			this.initializeChart(this.courseStudents);
 		});
 
-		this.students$ = this.studentsService.getFilteredData().subscribe(students => {
-			if (this.course?.studentsId != undefined) {
-				this.courseStudents = students.filter(student => this.course?.studentsId?.includes(student.id));
-				this.enrollmentData = this.courseStudents.map(student => { 
-					return { id: student.id, pictureUrl: student.pictureUrl, title: student.name, description: student.email }
-				});
-				this.initializeChart();
+		this.enrollments$ = this.enrollmentService.getData().subscribe(enrollments => {
+			this.courseStudentsId = [];
+			this.enrollments = enrollments;
+			enrollments.forEach(enrollment => {
+				if (enrollment.courseId === this.id) {
+					this.courseStudentsId.push(enrollment.studentId);
+				}
+			});
+			this.initializeCourseStudents(id);
+			this.countStudentsGrades(enrollments, this.courseStudentsId);
+			this.initializeChart(this.courseStudents);
+		});
+
+		this.students$ = this.studentsService.getData().subscribe(students => {
+			this.students = students;
+			this.initializeCourseStudents(id);
+			this.countStudentsGrades(this.enrollments, this.courseStudentsId);
+			this.initializeChart(this.courseStudents);
+		});
+
+	}
+
+	private initializeCourseStudents(id: Course['id']) {
+		const courseStudents: Student[] = [];
+		const courseStudentsId: Student['id'][] = [];
+		this.enrollments.forEach(enrollment => {
+			if (enrollment.courseId === id) {
+				courseStudentsId.push(enrollment.studentId);
 			}
 		});
-
-		this.enrollments$ = this.enrollmentService.getEnrollments().subscribe(enrollments => {
-			if (this.course?.studentsId != undefined) {
-				this.countStudentsGrades(enrollments);
+		this.students.forEach(student => {
+			if (courseStudentsId.includes(student.id)) {
+				courseStudents.push(student);
 			}
 		});
-
-		this.classes$ = this.classesService.getClasses().subscribe(classes => {
-			this.classes = classes;
-		});
+		this.courseStudents = courseStudents;
+		this.courseStudentsId = courseStudentsId;
 	}
 
 	public getCardsData(course?: Course): { title: string, icon: string, value: string }[] {
 		if (course === undefined) return [];
 		return [
             {title: 'Créditos', icon: 'school', value: String(course?.credits)},
-            {title: 'Profesor del Curso', icon: 'person', value: String(course?.teacher)},
+            {title: 'Categoría del curso', icon: 'category', value: course?.category},
             {title: 'Nota promedio', icon: 'star', value: String(course?.averageGrade)},
-            {title: 'Total de Estudiantes', icon: 'people', value: String(course?.studentsId?.length)},
+            {title: 'Total de Estudiantes', icon: 'people', value: String(this.courseStudents.length)},
         ]
 	}
 
@@ -111,58 +127,20 @@ export class CourseDetailComponent {
 		return ({label: 'Nota de estudiantes', datasetLabels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"], datasets: this.studentsGrades, backgroundColor: 'rgba(113, 201, 132, 0.8)'});
 	}
 
-	public getClassesSectionData(course?: Course): { title: string, description: string, icon: string, addAction: () => void, editAction: (id: string) => void, deleteAction: (id: string) => void } {
-		if (course === undefined) return { title: '', description: '', icon: '', addAction: () => {}, editAction: (id: string) => {}, deleteAction: (id: string) => {} };
-		const inputs = [
-			{ name: 'startTime', type: 'datetime-local', label: 'Fecha de inicio', placeholder: 'Fecha de inicio', validationType: 'simple'},
-			{ name: 'durationHours', type: 'number', label: 'Horas', placeholder: 'Horas', validationType: 'number'},
-			{ name: 'durationMinutes', type: 'number', label: 'Minutos', placeholder: 'Minutos', validationType: 'number'},
-			{ name: 'classroom', type: 'text', label: 'Salón', placeholder: 'Salón', validationType: 'simple'},
-		]
+	public getEnrollmentSectionData(course?: Course): { title: string, icon: string, description: string, deleteAction?: (id: string) => void } {
+		if (course === undefined) return { title: '', icon: '', description: '' };
 		return ({
-			title: 'Horarios', 
-			icon: 'calendar_month', 
-			description: 'Horarios de cursos',
-			addAction: () => {
-				this.dialog.open(FormModalComponent, {
-					data: {
-						title: 'Agregar clase',
-						data: { durationHours: 0, durationMinutes: 0, classroom: '', startTime: '' },
-						inputs,
-					},
-					width: '500px',
-				}).afterClosed().subscribe((data: {data: CourseClass}) => {
-					if (data != undefined) {
-						this.classesService.addCourseClass({
-							...data.data,
-							courseId: course?.id,
-							id: generateId(),
-						});
-					}
-				});
-			},
-			editAction: (id: string) => {
-				this.dialog.open(FormModalComponent, {
-					data: {
-						title: 'Editar clase',
-						data: this.classes.find(courseClass => courseClass.id === id),
-						inputs,
-					},
-					width: '500px',
-				}).afterClosed().subscribe(result => {
-					if (result) {
-						this.classesService.addCourseClass(result);
-					}
-				});
-			}, 
+			title: 'Estudiantes', 
+			icon: 'school', 
+			description: 'Estudiantes del curso',
 			deleteAction: (id: string) => {
 				this.dialog.open(ConfirmModalComponent, {
 					data: { 
-						title: 'Eliminar clase', 
-						message: '¿Está seguro que desea eliminar esta clase?',
+						title: 'Eliminar inscripción', 
+						message: '¿Está seguro que desea eliminar esta inscripción?',
 						confirmButtonText: 'Eliminar',
 						cancelButtonText: 'Cancelar',
-						onConfirm: () => {this.classesService.removeCourseClass(id); this.dialog.closeAll()},
+						onConfirm: () => {this.enrollmentService.deleteFilterable(id); this.dialog.closeAll()},
 						onCancel: () => {this.dialog.closeAll();},
 					},
 				});
@@ -170,33 +148,22 @@ export class CourseDetailComponent {
 		});
 	}
 
-	public getClassesData(course?: Course): { id: string, icon: string, title: string, description: string }[] {
+	public getEnrollmentData(course?: Course): { academicId: Course['id'], enrollmentId: Enrollment['id'], pictureUrl: string, title: string, description: string }[] {
 		if (course === undefined) return [];
-		const classes = this.classes.filter(courseClass => courseClass.courseId === course.id);
-		if (classes.length === 0) return [{id: '', icon: 'schedule', title: 'Sin clases', description: 'No hay clases asignadas a este curso'}];
-		return classes.map(courseClass => {
-			return {
-				id: courseClass.id,
-				icon: 'schedule', 
-				title: `Salón ${courseClass.classroom}`,
-				description: `Fecha: ${courseClass.startTime} - Duración: ${courseClass.durationHours}.${courseClass.durationMinutes}hs`,
-			}
-		})
-	}
-
-	public getEnrollmentSectionData(course?: Course): { title: string, icon: string, description: string } {
-		if (course === undefined) return { title: '', icon: '', description: '' };
-		return ({title: 'Estudiantes', icon: 'school', description: 'Estudiantes del curso'});
-	}
-
-	public getEnrollmentData(course?: Course): { id: Course['id'], pictureUrl: string, title: string, description: string }[] {
-		if (course === undefined) return [];
-		return this.enrollmentData;
+		return this.courseStudents.map(student => { 
+			return ({ 
+				academicId: student.id, 
+				enrollmentId: this.enrollments.find(enrollment => enrollment.studentId === student.id && enrollment.courseId === this.id)?.id || '',
+				pictureUrl: student.pictureUrl, 
+				title: student.name, 
+				description: student.email
+			})
+		});
 	}
 
 	public getEnrollmentSeeMoreAction(): () => void {
 		return () => {
-			this.router.navigate([`layout/students`]);
+			this.router.navigate([`layout/enrollments`]);
 		}
 	}
 
@@ -216,12 +183,12 @@ export class CourseDetailComponent {
 		return ({datasetLabels: this.doughnutData.datasetLabels, datasets: this.doughnutData.datasets});
 	}
 
-	private initializeChart() {
+	private initializeChart(courseStudents: Student[]) {
 		const SHOWN_COURSES = 3;
-		const uniqueCarriers = Array.from(new Set(this.courseStudents.map(student => student.career)));
+		const uniqueCarriers = Array.from(new Set(courseStudents.map(student => student.career)));
 		const careerCount = uniqueCarriers.map(label => ({
 			career: label,
-			count: this.courseStudents.filter(student => student.career == label).length
+			count: courseStudents.filter(student => student.career == label).length
 		})).sort((a, b) => b.count - a.count)
 		const mostFrequentedCareers = careerCount.slice(0, SHOWN_COURSES);
 		const othersCount = mostFrequentedCareers.slice(SHOWN_COURSES).reduce((acc, curr) => acc + curr.count, 0);
@@ -231,14 +198,16 @@ export class CourseDetailComponent {
 		this.doughnutData.datasets.push(othersCount);
 	}
 
-	private countStudentsGrades(enrollments: Enrollment[]) {
-		const studentsEnrollments = enrollments.filter(enrollment => this.courseStudents.map(student => student.id).includes(enrollment.studentId));
+	private countStudentsGrades(enrollments: Enrollment[], courseStudents: Student['id'][]) {
+		this.studentsGrades = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+		const studentsEnrollments = enrollments.filter(
+			enrollment => courseStudents.includes(enrollment.studentId) && enrollment.courseId === this.id
+		);
 		const studentsGrades = studentsEnrollments.map(enrollment => enrollment.grade);
 		const studentGradesPivot = studentsGrades.reduce((acc, curr) => {
 			acc.has(curr) ? acc.set(curr, acc.get(curr) + 1) : acc.set(curr, 1);
 			return acc;
 		}, new Map());
-		this.studentsGrades = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 		Array.from(studentGradesPivot.entries()).forEach(([key, value]) => {
 			this.studentsGrades[key - 1] = value;
 		});
@@ -246,5 +215,5 @@ export class CourseDetailComponent {
 			{ data: this.studentsGrades, label: 'Nota de estudiantes', backgroundColor: '#000' },
 		];
 		return chartData;
-	}	
+	}
 }

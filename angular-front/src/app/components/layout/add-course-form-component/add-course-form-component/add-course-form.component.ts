@@ -53,8 +53,6 @@ export class AddCourseFormComponent {
       formValues.name ?? this.defaultCourseData.name ?? '',
       formValues.description ?? this.defaultCourseData.description ?? '',
       formValues.credits ?? this.defaultCourseData.credits ?? 0,
-      this.defaultCourseData.teacher ?? null,
-      this.defaultCourseData.studentsId ?? [],
       this.defaultCourseData.averageGrade ??
       this.defaultCourseData.averageGrade ?? 0,
       this.defaultCourseData.icon ?? '',

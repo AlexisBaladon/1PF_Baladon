@@ -87,7 +87,6 @@ export const DASHBOARD_TEXT: DashboardInputData = {
             description: 'Descripción',
             credits: 'Créditos',
             teacher: 'Profesor',
-            studentsId: 'Estudiantes',
             averageGrade: 'Promedio',
             category: 'Categoría',
         }

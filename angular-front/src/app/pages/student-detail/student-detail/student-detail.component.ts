@@ -1,15 +1,15 @@
 import { DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Chart } from 'chart.js';
 import { Subscription } from 'rxjs';
+import { ConfirmModalComponent } from 'src/app/components/global/confirm-modal/confirm-modal.component';
 import { Course } from 'src/app/interfaces/course';
 import Student from 'src/app/interfaces/student';
 import { Filterable } from 'src/app/logic/filter/filterable';
-import { CourseClass } from 'src/app/models/courses';
 import { Enrollment } from 'src/app/models/enrollment';
 import { FullNamePipe } from 'src/app/pipes/users/full-name/full-name.pipe';
-import { ClassesService } from 'src/app/services/classes/classes.service';
 import { EnrollmentsService } from 'src/app/services/enrollments/enrollments.service';
 import { CoursesService } from 'src/app/services/filterables/concrete-data/courses/courses.service';
 import { StudentsService } from 'src/app/services/filterables/concrete-data/students/students.service';
@@ -20,24 +20,13 @@ import { StudentsService } from 'src/app/services/filterables/concrete-data/stud
   styleUrls: ['./student-detail.component.scss']
 })
 export class StudentDetailComponent {
-  	public cardsData: { title: string, icon: string, value: string }[] = [];
-	public mainSectionData: { title: string, icon: string, description: string } = { title: '', icon: '', description: '' };
-	public chartSectionData: { title: string, icon: string, description: string } = { title: '', icon: '', description: '' };
-	public chartData: { label: string, datasetLabels: string[], datasets: (string | number)[] } = { label: '', datasetLabels: [], datasets: [] };
-	public classesSectionData: { title: string, icon: string, description: string } = { title: '', icon: '', description: '' };
-	public classesData: { id: Filterable['id'], icon: string, title: string, description: string }[] = [];
-	public enrollmentSectionData: { title: string, icon: string, description: string } = { title: '', icon: '', description: '' };
 	public enrollmentData: { pictureUrl: string, title: string, description: string }[] = [];
-	public enrollmentSeeMoreAction: (id: Filterable['id']) => void = (id: Filterable['id']) => {};
-	public doughnutSectionData: { title: string, icon: string, description: string } = { title: '', icon: '', description: '' };
 	public doughnutData: { datasetLabels: string[], datasets: number[] } = { datasetLabels: [], datasets: [] };
 
 	public id: Student['id'] | null = null;
 	private student$!: Subscription;
 	private courses$!: Subscription;
 	private enrollments$!: Subscription;
-	private classes!: CourseClass[];
-	private classes$!: Subscription;
 	private studentsGrades: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 	public student: Student | undefined;
 	public courseDetails = [];
@@ -51,9 +40,9 @@ export class StudentDetailComponent {
 		private coursesService: CoursesService, 
 		private studentsService: StudentsService,
 		private enrollmentService: EnrollmentsService,
-		private classesService: ClassesService,
 		private fullNamePipe: FullNamePipe,
-		private datePipe: DatePipe
+		private datePipe: DatePipe,
+		private dialog: MatDialog,
 	) { }
 
 	ngOnInit(): void {
@@ -67,7 +56,6 @@ export class StudentDetailComponent {
 		this.student$.unsubscribe();
 		this.courses$.unsubscribe();
 		this.enrollments$.unsubscribe();
-		this.classes$.unsubscribe();
 	}
 
 	private initializeSecondaryServices(id: Student['id']) {
@@ -75,7 +63,7 @@ export class StudentDetailComponent {
 			this.student = student;
 		});
 		
-		this.enrollments$ = this.enrollmentService.getEnrollments().subscribe(enrollments => {
+		this.enrollments$ = this.enrollmentService.getData().subscribe(enrollments => {
 			if (this.student?.id != undefined) {
 				this.studentEnrollments = enrollments.filter(enrollment => enrollment.studentId == this.student?.id);
 			}
@@ -92,10 +80,6 @@ export class StudentDetailComponent {
 				});
 			}
 			this.studentCourses = Array.from(studentCourses);
-		});
-
-		this.classes$ = this.classesService.getClasses().subscribe(classes => {
-			this.classes = classes;
 		});
 	}
 
@@ -128,26 +112,43 @@ export class StudentDetailComponent {
 		return ({label: 'Notas de estudiante', datasetLabels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"], datasets: this.studentsGrades});
 	}
 
-	public getEnrollmentSectionData(student?: Student): { title: string, icon: string, description: string } {
+	public getEnrollmentSectionData(student?: Student): { title: string, icon: string, description: string, deleteAction?: (id: string) => void } {
 		if (student === undefined) return { title: '', icon: '', description: '' };
-		return ({title: 'Cursos', icon: 'web_asset', description: 'Cursos del estudiante'});
-	}
-
-	public getEnrollmentData(student?: Student): { id: string, icon: string, title: string, description: string }[] {
-		if (student === undefined) return [];
-		return this.studentCourses.map(course => {
-			return {
-				id: course.id,
-				icon: course.icon,
-				title: course.name,
-				description: course.description
+		return ({
+			title: 'Cursos', 
+			icon: 'web_asset', 
+			description: 'Cursos del estudiante',
+			deleteAction: (id: string) => {
+				this.dialog.open(ConfirmModalComponent, {
+					data: { 
+						title: 'Eliminar inscripción', 
+						message: '¿Está seguro que desea eliminar esta inscripción?',
+						confirmButtonText: 'Eliminar',
+						cancelButtonText: 'Cancelar',
+						onConfirm: () => {this.enrollmentService.deleteFilterable(id); this.dialog.closeAll()},
+						onCancel: () => {this.dialog.closeAll();},
+					},
+				});
 			}
 		});
 	}
 
+	public getEnrollmentData(student?: Student): { academicId: Student['id'], enrollmentId: Enrollment['id'], icon: string, title: string, description: string }[] {
+		if (student === undefined) return [];
+		return this.studentCourses.map(course => {
+			return {
+				academicId: course.id,
+				enrollmentId: this.studentEnrollments.find(enrollment => enrollment.courseId == course.id)?.id ?? '',
+				icon: course.icon,
+				title: course.name,
+				description: course.description,
+			}
+		})
+	}
+
 	public getEnrollmentSeeMoreAction(): () => void {
 		return () => {
-			this.router.navigate([`/layout/courses`]);
+			this.router.navigate([`/layout/enrollments`]);
 		}
 	}
 

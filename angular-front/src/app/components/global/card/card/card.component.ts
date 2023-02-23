@@ -15,4 +15,11 @@ export class CardComponent {
   @Input() pictureAlt: string = 'card picture';
   @Input() editAction?: () => void;
   @Input() deleteAction?: () => void;
+  @Input() handleClick?: () => void;
+
+  public handleClickAction() {
+    if (this.handleClick) {
+      this.handleClick();
+    }
+  }
 }
