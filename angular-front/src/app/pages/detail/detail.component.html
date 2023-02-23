@@ -55,6 +55,16 @@
                     [customBackground]="appStyle"
                 >
                 </app-section-header>
+                <button 
+                    id="enrollments-add-more" 
+                    [appCustomBackground]="appStyle" 
+                    mat-raised-button color="primary"
+                    class="mb-3"
+                    (click)="enrollmentAddMoreAction()"
+                >
+                    <mat-icon>add</mat-icon>
+                    Agregar más
+                </button>
                 <div class="students">
                     <ng-container *ngFor="let data of enrollmentData.slice(0,maxEnrollmentsShown)">
                         <div>

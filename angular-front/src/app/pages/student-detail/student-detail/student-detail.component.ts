@@ -152,7 +152,7 @@ export class StudentDetailComponent {
 				academicId: course.id,
 				enrollmentId: this.studentEnrollments.find(enrollment => enrollment.courseId == course.id)?.id ?? '',
 				icon: course.icon,
-				title: course.name,
+				title: `${course.name} (${course.id})`,
 				description: course.description,
 			}
 		})

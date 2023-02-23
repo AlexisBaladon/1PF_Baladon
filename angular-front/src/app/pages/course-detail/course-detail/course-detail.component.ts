@@ -155,7 +155,7 @@ export class CourseDetailComponent {
 				academicId: student.id, 
 				enrollmentId: this.enrollments.find(enrollment => enrollment.studentId === student.id && enrollment.courseId === this.id)?.id || '',
 				pictureUrl: student.pictureUrl, 
-				title: student.name, 
+				title: `${student.name} (${student.id})`,
 				description: student.email
 			})
 		});
