@@ -203,7 +203,6 @@ export class CourseDetailComponent {
 		const studentsEnrollments = enrollments.filter(
 			enrollment => courseStudents.includes(enrollment.studentId) && enrollment.courseId === this.id
 		);
-		console.log(studentsEnrollments);
 		const studentsGrades = studentsEnrollments.map(enrollment => enrollment.grade);
 		const studentGradesPivot = studentsGrades.reduce((acc, curr) => {
 			acc.has(curr) ? acc.set(curr, acc.get(curr) + 1) : acc.set(curr, 1);
