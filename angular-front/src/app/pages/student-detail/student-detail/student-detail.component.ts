@@ -27,11 +27,13 @@ export class StudentDetailComponent {
 	private student$!: Subscription;
 	private courses$!: Subscription;
 	private enrollments$!: Subscription;
+	private enrollments: Enrollment[] = [];
+	private courses: Course[] = [];
 	private studentsGrades: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 	public student: Student | undefined;
 	public courseDetails = [];
-	public studentCourses: Course[] = []
 	public studentsGradeChart: Chart | undefined;
+	public studentCourses: Course[] = []
 	private studentEnrollments: Enrollment[] = [];
 
 	constructor(
@@ -61,26 +63,36 @@ export class StudentDetailComponent {
 	private initializeSecondaryServices(id: Student['id']) {
 		this.student$ = this.studentsService.getById(id).subscribe(student => {
 			this.student = student;
+			this.initializeStudentCourses();
 		});
 		
 		this.enrollments$ = this.enrollmentService.getData().subscribe(enrollments => {
-			if (this.student?.id != undefined) {
-				this.studentEnrollments = enrollments.filter(enrollment => enrollment.studentId == this.student?.id);
-			}
+			this.enrollments = enrollments;
+			this.initializeStudentCourses();
 		});
 
 		this.courses$ = this.coursesService.getData().subscribe(courses => {
+			this.courses = courses;
+			this.initializeStudentCourses();
+		});
+	}
+
+	private initializeStudentCourses() {
+		if (this.student?.id != undefined) {
+			this.studentEnrollments = this.enrollments.filter(enrollment => enrollment.studentId == this.student?.id);
+		}
+		if (this.courses) {
 			const studentCourses = new Set<Course>();
 			if (this.student?.id != undefined) {
 				this.studentEnrollments.forEach(enrollment => {
-					const course = courses.find(course => course.id == enrollment.courseId);
+					const course = this.courses.find(course => course.id == enrollment.courseId);
 					if (course != undefined) {
 						studentCourses.add(course);
 					}
 				});
 			}
 			this.studentCourses = Array.from(studentCourses);
-		});
+		}
 	}
 
 	public getCardsData(student?: Student): { title: string, icon: string, value: string }[] {

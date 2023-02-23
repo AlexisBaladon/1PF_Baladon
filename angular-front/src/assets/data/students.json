@@ -25,7 +25,7 @@
         "birthDate": "1990-01-01T00:00:00.000Z",
         "averageGrade": 10,
         "career": "Diseño Gráfico",
-        "pictureUrl": "https://images.pexels.com/photos/1007066/pexels-photo-1007066.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+        "pictureUrl": "https://images.pexels.com/photos/3762800/pexels-photo-3762800.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
     },
     {
         "id": "3",
@@ -39,7 +39,7 @@
         "birthDate": "1990-01-01T00:00:00.000Z",
         "averageGrade": 1.5,
         "career": "Desarrollo Web",
-        "pictureUrl": "https://images.pexels.com/photos/1007066/pexels-photo-1007066.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+        "pictureUrl": "https://images.pexels.com/photos/2826131/pexels-photo-2826131.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
     },
     {
         "id": "4",
@@ -53,7 +53,7 @@
         "birthDate": "1990-01-01T00:00:00.000Z",
         "averageGrade": 5.5,
         "career": "Desarrollo Web",
-        "pictureUrl": "https://images.pexels.com/photos/1007066/pexels-photo-1007066.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+        "pictureUrl": "https://images.pexels.com/photos/1467564/pexels-photo-1467564.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
     },
     {
         "id": "5",
@@ -67,7 +67,7 @@
         "city": "Barcelona",
         "averageGrade": 9,
         "career": "Ciencia de Datos",
-        "pictureUrl": "https://images.pexels.com/photos/1007066/pexels-photo-1007066.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+        "pictureUrl": "https://images.pexels.com/photos/3757039/pexels-photo-3757039.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
     },
     {
         "id": "6",
@@ -81,7 +81,7 @@
         "city": "Barcelona",
         "averageGrade": 8.8,
         "career": "Ciberseguridad",
-        "pictureUrl": "https://images.pexels.com/photos/1007066/pexels-photo-1007066.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+        "pictureUrl": "https://images.pexels.com/photos/3755760/pexels-photo-3755760.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
     }
 ]
     
