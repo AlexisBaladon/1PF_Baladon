@@ -53,7 +53,8 @@ export class AppComponent {
   private routesMap: Map<string, FilterableType> = new Map([
     ['students', 'Student'],
     ['courses', 'Course'],
-    ['users', 'User']
+    ['users', 'User'],
+    ['enrollments', 'Enrollment']
   ]);
 
   private secondaryRoutesMap: Map<string, string> = new Map([
@@ -71,7 +72,10 @@ export class AppComponent {
 
   public changeRoute(route: number) {
     const currentRoute = this.getLastRoute(NAV_ROUTES[route].route);
-    if (route === NAV_ROUTES.length - 1) this.authService.logout();
+    if (currentRoute === 'login') {
+      this.authService.logout();
+      return;
+    }
     const currentRouteType = this.routesMap.get(currentRoute)
     if (currentRouteType == null) return;
     this.filterableContextService.switchService(currentRouteType);

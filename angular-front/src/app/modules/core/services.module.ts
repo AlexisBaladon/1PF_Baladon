@@ -6,6 +6,7 @@ import { CoursesService } from '../../services/filterables/concrete-data/courses
 import { FilterableContextService } from '../../services/filterables/context/filterableContext.service';
 import { AcademicListModule } from '../shared/academic-list.module';
 import { UsersService } from 'src/app/services/users/users.service';
+import { EnrollmentsService } from 'src/app/services/enrollments/enrollments.service';
 
 @NgModule({
   declarations: [],
@@ -28,6 +29,11 @@ import { UsersService } from 'src/app/services/users/users.service';
     {
       provide: UsersService,
       useFactory: () => new UsersService(new FilterPipe()),
+      deps: [FilterPipe],
+    },
+    {
+      provide: EnrollmentsService,
+      useFactory: () => new EnrollmentsService(new FilterPipe()),
       deps: [FilterPipe],
     },
     FilterableContextService,

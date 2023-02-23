@@ -13,7 +13,8 @@ import { UserDashboardComponent } from '../../pages/user-dashboard/user-dashboar
 
 @NgModule({
   declarations: [ 
-    UserDetailComponent, UserDashboardComponent
+    UserDetailComponent, 
+    UserDashboardComponent
   ],
   imports: [
     CommonModule,
@@ -25,6 +26,9 @@ import { UserDashboardComponent } from '../../pages/user-dashboard/user-dashboar
     MaterialModule,
     PipesModule,
   ],
-  exports: [ ]
+  exports: [
+    UserDetailComponent,
+    UserDashboardComponent
+   ]
 })
 export class UsersModule { }

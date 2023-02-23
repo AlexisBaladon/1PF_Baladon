@@ -1,14 +1,22 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Enrollment } from 'src/app/models/enrollment';
-import { jsonParser } from 'src/app/utils/jsonParser';
+import { FilterPipe } from 'src/app/pipes/filter/filter.pipe';
+import { createEnrollments, jsonParser } from 'src/app/utils/jsonParser';
 import * as enrollments from 'src/assets/data/enrollments.json';
+import { FilterableDataService } from '../filterables/data/filterableData.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class EnrollmentsService {
+export class EnrollmentsService extends FilterableDataService<Enrollment> {
   private enrollments$: BehaviorSubject<Enrollment[]> = new BehaviorSubject<Enrollment[]>(jsonParser<Enrollment>(enrollments));
+
+  constructor( filterPipe: FilterPipe ) {
+    const parsedEnrollments: Enrollment[] = jsonParser<Enrollment>(enrollments);
+    const filterableData: Enrollment[] = createEnrollments(parsedEnrollments);
+    super(filterPipe, filterableData);
+   }
 
   public getEnrollments(): Observable<Enrollment[]> {
     return this.enrollments$.asObservable();

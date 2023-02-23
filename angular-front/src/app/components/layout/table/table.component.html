@@ -12,6 +12,10 @@
                     <ng-container *ngIf="hasFullName(column.attribute, data.surname)">
                         {{data | fullName}}
                     </ng-container>
+                    <ng-container *ngIf="isBoolean(att, column.attribute)">
+                        <mat-icon *ngIf="att" color="primary">check</mat-icon>
+                        <mat-icon *ngIf="!att" color="warn">close</mat-icon>
+                    </ng-container>
                     <ng-container *ngIf="isDate(att)">
                         {{att | date:'dd/MM/yyyy'}}
                     </ng-container>

@@ -105,8 +105,14 @@ export class TableComponent {
     return Array.isArray(value);
   }
 
+  public isBoolean(value: any, data?: string): boolean {
+    console.log(value, data)
+    const valueString = String(value);
+    return ['true', 'false'].includes(valueString);
+  }
+
   public isElse(value: any, att: string | undefined, surname: string | undefined): boolean {
-    return !this.isDate(value) && !this.isArray(value) && !this.hasFullName(att, surname);
+    return !this.isDate(value) && !this.isArray(value) && !this.hasFullName(att, surname) && !this.isBoolean(value);
   }
 
   public arrayLength(value: any): number {

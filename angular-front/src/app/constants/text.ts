@@ -113,5 +113,21 @@ export const DASHBOARD_TEXT: DashboardInputData = {
             averageGrade: 'Promedio',
             profile: 'Perfil',
         },
-    }
-}
+    },
+    Enrollment: {
+        icon: 'assignment',
+        title: 'Inscripciones',
+        description: 'Visualiza datos de las inscripciones de la universidad.',
+        filterableType: 'Enrollment',
+        createDataTitle: 'Crea una inscripción',
+        filterOptions: FILTER_OPTIONS['Enrollment'],
+        attributeNames: {
+            id: 'ID',
+            studentId: 'Estudiante',
+            courseId: 'Curso',
+            grade: 'Nota',
+            enrollmentDate: 'Fecha de inscripción',
+            finishDate: 'Fecha de finalización',
+        },
+    },
+};

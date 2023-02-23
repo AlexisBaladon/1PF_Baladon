@@ -1,6 +1,7 @@
 import { Course } from '../interfaces/course'
 import Student from '../interfaces/student'
 import User from '../interfaces/user'
+import { Enrollment } from '../models/enrollment'
 
 //avoids typescript conversion errors
 export function jsonParser<T>(objects: Array<any>): T[] {
@@ -62,4 +63,19 @@ export function createUser(user: User): User {
 
 export function createUsers(users: User[]): User[] {
     return users.map(u => createUser(u));
+}
+
+export function createEnrollment(enrollment: Enrollment): Enrollment {
+    return new Enrollment(
+        enrollment.id,
+        enrollment.studentId,
+        enrollment.courseId,
+        enrollment.grade,
+        enrollment.enrollmentDate,
+        enrollment.finishDate,
+    )
+}
+
+export function createEnrollments(enrollments: Enrollment[]): Enrollment[] {
+    return enrollments.map(e => createEnrollment(e));
 }

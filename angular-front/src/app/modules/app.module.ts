@@ -10,6 +10,7 @@ import { AuthModule } from './feature/auth.module';
 import { RoutesModule } from './routes.module';
 import { DirectivesModule } from './shared/directives.module';
 import { GlobalComponentsModule } from './shared/global-components.module';
+import { EnrollmentsModule } from './feature/enrollments.module';
 
 @NgModule({
   providers: [ ],
@@ -27,6 +28,7 @@ import { GlobalComponentsModule } from './shared/global-components.module';
     StudentsModule,
     CoursesModule,
     AuthModule,
+    EnrollmentsModule,
   ],
   bootstrap: [AppComponent]
 })
