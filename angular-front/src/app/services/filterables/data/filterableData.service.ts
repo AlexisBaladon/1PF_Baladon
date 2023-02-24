@@ -50,14 +50,14 @@ export abstract class FilterableDataService<F extends Filterable> {
 
 	public getFilterableAttributes(): Observable<{ attribute: string; attributeName: string }[]> {
 		return this.filterableData$.pipe(
-			map(students => {
-				const student = students[0];
-				if (!student) return [];
-				const typeOfStudent = student.constructor.name;
-				return student.getShownAttributes().map(attribute => {
+			map(datas => {
+				const data = datas[0];
+				if (!data?.getShownAttributes) return [];
+				const typeOfStudent = data.constructor.name;
+				return data.getShownAttributes().map(attribute => {
 					return {
 						attribute,
-						attributeName: DASHBOARD_TEXT[typeOfStudent].attributeNames[attribute]
+						attributeName: DASHBOARD_TEXT[typeOfStudent]?.attributeNames?.[attribute] || attribute,
 					};
 				});
 			})
