@@ -29,7 +29,6 @@ export class AddUserFormComponent {
     email: new FormControl(this.defaultStudentData.email, EMAIL_VALIDATIONS),
     admissionDate: new FormControl(this.defaultStudentData.admissionDate, SIMPLE_VALIDATIONS),
     phone: new FormControl(this.defaultStudentData.phone, SIMPLE_VALIDATIONS),
-    direction: new FormControl(this.defaultStudentData.direction, SIMPLE_VALIDATIONS),
     career: new FormControl(this.defaultStudentData.career, SIMPLE_VALIDATIONS),
   });
 
@@ -57,7 +56,7 @@ export class AddUserFormComponent {
       formValues.name ?? '',
       formValues.surname ?? '',
       formValues.phone ?? '',
-      formValues.direction ?? '',
+      this.data.data?.direction ?? '',
       formValues.email ?? '',
       formValues.admissionDate ?? new Date(),
       this.data.data?.averageGrade ?? null ?? 0,
