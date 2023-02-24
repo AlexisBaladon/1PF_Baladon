@@ -4,6 +4,7 @@ import Student from 'src/app/interfaces/student';
 import { FilterPipe } from 'src/app/pipes/filter/filter.pipe';
 import { FilterableDataService } from '../../data/filterableData.service';
 import { map, Observable } from 'rxjs';
+import { createStudents } from 'src/app/utils/jsonParser';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +12,11 @@ import { map, Observable } from 'rxjs';
 export class StudentsService extends FilterableDataService<Student> {
 
   constructor( filterPipe: FilterPipe, httpClient: HttpClient) {
-    super(filterPipe, [], httpClient, '/api/students');
+    super(filterPipe, httpClient, '/api/students');
+  }
+
+  protected createData(students: Student[]): Student[] {
+    return createStudents(students);
   }
 
   public getByEmail(email: Student['email']): Observable<Student> {

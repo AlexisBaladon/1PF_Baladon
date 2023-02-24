@@ -36,6 +36,7 @@ export class EnrollmentDashboardComponent {
       data.grade,
       data.enrollmentDate,
       data.finishDate,
+      data.enrollerId,
     ))
 
     const inputs = [

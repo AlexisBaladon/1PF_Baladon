@@ -7,6 +7,10 @@ export class Course extends Filterable {
     averageGrade: number | null;
     icon: string;
     category: string;
+    startTime?: Date;
+    duration?: number;
+    teacher?: string;
+    studentsAmount?: number;
 
     getShownAttributes(): (keyof Course)[] {
         return ['id', 'name', 'description', 'credits', 'category'];

@@ -13,11 +13,9 @@ export function createStudent(student: Student): Student {
         student.id,
         student.name,
         student.surname,
-        new Date(student.birthDate),
         student.phone,
-        student.city,
+        student.direction,
         student.email,
-        student.password,
         student.admissionDate,
         student.averageGrade,
         student.career,
@@ -55,7 +53,6 @@ export function createUser(user: User): User {
         user.profile,
         user.direction,
         user.phone,
-        user.pictureUrl,
     )
 }
 
@@ -71,6 +68,7 @@ export function createEnrollment(enrollment: Enrollment): Enrollment {
         enrollment.grade,
         enrollment.enrollmentDate,
         enrollment.finishDate,
+        enrollment.enrollerId,
     )
 }
 

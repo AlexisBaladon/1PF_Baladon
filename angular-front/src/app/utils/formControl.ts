@@ -8,7 +8,7 @@ const controlNames = new Map<string, string>([
     ['password', 'contraseña'],
     ['birthDate', 'fecha de nacimiento'],
     ['phone', 'teléfono'],
-    ['city', 'ciudad'],
+    ['direction', 'dirección'],
     ['career', 'carrera'],
     ['admissionDate', 'fecha de admisión'],
     ['averageGrade', 'promedio'],

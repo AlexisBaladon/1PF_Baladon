@@ -37,7 +37,6 @@ export class UserDashboardComponent {
       data.profile,
       data.phone,
       data.direction,
-      data.profile,
     ))
 
     const inputs = [

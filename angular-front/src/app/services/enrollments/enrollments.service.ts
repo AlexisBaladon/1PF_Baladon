@@ -3,13 +3,18 @@ import { HttpClient } from '@angular/common/http';
 import { Enrollment } from 'src/app/models/enrollment';
 import { FilterPipe } from 'src/app/pipes/filter/filter.pipe';
 import { FilterableDataService } from '../filterables/data/filterableData.service';
+import { createEnrollments } from 'src/app/utils/jsonParser';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EnrollmentsService extends FilterableDataService<Enrollment> {
   constructor( filterPipe: FilterPipe, httpClient: HttpClient) {
-    super(filterPipe, [], httpClient, '/api/enrollments');
+    super(filterPipe, httpClient, '/api/enrollments');
+  }
+
+  protected createData(enrollments: Enrollment[]): Enrollment[] {
+    return createEnrollments(enrollments);
   }
 
   public getEnrollmentsByStudentId(studentId: string): Enrollment[] {

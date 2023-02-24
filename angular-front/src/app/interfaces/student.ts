@@ -1,14 +1,11 @@
 import { Filterable } from '../logic/filter/filterable';
-import User from './user';
 
 class Student extends Filterable {
+    email: string;
     name: string;
     surname: string;
-    birthDate: Date;
+    direction: string;
     phone: string;
-    city: string;
-    email: string;
-    password: string;
     admissionDate: Date;
     averageGrade: number | null;
     career: string;
@@ -18,15 +15,13 @@ class Student extends Filterable {
         return ['id', 'name', 'email', 'career', 'admissionDate', 'averageGrade']
     }
 
-    constructor(id: string, name: string, surname: string, birthDate: Date, phone: string, city: string, email: string, password: string, admissionDate: Date, averageGrade: number | null, career: string, pictureUrl: string) {
+    constructor(id: string, name: string, surname: string, phone: string, direction: string, email: string, admissionDate: Date, averageGrade: number | null, career: string, pictureUrl: string) {
         super(id);
         this.name = name;
         this.surname = surname;
-        this.birthDate = birthDate;
         this.phone = phone;
-        this.city = city;
+        this.direction = direction;
         this.email = email;
-        this.password = password;
         this.admissionDate = admissionDate;
         this.averageGrade = averageGrade;
         this.career = career;

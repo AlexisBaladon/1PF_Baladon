@@ -15,7 +15,7 @@ import { FilterableDataService } from 'src/app/services/filterables/data/filtera
   styleUrls: ['./course-dashboard.component.scss']
 })
 export class CourseDashboardComponent {
-  constructor(private routes: Router, private coursesService: CoursesService) {}
+  constructor(private routes: Router) {}
 
   public getDashboardText() {
     return DASHBOARD_TEXT['Course']

@@ -27,7 +27,7 @@ export class DashboardComponent {
 
   constructor(public dialog: MatDialog, private filterableContextService: FilterableContextService) { }
 
-  ngOnInit () {
+  ngOnInit() {
     this.filterableContextService$ = this.filterableContextService.getService().subscribe(service => {
       this.filterableDataService$ = service;
     });

@@ -6,10 +6,8 @@ import { CoursesService } from '../../services/filterables/concrete-data/courses
 import { FilterableContextService } from '../../services/filterables/context/filterableContext.service';
 import { AcademicListModule } from '../shared/academic-list.module';
 import { UsersService } from 'src/app/services/users/users.service';
-import { EnrollmentsService } from 'src/app/services/enrollments/enrollments.service';
-import { HttpClientModule, HttpHandler } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { PipesModule } from '../shared/pipes.module';
-import { BASE_URL } from 'src/app/tokens/env';
 
 @NgModule({
   declarations: [],

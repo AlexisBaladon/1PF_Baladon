@@ -5,7 +5,8 @@
         "courseId": "1",
         "grade": 8,
         "enrollmentDate": "2019-01-01",
-        "finishDate": "2020-01-01"
+        "finishDate": "2020-01-01",
+        "enrollerId": "1"
     },
     {
         "id": "4",
@@ -13,7 +14,8 @@
         "courseId": "2",
         "grade": 7,
         "enrollmentDate": "2019-01-01",
-        "finishDate": "2020-01-01"
+        "finishDate": "2020-01-01",
+        "enrollerId": "1"
     },
     {
         "id": "5",
@@ -21,7 +23,8 @@
         "courseId": "3",
         "grade": 6,
         "enrollmentDate": "2019-01-01",
-        "finishDate": "2020-01-01"
+        "finishDate": "2020-01-01",
+        "enrollerId": "1"
     },
     {
         "id": "6",
@@ -29,7 +32,8 @@
         "courseId": "4",
         "grade": 8,
         "enrollmentDate": "2019-01-01",
-        "finishDate": "2020-01-01"
+        "finishDate": "2020-01-01",
+        "enrollerId": "2"
     },
     {
         "id": "7",
@@ -37,7 +41,8 @@
         "courseId": "1",
         "grade": 7,
         "enrollmentDate": "2019-01-01",
-        "finishDate": "2020-01-01"
+        "finishDate": "2020-01-01",
+        "enrollerId": "2"
     },
     {
         "id": "8",
@@ -45,7 +50,8 @@
         "courseId": "2",
         "grade": 4,
         "enrollmentDate": "2019-01-01",
-        "finishDate": "2020-01-01"
+        "finishDate": "2020-01-01",
+        "enrollerId": "1"
     },
     {
         "id": "9",
@@ -53,7 +59,8 @@
         "courseId": "3",
         "grade": 2,
         "enrollmentDate": "2019-01-01",
-        "finishDate": "2020-01-01"
+        "finishDate": "2020-01-01",
+        "enrollerId": "1"
     },
     {
         "id": "10",
@@ -61,7 +68,8 @@
         "courseId": "6",
         "grade": 5,
         "enrollmentDate": "2019-01-01",
-        "finishDate": "2020-01-01"
+        "finishDate": "2020-01-01",
+        "enrollerId": "1"
     },
     {
         "id": "11",
@@ -69,7 +77,8 @@
         "courseId": "1",
         "grade": 6,
         "enrollmentDate": "2019-01-01",
-        "finishDate": "2020-01-01"
+        "finishDate": "2020-01-01",
+        "enrollerId": "3"
     },
     {
         "id": "12",
@@ -77,7 +86,8 @@
         "courseId": "5",
         "grade": 7,
         "enrollmentDate": "2019-01-01",
-        "finishDate": "2020-01-01"
+        "finishDate": "2020-01-01",
+        "enrollerId": "2"
     },
     {
         "id": "13",
@@ -85,7 +95,8 @@
         "courseId": "2",
         "grade": 8,
         "enrollmentDate": "2019-01-01",
-        "finishDate": "2020-01-01"
+        "finishDate": "2020-01-01",
+        "enrollerId": "2"
     },
     {
         "id": "14",
@@ -93,6 +104,7 @@
         "courseId": "6",
         "grade": 9,
         "enrollmentDate": "2019-01-01",
-        "finishDate": "2020-01-01"
+        "finishDate": "2020-01-01",
+        "enrollerId": "3"
     }
 ]

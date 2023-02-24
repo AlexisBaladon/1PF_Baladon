@@ -67,6 +67,7 @@ export class DetailComponent {
 			data.grade,
 			data.enrollmentDate,
 			data.finishDate,
+			data.enrollerId,
 		  ))
 
 		const inputs = [

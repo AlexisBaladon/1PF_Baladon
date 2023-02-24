@@ -42,31 +42,6 @@
                 />
             </div>
             <div class="input-with-label">
-                <label for="password">Contraseña</label>
-                <input 
-                    class="valid-input"
-                    [appValidInput]="isValidInput('password')"
-                    type="password" 
-                    formControlName="password" 
-                    placeholder="Contraseña" 
-                    name="password" 
-                    autocomplete="new-password" 
-                />
-            </div>
-            <div class="input-with-label">
-                <label for="birthDate">Fecha de nacimiento</label>
-                <input 
-                    class="valid-input"
-                    [appValidInput]="isValidInput('birthDate')"
-                    type="text"
-                    onfocus="(this.type='date')"
-                    formControlName="birthDate" 
-                    placeholder="Fecha de nacimiento" 
-                    name="birthDate" 
-                    autocomplete="bday" 
-                />
-            </div>
-            <div class="input-with-label">
                 <label for="admissionDate">Fecha de admisión</label>
                 <input 
                     class="valid-input"
@@ -89,18 +64,6 @@
                     placeholder="Teléfono" 
                     name="phone" 
                     autocomplete="phone" 
-                />
-            </div>
-            <div class="input-with-label">
-                <label for="address">Ciudad</label>
-                <input 
-                    class="valid-input"
-                    [appValidInput]="isValidInput('city')"
-                    type="text" 
-                    formControlName="city" 
-                    placeholder="Ciudad" 
-                    name="city" 
-                    autocomplete="city" 
                 />
             </div>
             <div class="input-with-label">

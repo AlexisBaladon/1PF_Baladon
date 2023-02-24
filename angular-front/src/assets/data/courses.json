@@ -4,10 +4,13 @@
         "name": "Matemática",
         "description": "Matemática es una asignatura",
         "credits": 5,
-        "teacher": 1,
-"averageGrade": 5,
+        "averageGrade": 5,
         "icon": "functions",
-        "category": "Ciencias"
+        "category": "Ciencias",
+        "startTime": "2021-01-01T00:00:00.000Z",
+        "duration": 60,
+        "teacher": "Hector García",
+        "studentsAmount": 10
     },
     {
         "id": "2",
@@ -15,9 +18,12 @@
         "description": "Inglés es una asignatura",
         "credits": 7,
         "teacher": 2,
-"averageGrade": 5,
+        "averageGrade": 5,
         "icon": "translate",
-        "category": "Lenguaje"
+        "category": "Lenguaje",
+        "startTime": "2021-02-01T00:00:00.000Z",
+        "duration": 60,
+        "studentsAmount": 5
     },
     {
         "id": "3",
@@ -27,7 +33,10 @@
         "teacher": 3,
         "averageGrade": 5,
         "icon": "menu_book",
-        "category": "Humanidades"
+        "category": "Humanidades",
+        "startTime": "2021-03-01T00:00:00.000Z",
+        "duration": 120,
+        "studentsAmount": 25
     },
     {
         "id": "4",
@@ -37,7 +46,10 @@
         "teacher": 4,
         "averageGrade": 5,
         "icon": "science",
-        "category": "Ciencias"
+        "category": "Ciencias",
+        "startTime": "2021-04-01T00:00:00.000Z",
+        "duration": 60,
+        "studentsAmount": 15
     },
     {
         "id": "5",
@@ -47,6 +59,9 @@
         "teacher": 5,
         "averageGrade": 5,
         "icon": "palette",
-        "category": "Humanidades"
+        "category": "Humanidades",
+        "startTime": "2021-05-01T00:00:00.000Z",
+        "duration": 60,
+        "studentsAmount": 10
     }
 ]

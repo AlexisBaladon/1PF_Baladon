@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, Output, ViewChild, ChangeDetectorRef, AfterContentChecked } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
@@ -19,7 +19,12 @@ export class TableComponent {
   @Input() public openEditDialog!: (dialog: MatDialog, mode: 'create' | 'edit', filterable?: Filterable, width?: string | undefined) => MatDialogRef<any, any>;
   @Input() public openDeleteDialog!: (dialog: MatDialog, filterableId: Filterable['id'], width?: string | undefined, filterableService?: FilterableDataService<Filterable>) =>  MatDialogRef<any, any>;
   @Output() public onViewEmiter: EventEmitter<Filterable["id"]> = new EventEmitter();
-  constructor(public dialog: MatDialog, public el: ElementRef, private filterableContextService: FilterableContextService) {}
+  constructor(
+    public dialog: MatDialog, 
+    public el: ElementRef, 
+    private filterableContextService: FilterableContextService,
+    private cdr: ChangeDetectorRef
+  ) {}
   private filterableData: Filterable[] = [];
   public filterableData$: Subscription | undefined;
   public displayedColumns: string[] = [];
@@ -43,7 +48,8 @@ export class TableComponent {
   private filterableSuscription() {
     this.unsuscribeFromData();
 
-    this.filterableData$ = this.filterableService.getFilteredData().subscribe(filterableData => {
+    this.filterableData$ = this.filterableService.getData().subscribe(filterableData => {
+      //TODO ADD FILTERS
       this.filterableData = filterableData;
       this.restartTable();
     });
@@ -59,6 +65,10 @@ export class TableComponent {
       this.filterableService = service;
       this.filterableSuscription()
     });
+  }
+
+  ngAfterContentChecked() {
+    this.cdr.detectChanges();
   }
 
   ngOnDestroy() {
