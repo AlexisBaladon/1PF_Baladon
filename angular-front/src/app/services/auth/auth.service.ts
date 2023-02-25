@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, catchError, map, Observable } from 'rxjs';
 import User from 'src/app/interfaces/user';
 
-type LoginResponse = User & { token: string };
+type LoginResponse = User & { refreshToken: string };
 
 @Injectable({
   providedIn: 'root'
@@ -35,7 +35,7 @@ export class AuthService {
 
     this.http.post<LoginResponse>('/api/auth/login', { email, password }).pipe(
       map((response) => {
-        this.userToken = response.token;
+        this.userToken = response.refreshToken;
         this.user$.next(response);
       }),
       catchError((error) => {
@@ -53,12 +53,11 @@ export class AuthService {
 
     this.http.post<LoginResponse>(
       '/api/auth/signup',{ 
-        name, surname, email, password, 
-        headers: { Authorization: `Bearer ${this.userToken}` },
+        name, surname, email, password,
         responseType: 'json', 
       }).pipe(
         map((response) => {
-          this.userToken = response.token;
+          this.userToken = response.refreshToken;
           this.login(email, password);
         }),
         catchError((error) => {
@@ -93,7 +92,7 @@ export class AuthService {
       },
     ).pipe(
       map((response) => {
-        this.userToken = response.token;
+        this.userToken = response.refreshToken;
       }),
       catchError((error) => {
         this.error$.next(error.error);

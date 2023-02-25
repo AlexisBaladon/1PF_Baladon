@@ -65,7 +65,7 @@
         </div>
         <p [appFontSize]="'medium'" class="login-register-text">
             {{hasAccount? '¿No tienes una cuenta?' : '¿Ya tienes cuenta?'}}
-            <a (click)="changeAuthMode()">{{hasAccount? 'Regístrate' : 'Inicia sesión'}}</a>
+            <a id="has-account-action" (click)="changeAuthMode()">{{hasAccount? 'Regístrate' : 'Inicia sesión'}}</a>
         </p>
     </section>
     <div *ngIf="form.invalid && submitted">
