@@ -74,7 +74,6 @@ export class AuthService {
     this.http.delete<{}>(
       '/api/auth/logout', { 
         headers: { Authorization: `Bearer ${this.userToken}` },
-        //response type is not json
         responseType: 'text' as 'json'
       },
     ).pipe(

@@ -1,4 +1,4 @@
-import { BehaviorSubject, catchError, filter, map, Observable, of, switchMap, tap } from 'rxjs';
+import { BehaviorSubject, catchError, map, Observable, of, tap } from 'rxjs';
 import { FilterName } from 'src/app/interfaces/filters';
 import { LogicFilterType } from 'src/app/interfaces/logic-filter-type';
 import { FilterPipe } from 'src/app/pipes/filter/filter.pipe';
@@ -14,13 +14,16 @@ export abstract class FilterableDataService<F extends Filterable> {
 		protected filterPipe: FilterPipe, 
 		protected http: HttpClient,
 		protected BASE_URL: string,
-	) {}
+	) { }
 
 	protected abstract createData(data: F[]): F[];
 
 	public getData(filtered: boolean = false): Observable<F[]> {
 		this.filterableData$ = new BehaviorSubject([] as F[]);
-		this.http.get<F[]>(this.BASE_URL).subscribe(data => {
+		this.http.get<F[]>(this.BASE_URL).pipe(
+			tap(() => this.filterableData$.next(this.filterableData$.value.slice())),
+			catchError(() => of([]))
+		).subscribe(data => {
 			if (filtered) {
 				this.filterableData$.next(this.filterPipe.transform(this.createData(data), this.filters) as F[]);
 			}
@@ -32,20 +35,27 @@ export abstract class FilterableDataService<F extends Filterable> {
 	  }
 
 	public addData(filterableData: F): void {
-		this.filterableData$.next([...this.filterableData$.value, filterableData]);
-		this.http.post(this.BASE_URL, filterableData).subscribe(newData => {
+		this.http.post(this.BASE_URL, filterableData).pipe(
+			tap(() => this.filterableData$.next([...this.filterableData$.value, filterableData] as F[])),
+			catchError(() => of([]))
+		).subscribe(newData => {
 			let newFilterableData = this.filterableData$.value.map(f => {
 				return f.id === filterableData.id ? newData : f
 			}) as F[];
 			newFilterableData = this.createData(newFilterableData);
+			this.filterableData$.next(newFilterableData);
 		});
 	}
 
 	public updateData(filterableData: F): void {
-		this.filterableData$.next(this.filterableData$.value.map(
-			f => f.id === filterableData.id ? filterableData : f
-		));
-		this.http.put<null>(`${this.BASE_URL}/${filterableData.id}`, filterableData).subscribe();
+		this.http.put<null>(`${this.BASE_URL}/${filterableData.id}`, filterableData).pipe(
+			tap(() => this.filterableData$.next(
+				this.filterableData$.value.map(f => {
+					return f.id === filterableData.id ? filterableData : f
+				}) as F[]
+			)),
+			catchError(() => of([]))
+		).subscribe();
 	}
 
 	public getById(id: F['id']): Observable<F | F[]> {
@@ -56,8 +66,10 @@ export abstract class FilterableDataService<F extends Filterable> {
 	}
 
 	public deleteFilterable(id: F['id']): void {
-		this.filterableData$.next(this.filterableData$.value.filter(f => f.id !== id));
-		this.http.delete(`${this.BASE_URL}/${id}`).subscribe();
+		this.http.delete(`${this.BASE_URL}/${id}`).pipe(
+			tap(() => this.filterableData$.next(this.filterableData$.value.filter(f => f.id !== id))),
+			catchError(() => of([]))
+		).subscribe();
 	  }
 
 	public setFilters(filters: LogicNode<LogicFilterType, FilterName> | null): void {
@@ -77,7 +89,8 @@ export abstract class FilterableDataService<F extends Filterable> {
 						attributeName: DASHBOARD_TEXT[typeOfStudent]?.attributeNames?.[attribute] || attribute,
 					};
 				});
-			})
+			}),
+			catchError(() => of([]))
 		);
 	}
 
