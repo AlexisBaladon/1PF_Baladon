@@ -1,7 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormGroup, FormControl } from '@angular/forms';
-import { generateId } from 'src/app/utils/idGenerator';
 import { getErrorMessages, isValidInput } from 'src/app/utils/formControl';
 import { EMAIL_VALIDATIONS, SIMPLE_VALIDATIONS } from 'src/app/constants/validations';
 import Student from 'src/app/interfaces/student';
@@ -52,14 +51,14 @@ export class AddUserFormComponent {
     const formValues = this.formGroup.value;
 
     const student = new Student(
-      this.data.data?.id ?? generateId(),
+      this.data.data?.id ?? 'Cargando...',
       formValues.name ?? '',
       formValues.surname ?? '',
       formValues.phone ?? '',
       this.data.data?.direction ?? '',
       formValues.email ?? '',
       formValues.admissionDate ?? new Date(),
-      this.data.data?.averageGrade ?? null ?? 0,
+      this.data.data?.averageGrade ?? 0,
       formValues.career ?? '',
       this.data.data?.pictureUrl ?? '',
     );

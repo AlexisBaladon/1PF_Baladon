@@ -6,7 +6,6 @@ import { FormModalComponent } from 'src/app/components/global/form-modal/form-mo
 import { Filterable } from 'src/app/logic/filter/filterable';
 import { Enrollment } from 'src/app/models/enrollment';
 import { EnrollmentsService } from 'src/app/services/enrollments/enrollments.service';
-import { generateId } from 'src/app/utils/idGenerator';
 
 interface SectionHeaderData {
 	title: string;
@@ -61,7 +60,7 @@ export class DetailComponent {
 
 	public enrollmentAddMoreAction = () => {
 		const convertData: (data: Enrollment) => Enrollment = (data: Enrollment) => (new Enrollment(
-			generateId(),
+			'Cargando...',
 			data.studentId,
 			data.courseId,
 			data.grade,

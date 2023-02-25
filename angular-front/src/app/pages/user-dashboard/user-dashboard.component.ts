@@ -8,7 +8,6 @@ import User from 'src/app/interfaces/user';
 import { Filterable } from 'src/app/logic/filter/filterable';
 import { FilterableDataService } from 'src/app/services/filterables/data/filterableData.service';
 import { UsersService } from 'src/app/services/users/users.service';
-import { generateId } from 'src/app/utils/idGenerator';
 
 @Component({
   selector: 'app-user-dashboard',
@@ -29,7 +28,7 @@ export class UserDashboardComponent {
   public openEditDialog(dialog: MatDialog, mode: 'create' | 'edit', filterable?: Filterable, width?: string | undefined): MatDialogRef<any, any> {
     let dialogRef!: MatDialogRef<any, any>;
     const convertData: (data: User) => User = (data: User) => (new User(
-      generateId(),
+      data.id ?? 'Cargando...',
       data.email,
       data.name,
       data.surname,

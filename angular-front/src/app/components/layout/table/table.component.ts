@@ -54,7 +54,7 @@ export class TableComponent {
   private filterableSuscription() {
     this.unsuscribeFromData();
 
-    this.filterableData$ = this.filterableService.getFilteredData().subscribe(filterableData => {
+    this.filterableData$ = this.filterableService.getData(true).subscribe(filterableData => {
       this.filterableData = filterableData;
       this.restartTable();
     });

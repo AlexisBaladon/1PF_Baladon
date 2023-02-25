@@ -18,17 +18,27 @@ export abstract class FilterableDataService<F extends Filterable> {
 
 	protected abstract createData(data: F[]): F[];
 
-	public getData(): Observable<F[]> {
+	public getData(filtered: boolean = false): Observable<F[]> {
 		this.filterableData$ = new BehaviorSubject([] as F[]);
 		this.http.get<F[]>(this.BASE_URL).subscribe(data => {
-			this.filterableData$.next(this.createData(data));
+			if (filtered) {
+				this.filterableData$.next(this.filterPipe.transform(this.createData(data), this.filters) as F[]);
+			}
+			else {
+				this.filterableData$.next(this.createData(data));
+			}
 		});
 		return this.filterableData$;
 	  }
 
 	public addData(filterableData: F): void {
 		this.filterableData$.next([...this.filterableData$.value, filterableData]);
-		this.http.post(this.BASE_URL, filterableData).subscribe();
+		this.http.post(this.BASE_URL, filterableData).subscribe(newData => {
+			let newFilterableData = this.filterableData$.value.map(f => {
+				return f.id === filterableData.id ? newData : f
+			}) as F[];
+			newFilterableData = this.createData(newFilterableData);
+		});
 	}
 
 	public updateData(filterableData: F): void {
@@ -53,16 +63,6 @@ export abstract class FilterableDataService<F extends Filterable> {
 	public setFilters(filters: LogicNode<LogicFilterType, FilterName> | null): void {
 		this.filters = filters;
 		this.filterableData$.next(this.filterableData$.value.slice());
-	}
-		
-	public getFilteredData(): Observable<F[]> {
-		this.http.get<F[]>(this.BASE_URL).subscribe(data => {
-			const createdData = this.createData(data);
-			this.filterableData$.next(
-				this.filterPipe.transform(createdData, this.filters) as F[]
-			);
-		});
-		return this.filterableData$.asObservable()
 	}
 
 	public getFilterableAttributes(): Observable<{ attribute: string; attributeName: string }[]> {

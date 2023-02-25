@@ -64,6 +64,7 @@ export class AppComponent {
     const currentRoute = this.getLastRoute(NAV_ROUTES[route].route);
     if (currentRoute === 'login') {
       this.authService.logout();
+      this.router.navigate([currentRoute]);
       return;
     }
     const currentRouteType = this.routesMap.get(currentRoute)

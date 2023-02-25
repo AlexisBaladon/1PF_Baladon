@@ -4,7 +4,6 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { getErrorMessages, isValidInput } from 'src/app/utils/formControl';
 import { SIMPLE_VALIDATIONS } from 'src/app/constants/validations';
 import { Course } from 'src/app/interfaces/course';
-import { generateId } from 'src/app/utils/idGenerator';
 
 @Component({
   selector: 'app-add-course-form',
@@ -49,7 +48,7 @@ export class AddCourseFormComponent {
     const formValues = this.formGroup.value;
 
     const createdCourse = new Course(
-      this.data.data?.id ?? generateId(),
+      this.data.data?.id ?? 'Cargando...',
       formValues.name ?? this.defaultCourseData.name ?? '',
       formValues.description ?? this.defaultCourseData.description ?? '',
       formValues.credits ?? this.defaultCourseData.credits ?? 0,

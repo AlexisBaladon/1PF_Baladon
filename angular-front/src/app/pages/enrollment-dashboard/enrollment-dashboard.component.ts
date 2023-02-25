@@ -9,7 +9,6 @@ import { Filterable } from 'src/app/logic/filter/filterable';
 import { Enrollment } from 'src/app/models/enrollment';
 import { EnrollmentsService } from 'src/app/services/enrollments/enrollments.service';
 import { FilterableDataService } from 'src/app/services/filterables/data/filterableData.service';
-import { generateId } from 'src/app/utils/idGenerator';
 
 @Component({
   selector: 'app-enrollment-dashboard',
@@ -30,7 +29,7 @@ export class EnrollmentDashboardComponent {
   public openEditDialog(dialog: MatDialog, mode: 'create' | 'edit', filterable?: Filterable, width?: string | undefined): MatDialogRef<any, any> {
     let dialogRef!: MatDialogRef<any, any>;
     const convertData: (data: Enrollment) => Enrollment = (data: Enrollment) => (new Enrollment(
-      generateId(),
+      data.id ?? 'Cargando...',
       data.studentId,
       data.courseId,
       data.grade,

@@ -16,7 +16,6 @@ export class ToolbarComponent {
 
   ngOnInit() {
     this.user$ = this.authService.getUser().subscribe(user => {
-      console.log(user);
       this.user = user;
     });
   }
