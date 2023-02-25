@@ -3,7 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormGroup, FormControl } from '@angular/forms';
 import { generateId } from 'src/app/utils/idGenerator';
 import { getErrorMessages, isValidInput } from 'src/app/utils/formControl';
-import { EMAIL_VALIDATIONS, PASSWORD_VALIDATIONS, SIMPLE_VALIDATIONS } from 'src/app/constants/validations';
+import { EMAIL_VALIDATIONS, SIMPLE_VALIDATIONS } from 'src/app/constants/validations';
 import Student from 'src/app/interfaces/student';
 
 @Component({

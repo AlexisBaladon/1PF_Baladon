@@ -1,30 +1,19 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { BehaviorSubject, catchError, map, Observable } from 'rxjs';
 import User from 'src/app/interfaces/user';
-import { generateId } from 'src/app/utils/idGenerator';
-import { UsersService } from '../users/users.service';
+
+type LoginResponse = User & { token: string };
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private users: User[] = [];
-  private user$ = new BehaviorSubject<User | null>(new User(generateId(), "", "Lucas", "", "", "admin"));
+  private userToken: string | null = null;
+  private user$ = new BehaviorSubject<User | null>(null);
   private error$ = new BehaviorSubject<string | null>(null);
-  private userService$: Subscription | null = null;
 
-  constructor(private userService: UsersService, private http: HttpClient) {
-    this.userService$ = this.userService.getData().subscribe(users => {
-      this.users = users;
-    });
-  }
-
-  ngOnDestroy() {
-    if (!!this.userService$) {
-      this.userService$.unsubscribe();
-    }
-  }
+  constructor(private http: HttpClient) { }
 
   public getUser(): Observable<User | null> {
     return this.user$.asObservable();
@@ -40,13 +29,16 @@ export class AuthService {
       return;
     }
 
-    const foundUser = this.users.find(user => user.email === email && user.password === password);
-    if (!!foundUser) {
-      this.user$.next(foundUser);
-    }
-    else {
-      this.error$.next("Invalid credentials");
-    }
+    this.http.post<LoginResponse>('/api/auth/login', { email, password }).pipe(
+      map((response) => {
+        this.userToken = response.token;
+        this.user$.next(response);
+      }),
+      catchError((error) => {
+        this.error$.next(error.error);
+        throw error;
+      })
+    ).subscribe();
   }
 
   public signup(name: User["name"], surname: User["surname"], email: User["email"], password: User["password"]): void {
@@ -55,23 +47,54 @@ export class AuthService {
       return;
     }
 
-    if (this.users.find(user => user.email === email)) {
-      this.error$.next("User already exists");
-      return;
-    }
-
-    this.userService.addData(new User(
-      generateId(),
-      email,
-      name,
-      surname,
-      password,
-      'user'
-    ))
-    this.login(email, password);
+    this.http.post<LoginResponse>(
+      '/api/auth/signup',{ 
+        name, surname, email, password, 
+        headers: { Authorization: `Bearer ${this.userToken}` },
+        responseType: 'json', 
+      }).pipe(
+        map((response) => {
+          this.userToken = response.token;
+          this.login(email, password);
+        }),
+        catchError((error) => {
+          this.error$.next(error.error);
+          throw error;
+        })
+    ).subscribe();
   }
 
   public logout(): void {
     this.user$.next(null);
+    this.userToken = null;
+
+    this.http.delete<{}>(
+      '/api/auth/logout', { 
+        headers: { Authorization: `Bearer ${this.userToken}` },
+        responseType: 'json',
+      },
+    ).pipe(
+      catchError((error) => {
+        this.error$.next(error.error);
+        throw error;
+      })
+    ).subscribe();
+  }
+
+  private refreshToken(): void {
+    this.http.post<LoginResponse>(
+      '/api/auth/token', { 
+        headers: { Authorization: `Bearer ${this.userToken}` },
+        responseType: 'json',
+      },
+    ).pipe(
+      map((response) => {
+        this.userToken = response.token;
+      }),
+      catchError((error) => {
+        this.error$.next(error.error);
+        throw error;
+      })
+    ).subscribe();
   }
 }

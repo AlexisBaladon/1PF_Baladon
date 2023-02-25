@@ -16,7 +16,7 @@
       <div class="d-flex">
         <div class="d-flex align-items-center">
           <mat-icon class="me-2">account_circle</mat-icon>
-          <a class="nav-link" [appFontSize]="'medium'">{{user?.name}}</a>
+          <a class="nav-link" [appFontSize]="'medium'">{{user? (user | fullName) : ''}}</a>
         </div>
       </div>
     </div>

@@ -32,6 +32,7 @@ export class AuthComponent {
 
     this.error$ = this.authService.getError().subscribe(error => {
       this.error = error;
+      if (!!error) alert(error);
     });
 
     if (!!this.user) {
@@ -79,7 +80,6 @@ export class AuthComponent {
   public onAuth() {
     this._submitted = true;
     if (this.form.invalid) return;
-
     if (this.hasAccount) {
       this.authService.login(this.form.value.email, this.form.value.password);
     }
@@ -92,7 +92,6 @@ export class AuthComponent {
       return;
     }
     
-    this.router.navigate(['/layout']);
   }
 
   public changeAuthMode() {

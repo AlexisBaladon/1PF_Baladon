@@ -13,6 +13,7 @@ import { MaterialModule } from './libraries/material.module';
 import { DirectivesModule } from './directives.module';
 import { FormModalComponent } from '../../components/global/form-modal/form-modal.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { PipesModule } from './pipes.module';
 
 const components = [
   ToolbarComponent,
@@ -33,6 +34,7 @@ const components = [
     MaterialModule,
     DirectivesModule,
     ReactiveFormsModule,
+    PipesModule
   ],
   exports: [ components ]
 })
