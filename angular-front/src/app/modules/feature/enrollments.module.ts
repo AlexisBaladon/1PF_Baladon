@@ -10,6 +10,12 @@ import { AcademicListModule } from '../shared/academic-list.module';
 import { MaterialModule } from '../shared/libraries/material.module';
 import { PipesModule } from '../shared/pipes.module';
 import { EnrollmentDetailComponent } from 'src/app/pages/enrollment-detail/enrollment-detail.component';
+import { RouterModule, Routes } from '@angular/router';
+
+const routes: Routes = [
+  { path: '', component: EnrollmentDashboardComponent },
+  { path: ':id', component: EnrollmentDetailComponent },
+]
 
 const components = [
   EnrollmentDashboardComponent,
@@ -20,6 +26,7 @@ const components = [
   declarations: [ components ],
   imports: [
     CommonModule,
+    RouterModule.forChild(routes),
     AcademicDetailModule,
     AcademicListModule,
     GlobalComponentsModule,

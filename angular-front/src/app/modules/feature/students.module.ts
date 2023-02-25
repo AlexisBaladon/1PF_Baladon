@@ -10,6 +10,12 @@ import { GlobalComponentsModule } from '../shared/global-components.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DirectivesModule } from '../shared/directives.module';
 import { MaterialModule } from '../shared/libraries/material.module';
+import { RouterModule, Routes } from '@angular/router';
+
+const routes: Routes = [
+  { path: '', component: StudentDashboardComponent },
+  { path: ':id', component: StudentDetailComponent },
+]
 
 const declarations = [
   StudentDetailComponent,
@@ -21,6 +27,7 @@ const declarations = [
   declarations: [ declarations ],
   imports: [
     CommonModule,
+    RouterModule.forChild(routes),
     AcademicDetailModule,
     AcademicListModule,
     PipesModule,

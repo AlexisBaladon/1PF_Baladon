@@ -166,7 +166,7 @@ export class StudentDetailComponent {
 
 	public getEnrollmentSeeDetailAction(): (id: Filterable['id']) => void {
 		return (id: Filterable['id']) => {
-			this.router.navigate([`layout/course/${id}`]);
+			this.router.navigate([`layout/courses/${id}`]);
 		}
 	}
 

@@ -9,15 +9,22 @@ import { MaterialModule } from '../shared/libraries/material.module';
 import { PipesModule } from '../shared/pipes.module';
 import { UserDetailComponent } from '../../pages/user-detail/user-detail.component';
 import { UserDashboardComponent } from '../../pages/user-dashboard/user-dashboard.component';
+import { RouterModule, Routes } from '@angular/router';
 
+const routes: Routes = [
+  { path: '', component: UserDashboardComponent },
+  { path: ':id', component: UserDetailComponent },
+]
 
+const components = [
+  UserDetailComponent,
+  UserDashboardComponent,
+]
 @NgModule({
-  declarations: [ 
-    UserDetailComponent, 
-    UserDashboardComponent
-  ],
+  declarations: components,
   imports: [
     CommonModule,
+    RouterModule.forChild(routes),
     AcademicDetailModule,
     AcademicListModule,
     GlobalComponentsModule,
@@ -26,9 +33,6 @@ import { UserDashboardComponent } from '../../pages/user-dashboard/user-dashboar
     MaterialModule,
     PipesModule,
   ],
-  exports: [
-    UserDetailComponent,
-    UserDashboardComponent
-   ]
+  exports: components
 })
 export class UsersModule { }

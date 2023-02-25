@@ -23,6 +23,10 @@ export class AuthService {
     return this.error$.asObservable();
   }
 
+  public isLoggedIn(): boolean {
+    return !!this.user$.getValue();
+  }
+
   public login(email: User["email"], password: User["password"]): void {
     if (!!this.user$.getValue()) {
       this.error$.next("You are already logged in");

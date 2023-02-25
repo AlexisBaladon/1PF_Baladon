@@ -24,7 +24,7 @@ export class EnrollmentDashboardComponent {
   }
 
   public onViewEmitter(id: string) {
-    this.router.navigate([`/layout/enrollment/${id}`]);
+    this.router.navigate([`/layout/enrollments/${id}`]);
   }
 
   public openEditDialog(dialog: MatDialog, mode: 'create' | 'edit', filterable?: Filterable, width?: string | undefined): MatDialogRef<any, any> {

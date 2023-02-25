@@ -3,15 +3,11 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from '../app.component';
 import { ServicesModule } from './core/services.module';
-import { CoursesModule } from './feature/courses.module';
-import { StudentsModule } from './feature/students.module';
-import { UsersModule } from './feature/users.module';
-import { AuthModule } from './feature/auth.module';
 import { RoutesModule } from './routes.module';
 import { DirectivesModule } from './shared/directives.module';
 import { GlobalComponentsModule } from './shared/global-components.module';
-import { EnrollmentsModule } from './feature/enrollments.module';
-import { HttpClientModule } from '@angular/common/http';
+import { AuthModule } from './feature/auth.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 @NgModule({
   providers: [ ],
   declarations: [
@@ -20,16 +16,12 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [
     CommonModule,
     BrowserModule,
-    HttpClientModule,
+    BrowserAnimationsModule,
     RoutesModule,
     ServicesModule,
     GlobalComponentsModule,
     DirectivesModule,
-    UsersModule,
-    StudentsModule,
-    CoursesModule,
     AuthModule,
-    EnrollmentsModule,
   ],
   bootstrap: [AppComponent]
 })

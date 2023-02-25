@@ -7,6 +7,9 @@ import { Subscription } from 'rxjs';
 import { Filterable } from 'src/app/logic/filter/filterable';
 import { FilterableDataService } from 'src/app/services/filterables/data/filterableData.service';
 import { FilterableContextService } from 'src/app/services/filterables/context/filterableContext.service';
+import { UsersService } from 'src/app/services/users/users.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
+import User from 'src/app/interfaces/user';
 
 @Component({
   selector: 'app-table',
@@ -23,7 +26,8 @@ export class TableComponent {
     public dialog: MatDialog, 
     public el: ElementRef, 
     private filterableContextService: FilterableContextService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private authService: AuthService,
   ) {}
   private filterableData: Filterable[] = [];
   public filterableData$: Subscription | undefined;
@@ -33,6 +37,8 @@ export class TableComponent {
   private filterableService!: FilterableDataService<Filterable>;
   private filterableService$!: Subscription;
   public dataSource!: MatTableDataSource<Filterable>;
+  private user: User | null = null;
+  private user$!: Subscription;
 
   private restartTable() {
     this.dataSource = new MatTableDataSource(this.filterableData);
@@ -48,8 +54,7 @@ export class TableComponent {
   private filterableSuscription() {
     this.unsuscribeFromData();
 
-    this.filterableData$ = this.filterableService.getData().subscribe(filterableData => {
-      //TODO ADD FILTERS
+    this.filterableData$ = this.filterableService.getFilteredData().subscribe(filterableData => {
       this.filterableData = filterableData;
       this.restartTable();
     });
@@ -65,6 +70,10 @@ export class TableComponent {
       this.filterableService = service;
       this.filterableSuscription()
     });
+
+    this.user$ = this.authService.getUser().subscribe(user => {
+      this.user = user;
+    });
   }
 
   ngAfterContentChecked() {
@@ -74,6 +83,7 @@ export class TableComponent {
   ngOnDestroy() {
     this.unsuscribeFromData();
     this.filterableService$.unsubscribe();
+    this.user$.unsubscribe();
   }
 
   ngAfterViewInit() { 
@@ -85,6 +95,10 @@ export class TableComponent {
 
   public onView(filterableId: Filterable['id']) {
     this.onViewEmiter.emit(filterableId);
+  }
+
+  public hasPermissions() {
+    return this.user?.profile === 'admin';
   }
 
   public onEdit(filterableId: Filterable['id']) {

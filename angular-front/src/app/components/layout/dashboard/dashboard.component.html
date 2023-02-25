@@ -3,7 +3,11 @@
         <div id="dashboard-title" class="custom-container d-flex justify-content-between align-items-end">
             <app-section-header [icon]="icon" [title]="title" [description]="description"></app-section-header>
             <p id="add-filterable-data-btn-text" [appFontSize]="'medium'" class="text-end">
-                <button mat-raised-button id="add-filterable-data-btn" (click)="handleOpenEditDialog('create')">
+                <button 
+                    *ngIf="hasPermissions()"
+                    mat-raised-button id="add-filterable-data-btn" 
+                    (click)="handleOpenEditDialog('create')"
+                >
                     <mat-icon [appFontSize]="'medium'" class="mr-2">add</mat-icon>
                     {{createDataTitle}}
                 </button>

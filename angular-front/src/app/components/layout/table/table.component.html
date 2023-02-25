@@ -23,7 +23,7 @@
                         {{arrayLength(att)}}
                     </ng-container>
                     <ng-container *ngIf="isElse(att, column.attribute, data.surname)">
-                        {{att}}
+                        {{att ?? '-'}}
                     </ng-container>
                 </ng-container>
             </td>
@@ -42,13 +42,19 @@
                         <mat-icon>visibility</mat-icon>
                     </button>
                     <button
+                        *ngIf="hasPermissions()"
                         class="edit-icon"
                         (click)="onEdit(data.id)" 
                         mat-mini-fab color="primary"
                     >
                         <mat-icon>edit</mat-icon>
                     </button>
-                    <button (click)="onDelete(data.id)" mat-icon-button color="accent">
+                    <button 
+                        *ngIf="hasPermissions()"
+                        (click)="onDelete(data.id)" 
+                        mat-icon-button 
+                        color="accent"
+                    >
                         <mat-icon color="accent">delete</mat-icon>
                     </button>
                 </div>

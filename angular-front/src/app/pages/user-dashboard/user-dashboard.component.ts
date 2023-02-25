@@ -23,7 +23,7 @@ export class UserDashboardComponent {
   }
 
   public onViewEmitter(id: string) {
-    this.router.navigate([`/layout/user/${id}`]);
+    this.router.navigate([`/layout/users/${id}`]);
   }
 
   public openEditDialog(dialog: MatDialog, mode: 'create' | 'edit', filterable?: Filterable, width?: string | undefined): MatDialogRef<any, any> {

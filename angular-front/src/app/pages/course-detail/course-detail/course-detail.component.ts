@@ -169,7 +169,7 @@ export class CourseDetailComponent {
 
 	public getEnrollmentSeeDetailAction(): (id: Filterable['id']) => void {
 		return (id: Filterable['id']) => {
-			this.router.navigate([`layout/student/${id}`]);
+			this.router.navigate([`layout/students/${id}`]);
 		}
 	}
 

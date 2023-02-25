@@ -28,7 +28,6 @@ const components = [
     DirectivesModule,
     MaterialModule,
     PipesModule,
-    BrowserAnimationsModule,
   ],
   exports: [ components ]
 })

@@ -22,7 +22,7 @@ export class CourseDashboardComponent {
   }
 
   public onView(id: string) {
-    this.routes.navigate(['layout','course', id]);
+    this.routes.navigate(['layout','courses', id]);
   }
   
   public openEditDialog(dialog: MatDialog, mode: 'create' | 'edit', filterable?: Filterable, width?: string | undefined): MatDialogRef<any, any> {

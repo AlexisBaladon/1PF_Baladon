@@ -27,9 +27,6 @@ export class AppComponent {
   ngOnInit() {
     this.user$ = this.authService.getUser().subscribe(user => {
       this.user = user;
-      if (!this.user) {
-        this.router.navigate(['/login']);
-      }
     });
 
     this.router$ = this.router.events.subscribe(() => {
@@ -57,14 +54,6 @@ export class AppComponent {
     ['enrollments', 'Enrollment']
   ]);
 
-  private secondaryRoutesMap: Map<string, string> = new Map([
-    ['student', 'students'],
-    ['course', 'courses'],
-    ['user', 'users'],
-    ['enrollment', 'enrollments']
-  ]);
-
-
   private getLastRoute(route: string): string {
     const lastRoute = route.split('/').slice(-1)[0];
     if (!lastRoute) return this.getLastRoute(NAV_ROUTES[1].route)
@@ -89,8 +78,7 @@ export class AppComponent {
     if (newRoute === -1) {
       const secondaryRoute = this.router.url.split('/');
       const secondaryRouteName = secondaryRoute.slice(-2)[0];
-      const mappedSecondaryRouteName = this.secondaryRoutesMap.get(secondaryRouteName);
-      newRoute = NAV_ROUTES.findIndex(route => this.getLastRoute(route.route) === mappedSecondaryRouteName);
+      newRoute = NAV_ROUTES.findIndex(route => this.getLastRoute(route.route) === secondaryRouteName);
       if (newRoute === -1) return 0;
     }
     return newRoute;

@@ -22,7 +22,7 @@ export class StudentDashboardComponent {
   }
 
   public onViewEmitter(id: string) {
-    this.router.navigate([`/layout/student/${id}`]);
+    this.router.navigate([`/layout/students/${id}`]);
   }
 
   public openEditDialog(dialog: MatDialog, mode: 'create' | 'edit', filterable?: Filterable, width?: string | undefined): MatDialogRef<any, any> {
