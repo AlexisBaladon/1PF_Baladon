@@ -12,6 +12,8 @@ import { UserDashboardComponent } from '../../pages/user-dashboard/user-dashboar
 import { RouterModule, Routes } from '@angular/router';
 import { EffectsModule } from '@ngrx/effects';
 import { UsersEffects } from '../../store/users/users.effects';
+import { StoreModule } from '@ngrx/store';
+import { reducer as UserReducer } from '../../store/users/users.reducer';
 
 const routes: Routes = [
   { path: '', component: UserDashboardComponent },

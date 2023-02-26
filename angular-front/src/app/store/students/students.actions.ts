@@ -31,17 +31,17 @@ export const updateStudentsFailure = createAction(
   (error: string) => ({ error })
 );
 
-export const deleteStudents = createAction(
+export const deleteStudent = createAction(
   'DELETE_STUDENT',
   (studentId: Student['id']) => ({ studentId })
   );
   
-export const deleteStudentsSuccess = createAction(
+export const deleteStudentSuccess = createAction(
   'DELETE_STUDENT_SUCCESS',
   (studentId: Student['id']) => ({ studentId })
   );
   
-export const deleteStudentsFailure = createAction(
+export const deleteStudentFailure = createAction(
   'DELETE_STUDENT_FAILURE',
   (error: string) => ({ error })
 );

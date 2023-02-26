@@ -79,7 +79,7 @@ export const reducer = createReducer(
     };
   }),
 
-  on(StudentsActions.deleteStudentsSuccess, (state, action) => {
+  on(StudentsActions.deleteStudentSuccess, (state, action) => {
     return {
       ...state,
       students: state.students.filter(student => student.id !== action.studentId),
@@ -87,7 +87,7 @@ export const reducer = createReducer(
     };
   }),
 
-  on(StudentsActions.deleteStudentsFailure, (state, action) => {
+  on(StudentsActions.deleteStudentFailure, (state, action) => {
     return {
       ...state,
       error: action.error

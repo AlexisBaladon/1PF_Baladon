@@ -13,6 +13,8 @@ import { PipesModule } from '../shared/pipes.module';
 import { RouterModule, Routes } from '@angular/router';
 import { CoursesEffects } from '../../store/courses/courses.effects';
 import { EffectsModule } from '@ngrx/effects';
+import { StudentsEffects } from 'src/app/store/students/students.effects';
+import { EnrollmentsEffects } from 'src/app/store/enrollments/enrollments.effects';
 
 const routes: Routes = [
   { path: '', component: CourseDashboardComponent },
@@ -39,7 +41,11 @@ const declarations = [
     DirectivesModule,
     MaterialModule,
     PipesModule,
-    EffectsModule.forFeature([CoursesEffects]),
+    EffectsModule.forFeature([
+      CoursesEffects,
+      StudentsEffects,
+      EnrollmentsEffects,
+    ]),
   ],
   exports: [ declarations ]
 })

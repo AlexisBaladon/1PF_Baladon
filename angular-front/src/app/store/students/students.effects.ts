@@ -40,7 +40,7 @@ export class StudentsEffects {
     ));
 
     deleteStudents$ = createEffect(() => this.actions$.pipe(
-      ofType(StudentsActions.deleteStudents),
+      ofType(StudentsActions.deleteStudent),
       tap((action) => this.service.deleteFilterable(action.studentId)),
     ));
 }

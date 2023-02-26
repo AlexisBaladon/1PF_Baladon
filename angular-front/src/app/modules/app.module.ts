@@ -14,6 +14,7 @@ import { reducer as CourseReducer } from '../store/courses/courses.reducer';
 import { reducer as StudentReducer } from '../store/students/students.reducer';
 import { reducer as UserReducer } from '../store/users/users.reducer';
 import { reducer as EnrollmentReducer } from '../store/enrollments/enrollments.reducer';
+import { reducer as AuthReducer } from '../store/auth/auth.reducer';
 @NgModule({
   providers: [ ],
   declarations: [
@@ -30,6 +31,7 @@ import { reducer as EnrollmentReducer } from '../store/enrollments/enrollments.r
     AuthModule,
     EffectsModule.forRoot([]),
     StoreModule.forRoot({
+      auth: AuthReducer,
       courses: CourseReducer,
       students: StudentReducer,
       users: UserReducer,

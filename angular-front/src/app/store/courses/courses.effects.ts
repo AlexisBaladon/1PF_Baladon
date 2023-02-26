@@ -24,7 +24,7 @@ export class CoursesEffects {
     getCourses$ = createEffect(() => this.actions$.pipe(
       ofType(CoursesActions.getCourses),
       switchMap(() => this.service.getData().pipe(
-        map((data) => CoursesActions.getCoursesSuccess(data)),
+        map((data) =>CoursesActions.getCoursesSuccess(data)),
         catchError((error) => of(CoursesActions.getCoursesFailure(error)))
       ))
     ));

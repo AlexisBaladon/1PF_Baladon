@@ -13,7 +13,11 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmModalComponent } from 'src/app/components/global/confirm-modal/confirm-modal.component';
 import { selectCourse, selectCourses } from 'src/app/store/courses/courses.selectors';
 import { Store } from '@ngrx/store';
-import { getCourse, getCourses } from 'src/app/store/courses/courses.actions';
+import { deleteCourses, getCourse, getCourses } from 'src/app/store/courses/courses.actions';
+import { getEnrollments } from 'src/app/store/enrollments/enrollments.actions';
+import { selectEnrollments } from 'src/app/store/enrollments/enrollments.selectors';
+import { getStudents } from 'src/app/store/students/students.actions';
+import { selectStudents } from 'src/app/store/students/students.selectors';
 
 @Component({
   selector: 'app-course-detail',
@@ -40,8 +44,6 @@ export class CourseDetailComponent {
 		private route: ActivatedRoute,
 		private router: Router,
 		private store: Store,
-		private studentsService: StudentsService,
-		private enrollmentService: EnrollmentsService,
 		private dialog: MatDialog,	
 	) { }
 
@@ -69,7 +71,8 @@ export class CourseDetailComponent {
 			}
 		});
 		
-		this.enrollments$ = this.enrollmentService.getData().subscribe(enrollments => {
+		this.store.dispatch(getEnrollments());
+		this.enrollments$ = this.store.select(selectEnrollments).subscribe(enrollments => {
 			this.courseStudentsId = [];
 			this.enrollments = enrollments;
 			enrollments.forEach(enrollment => {
@@ -82,7 +85,8 @@ export class CourseDetailComponent {
 			this.countStudentsGrades(enrollments, this.courseStudentsId);
 		});
 
-		this.students$ = this.studentsService.getData().subscribe(students => {
+		this.store.dispatch(getStudents());
+		this.students$ = this.store.select(selectStudents).subscribe(students => {
 			this.students = students;
 			this.initializeCourseStudents(id);
 			this.initializeChart(this.courseStudents);
@@ -146,7 +150,7 @@ export class CourseDetailComponent {
 						message: '¿Está seguro que desea eliminar esta inscripción?',
 						confirmButtonText: 'Eliminar',
 						cancelButtonText: 'Cancelar',
-						onConfirm: () => {this.enrollmentService.deleteFilterable(id); this.dialog.closeAll()},
+						onConfirm: () => {this.store.dispatch(deleteCourses(id)); this.dialog.closeAll()},
 						onCancel: () => {this.dialog.closeAll();},
 					},
 				});

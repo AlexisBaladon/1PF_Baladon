@@ -13,8 +13,11 @@ import { Enrollment } from 'src/app/models/enrollment';
 import { FullNamePipe } from 'src/app/pipes/users/full-name/full-name.pipe';
 import { EnrollmentsService } from 'src/app/services/enrollments/enrollments.service';
 import { CoursesService } from 'src/app/services/filterables/concrete-data/courses/courses.service';
-import { StudentsService } from 'src/app/services/filterables/concrete-data/students/students.service';
-import { getStudent } from 'src/app/store/students/students.actions';
+import { getCourse, getCourses } from 'src/app/store/courses/courses.actions';
+import { selectCourse, selectCourses } from 'src/app/store/courses/courses.selectors';
+import { getEnrollment, getEnrollments } from 'src/app/store/enrollments/enrollments.actions';
+import { selectEnrollment, selectEnrollments } from 'src/app/store/enrollments/enrollments.selectors';
+import { deleteStudent, getStudent } from 'src/app/store/students/students.actions';
 import { selectStudent } from 'src/app/store/students/students.selectors';
 
 @Component({
@@ -42,8 +45,6 @@ export class StudentDetailComponent {
 	constructor(
 		private route: ActivatedRoute,
 		private router: Router,
-		private coursesService: CoursesService,
-		private enrollmentService: EnrollmentsService,
 		private fullNamePipe: FullNamePipe,
 		private datePipe: DatePipe,
 		private dialog: MatDialog,
@@ -64,21 +65,24 @@ export class StudentDetailComponent {
 	}
 
 	private initializeSecondaryServices(id: Student['id']) {
+		this.store.dispatch(getEnrollments());
+		this.enrollments$ = this.store.select(selectEnrollments).subscribe(enrollments => {
+			this.enrollments = enrollments;
+			this.initializeStudentCourses();
+		});
+		
+		this.store.dispatch(getCourses());
+		this.courses$ = this.store.select(selectCourses).subscribe(courses => {
+			this.courses = courses ?? [] as Course[];
+			this.initializeStudentCourses();
+		});
+
 		this.store.dispatch(getStudent(id))
 		this.student$ = this.store.select(selectStudent).subscribe(student => {
 			this.student = student ?? undefined;
 			this.initializeStudentCourses();
 		});
-		
-		this.enrollments$ = this.enrollmentService.getData().subscribe(enrollments => {
-			this.enrollments = enrollments;
-			this.initializeStudentCourses();
-		});
 
-		this.courses$ = this.coursesService.getData().subscribe(courses => {
-			this.courses = courses;
-			this.initializeStudentCourses();
-		});
 	}
 
 	private initializeStudentCourses() {
@@ -141,7 +145,7 @@ export class StudentDetailComponent {
 						message: '¿Está seguro que desea eliminar esta inscripción?',
 						confirmButtonText: 'Eliminar',
 						cancelButtonText: 'Cancelar',
-						onConfirm: () => {this.enrollmentService.deleteFilterable(id); this.dialog.closeAll()},
+						onConfirm: () => {this.store.dispatch(deleteStudent(id)); this.dialog.closeAll()},
 						onCancel: () => {this.dialog.closeAll();},
 					},
 				});

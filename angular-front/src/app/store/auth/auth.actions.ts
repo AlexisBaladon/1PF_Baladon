@@ -1,15 +1,56 @@
-import { createAction, props } from '@ngrx/store';
+import { createAction } from '@ngrx/store';
+import User from 'src/app/interfaces/user';
 
-export const authAuths = createAction(
-  '[Auth] Auth Auths'
+export const login = createAction(
+  'LOGIN',
+  (email: string, password: string) => ({ email, password })
 );
 
-export const authAuthsSuccess = createAction(
-  '[Auth] Auth Auths Success',
-  props<{ data: any }>()
+export const _login = createAction(
+  '_LOGIN',
 );
 
-export const authAuthsFailure = createAction(
-  '[Auth] Auth Auths Failure',
-  props<{ error: any }>()
+export const logout = createAction(
+  'LOGOUT',
+);
+
+export const _logout = createAction(
+  '_LOGOUT',
+);
+
+export const register = createAction(
+  'REGISTER',
+  (name: string, surname: string, email: string, password: string) => ({ name, surname, email, password })
+);
+
+export const _register = createAction(
+  '_REGISTER',
+);
+
+export const getUser = createAction(
+  'GET_USER',
+);
+  
+export const getUserSuccess = createAction(
+  'GET_USER_SUCCESS',
+  (user: User) => ({user})
+);
+
+export const getUserFailure = createAction(
+  'GET_USER_FAILURE',
+  (error: any) => ({error})
+);
+
+export const getError = createAction(
+  'GET_ERROR',
+);
+
+export const _getError = createAction(
+  '_GET_ERROR',
+  (error: Error) => ({error})
+);
+
+export const setCurrentPage = createAction(
+  'SET_CURRENT_PAGE',
+  (currentPage: string) => ({currentPage})
 );

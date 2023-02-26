@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { DASHBOARD_TEXT, FILTER_OPTIONS, NAV_ROUTES } from './constants/text';
 import { FilterableType } from './interfaces/filterableTypes';
 import User from './interfaces/user';
-import { AuthService } from './services/auth/auth.service';
 import { FilterableContextService } from './services/filterables/context/filterableContext.service';
+import { getError, getUser, logout, setCurrentPage } from './store/auth/auth.actions';
+import { selectLoggedUser } from './store/auth/auth.selectors';
 
 @Component({
   selector: 'app-root',
@@ -21,19 +23,30 @@ export class AppComponent {
   constructor( 
     private filterableContextService: FilterableContextService, 
     private router: Router,
-    private authService: AuthService
+    private store: Store,
   ) { }
 
   ngOnInit() {
-    this.user$ = this.authService.getUser().subscribe(user => {
+    this.user$ = this.store.select(selectLoggedUser).subscribe(user => {
       this.user = user;
     });
 
     this.router$ = this.router.events.subscribe(() => {
+      // Change filterable context
       const currentRoute = this.getLastRoute(this.router.url);
-      const currentRouteType = this.routesMap.get(currentRoute)
+      const currentRouteType = this.routeToType.get(currentRoute)
       if (!currentRouteType) return;
       this.filterableContextService.switchService(currentRouteType);
+
+      // Change dashboard text
+      const currentRouteName = this.routeToTitle.get(currentRoute) || currentRoute;
+      if (!currentRouteName) {
+        this.store.dispatch(setCurrentPage(''))
+        return;
+      }
+      const firstChar = currentRouteName.charAt(0).toUpperCase();
+      const pageTitle = firstChar + currentRouteName.slice(1);
+      this.store.dispatch(setCurrentPage(pageTitle));
     });
       
   }
@@ -47,7 +60,18 @@ export class AppComponent {
     return !!this.user;
   }
 
-  private routesMap: Map<string, FilterableType> = new Map([
+  private routeToTitle = new Map([
+    ['students', 'Estudiantes'],
+    ['student', 'Estudiantes'],
+    ['courses', 'Cursos'],
+    ['course', 'Cursos'],
+    ['users', 'Usuarios'],
+    ['enrollments', 'Inscripciones'],
+    ['user', 'Usuario'],
+    ['enrollment', 'Inscripción'],
+  ]);
+
+  private routeToType: Map<string, FilterableType> = new Map([
     ['students', 'Student'],
     ['courses', 'Course'],
     ['users', 'User'],
@@ -63,11 +87,13 @@ export class AppComponent {
   public changeRoute(route: number) {
     const currentRoute = this.getLastRoute(NAV_ROUTES[route].route);
     if (currentRoute === 'login') {
-      this.authService.logout();
+      this.store.dispatch(logout());
+      this.store.dispatch(getUser())
+      this.store.dispatch(getError())
       this.router.navigate([currentRoute]);
       return;
     }
-    const currentRouteType = this.routesMap.get(currentRoute)
+    const currentRouteType = this.routeToType.get(currentRoute)
     if (currentRouteType == null) return;
     this.filterableContextService.switchService(currentRouteType);
     this.router.navigate(['/layout', currentRoute]);
@@ -90,7 +116,7 @@ export class AppComponent {
   }
 
   public getDashboardText() {
-    const currentRoute = this.routesMap.get(this.getLastRoute(this.router.url));
+    const currentRoute = this.routeToType.get(this.getLastRoute(this.router.url));
     if (currentRoute == null) return;
     return DASHBOARD_TEXT[currentRoute];
   }

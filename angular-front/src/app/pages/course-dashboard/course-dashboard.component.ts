@@ -6,16 +6,16 @@ import { AddCourseFormComponent } from 'src/app/components/layout/add-course-for
 import { DASHBOARD_TEXT } from 'src/app/constants/text';
 import { Course } from 'src/app/interfaces/course';
 import { Filterable } from 'src/app/logic/filter/filterable';
-import { CoursesService } from 'src/app/services/filterables/concrete-data/courses/courses.service';
 import { FilterableDataService } from 'src/app/services/filterables/data/filterableData.service';
-
 @Component({
   selector: 'app-course-dashboard',
   templateUrl: './course-dashboard.component.html',
   styleUrls: ['./course-dashboard.component.scss']
 })
 export class CourseDashboardComponent {
-  constructor(private routes: Router) {}
+  constructor(
+    private routes: Router,
+  ) {}
 
   public getDashboardText() {
     return DASHBOARD_TEXT['Course']

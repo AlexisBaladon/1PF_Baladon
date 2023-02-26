@@ -16,7 +16,6 @@ export const reducer = createReducer(
   on(CoursesActions.getCourseSuccess, (state, action) => {
     return {
       ...state,
-      courses: [...state.courses, action.course],
       selectedCourse: action.course,
       error: null
     };

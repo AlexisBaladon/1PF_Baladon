@@ -1,7 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ChartData, ChartType } from 'chart.js';
-import { ConfirmModalComponent } from 'src/app/components/global/confirm-modal/confirm-modal.component';
 import { FormModalComponent } from 'src/app/components/global/form-modal/form-modal.component';
 import { Filterable } from 'src/app/logic/filter/filterable';
 import { Enrollment } from 'src/app/models/enrollment';

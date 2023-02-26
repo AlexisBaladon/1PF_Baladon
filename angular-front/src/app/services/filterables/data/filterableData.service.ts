@@ -20,10 +20,7 @@ export abstract class FilterableDataService<F extends Filterable> {
 
 	public getData(filtered: boolean = false): Observable<F[]> {
 		this.filterableData$ = new BehaviorSubject([] as F[]);
-		this.http.get<F[]>(this.BASE_URL).pipe(
-			tap(() => this.filterableData$.next(this.filterableData$.value.slice())),
-			catchError(() => of([]))
-		).subscribe(data => {
+		this.http.get<F[]>(this.BASE_URL).subscribe(data => {
 			if (filtered) {
 				this.filterableData$.next(this.filterPipe.transform(this.createData(data), this.filters) as F[]);
 			}

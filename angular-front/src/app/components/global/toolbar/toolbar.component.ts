@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import User from 'src/app/interfaces/user';
-import { AuthService } from 'src/app/services/auth/auth.service';
+import { setCurrentPage } from 'src/app/store/auth/auth.actions';
+import { selectCurrentPage, selectLoggedUser } from 'src/app/store/auth/auth.selectors';
 
 @Component({
   selector: 'app-toolbar',
@@ -10,13 +12,22 @@ import { AuthService } from 'src/app/services/auth/auth.service';
   styleUrls: ['./toolbar.component.scss']
 })
 export class ToolbarComponent {
+  private currentPage$!: Subscription;
+  private currentPage!: string;
   private user$!: Subscription;
   public user!: User | null;
-  constructor(private authService: AuthService, private router: Router) { }
+
+  constructor(
+    private store: Store,
+  ) { }
 
   ngOnInit() {
-    this.user$ = this.authService.getUser().subscribe(user => {
+    this.user$ = this.store.select(selectLoggedUser).subscribe(user => {
       this.user = user;
+    });
+
+    this.currentPage$ = this.store.select(selectCurrentPage).subscribe(currentPage => {
+      this.currentPage = currentPage;
     });
   }
 
@@ -24,24 +35,7 @@ export class ToolbarComponent {
     this.user$.unsubscribe();
   }
 
-  private routeMap = new Map([
-    ['students', 'Estudiantes'],
-    ['student', 'Estudiantes'],
-    ['courses', 'Cursos'],
-    ['course', 'Cursos'],
-    ['users', 'Usuarios'],
-    ['enrollments', 'Inscripciones'],
-    ['user', 'Usuario'],
-    ['enrollment', 'Inscripción'],
-  ]);
-
-  public get currentRoute() {
-    const currentRoute = this.router.url.split('/')[2];
-    const currentRouteName = this.routeMap.get(currentRoute) || currentRoute;
-    if (!currentRouteName) {
-      return '';
-    }
-    const firstChar = currentRouteName.charAt(0).toUpperCase();
-    return firstChar + currentRouteName.slice(1);
+  public getCurrentPage() {
+    return this.currentPage;
   }
 }

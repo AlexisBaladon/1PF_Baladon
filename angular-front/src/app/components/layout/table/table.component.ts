@@ -10,6 +10,7 @@ import { FilterableContextService } from 'src/app/services/filterables/context/f
 import { UsersService } from 'src/app/services/users/users.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import User from 'src/app/interfaces/user';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-table',
@@ -28,6 +29,7 @@ export class TableComponent {
     private filterableContextService: FilterableContextService,
     private cdr: ChangeDetectorRef,
     private authService: AuthService,
+    private store: Store,
   ) {}
   private filterableData: Filterable[] = [];
   public filterableData$: Subscription | undefined;
