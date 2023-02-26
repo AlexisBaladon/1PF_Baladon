@@ -60,7 +60,9 @@ export abstract class FilterableDataService<F extends Filterable> {
 
 	public getById(id: F['id']): Observable<F | F[]> {
 		return this.http.get<F>(`${this.BASE_URL}/${id}`).pipe(
-			map(data => this.createData([data])[0]),
+			map(data => {
+				return this.createData([data])[0]
+			}),
 			catchError(() => of([]))
 		);
 	}

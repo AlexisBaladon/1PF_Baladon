@@ -2,6 +2,7 @@ import { DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { Chart } from 'chart.js';
 import { Subscription } from 'rxjs';
 import { ConfirmModalComponent } from 'src/app/components/global/confirm-modal/confirm-modal.component';
@@ -13,6 +14,8 @@ import { FullNamePipe } from 'src/app/pipes/users/full-name/full-name.pipe';
 import { EnrollmentsService } from 'src/app/services/enrollments/enrollments.service';
 import { CoursesService } from 'src/app/services/filterables/concrete-data/courses/courses.service';
 import { StudentsService } from 'src/app/services/filterables/concrete-data/students/students.service';
+import { getStudent } from 'src/app/store/students/students.actions';
+import { selectStudent } from 'src/app/store/students/students.selectors';
 
 @Component({
   selector: 'app-student-detail',
@@ -39,12 +42,12 @@ export class StudentDetailComponent {
 	constructor(
 		private route: ActivatedRoute,
 		private router: Router,
-		private coursesService: CoursesService, 
-		private studentsService: StudentsService,
+		private coursesService: CoursesService,
 		private enrollmentService: EnrollmentsService,
 		private fullNamePipe: FullNamePipe,
 		private datePipe: DatePipe,
 		private dialog: MatDialog,
+		private store: Store,
 	) { }
 
 	ngOnInit(): void {
@@ -61,8 +64,9 @@ export class StudentDetailComponent {
 	}
 
 	private initializeSecondaryServices(id: Student['id']) {
-		this.student$ = this.studentsService.getById(id).subscribe(student => {
-			this.student = Array.isArray(student) ? student[0] : student;
+		this.store.dispatch(getStudent(id))
+		this.student$ = this.store.select(selectStudent).subscribe(student => {
+			this.student = student ?? undefined;
 			this.initializeStudentCourses();
 		});
 		

@@ -11,6 +11,8 @@ import { DirectivesModule } from '../shared/directives.module';
 import { MaterialModule } from '../shared/libraries/material.module';
 import { PipesModule } from '../shared/pipes.module';
 import { RouterModule, Routes } from '@angular/router';
+import { CoursesEffects } from '../../store/courses/courses.effects';
+import { EffectsModule } from '@ngrx/effects';
 
 const routes: Routes = [
   { path: '', component: CourseDashboardComponent },
@@ -37,6 +39,7 @@ const declarations = [
     DirectivesModule,
     MaterialModule,
     PipesModule,
+    EffectsModule.forFeature([CoursesEffects]),
   ],
   exports: [ declarations ]
 })

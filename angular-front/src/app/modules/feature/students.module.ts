@@ -11,6 +11,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { DirectivesModule } from '../shared/directives.module';
 import { MaterialModule } from '../shared/libraries/material.module';
 import { RouterModule, Routes } from '@angular/router';
+import { EffectsModule } from '@ngrx/effects';
+import { StudentsEffects } from '../../store/students/students.effects';
 
 const routes: Routes = [
   { path: '', component: StudentDashboardComponent },
@@ -36,6 +38,7 @@ const declarations = [
     DirectivesModule,
     MaterialModule,
     PipesModule,
+    EffectsModule.forFeature([StudentsEffects]),
   ],
   exports: [ declarations ]
 })

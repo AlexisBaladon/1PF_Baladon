@@ -10,6 +10,8 @@ import { PipesModule } from '../shared/pipes.module';
 import { UserDetailComponent } from '../../pages/user-detail/user-detail.component';
 import { UserDashboardComponent } from '../../pages/user-dashboard/user-dashboard.component';
 import { RouterModule, Routes } from '@angular/router';
+import { EffectsModule } from '@ngrx/effects';
+import { UsersEffects } from '../../store/users/users.effects';
 
 const routes: Routes = [
   { path: '', component: UserDashboardComponent },
@@ -32,6 +34,7 @@ const components = [
     DirectivesModule,
     MaterialModule,
     PipesModule,
+    EffectsModule.forFeature([UsersEffects]),
   ],
   exports: components
 })

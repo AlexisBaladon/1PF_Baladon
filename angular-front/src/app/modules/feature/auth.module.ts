@@ -6,6 +6,8 @@ import { GlobalComponentsModule } from '../shared/global-components.module';
 import { AuthComponent } from 'src/app/pages/auth/auth.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
+import { EffectsModule } from '@ngrx/effects';
+import { AuthEffects } from '../../store/auth/auth.effects';
 
 const routes: Routes = [
   { path: '', component: AuthComponent },
@@ -22,6 +24,7 @@ const components = [
     DirectivesModule,
     GlobalComponentsModule,
     ReactiveFormsModule,
+    EffectsModule.forFeature([AuthEffects]),
   ],
   exports: [ components ]
 })

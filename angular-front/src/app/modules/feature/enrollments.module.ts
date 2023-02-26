@@ -11,6 +11,8 @@ import { MaterialModule } from '../shared/libraries/material.module';
 import { PipesModule } from '../shared/pipes.module';
 import { EnrollmentDetailComponent } from 'src/app/pages/enrollment-detail/enrollment-detail.component';
 import { RouterModule, Routes } from '@angular/router';
+import { EffectsModule } from '@ngrx/effects';
+import { EnrollmentsEffects } from '../../store/enrollments/enrollments.effects';
 
 const routes: Routes = [
   { path: '', component: EnrollmentDashboardComponent },
@@ -34,6 +36,7 @@ const components = [
     DirectivesModule,
     MaterialModule,
     PipesModule,
+    EffectsModule.forFeature([EnrollmentsEffects]),
   ],
   exports: [ components ]
 })

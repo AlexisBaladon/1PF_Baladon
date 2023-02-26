@@ -11,6 +11,9 @@ import { CoursesService } from 'src/app/services/filterables/concrete-data/cours
 import { StudentsService } from 'src/app/services/filterables/concrete-data/students/students.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmModalComponent } from 'src/app/components/global/confirm-modal/confirm-modal.component';
+import { selectCourse, selectCourses } from 'src/app/store/courses/courses.selectors';
+import { Store } from '@ngrx/store';
+import { getCourse, getCourses } from 'src/app/store/courses/courses.actions';
 
 @Component({
   selector: 'app-course-detail',
@@ -21,7 +24,7 @@ export class CourseDetailComponent {
 	public doughnutData: { datasetLabels: string[], datasets: number[] } = { datasetLabels: [], datasets: [] };
 
 	public id: Course['id'] | null = null;
-	public course: Course | null = null;
+	public course: Course | undefined = undefined;
 	private course$!: Subscription;
 	private students: Student[] = [];
 	private students$!: Subscription;
@@ -36,7 +39,7 @@ export class CourseDetailComponent {
 	constructor(
 		private route: ActivatedRoute,
 		private router: Router,
-		private coursesService: CoursesService, 
+		private store: Store,
 		private studentsService: StudentsService,
 		private enrollmentService: EnrollmentsService,
 		private dialog: MatDialog,	
@@ -56,13 +59,16 @@ export class CourseDetailComponent {
 	}
 	
 	private initializeSecondaryServices(id: Course['id']) {
-		this.course$ = this.coursesService.getById(id).subscribe(course => {
-			this.course = Array.isArray(course) ? course[0] : course;
-			this.initializeCourseStudents(id);
-			this.initializeChart(this.courseStudents);
-			this.countStudentsGrades(this.enrollments, this.courseStudentsId);
+		this.store.dispatch(getCourse(id));
+		this.course$ = this.store.select(selectCourse).subscribe(course => {
+			if (course !== null) {
+				this.course = course;
+				this.initializeCourseStudents(id);
+				this.initializeChart(this.courseStudents);
+				this.countStudentsGrades(this.enrollments, this.courseStudentsId);
+			}
 		});
-
+		
 		this.enrollments$ = this.enrollmentService.getData().subscribe(enrollments => {
 			this.courseStudentsId = [];
 			this.enrollments = enrollments;

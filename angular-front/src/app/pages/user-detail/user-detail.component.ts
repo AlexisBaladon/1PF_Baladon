@@ -1,9 +1,12 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import User from 'src/app/interfaces/user';
 import { FullNamePipe } from 'src/app/pipes/users/full-name/full-name.pipe';
 import { UsersService } from 'src/app/services/users/users.service';
+import { getUser } from 'src/app/store/users/users.actions';
+import { selectUser } from 'src/app/store/users/users.selectors';
 
 @Component({
   selector: 'app-user-detail',
@@ -17,9 +20,8 @@ export class UserDetailComponent {
   
     constructor(
       private route: ActivatedRoute,
-      private router: Router, 
-      private usersService: UsersService,
       private fullNamePipe: FullNamePipe,
+      private store: Store,
     ) { }
   
     ngOnInit(): void {
@@ -34,8 +36,9 @@ export class UserDetailComponent {
     }
   
     private initializeSecondaryServices(id: User['id']) {
-      this.users$ = this.usersService.getById(id).subscribe(user => {
-        this.user = Array.isArray(user) ? user[0] : user;
+      this.store.dispatch(getUser(id))
+      this.users$ = this.store.select(selectUser).subscribe(user => {
+        this.user = user;
       });
     }
   

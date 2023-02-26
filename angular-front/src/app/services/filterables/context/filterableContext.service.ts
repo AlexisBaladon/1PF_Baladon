@@ -8,6 +8,9 @@ import { BehaviorSubject } from 'rxjs';
 import { UsersService } from '../../users/users.service';
 import { EnrollmentsService } from '../../enrollments/enrollments.service';
 
+//redux
+import { selectCourses } from 'src/app/store/courses/courses.selectors';
+
 @Injectable({
   providedIn: 'root'
 })
