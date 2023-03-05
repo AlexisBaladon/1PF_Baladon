@@ -25,4 +25,8 @@ class User extends Filterable {
     }
 }
 
+export const isUser = (filterable: Filterable): filterable is User => {
+    return filterable instanceof User;
+}
+
 export default User;

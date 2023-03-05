@@ -37,7 +37,36 @@ export const FILTER_OPTIONS: Record<string, FilterOption[]> = {
             description: 'Cantidad de estudiantes mayor o igual al ingresado',
             type: 'range',
         },
-  ]
+  ],
+    User: [
+        {
+            name: 'Nombre',
+            description: 'Contiene los caracteres ingresados',
+            type: 'text',
+        },
+        {
+            name: 'Correo',
+            description: 'Contiene los caracteres ingresados',
+            type: 'text',
+        },
+    ],
+    Enrollment: [
+        {
+            name: 'ID del estudiante',
+            description: 'Contiene los caracteres ingresados',
+            type: 'text',
+        },
+        {
+            name: 'ID del curso',
+            description: 'Contiene los caracteres ingresados',
+            type: 'text',
+        },
+        {
+            name: 'Nota',
+            description: 'Nota mayor o igual al ingresado',
+            type: 'range',
+        },
+    ],
 };
 
 interface DashboardInput {

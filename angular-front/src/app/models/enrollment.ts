@@ -26,3 +26,7 @@ export class Enrollment extends Filterable {
         this.enrollerId = enrollerId;
     }
 }
+
+export const isEnrollment = (filterable: Filterable): filterable is Enrollment => {
+    return filterable instanceof Enrollment;
+}

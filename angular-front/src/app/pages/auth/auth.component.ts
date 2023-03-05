@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { SIMPLE_VALIDATIONS, EMAIL_VALIDATIONS, PASSWORD_VALIDATIONS } from 'src/app/constants/validations';
 import User from 'src/app/interfaces/user';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { parseError } from 'src/app/utils/errors';
 import { getErrorMessages, isValidInput } from 'src/app/utils/formControl';
 
 @Component({
@@ -32,7 +33,7 @@ export class AuthComponent {
 
     this.error$ = this.authService.getError().subscribe(error => {
       this.error = error;
-      if (!!error) alert(error);
+      if (!!error) alert(parseError(new Error(error)));
     });
 
     if (!!this.user) {

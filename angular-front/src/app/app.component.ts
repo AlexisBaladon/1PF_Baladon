@@ -61,6 +61,11 @@ export class AppComponent {
   }
 
   public changeRoute(route: number) {
+    if (this.user?.profile !== 'admin') {
+      const userIndex = NAV_ROUTES.findIndex(route => route.route === '/layout/users');
+      if (route >= userIndex) route += 1;
+    }
+
     const currentRoute = this.getLastRoute(NAV_ROUTES[route].route);
     if (currentRoute === 'login') {
       this.authService.logout();
@@ -82,10 +87,17 @@ export class AppComponent {
       newRoute = NAV_ROUTES.findIndex(route => this.getLastRoute(route.route) === secondaryRouteName);
       if (newRoute === -1) return 0;
     }
+    
+    if (this.user?.profile !== 'admin') {
+      const userIndex = NAV_ROUTES.findIndex(route => route.route === '/layout/users');
+      if (newRoute >= userIndex) newRoute -= 1;
+    }
+
     return newRoute;
   }
 
   public getNavRoutes() {
+    if (this.user?.profile !== 'admin') return NAV_ROUTES.filter(route => route.route !== '/layout/users');
     return NAV_ROUTES;
   }
 
