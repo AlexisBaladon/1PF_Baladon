@@ -1,6 +1,6 @@
 {
     "/api": {
-      "target": "https://academic-workstation.onrender.com/",
+      "target": "https://backend-academic-workstation-production.up.railway.app/",
       "secure": true,
       "changeOrigin": true,
       "logLevel": "info"

@@ -77,7 +77,6 @@ export abstract class FilterableDataService<F extends Filterable> {
 	public setFilters(filters: LogicNode<LogicFilterType, FilterName> | null): void {
 		this.filters = filters;
 		this.filterableData$.next(this.filterPipe.transform(this.filterableDataCache, filters) as F[]);
-		console.log('setFilters', this.filterableData$.value);
 	}
 
 	public getFilterableAttributes(): Observable<{ attribute: string; attributeName: string }[]> {

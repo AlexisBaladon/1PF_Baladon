@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { ConfirmModalComponent } from './components/global/confirm-modal/confirm-modal.component';
 import { DASHBOARD_TEXT, FILTER_OPTIONS, NAV_ROUTES } from './constants/text';
 import { FilterableType } from './interfaces/filterableTypes';
 import User from './interfaces/user';
@@ -21,7 +23,8 @@ export class AppComponent {
   constructor( 
     private filterableContextService: FilterableContextService, 
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -68,8 +71,20 @@ export class AppComponent {
 
     const currentRoute = this.getLastRoute(NAV_ROUTES[route].route);
     if (currentRoute === 'login') {
-      this.authService.logout();
-      this.router.navigate([currentRoute]);
+      this.dialog.open(ConfirmModalComponent, {   
+        data: {
+          title: 'Cerrar sesión',
+          message: 'Estas seguro que quieres cerrar sesión?',
+          confirmButtonText: 'Cerrar sesión',
+          cancelButtonText: 'Cancelar',
+          onConfirm: () => {
+            this.authService.logout();
+            this.router.navigate([currentRoute]);
+            this.dialog.closeAll();
+          },
+          onCancel: () => {this.dialog.closeAll()}
+        }
+      });
       return;
     }
     const currentRouteType = this.routesMap.get(currentRoute)
