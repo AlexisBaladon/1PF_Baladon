@@ -52,14 +52,17 @@
             </div>
         </form>
         <p [appFontSize]="'medium'" *ngIf="hasAccount" class="login-forgot-password-text">
-            <a>¿Olvidaste tu contraseña?</a>
+            <a (click)="onForgotPassword()">¿Olvidaste tu contraseña?</a>
         </p>
         <button id="login-button" type="submit" form="login-form">
             {{hasAccount? 'Iniciar sesión' : 'Regístrate' }}
         </button>
         <p [appFontSize]="'medium'" class="login-continue-with-text">O continua con</p>
         <div id="login-social">
-            <button *ngFor="let social of ['google.png', 'facebook.png', 'apple.png']">
+            <button 
+                *ngFor="let social of ['google.png', 'facebook.png', 'apple.png']"
+                (click)="onSocialAuth(social)"    
+            >
                 <img [src]="'assets/images/'+social" [alt]="social" width="35px" height="35px" />
             </button>
         </div>

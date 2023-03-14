@@ -83,6 +83,15 @@ export class AuthComponent {
     return this._submitted;
   }
 
+  public onSocialAuth(social: string) {
+    const name = social[0].toUpperCase() + social.split('.')[0].slice(1).toLowerCase();
+    alert(`La autenticación con ${name} 📲 estará disponible próximamente 🙂`);
+  }
+
+  public onForgotPassword() {
+    alert('Comunicate con el administrador del sistema para recuperar tu contraseña 🙂');
+  }
+
   public onAuth() {
     this._submitted = true;
     if (this.form.invalid) return;

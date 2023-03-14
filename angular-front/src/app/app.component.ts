@@ -102,12 +102,12 @@ export class AppComponent {
           message: '¿Está seguro que desea cerrar sesión?',
           confirmButtonText: 'Cerrar sesión',
           cancelButtonText: 'Cancelar',
-          confirmButtonAction: () => {
+          onConfirm: () => {
             this.store.dispatch(logout());
             this.router.navigate([currentRoute]);
             this.dialog.closeAll();
           },
-          cancelButtonAction: () => {
+          onCancel: () => {
             this.dialog.closeAll();
           }
         }

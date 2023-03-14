@@ -47,7 +47,7 @@ export const getError = createAction(
 
 export const _getError = createAction(
   '_GET_ERROR',
-  (error: Error) => ({error})
+  (error: Error | null) => ({error})
 );
 
 export const setCurrentPage = createAction(

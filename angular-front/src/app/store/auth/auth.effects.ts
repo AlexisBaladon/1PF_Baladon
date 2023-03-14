@@ -39,7 +39,7 @@ export class AuthEffects {
     getError$ = createEffect(() => this.actions$.pipe(
       ofType(AuthActions.getError, AuthActions._register),
       switchMap(() => this.service.getError().pipe(
-        switchMap(error => of(AuthActions._getError(error ? new Error(error) : new Error('')))),
+        switchMap(error => of(AuthActions._getError(error ? new Error(error) : null))),
       )),
     ));
 
