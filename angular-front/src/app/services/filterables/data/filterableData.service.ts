@@ -10,6 +10,7 @@ import { HttpClient } from '@angular/common/http';
 export abstract class FilterableDataService<F extends Filterable> {
 	protected filters: LogicNode<LogicFilterType, FilterName> | null = null;
 	protected filterableData$: BehaviorSubject<F[]> = new BehaviorSubject([] as F[]);
+	private filterableDataCache: F[] = [];
 	constructor(
 		protected filterPipe: FilterPipe, 
 		protected http: HttpClient,
@@ -20,12 +21,17 @@ export abstract class FilterableDataService<F extends Filterable> {
 
 	public getData(filtered: boolean = false): Observable<F[]> {
 		this.filterableData$ = new BehaviorSubject([] as F[]);
-		this.http.get<F[]>(this.BASE_URL).subscribe(data => {
+		this.http.get<F[]>(this.BASE_URL).pipe(
+			tap(() => this.filterableData$.next(this.filterableData$.value.slice())),
+			catchError(() => of([]))
+		).subscribe(data => {
+			const createdData = this.createData(data);
+			this.filterableDataCache = createdData;
 			if (filtered) {
-				this.filterableData$.next(this.filterPipe.transform(this.createData(data), this.filters) as F[]);
+				this.filterableData$.next(this.filterPipe.transform(createdData, this.filters) as F[]);
 			}
 			else {
-				this.filterableData$.next(this.createData(data));
+				this.filterableData$.next(createdData);
 			}
 		});
 		return this.filterableData$;
@@ -73,7 +79,7 @@ export abstract class FilterableDataService<F extends Filterable> {
 
 	public setFilters(filters: LogicNode<LogicFilterType, FilterName> | null): void {
 		this.filters = filters;
-		this.filterableData$.next(this.filterableData$.value.slice());
+		this.filterableData$.next(this.filterPipe.transform(this.filterableDataCache, filters) as F[]);
 	}
 
 	public getFilterableAttributes(): Observable<{ attribute: string; attributeName: string }[]> {

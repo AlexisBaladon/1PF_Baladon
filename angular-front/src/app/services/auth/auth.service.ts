@@ -19,6 +19,10 @@ export class AuthService {
     return this.user$.asObservable();
   }
 
+  public isAdmin(): boolean {
+    return !!this.user$.getValue() && this.user$.getValue()?.profile === 'admin';
+  }
+
   public getError(): Observable<string | null> {
     return this.error$.asObservable();
   }
@@ -28,6 +32,7 @@ export class AuthService {
   }
 
   public login(email: User["email"], password: User["password"]): void {
+    this.error$.next(null);
     if (!!this.user$.getValue()) {
       this.error$.next("You are already logged in");
       return;
@@ -46,6 +51,7 @@ export class AuthService {
   }
 
   public signup(name: User["name"], surname: User["surname"], email: User["email"], password: User["password"]): void {
+    this.error$.next(null);
     if (!!this.user$.getValue()) {
       this.error$.next("You are already logged in");
       return;
@@ -68,6 +74,7 @@ export class AuthService {
   }
 
   public logout(): void {
+    this.error$.next(null);
     this.user$.next(null);
     this.userToken = null;
 

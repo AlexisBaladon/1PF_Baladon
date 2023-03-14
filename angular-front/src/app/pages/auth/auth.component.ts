@@ -7,6 +7,7 @@ import { SIMPLE_VALIDATIONS, EMAIL_VALIDATIONS, PASSWORD_VALIDATIONS } from 'src
 import User from 'src/app/interfaces/user';
 import { getError, getUser, login, register } from 'src/app/store/auth/auth.actions';
 import { selectAuthError, selectLoggedUser } from 'src/app/store/auth/auth.selectors';
+import { parseError } from 'src/app/utils/errors';
 import { getErrorMessages, isValidInput } from 'src/app/utils/formControl';
 
 @Component({
@@ -35,6 +36,9 @@ export class AuthComponent {
     this.store.dispatch(getError())
     this.error$ = this.store.select(selectAuthError).subscribe(error => {
       this.error = error?.message ?? '';
+      if (!!error) {
+        alert(parseError(error))
+      }
     });
 
     if (!!this.user) {

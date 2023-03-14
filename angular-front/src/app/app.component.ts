@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
+import { ConfirmModalComponent } from './components/global/confirm-modal/confirm-modal.component';
 import { DASHBOARD_TEXT, FILTER_OPTIONS, NAV_ROUTES } from './constants/text';
 import { FilterableType } from './interfaces/filterableTypes';
 import User from './interfaces/user';
@@ -24,6 +26,7 @@ export class AppComponent {
     private filterableContextService: FilterableContextService, 
     private router: Router,
     private store: Store,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -85,12 +88,31 @@ export class AppComponent {
   }
 
   public changeRoute(route: number) {
+    if (this.user?.profile !== 'admin') {
+      const userIndex = NAV_ROUTES.findIndex(route => route.route === '/layout/users');
+      if (route >= userIndex) route += 1;
+    }
+
     const currentRoute = this.getLastRoute(NAV_ROUTES[route].route);
     if (currentRoute === 'login') {
-      this.store.dispatch(logout());
-      this.store.dispatch(getUser())
-      this.store.dispatch(getError())
-      this.router.navigate([currentRoute]);
+
+      this.dialog.open(ConfirmModalComponent, {
+        data: {
+          title: 'Cerrar sesión',
+          message: '¿Está seguro que desea cerrar sesión?',
+          confirmButtonText: 'Cerrar sesión',
+          cancelButtonText: 'Cancelar',
+          confirmButtonAction: () => {
+            this.store.dispatch(logout());
+            this.router.navigate([currentRoute]);
+            this.dialog.closeAll();
+          },
+          cancelButtonAction: () => {
+            this.dialog.closeAll();
+          }
+        }
+      });
+
       return;
     }
     const currentRouteType = this.routeToType.get(currentRoute)
@@ -108,10 +130,17 @@ export class AppComponent {
       newRoute = NAV_ROUTES.findIndex(route => this.getLastRoute(route.route) === secondaryRouteName);
       if (newRoute === -1) return 0;
     }
+    
+    if (this.user?.profile !== 'admin') {
+      const userIndex = NAV_ROUTES.findIndex(route => route.route === '/layout/users');
+      if (newRoute >= userIndex) newRoute -= 1;
+    }
+
     return newRoute;
   }
 
   public getNavRoutes() {
+    if (this.user?.profile !== 'admin') return NAV_ROUTES.filter(route => route.route !== '/layout/users');
     return NAV_ROUTES;
   }
 
