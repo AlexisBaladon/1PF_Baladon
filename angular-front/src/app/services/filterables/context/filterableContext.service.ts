@@ -5,11 +5,8 @@ import { CoursesService } from '../../filterables/concrete-data/courses/courses.
 import { StudentsService } from '../concrete-data/students/students.service';
 import { FilterableDataService } from '../data/filterableData.service';
 import { BehaviorSubject } from 'rxjs';
-import { UsersService } from '../../users/users.service';
-import { EnrollmentsService } from '../../enrollments/enrollments.service';
-
-//redux
-import { selectCourses } from 'src/app/store/courses/courses.selectors';
+import { UsersService } from '../concrete-data/users/users.service';
+import { EnrollmentsService } from '../concrete-data/enrollments/enrollments.service';
 
 @Injectable({
   providedIn: 'root'

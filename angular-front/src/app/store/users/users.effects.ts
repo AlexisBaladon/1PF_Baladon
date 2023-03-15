@@ -3,7 +3,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import * as UsersActions from './users.actions';
-import { UsersService } from 'src/app/services/users/users.service';
+import { UsersService } from 'src/app/services/filterables/concrete-data/users/users.service';
 
 @Injectable()
 export class UsersEffects {

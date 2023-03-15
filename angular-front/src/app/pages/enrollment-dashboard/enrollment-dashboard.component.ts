@@ -7,7 +7,7 @@ import { DASHBOARD_TEXT } from 'src/app/constants/text';
 import User from 'src/app/interfaces/user';
 import { Filterable } from 'src/app/logic/filter/filterable';
 import { Enrollment } from 'src/app/models/enrollment';
-import { EnrollmentsService } from 'src/app/services/enrollments/enrollments.service';
+import { EnrollmentsService } from 'src/app/services/filterables/concrete-data/enrollments/enrollments.service';
 import { FilterableDataService } from 'src/app/services/filterables/data/filterableData.service';
 
 @Component({

@@ -4,7 +4,7 @@ import { ChartData, ChartType } from 'chart.js';
 import { FormModalComponent } from 'src/app/components/global/form-modal/form-modal.component';
 import { Filterable } from 'src/app/logic/filter/filterable';
 import { Enrollment } from 'src/app/models/enrollment';
-import { EnrollmentsService } from 'src/app/services/enrollments/enrollments.service';
+import { EnrollmentsService } from 'src/app/services/filterables/concrete-data/enrollments/enrollments.service';
 
 interface SectionHeaderData {
 	title: string;

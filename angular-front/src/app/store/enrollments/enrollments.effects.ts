@@ -3,7 +3,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import * as EnrollmentsActions from './enrollments.actions';
-import { EnrollmentsService } from 'src/app/services/enrollments/enrollments.service';
+import { EnrollmentsService } from 'src/app/services/filterables/concrete-data/enrollments/enrollments.service';
 
 @Injectable()
 export class EnrollmentsEffects {

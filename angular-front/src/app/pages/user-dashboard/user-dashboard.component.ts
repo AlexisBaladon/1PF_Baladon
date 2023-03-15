@@ -7,7 +7,7 @@ import { DASHBOARD_TEXT } from 'src/app/constants/text';
 import User from 'src/app/interfaces/user';
 import { Filterable } from 'src/app/logic/filter/filterable';
 import { FilterableDataService } from 'src/app/services/filterables/data/filterableData.service';
-import { UsersService } from 'src/app/services/users/users.service';
+import { UsersService } from 'src/app/services/filterables/concrete-data/users/users.service';
 
 @Component({
   selector: 'app-user-dashboard',

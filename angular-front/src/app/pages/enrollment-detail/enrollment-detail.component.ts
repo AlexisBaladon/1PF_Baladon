@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { Enrollment } from 'src/app/models/enrollment';
-import { EnrollmentsService } from 'src/app/services/enrollments/enrollments.service';
+import { EnrollmentsService } from 'src/app/services/filterables/concrete-data/enrollments/enrollments.service';
 import { getEnrollment } from 'src/app/store/enrollments/enrollments.actions';
 import { selectEnrollment } from 'src/app/store/enrollments/enrollments.selectors';
 

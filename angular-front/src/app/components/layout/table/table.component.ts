@@ -7,7 +7,7 @@ import { Subscription } from 'rxjs';
 import { Filterable } from 'src/app/logic/filter/filterable';
 import { FilterableDataService } from 'src/app/services/filterables/data/filterableData.service';
 import { FilterableContextService } from 'src/app/services/filterables/context/filterableContext.service';
-import { UsersService } from 'src/app/services/users/users.service';
+import { UsersService } from 'src/app/services/filterables/concrete-data/users/users.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import User from 'src/app/interfaces/user';
 import { Store } from '@ngrx/store';

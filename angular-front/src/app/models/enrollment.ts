@@ -15,6 +15,10 @@ export class Enrollment extends Filterable {
         return [ 'id', 'studentId', 'courseId', 'grade', 'enrollmentDate', 'finishDate' ];
     }
 
+    constructorName(): string {
+        return 'Enrollment';
+    }
+
     constructor(id: string, studentId: Student['id'], courseId: Course['id'], grade: number | null, enrollmentDate: Date, finishDate: Date  | null, enrollerId: User['id']) {
         super(id);
         this.id = id;

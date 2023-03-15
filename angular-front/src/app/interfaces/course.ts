@@ -16,6 +16,10 @@ export class Course extends Filterable {
         return ['id', 'name', 'description', 'credits', 'category'];
     }
 
+    constructorName(): string {
+        return 'Course';
+    }
+
     constructor(id: Course['id'], name: string, description: string, credits: number, averageGrade: number | null, icon: string, category: string) {
         super(id);
         this.name = name;

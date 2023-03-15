@@ -6,6 +6,7 @@ import { LogicNode } from 'src/app/logic/filter/logicNode';
 import { Filterable } from 'src/app/logic/filter/filterable';
 import { DASHBOARD_TEXT } from 'src/app/constants/text';
 import { HttpClient } from '@angular/common/http';
+import { BASE_URL as BASE } from '../../env';
 
 export abstract class FilterableDataService<F extends Filterable> {
 	protected filters: LogicNode<LogicFilterType, FilterName> | null = null;
@@ -15,7 +16,9 @@ export abstract class FilterableDataService<F extends Filterable> {
 		protected filterPipe: FilterPipe, 
 		protected http: HttpClient,
 		protected BASE_URL: string,
-	) { }
+	) {
+		this.BASE_URL = `${BASE}${this.BASE_URL}`;
+	 }
 
 	protected abstract createData(data: F[]): F[];
 
@@ -87,7 +90,7 @@ export abstract class FilterableDataService<F extends Filterable> {
 			map(datas => {
 				const data = this.createData(datas)[0];
 				if (!data?.getShownAttributes) return [];
-				const typeOfStudent = data.constructor.name;
+				const typeOfStudent = data.constructorName();
 				return data.getShownAttributes().map(attribute => {
 					return {
 						attribute,

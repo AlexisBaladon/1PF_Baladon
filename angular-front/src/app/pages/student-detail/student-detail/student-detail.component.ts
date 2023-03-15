@@ -11,7 +11,7 @@ import Student from 'src/app/interfaces/student';
 import { Filterable } from 'src/app/logic/filter/filterable';
 import { Enrollment } from 'src/app/models/enrollment';
 import { FullNamePipe } from 'src/app/pipes/users/full-name/full-name.pipe';
-import { EnrollmentsService } from 'src/app/services/enrollments/enrollments.service';
+import { EnrollmentsService } from 'src/app/services/filterables/concrete-data/enrollments/enrollments.service';
 import { CoursesService } from 'src/app/services/filterables/concrete-data/courses/courses.service';
 import { getCourse, getCourses } from 'src/app/store/courses/courses.actions';
 import { selectCourse, selectCourses } from 'src/app/store/courses/courses.selectors';

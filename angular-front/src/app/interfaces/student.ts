@@ -15,6 +15,10 @@ class Student extends Filterable {
         return ['id', 'name', 'email', 'career', 'admissionDate', 'averageGrade']
     }
 
+    constructorName(): string {
+        return 'Student';
+    }
+
     constructor(id: string, name: string, surname: string, phone: string, direction: string, email: string, admissionDate: Date, averageGrade: number | null, career: string, pictureUrl: string) {
         super(id);
         this.name = name;

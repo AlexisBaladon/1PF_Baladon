@@ -19,7 +19,7 @@ export class AuthEffects {
 
     register$ = createEffect(() => this.actions$.pipe(
       ofType(AuthActions.register),
-      tap(action => this.service.signup(action.name, action.password, action.email, action.password)),
+      tap(action => this.service.signup(action.name, action.surname, action.email, action.password)),
       switchMap(() => of(AuthActions._register())),
     ));
 

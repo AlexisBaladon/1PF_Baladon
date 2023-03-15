@@ -13,6 +13,10 @@ class User extends Filterable {
         return ['id', 'name', 'email', 'profile'];
     }
 
+    constructorName(): string {
+        return 'User';
+    }
+
     constructor(id: string, email: string, name: string, surname: string, password: string, profile: 'user' | 'admin', direction?: string, phone?: string) {
         super(id);
         this.email = email;

@@ -5,7 +5,7 @@ import { StudentsService } from '../../services/filterables/concrete-data/studen
 import { CoursesService } from '../../services/filterables/concrete-data/courses/courses.service';
 import { FilterableContextService } from '../../services/filterables/context/filterableContext.service';
 import { AcademicListModule } from '../shared/academic-list.module';
-import { UsersService } from 'src/app/services/users/users.service';
+import { UsersService } from 'src/app/services/filterables/concrete-data/users/users.service';
 import { HttpClientModule } from '@angular/common/http';
 import { PipesModule } from '../shared/pipes.module';
 

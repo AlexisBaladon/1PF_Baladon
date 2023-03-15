@@ -95,6 +95,7 @@ export class AuthComponent {
   public onAuth() {
     this._submitted = true;
     if (this.form.invalid) return;
+    
     if (this.hasAccount) {
       this.store.dispatch(login(this.form.value.email, this.form.value.password))
     }

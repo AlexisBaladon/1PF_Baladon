@@ -6,7 +6,7 @@ import { Course } from 'src/app/interfaces/course';
 import Student from 'src/app/interfaces/student';
 import { Filterable } from 'src/app/logic/filter/filterable';
 import { Enrollment } from 'src/app/models/enrollment';
-import { EnrollmentsService } from 'src/app/services/enrollments/enrollments.service';
+import { EnrollmentsService } from 'src/app/services/filterables/concrete-data/enrollments/enrollments.service';
 import { CoursesService } from 'src/app/services/filterables/concrete-data/courses/courses.service';
 import { StudentsService } from 'src/app/services/filterables/concrete-data/students/students.service';
 import { MatDialog } from '@angular/material/dialog';

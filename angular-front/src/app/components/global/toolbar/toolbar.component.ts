@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import User from 'src/app/interfaces/user';
-import { setCurrentPage } from 'src/app/store/auth/auth.actions';
 import { selectCurrentPage, selectLoggedUser } from 'src/app/store/auth/auth.selectors';
 
 @Component({
@@ -33,6 +31,7 @@ export class ToolbarComponent {
 
   ngOnDestroy() {
     this.user$.unsubscribe();
+    this.currentPage$.unsubscribe();
   }
 
   public getCurrentPage() {

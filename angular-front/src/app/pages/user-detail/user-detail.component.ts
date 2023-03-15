@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import User from 'src/app/interfaces/user';
 import { FullNamePipe } from 'src/app/pipes/users/full-name/full-name.pipe';
-import { UsersService } from 'src/app/services/users/users.service';
+import { UsersService } from 'src/app/services/filterables/concrete-data/users/users.service';
 import { getUser } from 'src/app/store/users/users.actions';
 import { selectUser } from 'src/app/store/users/users.selectors';
 
