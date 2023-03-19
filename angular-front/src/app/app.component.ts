@@ -8,7 +8,7 @@ import { DASHBOARD_TEXT, FILTER_OPTIONS, NAV_ROUTES } from './constants/text';
 import { FilterableType } from './interfaces/filterableTypes';
 import User from './interfaces/user';
 import { FilterableContextService } from './services/filterables/context/filterableContext.service';
-import { getError, getUser, logout, setCurrentPage } from './store/auth/auth.actions';
+import { logout, setCurrentPage } from './store/auth/auth.actions';
 import { selectLoggedUser } from './store/auth/auth.selectors';
 
 @Component({
@@ -60,7 +60,7 @@ export class AppComponent {
   }
 
   public isLoggedIn() {
-    return !!this.user;
+    return this.user !== null;
   }
 
   private routeToTitle = new Map([

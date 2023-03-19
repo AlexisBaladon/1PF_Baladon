@@ -17,12 +17,12 @@ La página web está desarrollada con **Angular**, con un backend en **Node.js**
 
 # Librerías
 
-Las principales librerías utilizados son:
+Las principales librerías utilizadas son:
 
-- [Angular-Material](https://material.angular.io/)
-- [Angular-Router](https://angular.io/guide/router)
-- [Angular-Forms](https://angular.io/guide/forms)
-- [Angular-HttpClient](https://angular.io/guide/http)
-- [Bootstrap](https://getbootstrap.com/)
-- [Angular-Chart.js](https://valor-software.com/ng2-charts/)
+- [Angular-Material](https://material.angular.io/) - Para la interfaz de usuario.
+- [Bootstrap](https://getbootstrap.com/) - Para la interfaz de usuario.
+- [Angular-Router](https://angular.io/guide/router) - Para la navegación entre páginas.
+- [Angular-ReactiveForms](https://angular.io/guide/reactive-forms) - Para la validación de formularios desde el controlador.
+- [Angular-HttpClient](https://angular.io/guide/http) - Para la comunicación con el backend.
+- [Angular-Chart.js](https://valor-software.com/ng2-charts/) - Para la creación de gráficas.
 

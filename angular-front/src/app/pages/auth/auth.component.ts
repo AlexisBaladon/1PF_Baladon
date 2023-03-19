@@ -36,9 +36,6 @@ export class AuthComponent {
     this.store.dispatch(getError())
     this.error$ = this.store.select(selectAuthError).subscribe(error => {
       this.error = error?.message ?? '';
-      if (!!error) {
-        alert(parseError(error))
-      }
     });
 
     if (!!this.user) {
@@ -102,10 +99,11 @@ export class AuthComponent {
     else {
       this.store.dispatch(register(this.form.value.name, this.form.value.surname, this.form.value.email, this.form.value.password))
     }
+
     this.store.dispatch(getUser())
     this.store.dispatch(getError())
     if (!!this.error && !this.user && this.submitted) {
-      alert(this.error);
+      alert(parseError(new Error(this.error)))
     }
   }
 
